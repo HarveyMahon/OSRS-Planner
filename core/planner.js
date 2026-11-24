@@ -110,7 +110,7 @@ export function plan(goals, d) {
     const shared = new Set(unmet(budget.requires, sim, reqCtx).map(r => JSON.stringify(r)));
     const highMet = unmet(high.requires, sim, reqCtx).every(r => shared.has(JSON.stringify(r)));
     if (!highMet) return { setup: budget, why: 'requirements' };
-    if (!high.gear?.length) return { setup: budget, why: 'unknown' };          // can't tell if it's affordable
+    if (!high.gear?.length && !high.noGear) return { setup: budget, why: 'unknown' };          // can't tell if it's affordable
     if (gearToBuy(high) <= sim.gp) return { setup: high, why: 'affordable' };
     return { setup: budget, why: 'gear' };
   }
@@ -215,7 +215,7 @@ export function plan(goals, d) {
   function bestMoneyMaker() {
     let best = null;
     for (const b of bosses) {
-      if (b.category === 'misc' || b.moneyMaker === false || (hideWild && b.wilderness)) continue;
+      if (b.category === 'misc' || b.moneyMaker === false || b.taskOnly || (hideWild && b.wilderness)) continue;
       for (const s of b.setups) {
         if (!isMet(s.requires, sim, reqCtx)) continue;
         const m = bossMethod(b, items, { setupId: s.id });

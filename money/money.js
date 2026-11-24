@@ -50,7 +50,7 @@ function rows() {
       m = method(b, setupOf(b, chosen?.id).id);
       m.locked = unmet(m.setup.requires, ACCOUNT, ctx()).map(r => describe(r, names()));
     }
-    return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, members: true };
+    return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, taskOnly: !!b.taskOnly, members: true };
   });
   const methodRows = METHODS.map(m => {
     const r = guideMethod(m, ITEMS.items, { cash: ACCOUNT?.gp || 0 });
@@ -76,7 +76,8 @@ function render() {
   $('table').tBodies[0].innerHTML = list.map((r, i) => r.kind === 'method' ? methodRow(r, i) : bossRow(r, i)).join('');
 }
 
-const wildTag = r => r.wilderness ? ` <span class="tag wild" title="${esc(r.wildernessNote || 'Wilderness')}">Wilderness</span>` : '';
+const wildTag = r => (r.wilderness ? ` <span class="tag wild" title="${esc(r.wildernessNote || 'Wilderness')}">Wilderness</span>` : '')
+  + (r.taskOnly ? ' <span class="tag task" title="Can only be fought on a Slayer task, so this rate only holds while you have the task">Task only</span>' : '');
 const needs = r => r.locked ? `<div class="needs">Needs ${esc(r.locked.join(', '))}</div>` : '';
 
 function methodRow(r, i) {

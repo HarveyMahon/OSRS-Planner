@@ -1,21 +1,449 @@
 {
-  "meta": {
-    "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup.",
-    "rules": "Strategy page Equipment table, best (left) column. Follow footnotes where a cell has '/', otherwise take the cheaper item. Drop items made redundant by a 2h weapon; keep the special attack row. Content needing several styles combines the tables (ToB: all melee, all ranged, 5 magic pieces)."
+ "meta": {
+  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps.",
+  "rules": "Strategy page Equipment table, best (left) column. Follow footnotes where a cell has '/', otherwise take the cheaper item. Drop items made redundant by a 2h weapon; keep the special attack row. Content needing several styles combines the tables (ToB: all melee, all ranged, 5 magic pieces)."
+ },
+ "setups": {
+  "theatre_of_blood": {
+   "high": {
+    "source": "Wiki: Theatre of Blood/Strategies, Equipment (Melee + Ranged tabs, 5 Magic pieces), checked with the user 24 Nov 2026",
+    "gear": [
+     "26382",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "30753",
+     "30756",
+     "22486",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "13652",
+     "21003",
+     "x-void-ranger-helm",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "x-elite-void-top",
+     "x-elite-void-robe",
+     "20997",
+     [
+      "34681",
+      "12924"
+     ],
+     "x-void-knight-gloves",
+     "21021",
+     "21024",
+     "31106",
+     "22481"
+    ],
+    "dropSupplies": [
+     "11959"
+    ]
+   }
   },
-  "setups": {
-    "theatre_of_blood": {
-      "high": {
-        "source": "Wiki: Theatre of Blood/Strategies, Equipment (Melee + Ranged tabs, 5 Magic pieces), checked with the user 24 Nov 2026",
-        "gear": [
-          "26382", "29801", ["x-infernal-cape", "x-fire-cape"], "30753", "30756", "22486", "x-ferocious-gloves",
-          "x-avernic-treads-max", "28307", "13652", "21003",
-          "x-void-ranger-helm", "33639", ["x-dizana-s-quiver", "x-ava-s-assembler"], "x-elite-void-top", "x-elite-void-robe",
-          "20997", ["34681", "12924"], "x-void-knight-gloves",
-          "21021", "21024", "31106", "22481"
-        ],
-        "dropSupplies": ["11959"]
-      }
-    }
+  "araxxor": {
+   "high": {
+    "source": "Wiki: Araxxor/Strategies, Melee (Obligator footnote: Inquisitor's hauberk + Torva platelegs; kisten instead of defence reduction), checked with the user 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "26386",
+     "34717",
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "33631"
+    ]
+   }
+  },
+  "duke_sucellus": {
+   "high": {
+    "source": "Wiki: Duke Sucellus/Strategies, Melee, checked with the user 24 Nov 2026",
+    "gear": [
+     "30750",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "30753",
+     "30756",
+     "22486",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28316",
+     [
+      "29577",
+      "13652"
+     ]
+    ]
+   }
+  },
+  "vardorvis": {
+   "high": {
+    "source": "Wiki: Vardorvis/Strategies, Melee (cheaper of each '/'; blood fury per its footnote), checked with the user 24 Nov 2026",
+    "gear": [
+     "30750",
+     [
+      "x-amulet-of-blood-fury",
+      "29801"
+     ],
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "30753",
+     "30756",
+     [
+      "28338",
+      "22486"
+     ],
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     [
+      "x-echo-boots",
+      "x-avernic-treads-max"
+     ],
+     [
+      "28316",
+      "28307"
+     ],
+     "13652"
+    ]
+   }
+  },
+  "the_leviathan": {
+   "high": {
+    "source": "Wiki: The Leviathan/Strategies, Ranged, checked with the user 24 Nov 2026",
+    "gear": [
+     "27226",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27229",
+     "27232",
+     "34681",
+     "21000",
+     "26235",
+     "x-avernic-treads-max",
+     "25975",
+     "26374"
+    ]
+   }
+  },
+  "alchemical_hydra": {
+   "high": {
+    "source": "Wiki: Alchemical Hydra/Strategies, Ranged (task only), checked with the user 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "20997",
+     "26235",
+     "x-avernic-treads-max",
+     "25975",
+     "26374"
+    ]
+   }
+  },
+  "the_nightmare": {
+   "high": {
+    "source": "Wiki: The Nightmare/Strategies, Melee (all three footnoted spec weapons), checked with the user 24 Nov 2026",
+    "gear": [
+     "24419",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "21003",
+     "11806",
+     "33631"
+    ]
+   }
+  },
+  "cerberus": {
+   "high": {
+    "source": "Wiki: Cerberus/Strategies, Melee (task only), checked with the user 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "26386",
+     "34717",
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "33631"
+    ]
+   }
+  },
+  "doom_of_mokhaiotl": {
+   "high": {
+    "source": "Wiki: Doom of Mokhaiotl/Strategies, Ranged (void equal to Masori) + demonic larvae switches, checked with the user 24 Nov 2026",
+    "gear": [
+     [
+      "27235",
+      "x-void-ranger-helm"
+     ],
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27238",
+      "x-elite-void-top"
+     ],
+     [
+      "27241",
+      "x-elite-void-robe"
+     ],
+     "20997",
+     [
+      "26235",
+      "x-void-knight-gloves"
+     ],
+     "x-avernic-treads-max",
+     "25975",
+     "26374",
+     "29889",
+     "31115",
+     "x-scorching-bow"
+    ]
+   }
+  },
+  "phosanis_nightmare": {
+   "high": {
+    "source": "Wiki: Phosani's Nightmare/Strategies, Melee + Mage (Eye of Ayak over Shadow: similar damage per its footnote) + Hallowfell for husks/parasites, checked with the user 24 Nov 2026",
+    "gear": [
+     "24419",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "33631",
+     "34027",
+     "21018",
+     "12002",
+     "x-imbued-god-cape",
+     "21021",
+     "21024",
+     [
+      "31115",
+      "27277"
+     ],
+     "20716",
+     "31106",
+     "28313",
+     "34727"
+    ]
+   }
+  },
+  "phantom_muspah": {
+   "high": {
+    "source": "Wiki: Phantom Muspah/Strategies, Ranged, checked with the user 24 Nov 2026",
+    "gear": [
+     "27235",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "20997",
+     "26235",
+     "x-avernic-treads-max",
+     "25975",
+     "26374"
+    ]
+   }
+  },
+  "the_whisperer": {
+   "high": {
+    "source": "Wiki: The Whisperer/Strategies, Magic + Venator bow for Lost Souls, checked with the user 24 Nov 2026",
+    "gear": [
+     "21018",
+     "12002",
+     "x-imbued-god-cape",
+     "21021",
+     "21024",
+     "27277",
+     "31106",
+     "x-avernic-treads-max",
+     "28313",
+     "34727",
+     "27612"
+    ]
+   }
+  },
+  "yama": {
+   "high": {
+    "source": "Wiki: Yama/Strategies, Melee + Purging staff for Void flares, checked with the user 24 Nov 2026",
+    "gear": [
+     "26382",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "30753",
+      "26384"
+     ],
+     [
+      "30756",
+      "26386"
+     ],
+     "x-emberlight",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "21003",
+     "30759",
+     "x-purging-staff"
+    ]
+   }
+  },
+  "maggot_king": {
+   "high": {
+    "source": "Wiki: Maggot King/Strategies, Melee + Ranged, checked with the user 24 Nov 2026",
+    "gear": [
+     "24419",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "33631",
+     "27235",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "34681",
+     "21000",
+     "26235",
+     "28310",
+     "26374"
+    ]
+   }
+  },
+  "sol_heredit": {
+   "high": {
+    "source": "Wiki: Sol Heredit/Strategies, Melee + Ranged + Mage (rancour dropped per its first-quiver footnote), checked with the user 24 Nov 2026",
+    "gear": [
+     "26382",
+     "26384",
+     "26386",
+     "27235",
+     "27238",
+     "27241",
+     "21021",
+     "21024",
+     "x-amulet-of-blood-fury",
+     "33639",
+     "12002",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "x-imbued-god-cape",
+     "22486",
+     "27277",
+     "20997",
+     "27612",
+     "x-ferocious-gloves",
+     "26235",
+     "31106",
+     "x-avernic-treads-max",
+     "28307",
+     "28313",
+     "11806",
+     "13652"
+    ]
+   }
+  },
+  "corrupted_gauntlet": {
+   "high": {
+    "source": "No items can be brought into the Gauntlet",
+    "gear": [],
+    "noGear": true
+   }
   }
+ },
+ "bosses": {
+  "araxxor": {
+   "taskOnly": true
+  },
+  "alchemical_hydra": {
+   "taskOnly": true
+  },
+  "cerberus": {
+   "taskOnly": true
+  }
+ }
 }

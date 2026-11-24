@@ -65,14 +65,14 @@ export function resolveBank(rows, items, tiers = { groups: [] }) {
 
 /**
  * Base names of the items an owned set covers through upgrade tiers (data/gear-tiers.json): owning an item
- * counts as owning every item in a worse tier of the same group (one slot and combat style).
+ * counts as owning every item in its tier (equal items) and every worse tier of the same group (one slot and combat style).
  */
 export function upgradesCovered(ownedBaseNames, tiers) {
   const out = new Set();
   for (const g of tiers.groups || []) {
     const best = g.tiers.findIndex(t => t.some(n => ownedBaseNames.has(baseName(n))));
     if (best < 0) continue;
-    for (const t of g.tiers.slice(best + 1)) for (const n of t) out.add(baseName(n));
+    for (const t of g.tiers.slice(best)) for (const n of t) out.add(baseName(n));   // its own tier counts as equal
   }
   return out;
 }

@@ -1592,7 +1592,10 @@
    "price": 29455116,
    "tradeable": true,
    "id": 31115,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Eye of Ayak"
+   ]
   },
   "x-eye-of-the-duke": {
    "name": "Eye of the Duke",
@@ -4501,7 +4504,10 @@
    "price": 1172478,
    "tradeable": true,
    "id": 20716,
-   "limit": 15
+   "limit": 15,
+   "aliases": [
+    "Tome of Fire"
+   ]
   },
   "25576": {
    "name": "Tome of Water (empty)",
@@ -4604,7 +4610,10 @@
    "price": 726788114,
    "tradeable": true,
    "id": 27277,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Tumeken's shadow"
+   ]
   },
   "361": {
    "name": "Tuna",
@@ -6757,7 +6766,10 @@
    "price": 2243111108,
    "tradeable": true,
    "id": 34717,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Obligator"
+   ]
   },
   "34681": {
    "name": "Ascension crossbows",
@@ -6776,7 +6788,10 @@
    "price": 22237888,
    "tradeable": true,
    "id": 34727,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Zorya's tome"
+   ]
   },
   "34719": {
    "name": "Rondache",
@@ -12231,6 +12246,134 @@
   },
   "x-ava-s-assembler": {
    "name": "Ava's assembler",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "27612": {
+   "name": "Venator bow (uncharged)",
+   "price": 80135514,
+   "tradeable": true,
+   "id": 27612,
+   "limit": 8,
+   "aliases": [
+    "Venator bow"
+   ]
+  },
+  "6585": {
+   "name": "Amulet of fury",
+   "price": 2011147,
+   "tradeable": true,
+   "id": 6585,
+   "limit": 8
+  },
+  "21733": {
+   "name": "Guardian boots",
+   "price": 1121080,
+   "tradeable": true,
+   "id": 21733,
+   "limit": 8
+  },
+  "x-emberlight": {
+   "name": "Emberlight",
+   "price": 30147347,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "29580",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Tormented synapse it is made from (the Arclight is untradeable)"
+  },
+  "x-purging-staff": {
+   "name": "Purging staff",
+   "price": 30147347,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "29580",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Tormented synapse it is made from"
+  },
+  "x-scorching-bow": {
+   "name": "Scorching bow",
+   "price": 30147347,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "29580",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Tormented synapse it is made from"
+  },
+  "x-echo-boots": {
+   "name": "Echo boots",
+   "price": 2142684,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "21733",
+      "factor": 1
+     },
+     {
+      "item": "28942",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Guardian boots and Echo crystal it is made from"
+  },
+  "x-amulet-of-blood-fury": {
+   "name": "Amulet of blood fury",
+   "price": 10591147,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "6585",
+      "factor": 1
+     },
+     {
+      "item": "24777",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Amulet of fury and Blood shard it is made from"
+  },
+  "x-avernic-defender": {
+   "name": "Avernic defender",
+   "price": 32609698,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "22477",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Avernic defender hilt (the Dragon defender is untradeable)"
+  },
+  "x-imbued-god-cape": {
+   "name": "Imbued god cape",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-slayer-helmet-i": {
+   "name": "Slayer helmet (i)",
    "price": 0,
    "tradeable": false,
    "valueNote": "Untradeable: earned, not bought"

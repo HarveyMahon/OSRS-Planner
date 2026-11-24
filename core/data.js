@@ -59,9 +59,11 @@ export function applySetupGear(d, manual) {
       const s = boss?.setups?.find(x => x.id === setupId);
       if (!s) continue;
       if (m.gear) { s.gear = m.gear; s.gearSource = m.source; }
+      if (m.noGear) s.noGear = true;
       if (m.dropSupplies) s.supplies = (s.supplies || []).filter(x => !m.dropSupplies.includes(x.item));
     }
   }
+  for (const [bossId, flags] of Object.entries(manual?.bosses || {})) Object.assign(d.bosses.find(b => b.id === bossId) || {}, flags);
   return d;
 }
 
