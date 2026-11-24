@@ -12377,6 +12377,12 @@
    "price": 0,
    "tradeable": false,
    "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-salve-amulet-ei": {
+   "name": "Salve amulet(ei)",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
   }
  }
 }

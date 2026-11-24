@@ -433,6 +433,45 @@
     "gear": [],
     "noGear": true
    }
+  },
+  "vorkath": {
+   "high": {
+    "source": "Wiki: Vorkath/Strategies, Ranged (void equal to Masori; cheaper side of each '/' first, the other counts as equal), checked with the user 24 Nov 2026",
+    "gear": [
+     [
+      "27235",
+      "x-void-ranger-helm"
+     ],
+     "x-salve-amulet-ei",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27238",
+      "x-elite-void-top"
+     ],
+     [
+      "27241",
+      "x-elite-void-robe"
+     ],
+     "34681",
+     [
+      "21000",
+      "22003"
+     ],
+     [
+      "26235",
+      "x-void-knight-gloves"
+     ],
+     "x-avernic-treads-max",
+     [
+      "25975",
+      "28310"
+     ],
+     "26374"
+    ]
+   }
   }
  },
  "bosses": {
