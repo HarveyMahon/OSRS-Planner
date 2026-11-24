@@ -12487,30 +12487,6 @@
    ],
    "id": 25862
   },
-  "x-crystal-helm-inactive": {
-   "name": "Crystal helm (inactive)",
-   "price": 0,
-   "tradeable": true,
-   "aliases": [
-    "Crystal helm"
-   ]
-  },
-  "x-crystal-body-inactive": {
-   "name": "Crystal body (inactive)",
-   "price": 0,
-   "tradeable": true,
-   "aliases": [
-    "Crystal body"
-   ]
-  },
-  "x-crystal-legs-inactive": {
-   "name": "Crystal legs (inactive)",
-   "price": 0,
-   "tradeable": true,
-   "aliases": [
-    "Crystal legs"
-   ]
-  },
   "x-webweaver-bow-u": {
    "name": "Webweaver bow (u)",
    "price": 11246040,
@@ -12529,16 +12505,6 @@
    ],
    "id": 27657,
    "limit": 8
-  },
-  "x-harmonised-nightmare-staff": {
-   "name": "Harmonised nightmare staff",
-   "price": 0,
-   "tradeable": true
-  },
-  "x-eldritch-nightmare-staff": {
-   "name": "Eldritch nightmare staff",
-   "price": 0,
-   "tradeable": true
   },
   "x-hueycoatl-hide-body": {
    "name": "Hueycoatl hide body",
@@ -12627,11 +12593,6 @@
    "tradeable": true,
    "id": 34428
   },
-  "x-rosewood-blowpipe": {
-   "name": "Rosewood blowpipe",
-   "price": 0,
-   "tradeable": true
-  },
   "x-barrows-gloves": {
    "name": "Barrows gloves",
    "price": 0,
@@ -12681,6 +12642,180 @@
    "price": 0,
    "tradeable": false,
    "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-crystal-helm": {
+   "name": "Crystal helm",
+   "price": 4811038,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "23956",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the 1 crystal armour seed it is made from (crystal shards not counted)"
+  },
+  "x-crystal-body": {
+   "name": "Crystal body",
+   "price": 14433114,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "23956",
+      "factor": 3
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the 3 crystal armour seeds it is made from (crystal shards not counted)"
+  },
+  "x-crystal-legs": {
+   "name": "Crystal legs",
+   "price": 9622076,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "23956",
+      "factor": 2
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the 2 crystal armour seeds it is made from (crystal shards not counted)"
+  },
+  "x-harmonised-nightmare-staff": {
+   "name": "Harmonised nightmare staff",
+   "price": 311294444,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "24422",
+      "factor": 1
+     },
+     {
+      "item": "24511",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable once made: valued as the Nightmare staff and Harmonised orb"
+  },
+  "x-eldritch-nightmare-staff": {
+   "name": "Eldritch nightmare staff",
+   "price": 91319444,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "24422",
+      "factor": 1
+     },
+     {
+      "item": "24517",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable once made: valued as the Nightmare staff and Eldritch orb"
+  },
+  "x-neitiznot-faceguard": {
+   "name": "Neitiznot faceguard",
+   "price": 8996850,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "24268",
+      "factor": 1
+     },
+     {
+      "item": "10828",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Basilisk jaw and Helm of Neitiznot it is made from"
+  },
+  "x-elidinis-ward-f": {
+   "name": "Elidinis' ward (f)",
+   "price": 8922022,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "25985",
+      "factor": 1
+     },
+     {
+      "item": "21079",
+      "factor": 1
+     },
+     {
+      "item": "566",
+      "factor": 10000
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Elidinis' ward, Arcane prayer scroll and 10,000 soul runes it is made from"
+  },
+  "x-ring-of-suffering-i": {
+   "name": "Ring of suffering (i)",
+   "price": 14718221,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "19550",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the ring it is imbued from (imbuing costs points, not GP)"
+  },
+  "x-berserker-ring-i": {
+   "name": "Berserker ring (i)",
+   "price": 3384014,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "6737",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the ring it is imbued from (imbuing costs points, not GP)"
+  },
+  "x-archers-ring-i": {
+   "name": "Archers ring (i)",
+   "price": 1883002,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "6733",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the ring it is imbued from (imbuing costs points, not GP)"
+  },
+  "x-seers-ring-i": {
+   "name": "Seers ring (i)",
+   "price": 621540,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "6731",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the ring it is imbued from (imbuing costs points, not GP)"
   }
  }
 }

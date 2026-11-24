@@ -118,6 +118,38 @@
      "28307",
      "33631"
     ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "x-slayer-helmet-i",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832",
+      "30753"
+     ],
+     "26386",
+     [
+      "24417",
+      "28338"
+     ],
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "33631"
+    ]
    }
   },
   "duke_sucellus": {
@@ -140,6 +172,46 @@
       "29577",
       "13652"
      ]
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "12929",
+      "30750"
+     ],
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832"
+     ],
+     [
+      "29025",
+      "11834"
+     ],
+     [
+      "x-emberlight",
+      "28338"
+     ],
+     "x-ferocious-gloves",
+     "13239",
+     [
+      "25975",
+      "28316"
+     ],
+     [
+      "29577",
+      "13652"
+     ],
+     "x-dragon-defender"
     ]
    }
   },
@@ -177,6 +249,55 @@
      ],
      "13652"
     ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "12929",
+      "x-neitiznot-faceguard"
+     ],
+     [
+      "x-amulet-of-blood-fury",
+      "29801"
+     ],
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832"
+     ],
+     [
+      "29025",
+      "11834"
+     ],
+     [
+      "29796",
+      "x-blade-of-saeldor-inactive"
+     ],
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     [
+      "x-echo-boots",
+      "x-avernic-treads-max"
+     ],
+     [
+      "28316",
+      "28307"
+     ],
+     [
+      "29577",
+      "13652"
+     ]
+    ]
    }
   },
   "the_leviathan": {
@@ -199,6 +320,46 @@
      "26374",
      {
       "item": "34696",
+      "qty": 200
+     }
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "27226",
+      "27235"
+     ],
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27229",
+      "27238"
+     ],
+     [
+      "27232",
+      "27241"
+     ],
+     [
+      "x-dragon-crossbow",
+      "11785"
+     ],
+     "21000",
+     "x-barrows-gloves",
+     [
+      "22954",
+      "13237"
+     ],
+     "25975",
+     "x-webweaver-bow-u",
+     {
+      "item": "21944",
       "qty": 200
      }
     ]
@@ -230,6 +391,33 @@
       "qty": 200
      }
     ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "x-slayer-helmet-i",
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "x-crystal-body",
+     "x-crystal-legs",
+     [
+      "12924",
+      "21012"
+     ],
+     "x-barrows-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "12924",
+     {
+      "item": "11230",
+      "qty": 200
+     }
+    ]
    }
   },
   "the_nightmare": {
@@ -252,6 +440,30 @@
      "21003",
      "11806",
      "33631"
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "x-neitiznot-faceguard",
+     "x-amulet-of-blood-fury",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "11832",
+     "11834",
+     "13263",
+     "x-dragon-defender",
+     "x-ferocious-gloves",
+     "13239",
+     "x-berserker-ring-i",
+     [
+      "13576",
+      "27690"
+     ]
     ]
    }
   },
@@ -276,6 +488,45 @@
      "x-avernic-treads-max",
      "28307",
      "33631"
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "x-slayer-helmet-i",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "29022",
+      "11832",
+      "30753"
+     ],
+     [
+      "29025",
+      "11834",
+      "30756"
+     ],
+     [
+      "x-arclight",
+      "13263",
+      "26219"
+     ],
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "x-berserker-ring-i",
+     [
+      "29577",
+      "27690"
+     ]
     ]
    }
   },
@@ -320,6 +571,47 @@
       "qty": 200
      }
     ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "x-void-ranger-helm",
+      "27235"
+     ],
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "x-elite-void-top",
+      "27238"
+     ],
+     [
+      "x-elite-void-robe",
+      "27241"
+     ],
+     "x-scorching-bow",
+     [
+      "x-void-knight-gloves",
+      "26235"
+     ],
+     [
+      "x-avernic-treads-max",
+      "31088"
+     ],
+     "25975",
+     "22804",
+     "29889",
+     "31115",
+     {
+      "item": "33595",
+      "qty": 200
+     }
+    ]
    }
   },
   "phosanis_nightmare": {
@@ -355,6 +647,51 @@
      "28313",
      "34727"
     ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "x-zombie-helmet",
+      "x-neitiznot-faceguard"
+     ],
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832"
+     ],
+     "24421",
+     "13263",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "x-berserker-ring-i",
+     "33631",
+     "34027",
+     "21018",
+     "12002",
+     "x-imbued-god-cape",
+     "26243",
+     "26245",
+     [
+      "31115",
+      "27277"
+     ],
+     "20716",
+     "19544",
+     [
+      "25975",
+      "28313"
+     ],
+     "34727"
+    ]
    }
   },
   "phantom_muspah": {
@@ -383,6 +720,33 @@
       "qty": 200
      }
     ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "27235",
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "x-crystal-body",
+     "x-crystal-legs",
+     [
+      "12924",
+      "x-bow-of-faerdhinen-inactive"
+     ],
+     "x-barrows-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "12924",
+     {
+      "item": "11230",
+      "qty": 200
+     }
+    ]
    }
   },
   "the_whisperer": {
@@ -400,6 +764,27 @@
      "28313",
      "34727",
      "27612"
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 150M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "26241",
+     "12002",
+     "x-imbued-god-cape",
+     "26243",
+     "26245",
+     [
+      "22481",
+      "34727"
+     ],
+     "19544",
+     "13235",
+     "28313",
+     "34727",
+     "x-blisterwood-stake"
     ]
    }
   },
@@ -426,6 +811,41 @@
      "x-ferocious-gloves",
      "x-avernic-treads-max",
      "28307",
+     "21003",
+     "30759",
+     "x-purging-staff"
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "12929",
+      "x-neitiznot-faceguard"
+     ],
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "30753",
+      "26384"
+     ],
+     [
+      "30756",
+      "26386"
+     ],
+     "x-emberlight",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     [
+      "x-berserker-ring-i",
+      "28316"
+     ],
      "21003",
      "30759",
      "x-purging-staff"
@@ -465,6 +885,64 @@
      "26374",
      {
       "item": "34696",
+      "qty": 200
+     }
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "x-zombie-helmet",
+      "12929",
+      "x-neitiznot-faceguard"
+     ],
+     [
+      "x-amulet-of-blood-fury",
+      "29801"
+     ],
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832"
+     ],
+     "24421",
+     [
+      "13263",
+      "21003"
+     ],
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "x-berserker-ring-i",
+     "33631",
+     [
+      "27226",
+      "27235"
+     ],
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "x-elite-void-top",
+     "27241",
+     [
+      "x-dragon-crossbow",
+      "11785",
+      "21012"
+     ],
+     "21000",
+     "x-barrows-gloves",
+     "28310",
+     {
+      "item": "21944",
       "qty": 200
      }
     ]
@@ -508,6 +986,53 @@
      "13652",
      {
       "item": "33595",
+      "qty": 200
+     }
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Strategy page Budget table, left-most cells. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "12929",
+     "x-crystal-helm",
+     "x-amulet-of-blood-fury",
+     "19547",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022"
+     ],
+     "x-crystal-body",
+     "x-crystal-legs",
+     [
+      "26219",
+      "29796"
+     ],
+     "x-bow-of-faerdhinen-inactive",
+     [
+      "x-uncharged-toxic-trident",
+      "22481"
+     ],
+     [
+      "12924",
+      "27612"
+     ],
+     "x-dragon-defender",
+     "x-barrows-gloves",
+     "x-echo-boots",
+     [
+      "25975",
+      "x-berserker-ring-i"
+     ],
+     "11806",
+     "13652",
+     {
+      "item": "11230",
       "qty": 200
      }
     ]
@@ -635,12 +1160,228 @@
     }
    },
    "budget": {
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "30750",
+      "26382"
+     ],
+     [
+      "x-amulet-of-blood-fury",
+      "29801"
+     ],
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832"
+     ],
+     [
+      "29025",
+      "11834"
+     ],
+     [
+      "x-ursine-chainmace-u",
+      "13263",
+      "x-emberlight"
+     ],
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     [
+      "25975",
+      "28307"
+     ],
+     "13576",
+     "27690",
+     [
+      "27226",
+      "27235"
+     ],
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "29004",
+      "11828"
+     ],
+     [
+      "27232",
+      "27241"
+     ],
+     [
+      "x-dragon-crossbow",
+      "11785"
+     ],
+     "21000",
+     "x-barrows-gloves",
+     [
+      "25975",
+      "28310"
+     ],
+     "11785",
+     "26243",
+     "21024",
+     "31106",
+     {
+      "item": "21944",
+      "qty": 200
+     }
+    ],
     "set": {
      "unitsPerHr": 3.33,
      "unitsPerHrSource": "User: 18 minutes per raid in a 3-man team (23 min duo, 40 min solo)",
      "lootShare": 0.91,
      "lootShareNote": "Estimate for a 3-man team: between the Wiki guide's duo loot (1.0) and its 4-scale loot (0.82)"
     }
+   }
+  },
+  "chambers_of_xeric": {
+   "budget": {
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies from the Normal mode guide.",
+    "gear": [
+     [
+      "30750",
+      "26382"
+     ],
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832",
+      "24420"
+     ],
+     [
+      "29025",
+      "11834"
+     ],
+     "22978",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "11804",
+     "21003",
+     [
+      "27226",
+      "27235"
+     ],
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27229",
+      "27238"
+     ],
+     [
+      "27232",
+      "27241"
+     ],
+     [
+      "21012",
+      "26374"
+     ],
+     "12924",
+     "x-barrows-gloves",
+     {
+      "item": "21944",
+      "qty": 200
+     },
+     {
+      "item": "11230",
+      "qty": 200
+     },
+     "x-dragon-defender"
+    ]
+   }
+  },
+  "tombs_of_amascut": {
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear (strategy page) downgraded one table column at a time, biggest saving first, until under 500M; ammo follows the weapon. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     [
+      "x-neitiznot-faceguard",
+      "30750"
+     ],
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-fighter-torso",
+      "29022",
+      "11832",
+      "30753"
+     ],
+     [
+      "29025",
+      "11834",
+      "30756"
+     ],
+     "26219",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "x-berserker-ring-i",
+     [
+      "11804",
+      "27690",
+      "21003"
+     ],
+     [
+      "27226",
+      "27235"
+     ],
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27229",
+      "27238"
+     ],
+     [
+      "27232",
+      "27241"
+     ],
+     [
+      "x-dragon-crossbow",
+      "11785"
+     ],
+     "26235",
+     [
+      "25975",
+      "28310"
+     ],
+     [
+      "8872",
+      "11804"
+     ],
+     "26243",
+     "26245",
+     "31115",
+     {
+      "item": "21944",
+      "qty": 200
+     }
+    ]
    }
   }
  },
