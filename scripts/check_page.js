@@ -52,7 +52,7 @@ function serve() {
     await page.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
 
     // The app's own pages: load cleanly and show the site navigation
-    for (const p of ['', 'planner/', 'money/', 'account/']) {
+    for (const p of ['', 'planner/', 'money/', 'account/', 'training/']) {
       where = '/' + p;
       await page.goto(base + p);
       await page.waitForSelector('.site-nav a.link', { timeout: 15000 });
@@ -67,6 +67,15 @@ function serve() {
       + read('methods.json').methods.length;
     if (moneyRows !== moneyExpected) problems.push(`Money Makers shows ${moneyRows} rows, expected ${moneyExpected}.`);
     if (BAD.test(await page.$eval('#table', t => t.innerText))) problems.push('Money Makers table contains NaN/undefined.');
+
+    // Training: every skill renders without broken numbers
+    where = '/training/';
+    await page.goto(base + 'training/');
+    await page.waitForFunction(() => document.documentElement.dataset.ready === '1', null, { timeout: 15000 });
+    for (const sk of Object.keys(read('training.json').skills)) {
+      const text = await page.evaluate(s => { const el = document.getElementById('skill'); el.value = s; el.dispatchEvent(new Event('change')); return document.getElementById('results').innerText; }, sk);
+      if (BAD.test(text)) problems.push(`Training ${sk}: contains NaN/undefined.`);
+    }
 
     // Pet calculator (side tool)
     where = '/pets/';

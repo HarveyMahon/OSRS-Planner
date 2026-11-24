@@ -6,6 +6,7 @@ const ROOT = new URL('../', import.meta.url);
 const PAGES = [
   { id: 'planner', label: 'Goal Planner', path: 'planner/' },
   { id: 'money', label: 'Money Makers', path: 'money/' },
+  { id: 'training', label: 'Training', path: 'training/' },
   { id: 'pets', label: 'Pet Hunting', path: 'pets/', side: true },
   { id: 'account', label: 'My Account', path: 'account/', right: true },
 ];

@@ -7,6 +7,7 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 |---|---|
 | **Goal Planner** (`planner/`) | In development. Ordered plans of XP, kill count, GP and quest steps. |
 | **Money Makers** (`money/`) | Bosses and ~485 other Wiki-guide methods ranked by GP/hr after supplies, filtered to your account (recommended levels included, for now); Wilderness and F2P marked. |
+| Training (`training/`) | Time and cost to a target level per skill: Fastest, Balanced and AFK tracks (`data/training.json`, estimates). |
 | My Account (`account/`) | Your stats (levels or XP) and cash stack, saved in this browser (`core/account.js`). |
 | Pet Hunting (`pets/`) | Side tool, ported from [Pet-Hunt-Profit-Calculator](https://github.com/HarveyMahon/Pet-Hunt-Profit-Calculator). |
 
@@ -23,7 +24,8 @@ scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless c
            apply_supplies.py (applies the review: setups, supplies, new items; offline),
            apply_requirements.py (setup requirements and data/quests.json from the guides; offline),
            apply_methods.py (data/methods.json from all other guides, Wilderness flags; offline,
-           after import_supplies.py --all-guides)
+           after import_supplies.py --all-guides),
+           build_training.py (hand-written training tracks -> data/training.json)
 tests/     node tests/run.mjs
 logs/      last price update's full log
 ```

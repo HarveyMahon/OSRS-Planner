@@ -144,6 +144,9 @@
   "humidify": {
    "name": "Humidify"
   },
+  "icthlarin_s_little_helper": {
+   "name": "Icthlarin's Little Helper"
+  },
   "in_aid_of_the_myreque": {
    "name": "In Aid of the Myreque"
   },
@@ -290,6 +293,9 @@
   },
   "the_corsair_curse": {
    "name": "The Corsair Curse"
+  },
+  "the_feud": {
+   "name": "The Feud"
   },
   "the_final_dawn": {
    "name": "The Final Dawn"

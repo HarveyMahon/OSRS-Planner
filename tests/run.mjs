@@ -105,6 +105,32 @@ t('guide method gp/hr', () => {
   assert.equal(guideMethod(m, items, { cash: 1e9 }).scale, 1);
 });
 
+const { estimate, stageAt, gpPerXp } = await import('../core/training.js');
+t('training estimates', () => {
+  const items = { bone: { price: 2000 }, ore: { price: 100 }, bar: { price: 250 } };
+  const track = { stages: [
+    { from: 1, name: 'slow', xpPerHr: 10000 },
+    { from: 20, name: 'altar', xpPerHr: 100000, xpEach: 100, inputs: [{ item: 'bone', qty: 1 }] },
+    { from: 40, name: 'quest-locked', xpPerHr: 1e6, requires: { quest: 'q' } },
+  ] };
+  assert.equal(gpPerXp(track.stages[1], items), 20);
+  assert.equal(gpPerXp({ xpEach: 50, inputs: [{ item: 'ore', qty: 1 }], outputs: [{ item: 'bar', qty: 1 }] }, items), -3);
+  // 1 -> 20 at 10k/hr, then 20 -> 30 at 100k/hr costing 20 gp/xp
+  const e = estimate(track, 0, xpForLevel(30), items);
+  assert.ok(Math.abs(e.hours - (xpForLevel(20) / 10000 + (xpForLevel(30) - xpForLevel(20)) / 100000)) < 1e-9);
+  assert.equal(Math.round(e.gp), (xpForLevel(30) - xpForLevel(20)) * 20);
+  assert.equal(e.segments.length, 2);
+  // without the quest, level 40+ stays on the altar stage
+  const acc = { xp: {}, quests: {}, diaries: new Set() };
+  assert.equal(stageAt(track, 50, acc).name, 'altar');
+  assert.equal(stageAt(track, 50).name, 'quest-locked');
+  // a track that starts above your level is blocked there
+  assert.equal(estimate({ stages: [{ from: 10, name: 'x', xpPerHr: 1 }] }, 0, 1000, items).blocked, 1);
+  // recurring: real time from growth, play time from minutes per run
+  const r = estimate({ stages: [{ from: 1, name: 'trees', xpPerHr: 1e6, xpEach: 1000, recurring: { minutesPerRun: 6, hoursToGrow: 8, perRun: 5 } }] }, 0, 10000, items);
+  assert.equal(r.realHours, 2 * 8); assert.equal(r.hours, 2 * 6 / 60);
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');

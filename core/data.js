@@ -54,6 +54,10 @@ export async function loadMethods() {
   return structuredClone(await loadJson('methods.json'));
 }
 
+export async function loadTraining() {
+  return structuredClone(await loadJson('training.json'));
+}
+
 export async function loadQuests() {
   return structuredClone(await loadJson('quests.json'));
 }

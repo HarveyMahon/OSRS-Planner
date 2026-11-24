@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Training · OSRS Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../core/theme.css">
+<style>
+  .controls { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; }
+  .controls label { display: grid; gap: 4px; color: var(--muted); font-size: 13px; }
+  select, input { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: 15px var(--sans); }
+  input[type=number] { width: 80px; font-family: var(--mono); }
+  #results { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); align-items: start; }
+  .track header { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .track h2 { font-size: 18px; flex: 1; }
+  .kind { font: 600 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .track.afk .kind { color: #7fb7ff; } .track.balanced .kind { color: var(--gp-high); }
+  .dots { color: var(--muted); letter-spacing: 2px; font-size: 12px; }
+  .sum { display: flex; gap: 28px; font: 16px var(--mono); }
+  .sum .lbl { display: block; font: 12px var(--sans); color: var(--faint); }
+  .track ol { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; }
+  .muted { color: var(--muted); } .note { color: var(--faint); font-size: 12.5px; margin: 0; }
+  .cost { color: var(--cost); } .gain { color: var(--gp-high); } .wild { color: #ff9b6b; }
+  #acct-note a { color: var(--accent); }
+  .error { color: var(--cost); }
+</style>
+</head>
+<body>
+<main class="page">
+  <div style="display:grid;gap:8px">
+    <h1>Training</h1>
+    <p>Time and cost to reach a level, for the fastest way, the most relaxed way and sensible options in between. XP rates are typical estimates; item costs are at current prices.</p>
+  </div>
+  <div class="controls">
+    <label>Skill <select id="skill"></select></label>
+    <label>From level <input type="number" id="from" min="1" max="125"></label>
+    <label>To level <input type="number" id="to" min="2" max="126"></label>
+    <p id="acct-note" class="muted" style="margin:0;font-size:13px"></p>
+  </div>
+  <div id="results"></div>
+</main>
+<script type="module" src="training.js"></script>
+<script type="module" src="../core/nav.js" data-active="training"></script>
+</body>
+</html>
