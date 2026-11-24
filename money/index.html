@@ -8,12 +8,58 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../core/theme.css">
+<style>
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; }
+  .controls { display: flex; gap: 16px; align-items: center; color: var(--muted); font-size: 14px; }
+  .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th { font: 500 12px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
+  td.num, th.num { text-align: right; font-family: var(--mono); }
+  td.strong { font-weight: 500; }
+  td.rank { color: var(--faint); font-family: var(--mono); width: 1%; }
+  tbody tr:hover td { background: var(--surface); }
+  tr.open td { background: var(--surface); }
+  .unit { color: var(--faint); font: 12px var(--sans); }
+  .gp-low { color: var(--gp-low); } .gp-mid { color: var(--gp-mid); } .gp-high { color: var(--gp-high); } .cost { color: var(--cost); }
+  button.link { all: unset; cursor: pointer; color: var(--text); }
+  button.link:hover { color: var(--accent); text-decoration: underline; }
+  .tag { font: 500 11px/1 var(--mono); padding: 3px 6px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; }
+  .tag.warn { color: var(--gp-low); border-color: #5a5222; } .tag.mine { color: var(--accent); border-color: #5c4a22; }
+  select, input { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; font: inherit; }
+  input[type=number] { width: 90px; }
+  .editor-row > td { background: var(--surface); white-space: normal; padding: 4px 14px 18px; }
+  .editor { display: grid; gap: 12px; }
+  .editor .fields { display: flex; gap: 18px; flex-wrap: wrap; }
+  .editor label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+  .editor .src { font-size: 13px; color: var(--faint); margin: 0; }
+  .editor table.supplies td, .editor table.supplies th { padding: 6px 10px; background: transparent; }
+  .editor .add { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .editor .add input[list] { width: 260px; }
+  .btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 6px; padding: 6px 12px; font: 500 13px var(--sans); cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  .btn.small { padding: 4px 10px; }
+  .error { color: var(--cost); border: 1px solid var(--cost); border-radius: 8px; padding: 10px 14px; }
+</style>
 </head>
 <body>
 <main class="page">
-  <h1>Money Makers</h1>
-  <p>Money-making methods ranked by live GP per hour after supplies, filtered to what your account can do. Coming next: built on the shared item, boss and requirement data.</p>
+  <div class="head">
+    <div style="display:grid;gap:8px">
+      <h1>Money Makers</h1>
+      <p>Bosses ranked by GP per hour: average loot minus supplies, times kills (or raids, runs) per hour. Select a name to change its rate or supplies; your changes are saved in this browser. <span id="prices"></span></p>
+    </div>
+    <div class="controls"><label><input type="checkbox" id="show-misc"> Show minigames and other activities</label></div>
+  </div>
+  <div class="scroller">
+    <table id="table">
+      <thead><tr><th></th><th>Method</th><th>Setup</th><th class="num">Rate / hr</th><th class="num">Loot each</th><th class="num">Supplies each</th><th class="num">GP / hr</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <datalist id="item-names"></datalist>
 </main>
+<script type="module" src="money.js"></script>
 <script type="module" src="../core/nav.js" data-active="money"></script>
 </body>
 </html>

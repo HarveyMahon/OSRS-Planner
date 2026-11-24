@@ -6,16 +6,18 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 | Page | Status |
 |---|---|
 | **Goal Planner** (`planner/`) | In development. Ordered plans of XP, kill count, GP and quest steps. |
-| **Money Makers** (`money/`) | Next. Methods ranked by live GP/hr after supplies, filtered to your account. |
+| **Money Makers** (`money/`) | Early version: bosses ranked by GP/hr after supplies, with editable rates and supplies. Account filtering comes with requirements data. |
 | Pet Hunting (`pets/`) | Side tool, ported from [Pet-Hunt-Profit-Calculator](https://github.com/HarveyMahon/Pet-Hunt-Profit-Calculator). |
 
 ## Layout
 
 ```
-core/      shared code: data loading, XP/levels, requirements, nav, theme
+core/      shared code: data loading, loot (incl. raids), money/GP per hour, supply overrides,
+           XP/levels, requirements, nav, theme
 data/      items.json (keyed by item ID), bosses.json, skilling-pets.json (pet tool only)
 planner/  money/  pets/     one folder per page
-scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless check)
+scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless check),
+           import_supplies.py (Wiki money-making guides -> supply review, run by hand)
 tests/     node tests/run.mjs
 logs/      last price update's full log
 ```
@@ -34,3 +36,10 @@ No build step. Serve the folder and open it, e.g. `python -m http.server` then h
 `.github/workflows/update-prices.yml` runs every Monday: `scripts/update_prices.py` makes two
 requests (`/mapping`, `/latest`), sanity-checks the result, and the new prices are committed only
 if `tests/run.mjs` and `scripts/check_page.js` pass.
+
+## Boss setups
+
+Each boss has `setups` (up to two, e.g. budget and max), each with its own rate (`unitsPerHr`),
+`requires`, `gear` and `supplies` (`per: "unit"` or `"trip"`, trips spread over `unitsPerTrip`).
+`flatCostPerUnit` is the old flat GP figure, used only until a setup has an item list.
+User edits are stored in the browser as a diff (`core/overrides.js`), so defaults keep updating.

@@ -28,6 +28,14 @@ export async function loadPetData() {
     if (rest.derivedFrom) { rest.derivedFrom = structuredClone(rest.derivedFrom); toNames(rest.derivedFrom, nameOf); }
     for (const n of [name, ...(aliases || [])]) byName[n] = rest;
   }
+  // The pet calculator predates setups: give it the default setup's rate and cost as before
+  for (const b of bosses.bosses) {
+    const s = b.setups.find(x => x.id === b.defaultSetup) || b.setups[0];
+    b.defaultKph = s.unitsPerHr; b.kphSource = s.unitsPerHrSource; b.costSource = s.costSource;
+    if (s.flatCostPerUnit !== undefined) b.defaultCost = s.flatCostPerUnit;
+    if (s.supplies.length) b.defaultCostItems = s.supplies.filter(x => x.per === 'unit').map(x => ({ item: x.item, qty: x.qty }));
+    delete b.setups; delete b.defaultSetup;
+  }
   toNames(bosses.bosses, nameOf);
   toNames(pets.skillingPets, nameOf);
 

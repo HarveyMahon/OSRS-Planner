@@ -29,7 +29,8 @@
    "Nex and The Hueycoatl use 'teamOption' with per-drop 'teamScaling' (rate, quantity, mvpOnly, none).",
    "Items with 'derivedFrom' are priced from other items: price = sum(item price x factor) over its terms (e.g. Tokkul = Uncut onyx / 260,000; vestiges = ring - 3 chromium ingots). Items marked referenceOnly are only used for these formulas.",
    "'skillingPets' holds skilling pets modelled per training method (trees, success chances, logistics) rather than drop tables; the app lists the 5 methods with the best average of their rank for hours to the pet and their rank for total profit at the pet rate."
-  ]
+  ],
+  "setups": "Each boss has up to two setups (e.g. budget and max). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies."
  },
  "bosses": [
   {
@@ -704,10 +705,21 @@
    ],
    "wikiAverage": 78770.0,
    "notes": "Includes the Unsired (1/100 per kill) and what it gives at the Font of Consumption. The pet comes from the Unsired, which works out at 1/2,560 per kill.",
-   "defaultKph": 39,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 9398,
-   "costSource": "Wiki money-making guide supplies (366,516 gp per hour at 39 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 39,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (366,516 gp per hour at 39 per hour)",
+     "flatCostPerUnit": 9398
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "alchemical_hydra",
@@ -1345,10 +1357,21 @@
     }
    ],
    "wikiAverage": 180584.03,
-   "defaultKph": 25,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 28783,
-   "costSource": "Wiki money-making guide supplies (719,587 gp per hour at 25 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 25,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (719,587 gp per hour at 25 per hour)",
+     "flatCostPerUnit": 28783
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "amoxliatl",
@@ -1629,10 +1652,21 @@
     }
    ],
    "wikiAverage": 17816.99,
-   "defaultKph": 40,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 3926,
-   "costSource": "Wiki money-making guide supplies (157,041 gp per hour at 40 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 40,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (157,041 gp per hour at 40 per hour)",
+     "flatCostPerUnit": 3926
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "araxxor",
@@ -2250,10 +2284,21 @@
    ],
    "wikiAverage": 45248.5,
    "notes": "Normal looting. The Wiki also lists a 1/1,500 pet rate for the alternative option, which isn't modelled.",
-   "defaultKph": 39,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 32328,
-   "costSource": "Wiki money-making guide supplies (1,260,784 gp per hour at 39 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 39,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,260,784 gp per hour at 39 per hour)",
+     "flatCostPerUnit": 32328
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "artio",
@@ -2595,10 +2640,21 @@
    ],
    "wikiAverage": 38871.16,
    "notes": "Singles version of Callisto, which shares its pet at a lower rate (1/2,800).",
-   "defaultKph": 52,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 8248,
-   "costSource": "Wiki money-making guide supplies (428,905 gp per hour at 52 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 52,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (428,905 gp per hour at 52 per hour)",
+     "flatCostPerUnit": 8248
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "brutus",
@@ -2759,10 +2815,21 @@
    ],
    "wikiAverage": 635.93,
    "notes": "Members-world drops.",
-   "defaultKph": 300,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCost": 300,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 300,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 300
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "callisto",
@@ -3153,10 +3220,21 @@
    ],
    "wikiAverage": 139219.98,
    "notes": "Solo kill (it can also be fought in a team, which isn't modelled here).",
-   "defaultKph": 25,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 18845,
-   "costSource": "Wiki money-making guide supplies (471,125 gp per hour at 25 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 25,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (471,125 gp per hour at 25 per hour)",
+     "flatCostPerUnit": 18845
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "calvarion",
@@ -3505,10 +3583,21 @@
    ],
    "wikiAverage": 45193.78,
    "notes": "Singles version of Vet'ion, which shares its pet at a lower rate (1/2,800).",
-   "defaultKph": 55,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 7476,
-   "costSource": "Wiki money-making guide supplies (411,179 gp per hour at 55 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 55,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (411,179 gp per hour at 55 per hour)",
+     "flatCostPerUnit": 7476
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "cerberus",
@@ -4259,10 +4348,21 @@
     }
    ],
    "unit": "kill",
-   "defaultKph": 50,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 9471,
-   "costSource": "Wiki money-making guide supplies (473,562 gp per hour at 50 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 50,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (473,562 gp per hour at 50 per hour)",
+     "flatCostPerUnit": 9471
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "chambers_of_xeric",
@@ -4572,10 +4672,21 @@
     "defaultScale": 1
    },
    "drops": [],
-   "defaultKph": 1.5,
-   "kphSource": "Estimate for solo raids at scale 1 (the Wiki guide assumes teams at 3 an hour)",
-   "defaultCost": 333381,
-   "costSource": "Wiki money-making guide supplies (1,000,142 gp per hour at 3 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 1.5,
+     "unitsPerHrSource": "Estimate for solo raids at scale 1 (the Wiki guide assumes teams at 3 an hour)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,000,142 gp per hour at 3 per hour)",
+     "flatCostPerUnit": 333381
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "chaos_elemental",
@@ -5078,10 +5189,21 @@
    ],
    "wikiAverage": 36807.9,
    "notes": "Tick the Krystilia option to include Wilderness slayer drops.",
-   "defaultKph": 60,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 5874,
-   "costSource": "Wiki money-making guide supplies (352,434 gp per hour at 60 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 60,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (352,434 gp per hour at 60 per hour)",
+     "flatCostPerUnit": 5874
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "commander_zilyana",
@@ -5452,10 +5574,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 27,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 13082,
-   "costSource": "Wiki money-making guide supplies (353,217 gp per hour at 27 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 27,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (353,217 gp per hour at 27 per hour)",
+     "flatCostPerUnit": 13082
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "corporeal_beast",
@@ -5803,10 +5936,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 10,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 18411,
-   "costSource": "Wiki money-making guide supplies (184,114 gp per hour at 10 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 10,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (184,114 gp per hour at 10 per hour)",
+     "flatCostPerUnit": 18411
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "corrupted_gauntlet",
@@ -6029,10 +6173,21 @@
     }
    ],
    "notes": "Counted per Corrupted Hunllef completion.",
-   "defaultKph": 6,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 0,
-   "costSource": "Wiki money-making guide: no supplies needed"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 6,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide: no supplies needed",
+     "flatCostPerUnit": 0
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "dagannoth_prime",
@@ -6635,10 +6790,21 @@
     }
    ],
    "wikiAverage": 28183.27,
-   "defaultKph": 8.333,
-   "kphSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
-   "defaultCost": 11250,
-   "costSource": "Wiki money-making guide supplies (281,248 gp per hour at 25 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 8.333,
+     "unitsPerHrSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (281,248 gp per hour at 25 per hour)",
+     "flatCostPerUnit": 11250
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "dagannoth_rex",
@@ -7185,10 +7351,21 @@
     }
    ],
    "wikiAverage": 44653.56,
-   "defaultKph": 28,
-   "kphSource": "Wiki money-making guide (Rex only)",
-   "defaultCost": 6083,
-   "costSource": "Wiki money-making guide supplies (170,317 gp per hour at 28 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 28,
+     "unitsPerHrSource": "Wiki money-making guide (Rex only)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (170,317 gp per hour at 28 per hour)",
+     "flatCostPerUnit": 6083
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "dagannoth_supreme",
@@ -7784,10 +7961,21 @@
     }
    ],
    "wikiAverage": 34612.62,
-   "defaultKph": 8.333,
-   "kphSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
-   "defaultCost": 11250,
-   "costSource": "Wiki money-making guide supplies (281,248 gp per hour at 25 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 8.333,
+     "unitsPerHrSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (281,248 gp per hour at 25 per hour)",
+     "flatCostPerUnit": 11250
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "doom_of_mokhaiotl",
@@ -9876,10 +10064,21 @@
     }
    ],
    "drops": [],
-   "defaultKph": 6,
-   "kphSource": "Wiki money-making guide (delves 1-8)",
-   "defaultCost": 211090,
-   "costSource": "Wiki money-making guide supplies (1,266,543 gp per hour at 6 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 6,
+     "unitsPerHrSource": "Wiki money-making guide (delves 1-8)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,266,543 gp per hour at 6 per hour)",
+     "flatCostPerUnit": 211090
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "duke_sucellus",
@@ -10231,10 +10430,21 @@
    "notes": "Post-quest (not awakened) kills. Standard loot quantities are about 50% higher on a perfect kill (no avoidable damage taken); set your expected perfect-kill percentage in the calculator.",
    "perfectKillOption": true,
    "defaultPerfectPercent": 50,
-   "defaultKph": 34,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 22873,
-   "costSource": "Wiki money-making guide supplies (777,676 gp per hour at 34 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 34,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (777,676 gp per hour at 34 per hour)",
+     "flatCostPerUnit": 22873
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "the_gauntlet",
@@ -10450,10 +10660,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 7,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 0,
-   "costSource": "Wiki money-making guide: no supplies needed"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 7,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide: no supplies needed",
+     "flatCostPerUnit": 0
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "graardor",
@@ -11028,10 +11249,21 @@
     }
    ],
    "unit": "kill",
-   "defaultKph": 27,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 17260,
-   "costSource": "Wiki money-making guide supplies (466,010 gp per hour at 27 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 27,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (466,010 gp per hour at 27 per hour)",
+     "flatCostPerUnit": 17260
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "giant_mole",
@@ -11410,10 +11642,21 @@
     }
    ],
    "wikiAverage": 21091.18,
-   "defaultKph": 50,
-   "kphSource": "Wiki money-making guide (Dharok's)",
-   "defaultCost": 3168,
-   "costSource": "Wiki money-making guide supplies (158,404 gp per hour at 50 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 50,
+     "unitsPerHrSource": "Wiki money-making guide (Dharok's)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (158,404 gp per hour at 50 per hour)",
+     "flatCostPerUnit": 3168
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "grotesque_guardians",
@@ -11736,10 +11979,21 @@
     }
    ],
    "wikiAverage": 74423.71,
-   "defaultKph": 24,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 17069,
-   "costSource": "Wiki money-making guide supplies (409,658 gp per hour at 24 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 24,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (409,658 gp per hour at 24 per hour)",
+     "flatCostPerUnit": 17069
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "the_hueycoatl",
@@ -12016,10 +12270,21 @@
      "teamScaling": "mvpOnly"
     }
    ],
-   "defaultKph": 7,
-   "kphSource": "Wiki money-making guide (solo)",
-   "defaultCost": 62880,
-   "costSource": "Wiki money-making guide supplies (440,162 gp per hour at 7 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 7,
+     "unitsPerHrSource": "Wiki money-making guide (solo)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (440,162 gp per hour at 7 per hour)",
+     "flatCostPerUnit": 62880
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "kalphite_queen",
@@ -12558,10 +12823,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 22,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 19177,
-   "costSource": "Wiki money-making guide supplies (421,898 gp per hour at 22 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 22,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (421,898 gp per hour at 22 per hour)",
+     "flatCostPerUnit": 19177
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "king_black_dragon",
@@ -12947,10 +13223,21 @@
     }
    ],
    "wikiAverage": 20725.27,
-   "defaultKph": 30,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 10794,
-   "costSource": "Wiki money-making guide supplies (323,805 gp per hour at 30 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 30,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (323,805 gp per hour at 30 per hour)",
+     "flatCostPerUnit": 10794
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "kraken",
@@ -13525,10 +13812,21 @@
     }
    ],
    "unit": "kill",
-   "defaultKph": 60,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 5654,
-   "costSource": "Wiki money-making guide supplies (339,252 gp per hour at 60 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 60,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (339,252 gp per hour at 60 per hour)",
+     "flatCostPerUnit": 5654
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "kreearra",
@@ -13913,10 +14211,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 27,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 62080,
-   "costSource": "Wiki money-making guide supplies (1,676,153 gp per hour at 27 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 27,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,676,153 gp per hour at 27 per hour)",
+     "flatCostPerUnit": 62080
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "kril_tsutsaroth",
@@ -14280,10 +14589,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 26,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 14800,
-   "costSource": "Wiki money-making guide supplies (384,808 gp per hour at 26 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 26,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (384,808 gp per hour at 26 per hour)",
+     "flatCostPerUnit": 14800
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "the_leviathan",
@@ -14644,10 +14964,21 @@
    "perfectKillOption": true,
    "notes": "Post-quest (not awakened) kills. Standard loot quantities are about 50% higher on a perfect kill (no avoidable damage taken); set your expected perfect-kill percentage in the calculator.",
    "defaultPerfectPercent": 50,
-   "defaultKph": 24,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 17508,
-   "costSource": "Wiki money-making guide supplies (420,200 gp per hour at 24 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 24,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (420,200 gp per hour at 24 per hour)",
+     "flatCostPerUnit": 17508
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "mad_angel",
@@ -15038,10 +15369,21 @@
     }
    ],
    "wikiAverage": 29071.0,
-   "defaultKph": 40,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 10975,
-   "costSource": "Wiki money-making guide supplies (439,010 gp per hour at 40 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 40,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (439,010 gp per hour at 40 per hour)",
+     "flatCostPerUnit": 10975
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "maggot_king",
@@ -15245,10 +15587,21 @@
     }
    ],
    "notes": "Normal looting (open-stomach). Taking eggs gives a different pet chance and isn't modelled.",
-   "defaultKph": 25,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 49022,
-   "costSource": "Wiki money-making guide supplies (1,225,544 gp per hour at 25 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 25,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,225,544 gp per hour at 25 per hour)",
+     "flatCostPerUnit": 49022
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "nex",
@@ -15484,10 +15837,21 @@
      "teamScaling": "none"
     }
    ],
-   "defaultKph": 10,
-   "kphSource": "Wiki money-making guide (team)",
-   "defaultCost": 104674,
-   "costSource": "Wiki money-making guide supplies (1,046,745 gp per hour at 10 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 10,
+     "unitsPerHrSource": "Wiki money-making guide (team)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,046,745 gp per hour at 10 per hour)",
+     "flatCostPerUnit": 104674
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "the_nightmare",
@@ -15817,10 +16181,21 @@
      "teamScaling": "tertiaryMvp"
     }
    ],
-   "defaultKph": 12,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 29766,
-   "costSource": "Wiki money-making guide supplies (357,192 gp per hour at 12 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 12,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (357,192 gp per hour at 12 per hour)",
+     "flatCostPerUnit": 29766
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "phantom_muspah",
@@ -16507,10 +16882,21 @@
     }
    ],
    "wikiAverage": 265246.7,
-   "defaultKph": 25,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 39306,
-   "costSource": "Wiki money-making guide supplies (982,659 gp per hour at 25 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 25,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (982,659 gp per hour at 25 per hour)",
+     "flatCostPerUnit": 39306
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "phosanis_nightmare",
@@ -16788,10 +17174,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 9.5,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 58117,
-   "costSource": "Wiki money-making guide supplies (552,108 gp per hour at 9.5 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 9.5,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (552,108 gp per hour at 9.5 per hour)",
+     "flatCostPerUnit": 58117
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "royal_titans",
@@ -17376,10 +17773,21 @@
     "howItWorks": "Drops with contributionScales 'quantity' have quantities x share; 'rate' drops have chance x share; tertiary drops are unchanged."
    },
    "drops": [],
-   "defaultKph": 24,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCost": 14332,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 24,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 14332
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "sarachnis",
@@ -17912,10 +18320,21 @@
     }
    ],
    "wikiAverage": 27096.78,
-   "defaultKph": 30,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 10311,
-   "costSource": "Wiki money-making guide supplies (309,339 gp per hour at 30 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 30,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (309,339 gp per hour at 30 per hour)",
+     "flatCostPerUnit": 10311
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "scorpia",
@@ -18194,10 +18613,21 @@
    ],
    "wikiAverage": 32035.92,
    "notes": "Tick the Krystilia option to include Wilderness slayer drops.",
-   "defaultKph": 72,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 5302,
-   "costSource": "Wiki money-making guide supplies (381,757 gp per hour at 72 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 72,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (381,757 gp per hour at 72 per hour)",
+     "flatCostPerUnit": 5302
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "scurrius",
@@ -18393,10 +18823,21 @@
    ],
    "wikiAverage": 9535.59,
    "notes": "Solo or top-damage (MVP) drop table.",
-   "defaultKph": 40,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 4113,
-   "costSource": "Wiki money-making guide supplies (164,524 gp per hour at 40 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 40,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (164,524 gp per hour at 40 per hour)",
+     "flatCostPerUnit": 4113
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "shellbane_gryphon",
@@ -18767,10 +19208,21 @@
      "table": "Tertiary"
     }
    ],
-   "defaultKph": 70,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCost": 10000,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 70,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 10000
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "skotizo",
@@ -19016,10 +19468,21 @@
     }
    ],
    "wikiAverage": 161739.21,
-   "defaultKph": 0.5,
-   "kphSource": "Rate provided by the site owner (including getting totems)",
-   "defaultCost": 20000,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 0.5,
+     "unitsPerHrSource": "Rate provided by the site owner (including getting totems)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 20000
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "sol_heredit",
@@ -19229,10 +19692,21 @@
     "splinters": 4000,
     "howItWorks": "gamble: pet chance per run = 1 - (1 - 1/petRate)(1 - extraPetChance), quiver worth 0. exchange: pet 1/petRate, plus 4,000 sunfire splinters per run."
    },
-   "defaultKph": 2.5,
-   "kphSource": "Wiki money-making guide (full Colosseum runs)",
-   "defaultCost": 522465,
-   "costSource": "Wiki money-making guide supplies (1,306,162 gp per hour at 2.5 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 2.5,
+     "unitsPerHrSource": "Wiki money-making guide (full Colosseum runs)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,306,162 gp per hour at 2.5 per hour)",
+     "flatCostPerUnit": 522465
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "spindel",
@@ -19560,10 +20034,21 @@
    ],
    "wikiAverage": 79395.52,
    "notes": "Singles version of Venenatis, which shares its pet at a lower rate (1/2,800).",
-   "defaultKph": 60,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 6706,
-   "costSource": "Wiki money-making guide supplies (402,339 gp per hour at 60 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 60,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (402,339 gp per hour at 60 per hour)",
+     "flatCostPerUnit": 6706
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "tempoross",
@@ -19723,10 +20208,21 @@
     }
    ],
    "notes": "Counted per reward-pool roll, with fish for Fishing level 81+. Caskets and spirit flakes are valued at 0.",
-   "defaultKph": 60,
-   "kphSource": "Wiki money-making guide (reward permits per hour)",
-   "defaultCost": 23,
-   "costSource": "Wiki money-making guide supplies (1,370 gp per hour at 60 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 60,
+     "unitsPerHrSource": "Wiki money-making guide (reward permits per hour)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,370 gp per hour at 60 per hour)",
+     "flatCostPerUnit": 23
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "theatre_of_blood",
@@ -20021,10 +20517,21 @@
     "howItWorks": "Per player per raid: each unique = teamUniqueChance / teamSize x weight. Common items = (1 - teamUniqueChance / teamSize) x commonRolls x chancePerRoll, with quantity x commonMultiplier / teamSize (or targetTimeCommonMultiplier for Hard Mode within the target time). Tertiary chances and petRate are per player."
    },
    "drops": [],
-   "defaultKph": 3,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 310557,
-   "costSource": "Wiki money-making guide supplies (931,670 gp per hour at 3 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 3,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (931,670 gp per hour at 3 per hour)",
+     "flatCostPerUnit": 310557
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "thermonuclear_smoke_devil",
@@ -20438,10 +20945,21 @@
     }
    ],
    "wikiAverage": 25462.86,
-   "defaultKph": 80,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 3005,
-   "costSource": "Wiki money-making guide supplies (240,391 gp per hour at 80 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 80,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (240,391 gp per hour at 80 per hour)",
+     "flatCostPerUnit": 3005
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "tombs_of_amascut",
@@ -20622,10 +21140,21 @@
     "howItWorks": "P = points per player (excluding the starting 5,000, capped at 59,000); team points T = P x team size. Unique scaled level u = L (L<=310), 310+(L-310)/3 (<=430), 350+(L-430)/6 (above). Team unique chance = min(0.55, T / (100 x (10,500 - 20u))); yours = that / team size. Common: (1 - your unique chance) x 3 rolls x 1/27 per item, qty = P / divisor x (1 if L<300 else 1.15 + 0.01 x floor((L-300)/5)). Pet: scaled level v = L (<=400), 400+(L-400)/3 (<=550), 450 above; chance = P / (100 x (350,000 - 700v))."
    },
    "drops": [],
-   "defaultKph": 2,
-   "kphSource": "Estimate for solo raids at level 300 (the Wiki guide gives 1.5 an hour at level 450)",
-   "defaultCost": 121086,
-   "costSource": "Wiki money-making guide supplies (181,629 gp per hour at 1.5 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 2,
+     "unitsPerHrSource": "Estimate for solo raids at level 300 (the Wiki guide gives 1.5 an hour at level 450)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (181,629 gp per hour at 1.5 per hour)",
+     "flatCostPerUnit": 121086
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "tzkal_zuk",
@@ -20668,10 +21197,21 @@
     ],
     "multiplier": 2
    },
-   "defaultKph": 0.5,
-   "kphSource": "Estimate: about 2 hours per Inferno run",
-   "defaultCost": 300000,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 0.5,
+     "unitsPerHrSource": "Estimate: about 2 hours per Inferno run",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 300000
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "tztok_jad",
@@ -20714,10 +21254,21 @@
     ],
     "multiplier": 2
    },
-   "defaultKph": 1,
-   "kphSource": "Estimate from the Wiki Fight Cave strategies (runs often take about an hour)",
-   "defaultCost": 100000,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 1,
+     "unitsPerHrSource": "Estimate from the Wiki Fight Cave strategies (runs often take about an hour)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 100000
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "vardorvis",
@@ -21078,10 +21629,21 @@
    "notes": "Post-quest (not awakened) kills. Standard loot quantities are about 50% higher on a perfect kill (no avoidable damage taken); set your expected perfect-kill percentage in the calculator.",
    "perfectKillOption": true,
    "defaultPerfectPercent": 50,
-   "defaultKph": 32,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 15834,
-   "costSource": "Wiki money-making guide supplies (506,702 gp per hour at 32 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 32,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (506,702 gp per hour at 32 per hour)",
+     "flatCostPerUnit": 15834
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "venenatis",
@@ -21472,10 +22034,21 @@
    ],
    "wikiAverage": 245878.03,
    "notes": "Solo kill (it can also be fought in a team, which isn't modelled here).",
-   "defaultKph": 26,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 12052,
-   "costSource": "Wiki money-making guide supplies (313,363 gp per hour at 26 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 26,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (313,363 gp per hour at 26 per hour)",
+     "flatCostPerUnit": 12052
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "vetion",
@@ -21873,10 +22446,21 @@
    ],
    "wikiAverage": 134241.98,
    "notes": "Solo kill (it can also be fought in a team, which isn't modelled here).",
-   "defaultKph": 37,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 9979,
-   "costSource": "Wiki money-making guide supplies (369,232 gp per hour at 37 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 37,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (369,232 gp per hour at 37 per hour)",
+     "flatCostPerUnit": 9979
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "vorkath",
@@ -22869,10 +23453,21 @@
     }
    ],
    "unit": "kill",
-   "defaultKph": 30,
-   "kphSource": "Wiki money-making guide (dragon hunter crossbow)",
-   "defaultCost": 27710,
-   "costSource": "Wiki money-making guide supplies (831,297 gp per hour at 30 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 30,
+     "unitsPerHrSource": "Wiki money-making guide (dragon hunter crossbow)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (831,297 gp per hour at 30 per hour)",
+     "flatCostPerUnit": 27710
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "the_whisperer",
@@ -23233,10 +23828,21 @@
    "notes": "Post-quest (not awakened) kills. Standard loot quantities are about 50% higher on a perfect kill (no avoidable damage taken); set your expected perfect-kill percentage in the calculator.",
    "perfectKillOption": true,
    "defaultPerfectPercent": 50,
-   "defaultKph": 20,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 79996,
-   "costSource": "Wiki money-making guide supplies (1,599,924 gp per hour at 20 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 20,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,599,924 gp per hour at 20 per hour)",
+     "flatCostPerUnit": 79996
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "wintertodt",
@@ -23333,10 +23939,21 @@
     }
    ],
    "notes": "Counted per reward-cart roll. Logs, ores, herbs, seeds, gems and fish depend on your skill levels and aren't included, so real loot is higher than shown.",
-   "defaultKph": 28,
-   "kphSource": "Wiki Wintertodt strategies (about 28 reward rolls an hour)",
-   "defaultCost": 0,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 28,
+     "unitsPerHrSource": "Wiki Wintertodt strategies (about 28 reward rolls an hour)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 0
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "yama",
@@ -23587,10 +24204,21 @@
     }
    ],
    "notes": "Standard fight with no contract, for players dealing at least 15% of the damage.",
-   "defaultKph": 10,
-   "kphSource": "Wiki money-making guide (solo)",
-   "defaultCost": 179576,
-   "costSource": "Wiki money-making guide supplies (1,795,755 gp per hour at 10 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 10,
+     "unitsPerHrSource": "Wiki money-making guide (solo)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (1,795,755 gp per hour at 10 per hour)",
+     "flatCostPerUnit": 179576
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "zalcano",
@@ -23779,10 +24407,21 @@
    ],
    "wikiAverage": 241177.72,
    "notes": "Quantities scale with your contribution; the midpoint is used.",
-   "defaultKph": 48,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 670,
-   "costSource": "Wiki money-making guide supplies (32,154 gp per hour at 48 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 48,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (32,154 gp per hour at 48 per hour)",
+     "flatCostPerUnit": 670
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "zulrah",
@@ -24610,10 +25249,21 @@
     }
    ],
    "unit": "kill",
-   "defaultKph": 20,
-   "kphSource": "Wiki money-making guide",
-   "defaultCost": 32337,
-   "costSource": "Wiki money-making guide supplies (646,745 gp per hour at 20 per hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 20,
+     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (646,745 gp per hour at 20 per hour)",
+     "flatCostPerUnit": 32337
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "bloodhound",
@@ -25846,10 +26496,21 @@
      "includeByDefault": false
     }
    ],
-   "defaultKph": 2,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCost": 20000,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 2,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 20000
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "chompy-birds",
@@ -25861,15 +26522,26 @@
    "wikiUrl": "https://oldschool.runescape.wiki/w/Chompy_chick",
    "notes": "1/500 when a chompy bird is killed and again when it is plucked (about 1/250 per bird); needs the elite Western Provinces Diary. Loot is ignored; the 2 mithril brutal arrows per bird are counted as the supply cost.",
    "drops": [],
-   "defaultKph": 200,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCostItems": [
+   "setups": [
     {
-     "item": "4793",
-     "qty": 2
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 200,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [
+      {
+       "item": "4793",
+       "qty": 2,
+       "per": "unit"
+      }
+     ],
+     "costSource": "2 mithril brutal arrows per bird"
     }
    ],
-   "costSource": "2 mithril brutal arrows per bird"
+   "defaultSetup": "default"
   },
   {
    "id": "soul-wars",
@@ -25945,10 +26617,21 @@
      "table": "main"
     }
    ],
-   "defaultKph": 6,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCost": 10000,
-   "costSource": "Cost provided by the site owner"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 6,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Cost provided by the site owner",
+     "flatCostPerUnit": 10000
+    }
+   ],
+   "defaultSetup": "default"
   },
   {
    "id": "barbarian-assault",
@@ -26199,10 +26882,21 @@
      "table": "main"
     }
    ],
-   "defaultKph": 4,
-   "kphSource": "Rate provided by the site owner",
-   "defaultCost": 6654,
-   "costSource": "Wiki money-making guide supplies (26,615 gp per hour, spread over 4 high gambles an hour)"
+   "setups": [
+    {
+     "id": "default",
+     "label": "Default",
+     "unitsPerHr": 4,
+     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [],
+     "costSource": "Wiki money-making guide supplies (26,615 gp per hour, spread over 4 high gambles an hour)",
+     "flatCostPerUnit": 6654
+    }
+   ],
+   "defaultSetup": "default"
   }
  ]
 }

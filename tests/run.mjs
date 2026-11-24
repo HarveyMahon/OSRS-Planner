@@ -39,6 +39,31 @@ t('requirements', () => {
   assert.equal(isMet({ all: [{ diary: 'varrock', tier: 'hard' }, { any: [{ kc: 'vorkath', n: 100 }, { combatLevel: 120 }] }] }, acc), true);
 });
 
+const { applyOverride, supplyCost, bossMethod } = await import('../core/money.js');
+const { withQty, withRemoved, withAdded } = await import('../core/overrides.js');
+t('supply costs and overrides', () => {
+  const items = { a: { price: 100 }, b: { price: 1000 }, tele: { price: 500 }, c: { price: 10 } };
+  const setup = { id: 'max', unitsPerHr: 30, unitsPerTrip: 10, supplies: [
+    { item: 'a', qty: 2, per: 'unit' }, { item: 'b', qty: 1, per: 'unit' }, { item: 'tele', qty: 1, per: 'trip' }] };
+  assert.equal(supplyCost(setup, items).perUnit, 200 + 1000 + 50);
+  let o = withQty(null, 'a', 5); o = withRemoved(o, 'b'); o = withAdded(o, { item: 'x', qty: 1, per: 'unit' });
+  const s2 = applyOverride(setup, { ...o, unitsPerTrip: 5 });
+  const c2 = supplyCost(s2, items);
+  assert.equal(c2.perUnit, 500 + 100); assert.deepEqual(c2.missing, ['x']);
+  assert.equal(setup.supplies.length, 3);                        // defaults untouched
+  assert.equal(supplyCost(applyOverride(setup, withQty(withAdded(null, { item: 'c', qty: 1, per: 'trip' }), 'c', 4)), items).perUnit, 200 + 1000 + 50 + 4); // qty edits reach added lines
+  assert.equal(supplyCost({ supplies: [], flatCostPerUnit: 9000 }, items).source, 'flat');
+  assert.equal(supplyCost({ supplies: [{ item: 'tele', qty: 1, per: 'trip' }] }, items).missing[0], 'tele');
+});
+t('boss method gp/hr', () => {
+  const items = { d: { price: 1000 }, s: { price: 100 } };
+  const boss = { id: 'b', name: 'B', unit: 'kill', petRate: 1000, drops: [{ item: 'd', qtyMin: 1, qtyMax: 3, expectedPerKill: 0.5, table: 'main' }],
+    setups: [{ id: 'default', unitsPerHr: 20, unitsPerTrip: null, supplies: [{ item: 's', qty: 3, per: 'unit' }] }], defaultSetup: 'default' };
+  const m = bossMethod(boss, items);
+  assert.equal(m.lootPerUnit, 1000); assert.equal(m.costPerUnit, 300); assert.equal(m.gpPerHr, 14000);
+  assert.equal(bossMethod(boss, items, { override: { unitsPerHr: 10 } }).gpPerHr, 7000);
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');
