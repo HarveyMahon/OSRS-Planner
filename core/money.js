@@ -3,9 +3,12 @@
 //
 // Setup  { id, label, unitsPerHr, unitsPerTrip, requires, gear, supplies, flatCostPerUnit?,
 //          raid?: { teamSize, raidLevel, mode, points }   raid settings this setup assumes
+//          team?: { size }   team size for bosses with team-scaled loot (Nex, Hueycoatl...)
+//          delve?: n         deepest delve per run (Doom of Mokhaiotl)
 //          lootShare?: 0-1  share of the modelled loot you actually get, for bosses whose loot
 //                           scales with contribution (e.g. Zalcano); default 1 }
-// Supply { item, qty, per: 'unit' | 'trip' }
+// Supply { item, qty, per: 'unit' | 'trip' }   or a fixed-value line (spell casts, weapon charges):
+//        { item: 'gp:<name>', label, gp, qty, per }  costing gp x qty
 // Override (the user's changes, stored as a diff so untouched lines follow the defaults):
 //   { unitsPerHr?, unitsPerTrip?, qty: {itemKey: n}, removed: [itemKey], added: [Supply] }
 
@@ -41,7 +44,7 @@ export function supplyCost(setup, items) {
   const missing = [];
   let perUnit = 0;
   for (const s of setup.supplies) {
-    const it = items[s.item];
+    const it = s.gp != null ? { price: s.gp } : items[s.item];
     if (!it) { missing.push(s.item); continue; }
     if (s.per === 'trip') {
       if (!setup.unitsPerTrip) { missing.push(s.item); continue; }
@@ -53,8 +56,11 @@ export function supplyCost(setup, items) {
   return { perUnit, source: 'items', missing };
 }
 
-// The boss with this setup's raid settings in place of the pet calculator's defaults
-function withRaidSettings(boss, raid) {
+// The boss with this setup's raid/team settings in place of the pet calculator's defaults
+function withSettings(boss, setup) {
+  if (setup.team?.size != null && boss.teamOption) boss = { ...boss, teamOption: { ...boss.teamOption, default: setup.team.size } };
+  if (setup.delve != null && boss.delveOption) boss = { ...boss, delveOption: { ...boss.delveOption, defaultDelve: setup.delve } };
+  const raid = setup.raid;
   if (!raid || !boss.raidOption) return boss;
   const R = { ...boss.raidOption };
   if (raid.teamSize != null) R.defaultTeamSize = raid.teamSize;
@@ -69,7 +75,7 @@ export const setupOf = (boss, id) => boss.setups.find(s => s.id === (id ?? boss.
 /** Everything the money page shows for one boss setup. `items` is the core items object. */
 export function bossMethod(boss, items, { setupId, override } = {}) {
   const setup = applyOverride(setupOf(boss, setupId), override);
-  const loot = defaultRun(withRaidSettings(boss, setup.raid), items).ev * (setup.lootShare ?? 1);
+  const loot = defaultRun(withSettings(boss, setup), items).ev * (setup.lootShare ?? 1);
   const cost = supplyCost(setup, items);
   const unitsPerHr = setup.unitsPerHr || 0;
   return {

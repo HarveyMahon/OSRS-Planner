@@ -60,8 +60,8 @@ function render() {
 function editor(b, r) {
   const s = r.setup, def = setupOf(b, s.id);
   const lines = s.supplies.map(x => {
-    const it = ITEMS.items[x.item];
-    return `<tr><td>${esc(it ? it.name : x.item)}${it ? '' : ' <span class="tag warn">no price</span>'}</td>
+    const it = x.gp != null ? { name: x.label, price: x.gp } : ITEMS.items[x.item];
+    return `<tr><td>${esc(it ? it.name : x.item)}${x.gp != null ? ' <span class="tag" title="Fixed value from the Wiki guide">value</span>' : ''}${it ? '' : ' <span class="tag warn">no price</span>'}</td>
       <td><input type="number" min="0" step="any" value="${x.qty}" data-qty="${esc(x.item)}" aria-label="Quantity"></td>
       <td>per ${x.per === 'trip' ? 'trip' : esc(b.unit)}</td>
       <td class="num">${it ? gpShort(it.price * x.qty) : '–'}</td>
@@ -72,7 +72,7 @@ function editor(b, r) {
       <label>${esc(b.unit)}s per hour <input type="number" min="0" step="any" id="ed-uph" value="${s.unitsPerHr ?? ''}" placeholder="${def.unitsPerHr ?? ''}"></label>
       <label>${esc(b.unit)}s per trip <input type="number" min="0" step="any" id="ed-upt" value="${s.unitsPerTrip ?? ''}" placeholder="for per-trip supplies"></label>
     </div>
-    <p class="src">Rate: ${esc(def.unitsPerHrSource || 'n/a')}. Cost: ${esc(def.costSource || 'n/a')}.</p>
+    <p class="src">Rate: ${esc(def.unitsPerHrSource || 'n/a')}. Cost: ${esc(def.costSource || 'n/a')}.${def.guide ? ` <a href="https://oldschool.runescape.wiki/w/${encodeURI(def.guide.replace(/ /g, '_'))}" target="_blank" rel="noopener">Wiki guide</a>` : ''}</p>
     ${s.supplies.length ? `<table class="supplies"><thead><tr><th>Supply</th><th>Qty</th><th></th><th class="num">Cost</th><th></th></tr></thead><tbody>${lines}</tbody></table>`
       : `<p class="src">No item list yet${s.flatCostPerUnit != null ? `: using a flat ${Math.round(s.flatCostPerUnit).toLocaleString('en-GB')} gp per ${esc(b.unit)}` : ''}. Adding a supply replaces the flat figure.</p>`}
     <div class="add">

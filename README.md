@@ -17,7 +17,8 @@ core/      shared code: data loading, loot (incl. raids), money/GP per hour, sup
 data/      items.json (keyed by item ID), bosses.json, skilling-pets.json (pet tool only)
 planner/  money/  pets/     one folder per page
 scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless check),
-           import_supplies.py (Wiki money-making guides -> supply review, run by hand)
+           import_supplies.py (Wiki money-making guides -> supply review, run by hand),
+           apply_supplies.py (applies the review: setups, supplies, new items; offline)
 tests/     node tests/run.mjs
 logs/      last price update's full log
 ```

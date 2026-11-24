@@ -5967,6 +5967,528 @@
    "price": 5661,
    "tradeable": true,
    "id": 12624
+  },
+  "34717": {
+   "name": "Obligator (uncharged)",
+   "price": 2243111108,
+   "tradeable": true,
+   "id": 34717
+  },
+  "34681": {
+   "name": "Ascension crossbows",
+   "price": 172500000,
+   "tradeable": true,
+   "id": 34681
+  },
+  "34679": {
+   "name": "Horn of Bran",
+   "price": 183675936,
+   "tradeable": true,
+   "id": 34679
+  },
+  "34727": {
+   "name": "Zorya's tome (uncharged)",
+   "price": 22237888,
+   "tradeable": true,
+   "id": 34727
+  },
+  "34719": {
+   "name": "Rondache",
+   "price": 11475566,
+   "tradeable": true,
+   "id": 34719
+  },
+  "34669": {
+   "name": "Ascension shards",
+   "price": 722,
+   "tradeable": true,
+   "id": 34669
+  },
+  "23733": {
+   "name": "Divine ranging potion(4)",
+   "price": 6664,
+   "tradeable": true,
+   "id": 23733
+  },
+  "33595": {
+   "name": "Seeking dragon arrow",
+   "price": 2929,
+   "tradeable": true,
+   "id": 33595
+  },
+  "2448": {
+   "name": "Superantipoison(4)",
+   "price": 2016,
+   "tradeable": true,
+   "id": 2448
+  },
+  "22951": {
+   "name": "Boots of brimstone",
+   "price": 144474,
+   "tradeable": true,
+   "id": 22951
+  },
+  "22954": {
+   "name": "Devout boots",
+   "price": 700881,
+   "tradeable": true,
+   "id": 22954
+  },
+  "19547": {
+   "name": "Necklace of anguish",
+   "price": 14916966,
+   "tradeable": true,
+   "id": 19547
+  },
+  "25849": {
+   "name": "Amethyst dart",
+   "price": 123,
+   "tradeable": true,
+   "id": 25849
+  },
+  "2436": {
+   "name": "Super attack(4)",
+   "price": 1388,
+   "tradeable": true,
+   "id": 2436
+  },
+  "2440": {
+   "name": "Super strength(4)",
+   "price": 2570,
+   "tradeable": true,
+   "id": 2440
+  },
+  "29801": {
+   "name": "Amulet of rancour",
+   "price": 44986913,
+   "tradeable": true,
+   "id": 29801
+  },
+  "19481": {
+   "name": "Heavy ballista",
+   "price": 838420,
+   "tradeable": true,
+   "id": 19481
+  },
+  "19484": {
+   "name": "Dragon javelin",
+   "price": 467,
+   "tradeable": true,
+   "id": 19484
+  },
+  "29824": {
+   "name": "Extended anti-venom+(4)",
+   "price": 15243,
+   "tradeable": true,
+   "id": 29824
+  },
+  "27238": {
+   "name": "Masori body (f)",
+   "price": 85057394,
+   "tradeable": true,
+   "id": 27238
+  },
+  "2497": {
+   "name": "Black d'hide chaps",
+   "price": 3350,
+   "tradeable": true,
+   "id": 2497
+  },
+  "6326": {
+   "name": "Snakeskin bandana",
+   "price": 74,
+   "tradeable": true,
+   "id": 6326
+  },
+  "6328": {
+   "name": "Snakeskin boots",
+   "price": 387,
+   "tradeable": true,
+   "id": 6328
+  },
+  "2491": {
+   "name": "Black d'hide vambraces",
+   "price": 2016,
+   "tradeable": true,
+   "id": 2491
+  },
+  "3144": {
+   "name": "Cooked Karambwan",
+   "price": 280,
+   "tradeable": true,
+   "id": 3144
+  },
+  "21820": {
+   "name": "Revenant ether",
+   "price": 174,
+   "tradeable": true,
+   "id": 21820
+  },
+  "26384": {
+   "name": "Torva platebody",
+   "price": 145916211,
+   "tradeable": true,
+   "id": 26384
+  },
+  "27241": {
+   "name": "Masori chaps (f)",
+   "price": 61218151,
+   "tradeable": true,
+   "id": 27241
+  },
+  "11808": {
+   "name": "Zamorak godsword",
+   "price": 12857532,
+   "tradeable": true,
+   "id": 11808
+  },
+  "26382": {
+   "name": "Torva full helm",
+   "price": 152862180,
+   "tradeable": true,
+   "id": 26382
+  },
+  "26386": {
+   "name": "Torva platelegs",
+   "price": 93088430,
+   "tradeable": true,
+   "id": 26386
+  },
+  "27235": {
+   "name": "Masori mask (f)",
+   "price": 23979720,
+   "tradeable": true,
+   "id": 27235
+  },
+  "21946": {
+   "name": "Diamond dragon bolts (e)",
+   "price": 2624,
+   "tradeable": true,
+   "id": 21946
+  },
+  "19550": {
+   "name": "Ring of suffering",
+   "price": 14550973,
+   "tradeable": true,
+   "id": 19550
+  },
+  "13237": {
+   "name": "Pegasian boots",
+   "price": 32594132,
+   "tradeable": true,
+   "id": 13237
+  },
+  "2444": {
+   "name": "Ranging potion(4)",
+   "price": 2233,
+   "tradeable": true,
+   "id": 2444
+  },
+  "13576": {
+   "name": "dragon warhammer",
+   "price": 11047497,
+   "tradeable": true,
+   "id": 13576
+  },
+  "27690": {
+   "name": "Voidwaker",
+   "price": 29876900,
+   "tradeable": true,
+   "id": 27690
+  },
+  "3853": {
+   "name": "Games necklace(8)",
+   "price": 704,
+   "tradeable": true,
+   "id": 3853
+  },
+  "26374": {
+   "name": "Zaryte crossbow",
+   "price": 315256772,
+   "tradeable": true,
+   "id": 26374
+  },
+  "21944": {
+   "name": "Ruby dragon bolts (e)",
+   "price": 2748,
+   "tradeable": true,
+   "id": 21944
+  },
+  "11804": {
+   "name": "bandos godsword",
+   "price": 12098804,
+   "tradeable": true,
+   "id": 11804
+  },
+  "952": {
+   "name": "Spade",
+   "price": 192,
+   "tradeable": true,
+   "id": 952
+  },
+  "21326": {
+   "name": "Amethyst arrow",
+   "price": 137,
+   "tradeable": true,
+   "id": 21326
+  },
+  "11806": {
+   "name": "Saradomin godsword",
+   "price": 19756846,
+   "tradeable": true,
+   "id": 11806
+  },
+  "4162": {
+   "name": "rock hammer",
+   "price": 1150,
+   "tradeable": true,
+   "id": 4162
+  },
+  "22978": {
+   "name": "Dragon hunter lance",
+   "price": 39815476,
+   "tradeable": true,
+   "id": 22978
+  },
+  "13239": {
+   "name": "Primordial boots",
+   "price": 16297351,
+   "tradeable": true,
+   "id": 13239
+  },
+  "28997": {
+   "name": "Dual macuahuitl",
+   "price": 3533539,
+   "tradeable": true,
+   "id": 28997
+  },
+  "29577": {
+   "name": "Burning claws",
+   "price": 2611490,
+   "tradeable": true,
+   "id": 29577
+  },
+  "1540": {
+   "name": "Anti-dragon shield",
+   "price": 113,
+   "tradeable": true,
+   "id": 1540
+  },
+  "11284": {
+   "name": "Dragonfire shield",
+   "price": 2548170,
+   "tradeable": true,
+   "id": 11284
+  },
+  "11951": {
+   "name": "Extended antifire(4)",
+   "price": 266,
+   "tradeable": true,
+   "id": 11951
+  },
+  "28810": {
+   "name": "Zombie axe",
+   "price": 1175000,
+   "tradeable": true,
+   "id": 28810
+  },
+  "12490": {
+   "name": "Ancient bracers",
+   "price": 10574,
+   "tradeable": true,
+   "id": 12490
+  },
+  "19921": {
+   "name": "Ancient d'hide boots",
+   "price": 101272,
+   "tradeable": true,
+   "id": 19921
+  },
+  "11889": {
+   "name": "Zamorakian hasta",
+   "price": 875880,
+   "tradeable": true,
+   "id": 11889
+  },
+  "20724": {
+   "name": "imbued heart",
+   "price": 56860076,
+   "tradeable": true,
+   "id": 20724
+  },
+  "21940": {
+   "name": "Sapphire dragon bolts (e)",
+   "price": 2707,
+   "tradeable": true,
+   "id": 21940
+  },
+  "27641": {
+   "name": "Saturated heart",
+   "price": 59184498,
+   "tradeable": true,
+   "id": 27641
+  },
+  "29806": {
+   "name": "Aranea boots",
+   "price": 711326,
+   "tradeable": true,
+   "id": 29806
+  },
+  "946": {
+   "name": "knife",
+   "price": 102,
+   "tradeable": true,
+   "id": 946
+  },
+  "25404": {
+   "name": "Bloodbark body",
+   "price": 172398,
+   "tradeable": true,
+   "id": 25404
+  },
+  "25416": {
+   "name": "Bloodbark legs",
+   "price": 174260,
+   "tradeable": true,
+   "id": 25416
+  },
+  "662": {
+   "name": "Cream hat",
+   "price": 601,
+   "tradeable": true,
+   "id": 662
+  },
+  "4097": {
+   "name": "Mystic boots",
+   "price": 5424,
+   "tradeable": true,
+   "id": 4097
+  },
+  "27629": {
+   "name": "Forgotten brew(4)",
+   "price": 2502,
+   "tradeable": true,
+   "id": 27629
+  },
+  "809": {
+   "name": "Mithril dart",
+   "price": 6,
+   "tradeable": true,
+   "id": 809
+  },
+  "11840": {
+   "name": "Dragon boots",
+   "price": 142417,
+   "tradeable": true,
+   "id": 11840
+  },
+  "954": {
+   "name": "Rope",
+   "price": 68,
+   "tradeable": true,
+   "id": 954
+  },
+  "2347": {
+   "name": "Hammer",
+   "price": 165,
+   "tradeable": true,
+   "id": 2347
+  },
+  "19553": {
+   "name": "Amulet of torture",
+   "price": 15046168,
+   "tradeable": true,
+   "id": 19553
+  },
+  "11230": {
+   "name": "Dragon dart",
+   "price": 982,
+   "tradeable": true,
+   "id": 11230
+  },
+  "8872": {
+   "name": "Bone dagger",
+   "price": 3164,
+   "tradeable": true,
+   "id": 8872
+  },
+  "10828": {
+   "name": "Helm of Neitiznot",
+   "price": 34123,
+   "tradeable": true,
+   "id": 10828
+  },
+  "22209": {
+   "name": "Extended super antifire(4)",
+   "price": 17124,
+   "tradeable": true,
+   "id": 22209
+  },
+  "22003": {
+   "name": "Dragonfire ward",
+   "price": 10281170,
+   "tradeable": true,
+   "id": 22003
+  },
+  "13235": {
+   "name": "Eternal boots",
+   "price": 3869200,
+   "tradeable": true,
+   "id": 13235
+  },
+  "4734": {
+   "name": "Karil's crossbow",
+   "price": 97972,
+   "tradeable": true,
+   "id": 4734
+  },
+  "2185": {
+   "name": "Chocolate bomb",
+   "price": 340,
+   "tradeable": true,
+   "id": 2185
+  },
+  "2550": {
+   "name": "Ring of recoil",
+   "price": 710,
+   "tradeable": true,
+   "id": 2550
+  },
+  "3040": {
+   "name": "Magic potion(4)",
+   "price": 82,
+   "tradeable": true,
+   "id": 3040
+  },
+  "10284": {
+   "name": "Magic comp bow",
+   "price": 1250,
+   "tradeable": true,
+   "id": 10284
+  },
+  "11235": {
+   "name": "Dark bow",
+   "price": 440506,
+   "tradeable": true,
+   "id": 11235
+  },
+  "33639": {
+   "name": "Necklace of rupture",
+   "price": 113656742,
+   "tradeable": true,
+   "id": 33639
+  },
+  "2890": {
+   "name": "Elemental shield",
+   "price": 664,
+   "tradeable": true,
+   "id": 2890
+  },
+  "9731": {
+   "name": "mind shield",
+   "price": 39535,
+   "tradeable": true,
+   "id": 9731
   }
  }
 }

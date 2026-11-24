@@ -31,7 +31,8 @@
    "'skillingPets' holds skilling pets modelled per training method (trees, success chances, logistics) rather than drop tables; the app lists the 5 methods with the best average of their rank for hours to the pet and their rank for total profit at the pet rate."
   ],
   "setups": "Each boss has up to two setups ('high' for high level, 'budget'). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies.",
-  "moneyMaker": "Bosses with moneyMaker: false (and category 'misc' activities) appear only in the pet calculator."
+  "moneyMaker": "Bosses with moneyMaker: false (and category 'misc' activities) appear only in the pet calculator.",
+  "supplies": "Setups built from the Wiki money-making guides by scripts/apply_supplies.py: supplies per unit, teleports excluded, weapon charges and spells included."
  },
  "bosses": [
   {
@@ -710,14 +711,47 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 39,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 39.0,
+     "unitsPerHrSource": "Wiki: Killing the Abyssal Sire",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (366,516 gp per hour at 39 per hour)",
-     "flatCostPerUnit": 9398
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.076923,
+       "per": "unit"
+      },
+      {
+       "item": "2448",
+       "qty": 0.064103,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.358974,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 1.4,
+       "per": "unit"
+      },
+      {
+       "item": "882",
+       "qty": 4.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Shadow Barrage",
+       "label": "Shadow Barrage",
+       "gp": 2387.0,
+       "qty": 1.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Abyssal Sire (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Abyssal Sire"
     }
    ],
    "defaultSetup": "high"
@@ -1362,14 +1396,50 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 25,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 25.0,
+     "unitsPerHrSource": "Wiki: Killing the Alchemical Hydra",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (719,587 gp per hour at 25 per hour)",
-     "flatCostPerUnit": 28783
+     "gear": [
+      "22951",
+      "22954",
+      "20997",
+      "19547"
+     ],
+     "supplies": [
+      {
+       "item": "2434",
+       "qty": 0.833333,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.125,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.125,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 2.083333,
+       "per": "unit"
+      },
+      {
+       "item": "25849",
+       "qty": 16.666667,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 83.333333,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Alchemical Hydra (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Alchemical Hydra"
     }
    ],
    "defaultSetup": "high"
@@ -1657,14 +1727,35 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 40,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 40.0,
+     "unitsPerHrSource": "Wiki: Killing Amoxliatl",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (157,041 gp per hour at 40 per hour)",
-     "flatCostPerUnit": 3926
+     "supplies": [
+      {
+       "item": "2436",
+       "qty": 0.075,
+       "per": "unit"
+      },
+      {
+       "item": "2440",
+       "qty": 0.075,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.3,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 0.5,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Amoxliatl (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Amoxliatl"
     }
    ],
    "defaultSetup": "high"
@@ -2289,14 +2380,84 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 39,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 39.0,
+     "unitsPerHrSource": "Wiki: Killing Araxxor",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,260,784 gp per hour at 39 per hour)",
-     "flatCostPerUnit": 32328
+     "gear": [
+      "29801",
+      "24420",
+      "24421",
+      "28307",
+      "x-fire-cape",
+      "x-infernal-cape",
+      "19481",
+      "19484",
+      "21003",
+      "33631"
+     ],
+     "supplies": [
+      {
+       "item": "gp:Scythe of Vitur",
+       "label": "Scythe of Vitur",
+       "gp": 8207.0,
+       "qty": 21.0,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 1.083333,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Surge potion(4)",
+       "label": "Surge potion(4)",
+       "gp": 3964.0,
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "29824",
+       "qty": 0.0625,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "19484",
+       "qty": 1.33,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 1.153846,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Death Charge",
+       "label": "Death Charge",
+       "gp": 829.0,
+       "qty": 1.416667,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Araxxor (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Araxxor"
     }
    ],
    "defaultSetup": "high"
@@ -2645,14 +2806,59 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 52,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 52.0,
+     "unitsPerHrSource": "Wiki: Killing Artio",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (428,905 gp per hour at 52 per hour)",
-     "flatCostPerUnit": 8248
+     "gear": [
+      "19547",
+      "27238",
+      "2497",
+      "6326",
+      "6328",
+      "2491",
+      "385",
+      "3144"
+     ],
+     "supplies": [
+      {
+       "item": "24607",
+       "qty": 3.846154,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.057692,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.230769,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.057692,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 1.153846,
+       "per": "unit"
+      },
+      {
+       "item": "24595",
+       "qty": 0.230769,
+       "per": "unit"
+      },
+      {
+       "item": "21820",
+       "qty": 28.846154,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Artio (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Artio"
     }
    ],
    "defaultSetup": "high"
@@ -3225,14 +3431,58 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 25,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 25.0,
+     "unitsPerHrSource": "Wiki: Killing Callisto",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (471,125 gp per hour at 25 per hour)",
-     "flatCostPerUnit": 18845
+     "gear": [
+      "385",
+      "3144"
+     ],
+     "supplies": [
+      {
+       "item": "24607",
+       "qty": 3.2,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.08,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.24,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.2,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.08,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "24595",
+       "qty": 2.4,
+       "per": "unit"
+      },
+      {
+       "item": "21820",
+       "qty": 80.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Callisto (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Callisto"
     }
    ],
    "defaultSetup": "high"
@@ -3588,14 +3838,47 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 55,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 55.0,
+     "unitsPerHrSource": "Wiki: Killing Calvar'ion",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (411,179 gp per hour at 55 per hour)",
-     "flatCostPerUnit": 7476
+     "gear": [
+      "26384"
+     ],
+     "supplies": [
+      {
+       "item": "21820",
+       "qty": 30.0,
+       "per": "unit"
+      },
+      {
+       "item": "24595",
+       "qty": 1.5,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.05,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 1.5,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.3,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.04,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Calvar'ion (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Calvar'ion"
     }
    ],
    "defaultSetup": "high"
@@ -4353,14 +4636,30 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 50,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 50.0,
+     "unitsPerHrSource": "Wiki: Killing Cerberus",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (473,562 gp per hour at 50 per hour)",
-     "flatCostPerUnit": 9471
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.06,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.72,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 1.12,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Cerberus (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Cerberus"
     }
    ],
    "defaultSetup": "high"
@@ -4677,14 +4976,165 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 1.5,
-     "unitsPerHrSource": "Estimate for solo raids at scale 1 (the Wiki guide assumes teams at 3 an hour)",
+     "unitsPerHr": 1.7,
+     "unitsPerHrSource": "Wiki: Chambers of Xeric (Challenge Mode)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,000,142 gp per hour at 3 per hour)",
-     "flatCostPerUnit": 333381
+     "gear": [
+      "30750",
+      "30753",
+      "30756",
+      "28307",
+      "29801",
+      "21003",
+      "x-infernal-cape",
+      "27238",
+      "27241",
+      "19547",
+      "20997",
+      "x-dizana-s-quiver",
+      "26235",
+      "21018",
+      "21021",
+      "21024",
+      "12002",
+      "31106",
+      "11920",
+      "11808",
+      "13441"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.425,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "13441",
+       "qty": 1.7,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 13.2,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Scythe of Vitur",
+       "label": "Scythe of Vitur",
+       "gp": 8207.0,
+       "qty": 125.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Tumeken's shadow",
+       "label": "Tumeken's shadow",
+       "gp": 1038.0,
+       "qty": 125.0,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.25,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Chambers of Xeric (Challenge Mode) (per raid, teleports excluded)",
+     "guide": "Money making guide/Chambers of Xeric (Challenge Mode)",
+     "raid": {
+      "mode": "challenge"
+     }
+    },
+    {
+     "id": "budget",
+     "label": "Budget",
+     "unitsPerHr": 3.0,
+     "unitsPerHrSource": "Wiki: Chambers of Xeric (Normal Mode)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [
+      "26382",
+      "28307",
+      "26384",
+      "26386",
+      "21003",
+      "x-infernal-cape",
+      "27235",
+      "27238",
+      "27241",
+      "19547",
+      "20997",
+      "x-dizana-s-quiver",
+      "21021",
+      "21024",
+      "12002",
+      "19544",
+      "11920"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "10925",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "13441",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Tumeken's shadow",
+       "label": "Tumeken's shadow",
+       "gp": 1038.0,
+       "qty": 75.0,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 13.2,
+       "per": "unit"
+      },
+      {
+       "item": "565",
+       "qty": 270.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Chambers of Xeric (Normal Mode) (per raid, teleports excluded)",
+     "guide": "Money making guide/Chambers of Xeric (Normal Mode)",
+     "raid": {
+      "mode": "normal"
+     }
     }
    ],
    "defaultSetup": "high"
@@ -5194,14 +5644,49 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 60,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 60.0,
+     "unitsPerHrSource": "Wiki: Killing Chaos Elemental",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (352,434 gp per hour at 60 per hour)",
-     "flatCostPerUnit": 5874
+     "gear": [
+      "19547",
+      "27238",
+      "2497",
+      "6326",
+      "6328",
+      "2491",
+      "385",
+      "3144"
+     ],
+     "supplies": [
+      {
+       "item": "23733",
+       "qty": 0.05,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.333333,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "24595",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "21820",
+       "qty": 25.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Chaos Elemental (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Chaos Elemental"
     }
    ],
    "defaultSetup": "high"
@@ -5579,14 +6064,59 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 27,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 27.0,
+     "unitsPerHrSource": "Wiki: Killing Commander Zilyana",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (353,217 gp per hour at 27 per hour)",
-     "flatCostPerUnit": 13082
+     "gear": [
+      "20997",
+      "11785",
+      "21946",
+      "19550",
+      "13237",
+      "561",
+      "4698",
+      "554"
+     ],
+     "supplies": [
+      {
+       "item": "3024",
+       "qty": 0.222222,
+       "per": "unit"
+      },
+      {
+       "item": "2444",
+       "qty": 0.074074,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 0.407407,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.185185,
+       "per": "unit"
+      },
+      {
+       "item": "25849",
+       "qty": 1.851852,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 6.185185,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 2.592593,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Commander Zilyana (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Commander Zilyana"
     }
    ],
    "defaultSetup": "high"
@@ -5941,14 +6471,42 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 10,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 10.0,
+     "unitsPerHrSource": "Wiki: Killing the Corporeal Beast",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (184,114 gp per hour at 10 per hour)",
-     "flatCostPerUnit": 18411
+     "gear": [
+      "21003",
+      "13576",
+      "26219",
+      "27690"
+     ],
+     "supplies": [
+      {
+       "item": "3853",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.3,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "3144",
+       "qty": 5.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Corporeal Beast (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Corporeal Beast"
     }
    ],
    "defaultSetup": "high"
@@ -6178,14 +6736,14 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 6,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 6.0,
+     "unitsPerHrSource": "Wiki: Completing The Corrupted Gauntlet",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
      "supplies": [],
-     "costSource": "Wiki money-making guide: no supplies needed",
-     "flatCostPerUnit": 0
+     "costSource": "Wiki: Completing The Corrupted Gauntlet (per completion, teleports excluded)",
+     "guide": "Money making guide/Completing The Corrupted Gauntlet"
     }
    ],
    "defaultSetup": "high"
@@ -10069,14 +10627,85 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 6,
-     "unitsPerHrSource": "Wiki money-making guide (delves 1-8)",
+     "unitsPerHr": 2.5,
+     "unitsPerHrSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,266,543 gp per hour at 6 per hour)",
-     "flatCostPerUnit": 211090
+     "gear": [
+      "20997",
+      "26374"
+     ],
+     "supplies": [
+      {
+       "item": "23733",
+       "qty": 1.2,
+       "per": "unit"
+      },
+      {
+       "item": "2444",
+       "qty": 2.4,
+       "per": "unit"
+      },
+      {
+       "item": "13441",
+       "qty": 4.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "29824",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Death Charge",
+       "label": "Death Charge",
+       "gp": 1330.0,
+       "qty": 22.4,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 2510.0,
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Superior Demonbane",
+       "label": "Superior Demonbane",
+       "gp": 820.0,
+       "qty": 41.0,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 40.0,
+       "per": "unit"
+      },
+      {
+       "item": "21944",
+       "qty": 3.2,
+       "per": "unit"
+      },
+      {
+       "item": "31099",
+       "qty": 1.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16) (per run, teleports excluded)",
+     "guide": "Money making guide/Killing the Doom of Mokhaiotl (Delve 1-16)",
+     "delve": 16
     }
    ],
    "defaultSetup": "high"
@@ -10435,14 +11064,65 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 34,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 34.0,
+     "unitsPerHrSource": "Wiki: Killing Duke Sucellus",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (777,676 gp per hour at 34 per hour)",
-     "flatCostPerUnit": 22873
+     "gear": [
+      "11804",
+      "30756",
+      "30750",
+      "29801",
+      "x-infernal-cape",
+      "28316",
+      "25975",
+      "385"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.15,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.2,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.4,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Scythe of Vitur",
+       "label": "Scythe of Vitur",
+       "gp": 8207.0,
+       "qty": 14.5,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Death Charge",
+       "label": "Death Charge",
+       "gp": 829.0,
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 1.5,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Duke Sucellus (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Duke Sucellus"
     }
    ],
    "defaultSetup": "high"
@@ -10665,14 +11345,14 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 7,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 7.0,
+     "unitsPerHrSource": "Wiki: Completing The Gauntlet",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
      "supplies": [],
-     "costSource": "Wiki money-making guide: no supplies needed",
-     "flatCostPerUnit": 0
+     "costSource": "Wiki: Completing The Gauntlet (per completion, teleports excluded)",
+     "guide": "Money making guide/Completing The Gauntlet"
     }
    ],
    "defaultSetup": "high"
@@ -11254,14 +11934,35 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 27,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 27.0,
+     "unitsPerHrSource": "Wiki: Killing General Graardor",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (466,010 gp per hour at 27 per hour)",
-     "flatCostPerUnit": 17260
+     "supplies": [
+      {
+       "item": "7946",
+       "qty": 2.777778,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.555556,
+       "per": "unit"
+      },
+      {
+       "item": "12695",
+       "qty": 0.37037,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 0.555556,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing General Graardor (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing General Graardor"
     }
    ],
    "defaultSetup": "high"
@@ -11647,14 +12348,43 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 50,
-     "unitsPerHrSource": "Wiki money-making guide (Dharok's)",
+     "unitsPerHr": 85.0,
+     "unitsPerHrSource": "Wiki: Killing the Giant Mole (Twisted bow)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (158,404 gp per hour at 50 per hour)",
-     "flatCostPerUnit": 3168
+     "gear": [
+      "952",
+      "20997"
+     ],
+     "supplies": [
+      {
+       "item": "23733",
+       "qty": 0.035294,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.011765,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.235294,
+       "per": "unit"
+      },
+      {
+       "item": "21326",
+       "qty": 2.352941,
+       "per": "unit"
+      },
+      {
+       "item": "2",
+       "qty": 6.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Giant Mole (Twisted bow) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Giant Mole (Twisted bow)"
     }
    ],
    "defaultSetup": "high"
@@ -11984,14 +12714,51 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 24,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 24.0,
+     "unitsPerHrSource": "Wiki: Killing the Grotesque Guardians",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (409,658 gp per hour at 24 per hour)",
-     "flatCostPerUnit": 17069
+     "gear": [
+      "4151",
+      "11806",
+      "13652",
+      "385",
+      "4162"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.125,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.125,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.416667,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 2.916667,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 33.333333,
+       "per": "unit"
+      },
+      {
+       "item": "25849",
+       "qty": 6.666667,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Grotesque Guardians (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Grotesque Guardians"
     }
    ],
    "defaultSetup": "high"
@@ -12275,14 +13042,53 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 7,
-     "unitsPerHrSource": "Wiki money-making guide (solo)",
+     "unitsPerHr": 7.0,
+     "unitsPerHrSource": "Wiki: Killing Hueycoatl (Solo)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (440,162 gp per hour at 7 per hour)",
-     "flatCostPerUnit": 62880
+     "gear": [
+      "22978",
+      "24419",
+      "29801",
+      "24420",
+      "24421",
+      "28307",
+      "13239",
+      "x-fire-cape",
+      "x-infernal-cape",
+      "28997",
+      "29577",
+      "13652"
+     ],
+     "supplies": [
+      {
+       "item": "2434",
+       "qty": 3.75,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 8.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Hueycoatl (Solo) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Hueycoatl (Solo)",
+     "team": {
+      "size": 1
+     }
     }
    ],
    "defaultSetup": "high"
@@ -12828,14 +13634,50 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 22,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 22.0,
+     "unitsPerHrSource": "Wiki: Killing the Kalphite Queen",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (421,898 gp per hour at 22 per hour)",
-     "flatCostPerUnit": 19177
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.136364,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.136364,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.056818,
+       "per": "unit"
+      },
+      {
+       "item": "385",
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "13441",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "25849",
+       "qty": 9.090909,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 45.454545,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Kalphite Queen (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Kalphite Queen"
     }
    ],
    "defaultSetup": "high"
@@ -13228,14 +14070,44 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 30,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 30.0,
+     "unitsPerHrSource": "Wiki: Killing the King Black Dragon",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (323,805 gp per hour at 30 per hour)",
-     "flatCostPerUnit": 10794
+     "gear": [
+      "1540",
+      "11284",
+      "7946"
+     ],
+     "supplies": [
+      {
+       "item": "385",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "11951",
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "12695",
+       "qty": 0.166667,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the King Black Dragon (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the King Black Dragon"
     }
    ],
    "defaultSetup": "high"
@@ -13817,14 +14689,32 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 60,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 60.0,
+     "unitsPerHrSource": "Wiki: Killing the Kraken",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (339,252 gp per hour at 60 per hour)",
-     "flatCostPerUnit": 5654
+     "supplies": [
+      {
+       "item": "385",
+       "qty": 0.566667,
+       "per": "unit"
+      },
+      {
+       "item": "31111",
+       "qty": 20.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Fishing explosive",
+       "label": "Fishing explosive",
+       "gp": 60.0,
+       "qty": 1.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Kraken (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Kraken"
     }
    ],
    "defaultSetup": "high"
@@ -14216,14 +15106,44 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 27,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 27.0,
+     "unitsPerHrSource": "Wiki: Killing Kree'arra",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,676,153 gp per hour at 27 per hour)",
-     "flatCostPerUnit": 62080
+     "supplies": [
+      {
+       "item": "gp:Tumeken's shadow",
+       "label": "Tumeken's shadow",
+       "gp": 1038.0,
+       "qty": 30.0,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 0.466667,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.533333,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Blood Barrage",
+       "label": "Blood Barrage",
+       "gp": 2449.0,
+       "qty": 5.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Kree'arra (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Kree'arra"
     }
    ],
    "defaultSetup": "high"
@@ -14594,14 +15514,35 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 26,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 26.0,
+     "unitsPerHrSource": "Wiki: Killing K'ril Tsutsaroth",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (384,808 gp per hour at 26 per hour)",
-     "flatCostPerUnit": 14800
+     "supplies": [
+      {
+       "item": "7946",
+       "qty": 0.961538,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.461538,
+       "per": "unit"
+      },
+      {
+       "item": "2444",
+       "qty": 0.153846,
+       "per": "unit"
+      },
+      {
+       "item": "11212",
+       "qty": 4.615385,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing K'ril Tsutsaroth (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing K'ril Tsutsaroth"
     }
    ],
    "defaultSetup": "high"
@@ -14969,14 +15910,44 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 24,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 24.0,
+     "unitsPerHrSource": "Wiki: Killing The Leviathan",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (420,200 gp per hour at 24 per hour)",
-     "flatCostPerUnit": 17508
+     "gear": [
+      "26374",
+      "19547",
+      "25975",
+      "13237",
+      "26235",
+      "385"
+     ],
+     "supplies": [
+      {
+       "item": "23733",
+       "qty": 0.166667,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.666667,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 4.166667,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Shadow Rush",
+       "label": "Shadow Rush",
+       "gp": 895.0,
+       "qty": 5.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing The Leviathan (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing The Leviathan"
     }
    ],
    "defaultSetup": "high"
@@ -15374,14 +16345,43 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 40,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 40.0,
+     "unitsPerHrSource": "Wiki: Killing the Mad Angel",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (439,010 gp per hour at 40 per hour)",
-     "flatCostPerUnit": 10975
+     "gear": [
+      "21742",
+      "28997",
+      "28810",
+      "13576",
+      "1434"
+     ],
+     "supplies": [
+      {
+       "item": "2434",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "12695",
+       "qty": 0.25,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 1.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Mad Angel (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Mad Angel"
     }
    ],
    "defaultSetup": "high"
@@ -15592,14 +16592,51 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 25,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 25.0,
+     "unitsPerHrSource": "Wiki: Killing the Maggot King",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,225,544 gp per hour at 25 per hour)",
-     "flatCostPerUnit": 49022
+     "gear": [
+      "13441"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.12,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.05,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Fire Surge",
+       "label": "Fire Surge",
+       "gp": 1125.0,
+       "qty": 30.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Craw's bow",
+       "label": "Craw's bow",
+       "gp": 174.0,
+       "qty": 6.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Maggot King (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Maggot King"
     }
    ],
    "defaultSetup": "high"
@@ -15842,14 +16879,141 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 10,
-     "unitsPerHrSource": "Wiki money-making guide (team)",
+     "unitsPerHr": 6.5,
+     "unitsPerHrSource": "Wiki: Killing Nex (Duo)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,046,745 gp per hour at 10 per hour)",
-     "flatCostPerUnit": 104674
+     "gear": [
+      "26219",
+      "20997",
+      "11785",
+      "25975",
+      "26374",
+      "27690"
+     ],
+     "supplies": [
+      {
+       "item": "13441",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "12695",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "2444",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 8.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 4.0,
+       "per": "unit"
+      },
+      {
+       "item": "x-coins",
+       "qty": 21742.5,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 15.0,
+       "per": "unit"
+      },
+      {
+       "item": "21944",
+       "qty": 10.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 6.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Nex (Duo) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Nex (Duo)",
+     "team": {
+      "size": 2
+     }
+    },
+    {
+     "id": "budget",
+     "label": "Budget",
+     "unitsPerHr": 10.0,
+     "unitsPerHrSource": "Wiki: Killing Nex (Team)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [
+      "26374",
+      "21944",
+      "19547",
+      "25975",
+      "26235",
+      "12490",
+      "13237",
+      "19921",
+      "20997",
+      "13576",
+      "26219",
+      "24417",
+      "11889"
+     ],
+     "supplies": [
+      {
+       "item": "13441",
+       "qty": 0.25,
+       "per": "unit"
+      },
+      {
+       "item": "2444",
+       "qty": 0.75,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "10925",
+       "qty": 0.125,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 2.5,
+       "per": "unit"
+      },
+      {
+       "item": "21944",
+       "qty": 12.2,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 4.5,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Nex (Team) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Nex (Team)"
     }
    ],
    "defaultSetup": "high"
@@ -16186,14 +17350,43 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 12,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 12.0,
+     "unitsPerHrSource": "Wiki: Killing The Nightmare",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (357,192 gp per hour at 12 per hour)",
-     "flatCostPerUnit": 29766
+     "gear": [
+      "13263",
+      "24417",
+      "20724",
+      "12002",
+      "13441"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.25,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Trident of the Swamp",
+       "label": "Trident of the Swamp",
+       "gp": 450.0,
+       "qty": 30.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing The Nightmare (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing The Nightmare"
     }
    ],
    "defaultSetup": "high"
@@ -16887,14 +18080,59 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 25,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 25.0,
+     "unitsPerHrSource": "Wiki: Killing Phantom Muspah (Twisted bow)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (982,659 gp per hour at 25 per hour)",
-     "flatCostPerUnit": 39306
+     "gear": [
+      "20997",
+      "21003",
+      "26374",
+      "21940"
+     ],
+     "supplies": [
+      {
+       "item": "7946",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.12,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 8.0,
+       "per": "unit"
+      },
+      {
+       "item": "21940",
+       "qty": 1.2,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 1.2,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Greater Corruption",
+       "label": "Greater Corruption",
+       "gp": 1199.0,
+       "qty": 1.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Phantom Muspah (Twisted bow) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Phantom Muspah (Twisted bow)"
     }
    ],
    "defaultSetup": "high"
@@ -17180,13 +18418,50 @@
      "id": "high",
      "label": "High level",
      "unitsPerHr": 9.5,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHrSource": "Wiki: Killing Phosani's Nightmare",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (552,108 gp per hour at 9.5 per hour)",
-     "flatCostPerUnit": 58117
+     "gear": [
+      "13263",
+      "28338",
+      "24417",
+      "27641",
+      "12002",
+      "13441"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.374953,
+       "per": "unit"
+      },
+      {
+       "item": "10925",
+       "qty": 1.25,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 4.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Eye of Ayak",
+       "label": "Eye of Ayak",
+       "gp": 279.0,
+       "qty": 30.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 3503.0,
+       "qty": 4.210526,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Phosani's Nightmare (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Phosani's Nightmare"
     }
    ],
    "defaultSetup": "high"
@@ -18325,14 +19600,28 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 30,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 30.0,
+     "unitsPerHrSource": "Wiki: Killing Sarachnis",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (309,339 gp per hour at 30 per hour)",
-     "flatCostPerUnit": 10311
+     "gear": [
+      "29806",
+      "946"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.1,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.5,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Sarachnis (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Sarachnis"
     }
    ],
    "defaultSetup": "high"
@@ -18618,14 +19907,53 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 72,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 72.0,
+     "unitsPerHrSource": "Wiki: Killing Scorpia",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (381,757 gp per hour at 72 per hour)",
-     "flatCostPerUnit": 5302
+     "gear": [
+      "25404",
+      "25416",
+      "1704",
+      "662",
+      "4097",
+      "19544",
+      "24589"
+     ],
+     "supplies": [
+      {
+       "item": "5952",
+       "qty": 0.027778,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.208333,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 0.416667,
+       "per": "unit"
+      },
+      {
+       "item": "21820",
+       "qty": 13.888889,
+       "per": "unit"
+      },
+      {
+       "item": "24607",
+       "qty": 3.819444,
+       "per": "unit"
+      },
+      {
+       "item": "27629",
+       "qty": 0.027778,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Scorpia (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Scorpia"
     }
    ],
    "defaultSetup": "high"
@@ -18828,14 +20156,30 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 40,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 40.0,
+     "unitsPerHrSource": "Wiki: Killing Scurrius",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (164,524 gp per hour at 40 per hour)",
-     "flatCostPerUnit": 4113
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.075,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.25,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 0.25,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Scurrius (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Scurrius"
     }
    ],
    "defaultSetup": "high"
@@ -20039,14 +21383,57 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 60,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 60.0,
+     "unitsPerHrSource": "Wiki: Killing Spindel",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (402,339 gp per hour at 60 per hour)",
-     "flatCostPerUnit": 6706
+     "gear": [
+      "809",
+      "26386",
+      "1725",
+      "26382",
+      "11840",
+      "7946"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.05,
+       "per": "unit"
+      },
+      {
+       "item": "10925",
+       "qty": 0.05,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.3,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 1.333333,
+       "per": "unit"
+      },
+      {
+       "item": "21820",
+       "qty": 20.0,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.05,
+       "per": "unit"
+      },
+      {
+       "item": "809",
+       "qty": 5.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Spindel (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Spindel"
     }
    ],
    "defaultSetup": "high"
@@ -20213,14 +21600,26 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 60,
-     "unitsPerHrSource": "Wiki money-making guide (reward permits per hour)",
+     "unitsPerHr": 60.0,
+     "unitsPerHrSource": "Wiki: Subduing Tempoross",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,370 gp per hour at 60 per hour)",
-     "flatCostPerUnit": 23
+     "gear": [
+      "311",
+      "954",
+      "2347"
+     ],
+     "supplies": [
+      {
+       "item": "gp:Humidify",
+       "label": "Humidify",
+       "gp": 165.0,
+       "qty": 0.166667,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Subduing Tempoross (per reward roll, teleports excluded)",
+     "guide": "Money making guide/Subduing Tempoross"
     }
    ],
    "defaultSetup": "high"
@@ -20522,14 +21921,109 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 3,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 3.0,
+     "unitsPerHrSource": "Wiki: Theatre of Blood",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (931,670 gp per hour at 3 per hour)",
-     "flatCostPerUnit": 310557
+     "gear": [
+      "19553",
+      "x-fire-cape",
+      "x-infernal-cape",
+      "13576",
+      "11804",
+      "13652",
+      "25849",
+      "19547",
+      "12002",
+      "20724",
+      "13239",
+      "11832",
+      "11834"
+     ],
+     "supplies": [
+      {
+       "item": "12695",
+       "qty": 1.5,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "2444",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 27.0,
+       "per": "unit"
+      },
+      {
+       "item": "11230",
+       "qty": 8.0,
+       "per": "unit"
+      },
+      {
+       "item": "11959",
+       "qty": 7.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Ice Barrage",
+       "label": "Ice Barrage",
+       "gp": 1496.0,
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 2183.0,
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Spellbook Swap",
+       "label": "Spellbook Swap",
+       "gp": 805.0,
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Vengeance",
+       "label": "Vengeance",
+       "gp": 1404.0,
+       "qty": 15.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Scythe of Vitur",
+       "label": "Scythe of Vitur",
+       "gp": 8207.0,
+       "qty": 220.0,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 8.0,
+       "per": "unit"
+      },
+      {
+       "item": "13441",
+       "qty": 2.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Theatre of Blood (per raid, teleports excluded)",
+     "guide": "Money making guide/Theatre of Blood"
     }
    ],
    "defaultSetup": "high"
@@ -20950,14 +22444,28 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 80,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 80.0,
+     "unitsPerHrSource": "Wiki: Killing the Thermonuclear smoke devil",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (240,391 gp per hour at 80 per hour)",
-     "flatCostPerUnit": 3005
+     "gear": [
+      "4151",
+      "385"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.0375,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.2375,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing the Thermonuclear smoke devil (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing the Thermonuclear smoke devil"
     }
    ],
    "defaultSetup": "high"
@@ -21149,15 +22657,53 @@
      "unitsPerHrSource": "Site owner: solo, raid level 300, 1.75 raids an hour, about 18,500 points per raid",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (181,629 gp per hour at 1.5 per hour)",
-     "flatCostPerUnit": 121086,
+     "gear": [
+      "26219",
+      "22324",
+      "24417",
+      "11804",
+      "8872",
+      "1215",
+      "20997",
+      "26374",
+      "21944",
+      "19547",
+      "12002",
+      "20724"
+     ],
+     "supplies": [
+      {
+       "item": "12699",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Toxic blowpipe",
+       "label": "Toxic blowpipe",
+       "gp": 1102.0,
+       "qty": 75.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 1843.0,
+       "qty": 15.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Tombs of Amascut (solo 450 raid level) (supplies only; rate set by site owner)",
      "raid": {
       "teamSize": 1,
       "raidLevel": 300,
       "points": 18500
-     }
+     },
+     "guide": "Money making guide/Tombs of Amascut (solo 450 raid level)"
     }
    ],
    "defaultSetup": "high"
@@ -21639,14 +23185,55 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 32,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 32.0,
+     "unitsPerHrSource": "Wiki: Killing Vardorvis",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (506,702 gp per hour at 32 per hour)",
-     "flatCostPerUnit": 15834
+     "gear": [
+      "28338",
+      "27690",
+      "30753",
+      "30756",
+      "26382",
+      "29801",
+      "x-infernal-cape",
+      "28316",
+      "13239",
+      "385"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.09375,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 4.6875,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Zombie",
+       "label": "Resurrect Greater Zombie",
+       "gp": 1843.0,
+       "qty": 1.40625,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Death Charge",
+       "label": "Death Charge",
+       "gp": 829.0,
+       "qty": 1.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Vardorvis (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Vardorvis"
     }
    ],
    "defaultSetup": "high"
@@ -22044,14 +23631,59 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 26,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 26.0,
+     "unitsPerHrSource": "Wiki: Killing Venenatis",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (313,363 gp per hour at 26 per hour)",
-     "flatCostPerUnit": 12052
+     "gear": [
+      "809",
+      "2497",
+      "24420",
+      "1725",
+      "10828",
+      "28307",
+      "11840",
+      "7946"
+     ],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 0.115385,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.076923,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.576923,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 2.692308,
+       "per": "unit"
+      },
+      {
+       "item": "21820",
+       "qty": 38.461538,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.076923,
+       "per": "unit"
+      },
+      {
+       "item": "809",
+       "qty": 7.692308,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Venenatis (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Venenatis"
     }
    ],
    "defaultSetup": "high"
@@ -22456,14 +24088,48 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 37,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 37.0,
+     "unitsPerHrSource": "Wiki: Killing Vet'ion",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (369,232 gp per hour at 37 per hour)",
-     "flatCostPerUnit": 9979
+     "gear": [
+      "24420",
+      "28307"
+     ],
+     "supplies": [
+      {
+       "item": "21820",
+       "qty": 36.0,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.08,
+       "per": "unit"
+      },
+      {
+       "item": "24589",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "24598",
+       "qty": 0.45,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.04,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.04,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Vet'ion (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Vet'ion"
     }
    ],
    "defaultSetup": "high"
@@ -23463,14 +25129,107 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 30,
-     "unitsPerHrSource": "Wiki money-making guide (dragon hunter crossbow)",
+     "unitsPerHr": 30.0,
+     "unitsPerHrSource": "Wiki: Killing Vorkath (Dragon hunter lance)",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (831,297 gp per hour at 30 per hour)",
-     "flatCostPerUnit": 27710
+     "supplies": [
+      {
+       "item": "7946",
+       "qty": 3.333333,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.533333,
+       "per": "unit"
+      },
+      {
+       "item": "29824",
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.1,
+       "per": "unit"
+      },
+      {
+       "item": "22209",
+       "qty": 0.083333,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Crumble Undead",
+       "label": "Crumble Undead",
+       "gp": 104.0,
+       "qty": 0.5,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Vorkath (Dragon hunter lance) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Vorkath (Dragon hunter lance)"
+    },
+    {
+     "id": "budget",
+     "label": "Budget",
+     "unitsPerHr": 22.0,
+     "unitsPerHrSource": "Wiki: Killing Vorkath (Toxic blowpipe)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [
+      "25849",
+      "11804",
+      "x-fire-cape",
+      "x-infernal-cape",
+      "13237",
+      "13239"
+     ],
+     "supplies": [
+      {
+       "item": "12934",
+       "qty": 79.545455,
+       "per": "unit"
+      },
+      {
+       "item": "25849",
+       "qty": 22.727273,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 4.545455,
+       "per": "unit"
+      },
+      {
+       "item": "29824",
+       "qty": 0.113636,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.136364,
+       "per": "unit"
+      },
+      {
+       "item": "23685",
+       "qty": 0.136364,
+       "per": "unit"
+      },
+      {
+       "item": "22209",
+       "qty": 0.113636,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 0.681818,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Vorkath (Toxic blowpipe) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Vorkath (Toxic blowpipe)"
     }
    ],
    "defaultSetup": "high"
@@ -23838,14 +25597,52 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 20,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 20.0,
+     "unitsPerHrSource": "Wiki: Killing The Whisperer",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,599,924 gp per hour at 20 per hour)",
-     "flatCostPerUnit": 79996
+     "gear": [
+      "21021",
+      "21024",
+      "21018",
+      "12002",
+      "28313",
+      "13235",
+      "19544",
+      "385",
+      "27641"
+     ],
+     "supplies": [
+      {
+       "item": "gp:Tumeken's shadow",
+       "label": "Tumeken's shadow",
+       "gp": 1038.0,
+       "qty": 50.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 1.4,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "882",
+       "qty": 4.0,
+       "per": "unit"
+      },
+      {
+       "item": "27616",
+       "qty": 4.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing The Whisperer (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing The Whisperer"
     }
    ],
    "defaultSetup": "high"
@@ -24214,14 +26011,65 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 10,
-     "unitsPerHrSource": "Wiki money-making guide (solo)",
+     "unitsPerHr": 10.0,
+     "unitsPerHrSource": "Wiki: Killing Yama (solo)",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,795,755 gp per hour at 10 per hour)",
-     "flatCostPerUnit": 179576
+     "supplies": [
+      {
+       "item": "2434",
+       "qty": 2.5,
+       "per": "unit"
+      },
+      {
+       "item": "10925",
+       "qty": 0.25,
+       "per": "unit"
+      },
+      {
+       "item": "3144",
+       "qty": 5.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Dark Demonbane",
+       "label": "Dark Demonbane",
+       "gp": 620.0,
+       "qty": 12.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Tumeken's shadow",
+       "label": "Tumeken's shadow",
+       "gp": 1038.0,
+       "qty": 100.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Death Charge",
+       "label": "Death Charge",
+       "gp": 1330.0,
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Mark of Darkness",
+       "label": "Mark of Darkness",
+       "gp": 1580.0,
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 2510.0,
+       "qty": 2.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Yama (solo) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Yama (solo)"
     }
    ],
    "defaultSetup": "high"
@@ -25261,14 +27109,153 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 20,
-     "unitsPerHrSource": "Wiki money-making guide",
+     "unitsPerHr": 40.0,
+     "unitsPerHrSource": "Wiki: Killing Zulrah (max efficiency)",
      "unitsPerTrip": null,
      "requires": null,
-     "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (646,745 gp per hour at 20 per hour)",
-     "flatCostPerUnit": 32337
+     "gear": [
+      "22804",
+      "20997",
+      "385",
+      "20724",
+      "27641"
+     ],
+     "supplies": [
+      {
+       "item": "23733",
+       "qty": 0.075,
+       "per": "unit"
+      },
+      {
+       "item": "29824",
+       "qty": 0.0625,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 0.6,
+       "per": "unit"
+      },
+      {
+       "item": "11230",
+       "qty": 1.25,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 0.4,
+       "per": "unit"
+      },
+      {
+       "item": "554",
+       "qty": 11.0,
+       "per": "unit"
+      },
+      {
+       "item": "562",
+       "qty": 59.0,
+       "per": "unit"
+      },
+      {
+       "item": "560",
+       "qty": 13.0,
+       "per": "unit"
+      },
+      {
+       "item": "566",
+       "qty": 23.6,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 0.75,
+       "per": "unit"
+      },
+      {
+       "item": "22804",
+       "qty": 0.75,
+       "per": "unit"
+      },
+      {
+       "item": "565",
+       "qty": 15.2,
+       "per": "unit"
+      },
+      {
+       "item": "564",
+       "qty": 1.1,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Zulrah (max efficiency) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Zulrah (max efficiency)"
+    },
+    {
+     "id": "budget",
+     "label": "Budget",
+     "unitsPerHr": 20.0,
+     "unitsPerHrSource": "Wiki: Killing Zulrah",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [
+      "4734",
+      "7946",
+      "385",
+      "2185",
+      "20724",
+      "2550"
+     ],
+     "supplies": [
+      {
+       "item": "2434",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 0.15,
+       "per": "unit"
+      },
+      {
+       "item": "29824",
+       "qty": 0.125,
+       "per": "unit"
+      },
+      {
+       "item": "2550",
+       "qty": 0.5,
+       "per": "unit"
+      },
+      {
+       "item": "7946",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "25849",
+       "qty": 6.5,
+       "per": "unit"
+      },
+      {
+       "item": "12934",
+       "qty": 4.35,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Trident of the Swamp",
+       "label": "Trident of the Swamp",
+       "gp": 450.0,
+       "qty": 26.0,
+       "per": "unit"
+      },
+      {
+       "item": "3040",
+       "qty": 0.15,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Zulrah (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Zulrah"
     }
    ],
    "defaultSetup": "high"
@@ -26894,14 +28881,402 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 4,
-     "unitsPerHrSource": "Rate provided by the site owner",
+     "unitsPerHr": 3.0,
+     "unitsPerHrSource": "Wiki: Barbarian assault high gambles",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [
+      "10284",
+      "11235",
+      "33639",
+      "2550",
+      "2890",
+      "9731"
+     ],
+     "supplies": [
+      {
+       "item": "23733",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "12695",
+       "qty": 0.25,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Barbarian assault high gambles (per high gamble, teleports excluded)",
+     "guide": "Money making guide/Barbarian assault high gambles"
+    }
+   ],
+   "defaultSetup": "high"
+  },
+  {
+   "id": "the_fractured_archive",
+   "name": "The Fractured Archive",
+   "unit": "raid",
+   "petCalc": false,
+   "wikiUrl": "https://oldschool.runescape.wiki/w/The_Fractured_Archive",
+   "notes": "Loot is the Wiki money-making guide's expected loot per raid for the high level setup's team size, not a full drop table. Not in the pet calculator yet.",
+   "drops": [
+    {
+     "item": "34717",
+     "qtyMin": 0.001961,
+     "qtyMax": 0.001961,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "34681",
+     "qtyMin": 0.003922,
+     "qtyMax": 0.003922,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "34679",
+     "qtyMin": 0.005882,
+     "qtyMax": 0.005882,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "34727",
+     "qtyMin": 0.007843,
+     "qtyMax": 0.007843,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "34719",
+     "qtyMin": 0.009804,
+     "qtyMax": 0.009804,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "1391",
+     "qtyMin": 3.783391,
+     "qtyMax": 3.783391,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "4087",
+     "qtyMin": 0.106574,
+     "qtyMax": 0.106574,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "4585",
+     "qtyMin": 0.106574,
+     "qtyMax": 0.106574,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "1201",
+     "qtyMin": 0.639446,
+     "qtyMax": 0.639446,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "561",
+     "qtyMin": 36.555017,
+     "qtyMax": 36.555017,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "9075",
+     "qtyMin": 36.555017,
+     "qtyMax": 36.555017,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "565",
+     "qtyMin": 36.555017,
+     "qtyMax": 36.555017,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "566",
+     "qtyMin": 36.555017,
+     "qtyMax": 36.555017,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "557",
+     "qtyMin": 355.478893,
+     "qtyMax": 355.478893,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "205",
+     "qtyMin": 4.272664,
+     "qtyMax": 4.272664,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "207",
+     "qtyMin": 4.272664,
+     "qtyMax": 4.272664,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "3049",
+     "qtyMin": 4.272664,
+     "qtyMax": 4.272664,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "5300",
+     "qtyMin": 0.23737,
+     "qtyMax": 0.23737,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "5299",
+     "qtyMin": 0.508651,
+     "qtyMax": 0.508651,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "22879",
+     "qtyMin": 0.508651,
+     "qtyMax": 0.508651,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "5315",
+     "qtyMin": 0.30519,
+     "qtyMax": 0.30519,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "1607",
+     "qtyMin": 2.717647,
+     "qtyMax": 2.717647,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "1605",
+     "qtyMin": 2.66436,
+     "qtyMax": 2.66436,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "1603",
+     "qtyMin": 2.717647,
+     "qtyMax": 2.717647,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "1601",
+     "qtyMin": 2.66436,
+     "qtyMax": 2.66436,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "440",
+     "qtyMin": 51.330104,
+     "qtyMax": 51.330104,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "449",
+     "qtyMin": 3.836678,
+     "qtyMax": 3.836678,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "451",
+     "qtyMin": 1.482353,
+     "qtyMax": 1.482353,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "34669",
+     "qtyMin": 41.83045,
+     "qtyMax": 41.83045,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "9194",
+     "qtyMin": 5.755017,
+     "qtyMax": 5.755017,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "575",
+     "qtyMin": 7.620069,
+     "qtyMax": 7.620069,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "245",
+     "qtyMin": 2.305882,
+     "qtyMax": 2.305882,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "30771",
+     "qtyMin": 10.783391,
+     "qtyMax": 10.783391,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "7936",
+     "qtyMin": 88.243599,
+     "qtyMax": 88.243599,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "6332",
+     "qtyMin": 8.487197,
+     "qtyMax": 8.487197,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "11237",
+     "qtyMin": 20.89827,
+     "qtyMax": 20.89827,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "383",
+     "qtyMin": 4.999308,
+     "qtyMax": 4.999308,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    },
+    {
+     "item": "x-desiccated-page",
+     "qtyMin": 1.918339,
+     "qtyMax": 1.918339,
+     "expectedPerKill": 1,
+     "table": "Wiki guide average"
+    }
+   ],
+   "setups": [
+    {
+     "id": "high",
+     "label": "High level",
+     "unitsPerHr": 3.0,
+     "unitsPerHrSource": "Wiki: The Fractured Archive (Duo)",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (26,615 gp per hour, spread over 4 high gambles an hour)",
-     "flatCostPerUnit": 6654
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Toxic blowpipe",
+       "label": "Toxic blowpipe",
+       "gp": 1102.0,
+       "qty": 300.0,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 20.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: The Fractured Archive (Duo) (per raid, teleports excluded)",
+     "guide": "Money making guide/The Fractured Archive (Duo)"
+    },
+    {
+     "id": "budget",
+     "label": "Budget",
+     "unitsPerHr": 3.0,
+     "unitsPerHrSource": "Wiki: The Fractured Archive (4-scale)",
+     "unitsPerTrip": null,
+     "requires": null,
+     "gear": [],
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 1.0,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 3.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Toxic blowpipe",
+       "label": "Toxic blowpipe",
+       "gp": 1102.0,
+       "qty": 300.0,
+       "per": "unit"
+      },
+      {
+       "item": "33595",
+       "qty": 20.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: The Fractured Archive (4-scale) (per raid, teleports excluded)",
+     "guide": "Money making guide/The Fractured Archive (4-scale)",
+     "lootShare": 0.8194
     }
    ],
    "defaultSetup": "high"

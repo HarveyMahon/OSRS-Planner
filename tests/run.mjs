@@ -53,6 +53,7 @@ t('supply costs and overrides', () => {
   assert.equal(setup.supplies.length, 3);                        // defaults untouched
   assert.equal(supplyCost(applyOverride(setup, withQty(withAdded(null, { item: 'c', qty: 1, per: 'trip' }), 'c', 4)), items).perUnit, 200 + 1000 + 50 + 4); // qty edits reach added lines
   assert.equal(supplyCost({ supplies: [], flatCostPerUnit: 9000 }, items).source, 'flat');
+  assert.equal(supplyCost({ supplies: [{ item: 'gp:Death Charge', label: 'Death Charge', gp: 800, qty: 2, per: 'unit' }] }, items).perUnit, 1600);
   assert.equal(supplyCost({ supplies: [{ item: 'tele', qty: 1, per: 'trip' }] }, items).missing[0], 'tele');
 });
 t('boss method gp/hr', () => {
@@ -75,8 +76,9 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   const alias = { 'Wine of Zamorak': 'Wine of zamorak' };
   const norm = o => JSON.parse(JSON.stringify(o), (k, v) => typeof v === 'string' && alias[v] ? alias[v] : v);
   // Data changed on purpose since the port (field values the pet calculator now gets differently)
-  const INTENTIONAL = { tombs_of_amascut: ['defaultKph', 'kphSource'] };
-  const strip = (list) => list.map(b => { const c = { ...b }; (INTENTIONAL[b.id] || []).forEach(f => delete c[f]); return c; });
+  // Rates and supply costs now come from setups built from the Wiki guides, so they differ on purpose
+  const RATE_COST = ['defaultKph', 'kphSource', 'defaultCost', 'costSource', 'defaultCostItems'];
+  const strip = (list) => list.map(b => { const c = { ...b }; RATE_COST.forEach(f => delete c[f]); return c; });
   const g = norm(strip(got.bosses)), w = norm(strip(want.bosses));
   assert.equal(g.length, w.length, 'boss count');
   for (let i = 0; i < w.length; i++) {
@@ -85,15 +87,15 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   }
   assert.deepEqual(norm(got.skillingPets), norm(want.skillingPets));
   // Items: same names, and the same fields except prices the core derives (checked separately)
-  assert.deepEqual(Object.keys(got.items).sort(), Object.keys(want.items).sort());
+  // Every original item is still there (supplies and gear have been added since)
+  for (const n of Object.keys(want.items)) assert.ok(got.items[n], `missing item ${n}`);
   for (const [n, it] of Object.entries(want.items)) {
     const g = got.items[n];
     const strip = ({ price, ...r }) => r;
     assert.deepEqual(norm(strip(g)), norm(strip(it)), n);
-    if (!it.derivedFrom) assert.equal(g.price, it.price, n);
-    else assert.ok(Math.abs(g.price - it.price) <= Math.max(1, Math.abs(it.price) * 1e-6), `${n}: ${g.price} vs ${it.price}`);
+    // prices themselves change weekly, so they aren't compared
   }
-  for (const k of ['pricesUpdated', 'priceSource', 'dropSource', 'dropsRetrieved']) assert.equal(got.meta[k], want.meta[k], k);
+  for (const k of ['dropSource', 'dropsRetrieved']) assert.equal(got.meta[k], want.meta[k], k);
   assert.deepEqual(got.meta.tableLabels, want.meta.tableLabels);
   passed++;
 })();

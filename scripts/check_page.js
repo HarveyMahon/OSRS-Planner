@@ -76,14 +76,15 @@ function serve() {
     if (await page.evaluate(() => document.documentElement.dataset.source) !== 'live')
       problems.push('The pet calculator could not load its data.');
 
-    const expected = data.bosses.length + (data.skillingPets || []).length;
+    const petBosses = data.bosses.filter(b => b.petCalc !== false);
+    const expected = petBosses.length + (data.skillingPets || []).length;
     const rows = await page.$$eval('#overview tbody tr[data-id]', r => r.length);
     if (rows !== expected) problems.push(`Summary shows ${rows} rows, expected ${expected}.`);
     const summary = await page.$eval('#overview', t => t.innerText);
     if (BAD.test(summary)) problems.push('Summary table contains NaN/undefined.');
 
     // Every boss and miscellaneous breakdown
-    for (const b of data.bosses) {
+    for (const b of petBosses) {
       const text = await page.evaluate(id => {
         const sel = document.getElementById('boss');
         sel.value = id; sel.dispatchEvent(new Event('change'));

@@ -3,6 +3,7 @@
 // New features should use core/data.js directly, not this.
 
 import { loadItems, loadBosses, loadFile } from '../core/data.js';
+import { supplyCost } from '../core/money.js';
 
 const REF_FIELDS = new Set(['item', 'cape', 'seed', 'splinterItem', 'rationItem', 'secateursItem', 'log', 'leaves']);
 const REF_LISTS = new Set(['items']);
@@ -32,12 +33,15 @@ export async function loadPetData() {
     if (rest.derivedFrom) { rest.derivedFrom = structuredClone(rest.derivedFrom); toNames(rest.derivedFrom, nameOf); }
     for (const n of [name, ...(aliases || [])]) byName[n] = rest;
   }
-  // The pet calculator predates setups: give it the default setup's rate and cost as before
+  // Bosses added for the money pages only (e.g. built from a guide, no pet data)
+  bosses.bosses = bosses.bosses.filter(b => b.petCalc !== false);
+  // The pet calculator predates setups: give it the default setup's rate and its supply cost
+  // per unit as one flat figure (supplies can include fixed-value lines it can't price itself)
   for (const b of bosses.bosses) {
     const s = b.setups.find(x => x.id === b.defaultSetup) || b.setups[0];
     b.defaultKph = s.unitsPerHr; b.kphSource = s.unitsPerHrSource; b.costSource = s.costSource;
-    if (s.flatCostPerUnit !== undefined) b.defaultCost = s.flatCostPerUnit;
-    if (s.supplies.length) b.defaultCostItems = s.supplies.filter(x => x.per === 'unit').map(x => ({ item: x.item, qty: x.qty }));
+    const cost = supplyCost(s, items.items);
+    if (cost.source !== 'none') b.defaultCost = cost.perUnit;
     delete b.setups; delete b.defaultSetup; delete b.moneyMaker; delete b.moneyMakerNote;
   }
   toNames(bosses.bosses, nameOf);
