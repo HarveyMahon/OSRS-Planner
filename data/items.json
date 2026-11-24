@@ -4520,7 +4520,10 @@
    "name": "Tonalztics of Ralos (uncharged)",
    "price": 153042849,
    "tradeable": true,
-   "id": 28919
+   "id": 28919,
+   "aliases": [
+    "Tonalztics of Ralos"
+   ]
   },
   "985": {
    "name": "Tooth half of key",

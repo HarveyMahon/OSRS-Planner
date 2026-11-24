@@ -1,6 +1,6 @@
 {
  "meta": {
-  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps. An entry can also be { item, qty }: ammo is always 200 (players rarely hold less), counted as gear to own; what's fired per kill stays in supplies.",
+  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps. An entry can also be { item, qty }: ammo is always 200 (players rarely hold less), counted as gear to own; what's fired per kill stays in supplies. set overrides setup fields such as unitsPerHr and lootShare.",
   "rules": "Strategy page Equipment table, best (left) column. Follow footnotes where a cell has '/', otherwise take the cheaper item. Drop items made redundant by a 2h weapon; keep the special attack row. Content needing several styles combines the tables (ToB: all melee, all ranged, 5 magic pieces)."
  },
  "setups": {
@@ -519,6 +519,86 @@
       "qty": 200
      }
     ]
+   }
+  },
+  "the_fractured_archive": {
+   "high": {
+    "source": "Wiki: The Fractured Archive/Strategies (all Melee + Ranged gear, 3 Magic pieces; the other side of each '/' counts as equal), checked with the user 24 Nov 2026",
+    "gear": [
+     "24419",
+     [
+      "x-amulet-of-blood-fury",
+      "29801"
+     ],
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     [
+      "25975",
+      "28307"
+     ],
+     "21003",
+     "33631",
+     [
+      "27226",
+      "27235"
+     ],
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27229",
+      "27238"
+     ],
+     [
+      "27232",
+      "27241"
+     ],
+     "34681",
+     "21000",
+     "26235",
+     [
+      "25975",
+      "28310"
+     ],
+     [
+      "28919",
+      "26374"
+     ],
+     {
+      "item": "34696",
+      "qty": 200
+     },
+     "21021",
+     "21024",
+     "31106"
+    ],
+    "set": {
+     "unitsPerHr": 3.33,
+     "unitsPerHrSource": "User: 18 minutes per raid in a 3-man team (23 min duo, 40 min solo)",
+     "lootShare": 0.91,
+     "lootShareNote": "Estimate for a 3-man team: between the Wiki guide's duo loot (1.0) and its 4-scale loot (0.82)"
+    }
+   },
+   "budget": {
+    "set": {
+     "unitsPerHr": 3.33,
+     "unitsPerHrSource": "User: 18 minutes per raid in a 3-man team (23 min duo, 40 min solo)",
+     "lootShare": 0.91,
+     "lootShareNote": "Estimate for a 3-man team: between the Wiki guide's duo loot (1.0) and its 4-scale loot (0.82)"
+    }
    }
   }
  },

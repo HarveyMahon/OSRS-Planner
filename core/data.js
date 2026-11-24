@@ -86,6 +86,7 @@ export function applySetupGear(d, manual) {
       if (!s) continue;
       if (m.gear) { s.gear = m.gear; s.gearSource = m.source; }
       if (m.noGear) s.noGear = true;
+      if (m.set) Object.assign(s, m.set);          // hand-set rates (unitsPerHr, lootShare, ...)
       if (m.dropSupplies) s.supplies = (s.supplies || []).filter(x => !m.dropSupplies.includes(x.item));
     }
   }
