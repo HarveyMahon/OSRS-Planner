@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup.",
+    "rules": "Strategy page Equipment table, best (left) column. Follow footnotes where a cell has '/', otherwise take the cheaper item. Drop items made redundant by a 2h weapon; keep the special attack row. Content needing several styles combines the tables (ToB: all melee, all ranged, 5 magic pieces)."
+  },
+  "setups": {
+    "theatre_of_blood": {
+      "high": {
+        "source": "Wiki: Theatre of Blood/Strategies, Equipment (Melee + Ranged tabs, 5 Magic pieces), checked with the user 24 Nov 2026",
+        "gear": [
+          "26382", "29801", ["x-infernal-cape", "x-fire-cape"], "30753", "30756", "22486", "x-ferocious-gloves",
+          "x-avernic-treads-max", "28307", "13652", "21003",
+          "x-void-ranger-helm", "33639", ["x-dizana-s-quiver", "x-ava-s-assembler"], "x-elite-void-top", "x-elite-void-robe",
+          "20997", ["34681", "12924"], "x-void-knight-gloves",
+          "21021", "21024", "31106", "22481"
+        ],
+        "dropSupplies": ["11959"]
+      }
+    }
+  }
+}

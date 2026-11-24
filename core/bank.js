@@ -23,7 +23,7 @@ export function baseName(name) {
   return String(name).toLowerCase()
     .replace(/^blessed (?=dizana)/, '')
     .replace(/^twisted (?=ancestral)/, '')
-    .replace(/\s*\((l|or|s|ri|cr|bh|deadman)\)$/, m => m.includes('ri') ? ' (i)' : '')
+    .replace(/\s*\((l|or|s|ri|cr|bh|deadman|uncharged|empty)\)$/, m => m.includes('ri') ? ' (i)' : '')
     .replace(/\(p\+{0,2}\)$/, '')
     .replace(/[’']/g, "'").trim();
 }

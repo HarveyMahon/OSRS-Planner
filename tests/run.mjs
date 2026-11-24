@@ -213,6 +213,11 @@ t('planner', () => {
   assert.equal(kcRun(5000).setupId, 'high'); assert.equal(kcRun(5000).why, 'affordable');
   assert.equal(kcRun(10).setupId, 'budget'); assert.equal(kcRun(10).why, 'gear');
   assert.equal(kcRun(5000, { two: 'budget' }).setupId, 'budget');
+  // equal alternatives: owning either covers the slot
+  twoBoss.setups[0].gear = [['g1', 'g2']];
+  const alt = plan([{ type: 'kc', bossId: 'two', n: 1 }], { ...d, items: { ...d.items, g1: { name: 'G', price: 1000 }, g2: { name: 'H', price: 5 } },
+    bosses: [...bosses, twoBoss], account: { ...account, gp: 10, owned: { g2: 1 } } }).steps.find(x => x.kind === 'kc');
+  assert.equal(alt.setupId, 'high');
   // Hitpoints split: a skill that would pass 99 stops there and the next combat skill finishes it
   const split = plan([{ type: 'kc', bossId: 'cave', n: 1 }], { ...d, training: { skills: { ...hpTraining.skills, Defence: [tr('Defence', [{ from: 1, name: 'Crabs', xpPerHr: 30000 }])] } },
     bosses: [...bosses, { ...hpBoss, setups: [{ ...hpBoss.setups[0], requires: { all: [{ skill: 'Ranged', level: 98 }, { skill: 'Defence', level: 5 }, { skill: 'Hitpoints', level: 70 }] } }] }],

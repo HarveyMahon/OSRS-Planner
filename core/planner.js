@@ -93,7 +93,11 @@ export function plan(goals, d) {
 
   const bossById = id => bosses.find(b => b.id === id);
   // Gear the account still has to buy for a setup (owned items count as bought; unpriced items are skipped).
-  const gearToBuy = s => (s.gear || []).reduce((t, k) => t + (sim.owned[k] ? 0 : (items[k]?.price || 0)), 0);
+  // a gear entry is a key or a list of equal keys (owning any covers it; otherwise priced at the first)
+  const gearToBuy = s => (s.gear || []).reduce((t, g) => {
+    const keys = [].concat(g);
+    return t + (keys.some(k => sim.owned[k]) ? 0 : (items[keys[0]]?.price || 0));
+  }, 0);
   // Setup for kill-count steps: the user's choice if they made one; otherwise High level when the account
   // already meets its requirements and the cash stack covers the gear it doesn't own; otherwise Budget.
   function kcSetup(b) {

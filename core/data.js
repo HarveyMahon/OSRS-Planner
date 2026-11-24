@@ -47,7 +47,22 @@ export async function loadItems() {
 }
 
 export async function loadBosses() {
-  return structuredClone(await loadJson('bosses.json'));
+  const [d, manual] = await Promise.all([loadJson('bosses.json'), loadJson('setup-gear.json').catch(() => null)]);
+  return applySetupGear(structuredClone(d), manual);
+}
+
+// Hand-checked gear (data/setup-gear.json) over the generated setups: replaces gear, drops listed supplies
+export function applySetupGear(d, manual) {
+  for (const [bossId, setups] of Object.entries(manual?.setups || {})) {
+    const boss = d.bosses.find(b => b.id === bossId);
+    for (const [setupId, m] of Object.entries(setups)) {
+      const s = boss?.setups?.find(x => x.id === setupId);
+      if (!s) continue;
+      if (m.gear) { s.gear = m.gear; s.gearSource = m.source; }
+      if (m.dropSupplies) s.supplies = (s.supplies || []).filter(x => !m.dropSupplies.includes(x.item));
+    }
+  }
+  return d;
 }
 
 export async function loadMethods() {

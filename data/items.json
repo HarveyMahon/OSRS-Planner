@@ -12158,6 +12158,82 @@
    "tradeable": true,
    "id": 1117,
    "limit": 125
+  },
+  "12924": {
+   "name": "Toxic blowpipe (empty)",
+   "price": 6396298,
+   "tradeable": true,
+   "id": 12924,
+   "limit": 8,
+   "aliases": [
+    "Toxic blowpipe"
+   ]
+  },
+  "x-ferocious-gloves": {
+   "name": "Ferocious gloves",
+   "price": 8428170,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "22983",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Hydra leather it is made from"
+  },
+  "x-avernic-treads-max": {
+   "name": "Avernic treads (max)",
+   "price": 52760683,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "13239",
+      "factor": 1
+     },
+     {
+      "item": "13237",
+      "factor": 1
+     },
+     {
+      "item": "13235",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Primordial, Pegasian and Eternal boots that go into it"
+  },
+  "x-void-ranger-helm": {
+   "name": "Void ranger helm",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-elite-void-top": {
+   "name": "Elite void top",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-elite-void-robe": {
+   "name": "Elite void robe",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-void-knight-gloves": {
+   "name": "Void knight gloves",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-ava-s-assembler": {
+   "name": "Ava's assembler",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
   }
  }
 }
