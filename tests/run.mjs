@@ -180,6 +180,15 @@ t('planner', () => {
   const qc = plan([{ type: 'quest', id: 'c' }], d);
   assert.deepEqual(qc.steps.filter(s => s.kind === 'quest').map(s => s.id).sort(), ['a', 'b', 'c']);
   assert.ok(qc.warnings.some(w => w.includes('8 quest points')));   // 1 + 2 + 5 = 8 counts C itself, so 3 before it
+  // Hitpoints: trained through the content's main combat skill, 3 combat XP per HP XP
+  const hpTraining = { skills: { ...training.skills, Ranged: [tr('Ranged', [{ from: 1, name: 'Crabs', xpPerHr: 30000 }])], Attack: [tr('Attack', [{ from: 1, name: 'Crabs', xpPerHr: 30000 }])] } };
+  const hpBoss = { id: 'cave', name: 'Cave', unit: 'kill', drops: [], moneyMaker: false, defaultSetup: 'high',
+    setups: [{ id: 'high', label: 'High', unitsPerHr: 1, supplies: [], requires: { all: [{ skill: 'Ranged', level: 10 }, { skill: 'Hitpoints', level: 20 }] } }] };
+  const hp = plan([{ type: 'kc', bossId: 'cave', n: 1 }], { ...d, training: hpTraining, bosses: [...bosses, hpBoss], account: { ...account, xp: { ...account.xp, Hitpoints: xpForLevel(10), Ranged: 0, Attack: 0 } } });
+  const hpStep = hp.steps.find(s => s.untilHp);
+  assert.equal(hpStep.skill, 'Ranged'); assert.equal(hpStep.untilHp, 20);
+  assert.ok(!hp.steps.some(s => s.kind === 'train' && s.skill === 'Hitpoints'));
+  assert.ok(hp.endAccount.xp.Hitpoints >= xpForLevel(20) - 1);
   // max cape covers every skill with data
   const mc = plan([{ type: 'maxcape' }], d);
   assert.deepEqual(mc.steps.filter(s => s.kind === 'train').map(s => s.skill).sort(), ['Agility', 'Prayer']);

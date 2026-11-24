@@ -224,8 +224,19 @@ export function plan(goals, d) {
     sim.gp -= cost;
   }
 
-  function train(skill, level) {
-    const toXp = xpForLevel(level);
+  // Hitpoints isn't trained on its own: train a combat skill until Hitpoints gets there.
+  // `prefer` = the combat skill the content leans on (e.g. Ranged for the Inferno).
+  function trainHitpoints(level, prefer) {
+    const missing = xpForLevel(level) - (sim.xp.Hitpoints || 0);
+    if (missing <= 0) return;
+    const skill = prefer || [...COMBAT_HP].sort((a, b) => (sim.xp[a] || 0) - (sim.xp[b] || 0))[0];
+    const toXp = Math.min(200e6, (sim.xp[skill] || 0) + missing * 3);
+    train(skill, levelForXp(toXp, { virtual: true }), { toXp, untilHp: level });
+  }
+
+  function train(skill, level, { toXp: exactXp, untilHp } = {}) {
+    if (skill === 'Hitpoints' && !untilHp) return trainHitpoints(level);
+    const toXp = exactXp ?? xpForLevel(level);
     const fromXp = sim.xp[skill] || 0;
     if (fromXp >= toXp) return;
     const track = applySwaps(trackFor(training, skill, intensity, { hideWild }), swaps, training, skill);
@@ -252,7 +263,7 @@ export function plan(goals, d) {
       if (e.blocked) warnings.push(`${skill}: no method you can use at level ${e.blocked}.`);
     }
     const step = { kind: 'train', skill, fromXp, toXp, fromLevel: levelForXp(fromXp, { virtual: true }), toLevel: level,
-                   track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp };
+                   track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp };
     pay(e.gp, `${skill} ${step.fromLevel}–${level}`);
     steps.push(step);
     sim.xp[skill] = toXp;
@@ -270,15 +281,22 @@ export function plan(goals, d) {
     const needs = {};
     const walk = r => { if (!r) return; if (r.all) r.all.forEach(walk); else if (r.any) walk(r.any[0]); else if (r.skill) needs[r.skill] = Math.max(needs[r.skill] || 0, r.level); };
     walk(quests[id].requires);
-    for (const [sk, lv] of Object.entries(needs)) train(sk, lv);
+    trainNeeds(needs);
     steps.push({ kind: 'quest', id, name: quests[id].name, forTraining: true, hours: questHours(quests[id]) });
     sim.quests[id] = 'complete';
     doing.delete(id);
   }
 
   // ---- 2. walk the milestones in order ----
+  // the combat skill a piece of content leans on: its highest combat-skill requirement
+  const mainCombat = needs => Object.entries(needs).filter(([s]) => COMBAT_HP.has(s)).sort((a, b) => b[1] - a[1])[0]?.[0];
+  const trainNeeds = needs => {
+    for (const [skill, level] of Object.entries(needs)) if (skill !== 'Hitpoints') train(skill, level);
+    if (needs.Hitpoints) trainHitpoints(needs.Hitpoints, mainCombat(needs));
+  };
+
   for (const m of milestones) {
-    for (const [skill, level] of Object.entries(m.needs)) train(skill, level);
+    trainNeeds(m.needs);
     if (m.kind === 'quest') {
       if (sim.quests[m.id] === 'complete') continue;
       steps.push({ kind: 'quest', id: m.id, name: quests[m.id].name, hours: questHours(quests[m.id]) });
@@ -298,7 +316,8 @@ export function plan(goals, d) {
   }
 
   // ---- 3. level goals, then GP goals ----
-  for (const s of SKILLS) if (finalLevels[s]) train(s, finalLevels[s]);
+  for (const s of SKILLS) if (finalLevels[s] && s !== 'Hitpoints') train(s, finalLevels[s]);
+  if (finalLevels.Hitpoints) trainHitpoints(finalLevels.Hitpoints);     // after combat, which gives Hitpoints XP
   for (const amount of gpGoals) makeGp(amount, `your goal of ${amount.toLocaleString('en-GB')} GP`);
 
 
