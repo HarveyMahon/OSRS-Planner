@@ -339,6 +339,7 @@ export function plan(goals, d) {
       sim.gp += bm.lootPerUnit * m.n;
       steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, setupId: bm.setup.id, why: m.why,
                    setups: b.setups.map(s => ({ id: s.id, label: s.label, gearToBuy: gearToBuy(s) })), hours, gp,
+                   gearMissing: (bm.setup.gear || []).map(g => [].concat(g)).filter(ks => !ks.some(k => sim.owned[k])).map(ks => items[ks[0]]?.name || ks[0]),
                    met: isMet(bm.setup.requires, sim, reqCtx) });
       sim.kc[b.id] = (sim.kc[b.id] || 0) + m.n;
       if (b.milestone?.reward) sim.owned[b.milestone.reward] = 1;

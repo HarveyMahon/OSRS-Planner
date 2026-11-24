@@ -125,3 +125,17 @@ export function guideMethod(m, items, { cash } = {}) {
            uncappedGpPerHr: out.value - inp.value, scale, cappedBy, capNote,
            missing: [...out.missing, ...inp.missing] };
 }
+
+/**
+ * A setup's gear with what the account already owns. Each entry is an item key or a list of keys that count
+ * as equal; owning any covers it, otherwise it's priced at the first.
+ * Returns { lines: [{ keys, names, price, owned }], total, toBuy }.
+ */
+export function gearList(setup, items, account) {
+  const has = k => (account?.owned?.[k] || 0) > 0 || (account?.bank?.[k] || 0) > 0;
+  const lines = (setup.gear || []).map(g => {
+    const keys = [].concat(g);
+    return { keys, names: keys.map(k => items[k]?.name || k), price: items[keys[0]]?.price || 0, owned: keys.some(has) };
+  });
+  return { lines, total: lines.reduce((t, l) => t + l.price, 0), toBuy: lines.reduce((t, l) => t + (l.owned ? 0 : l.price), 0) };
+}

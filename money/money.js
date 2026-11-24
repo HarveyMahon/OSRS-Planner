@@ -3,7 +3,7 @@
 // setup the account can do. Requirements include the guides' recommended levels for now.
 
 import { loadItems, loadBosses, loadQuests, loadMethods } from '../core/data.js';
-import { bossMethod, setupOf, guideMethod } from '../core/money.js';
+import { bossMethod, setupOf, guideMethod, gearList } from '../core/money.js';
 import { isMet, unmet, describe } from '../core/requirements.js';
 import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
 import { getOverride, setOverride, resetOverride, withQty, withRemoved, withAdded } from '../core/overrides.js';
@@ -148,6 +148,7 @@ function editor(b, r) {
     </div>
     <p class="src">Requires: ${def.requires ? esc(describe(def.requires, { quests: QUESTS.quests, items: ITEMS.items })) : 'nothing listed'}.</p>
     <p class="src">Rate: ${esc(def.unitsPerHrSource || 'n/a')}. Cost: ${esc(def.costSource || 'n/a')}.${def.guide ? ` <a href="https://oldschool.runescape.wiki/w/${encodeURI(def.guide.replace(/ /g, '_'))}" target="_blank" rel="noopener">Wiki guide</a>` : ''}</p>
+    ${gearHtml(b, s)}
     ${s.supplies.length ? `<table class="supplies"><thead><tr><th>Supply</th><th>Qty</th><th></th><th class="num">Cost</th><th></th></tr></thead><tbody>${lines}</tbody></table>`
       : `<p class="src">No item list yet${s.flatCostPerUnit != null ? `: using a flat ${Math.round(s.flatCostPerUnit).toLocaleString('en-GB')} gp per ${esc(b.unit)}` : ''}. Adding a supply replaces the flat figure.</p>`}
     <div class="add">
@@ -158,6 +159,18 @@ function editor(b, r) {
       <button type="button" class="btn small ghost" id="ed-reset">Reset to default</button>
     </div>
   </div>`;
+}
+
+// The setup's gear, ticking what's in the bank or ticked on My Account
+function gearHtml(b, s) {
+  if (s.noGear) return '<p class="src">Gear: none, you can\'t bring any in.</p>';
+  if (!s.gear?.length) return '<p class="src">Gear: not listed yet.</p>';
+  const g = gearList(s, ITEMS.items, ACCOUNT);
+  const known = ACCOUNT && (Object.keys(ACCOUNT.bank || {}).length || Object.keys(ACCOUNT.owned || {}).length);
+  const items = g.lines.map(l => `<li class="${l.owned ? 'owned' : ''}">${known ? (l.owned ? '✓ ' : '') : ''}${l.names.map(n => esc(n.replace(/ \((uncharged|empty)\)$/i, ''))).join(' <span class="unit">or</span> ')} <span class="unit">${l.price ? gpShort(l.price) : 'earned'}</span></li>`).join('');
+  return `<details class="gear"><summary>Gear: ${gpShort(g.total)}${known ? ` · <b>${gpShort(g.toBuy)}</b> still to buy` : ''}${s.gearSource ? '' : ' <span class="tag" title="Taken from the money-making guide; not hand-checked">from guide</span>'}</summary>
+    <ul class="gearlist">${items}</ul>
+    ${s.gearSource ? `<p class="src">${esc(s.gearSource)}</p>` : ''}${known ? '' : '<p class="src">Import your bank on <a href="../account/">My Account</a> to see what you already own.</p>'}</details>`;
 }
 
 function editOverride(fn) {

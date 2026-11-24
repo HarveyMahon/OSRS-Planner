@@ -96,10 +96,17 @@ function stepHtml(s, i) {
                   requirements: "Budget: you don't meet the High level requirements yet",
                   unknown: "Budget: the High level gear isn't in the data yet, so the planner can't tell if you can afford it" }[s.why];
     return `<li class="step kc"><div class="head"><span class="n">${i + 1}</span><b>Kill ${esc(s.name)}</b> × ${s.n} ${pick}
-      <span class="right">${hrs(s.hours)} ${s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : ''}</span></div>${why ? `<div class="note">${why}</div>` : ''}</li>`;
+      <span class="right">${hrs(s.hours)} ${s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : ''}</span></div>${why ? `<div class="note">${why}</div>` : ''}${gearNote(s)}</li>`;
   }
   return `<li class="step gp"><div class="head"><span class="n">${i + 1}</span><b>Make ${gpShort(s.amount)} GP</b> ${s.method ? `at ${esc(s.method.name)}${s.method.wilderness ? ' <span class="wild">Wilderness</span>' : ''}` : '<span class="cost">no money maker available</span>'}
       <span class="right">${hrs(s.hours)}</span></div><div class="note">For ${esc(s.reason)}${s.method ? ` · ${gpShort(s.method.gpPerHr)}/hr` : ''}</div></li>`;
+}
+
+// Gear the chosen setup still needs (not owned or in the imported bank)
+function gearNote(s) {
+  if (!s.gearMissing?.length) return '';
+  const cost = s.setups.find(o => o.id === s.setupId)?.gearToBuy || 0;
+  return `<div class="note">Gear to get${cost ? ` (${gpShort(cost)})` : ''}: ${s.gearMissing.map(esc).join(', ')}</div>`;
 }
 
 function render() {

@@ -47,8 +47,34 @@ export async function loadItems() {
 }
 
 export async function loadBosses() {
-  const [d, manual] = await Promise.all([loadJson('bosses.json'), loadJson('setup-gear.json').catch(() => null)]);
-  return applySetupGear(structuredClone(d), manual);
+  const [d, manual, items, tiers] = await Promise.all([loadJson('bosses.json'), loadJson('setup-gear.json').catch(() => null),
+    loadJson('items.json'), loadJson('gear-tiers.json').catch(() => null)]);
+  const out = applySetupGear(structuredClone(d), manual);
+  for (const b of out.bosses) for (const s of b.setups || []) if (!s.gearSource && s.gear) s.gear = cleanGuideGear(s.gear, items.items, tiers);
+  return out;
+}
+
+// Gear lists taken from money-making guides mix in consumables and list upgrades side by side
+// (Fire cape and Infernal cape). Drop the consumables (they're supplies) and merge items from the same
+// upgrade group into one entry that either item covers, cheapest first.
+const EQUAL = { 'x-infernal-cape': 'x-fire-cape', 'x-dizana-s-quiver': 'x-ava-s-assembler' };
+const CONSUMABLE = /\b(rune|runes|dart|darts|bolts|bolts \(e\)|arrows?|javelin|knife)$|^(shark|monkfish|anglerfish|cooked karambwan|manta ray|blighted manta ray|chocolate bomb|lobster|swordfish)$/i;
+export function cleanGuideGear(gear, items, tiers) {
+  const name = k => items[k]?.name || '';
+  const groupOf = k => (tiers?.groups || []).findIndex(g => g.tiers.some(t => t.some(n => n.toLowerCase() === name(k).toLowerCase())));
+  const out = [], byGroup = new Map();
+  for (const g of gear) {
+    const keys = [].concat(g).filter(k => !CONSUMABLE.test(name(k).replace(/\s*\(e\)$/, '')));
+    if (!keys.length) continue;
+    const grp = keys.length === 1 ? groupOf(keys[0]) : -1;
+    if (grp >= 0 && byGroup.has(grp)) { byGroup.get(grp).push(keys[0]); continue; }
+    const entry = [...keys];
+    if (grp >= 0) byGroup.set(grp, entry);
+    out.push(entry);
+  }
+  // earned items the user treats as equal to their easier versions
+  for (const e of out) for (const [k, eq] of Object.entries(EQUAL)) if (e.includes(k) && !e.includes(eq) && items[eq]) e.push(eq);
+  return out.map(e => e.length === 1 ? e[0] : [...e].sort((a, b) => (items[a]?.price || 0) - (items[b]?.price || 0)));
 }
 
 // Hand-checked gear (data/setup-gear.json) over the generated setups: replaces gear, drops listed supplies
