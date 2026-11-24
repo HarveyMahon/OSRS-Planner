@@ -32,7 +32,8 @@
   ],
   "setups": "Each boss has up to two setups ('high' for high level, 'budget'). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies.",
   "moneyMaker": "Bosses with moneyMaker: false (and category 'misc' activities) appear only in the pet calculator.",
-  "supplies": "Setups built from the Wiki money-making guides by scripts/apply_supplies.py: supplies per unit, teleports excluded, weapon charges and spells included."
+  "supplies": "Setups built from the Wiki money-making guides by scripts/apply_supplies.py: supplies per unit, teleports excluded, weapon charges and spells included.",
+  "milestone": "Bosses with milestone are major progression goals for the planner: 'kc' kills earn 'reward' (an item key that other requirements can depend on, e.g. the Fire cape for the Inferno)."
  },
  "bosses": [
   {
@@ -23942,7 +23943,14 @@
      "requiresSource": "Entered by hand: Fire cape to enter; usual recommended levels"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "moneyMaker": false,
+   "moneyMakerNote": "Run for the Infernal cape, not for profit.",
+   "milestone": {
+    "label": "Infernal cape",
+    "reward": "x-infernal-cape",
+    "kc": 1
+   }
   },
   {
    "id": "tztok_jad",
@@ -24011,7 +24019,14 @@
      "requiresSource": "Entered by hand: protection prayers, usual Ranged recommendation"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "moneyMaker": false,
+   "moneyMakerNote": "Run for the Fire cape, not for profit.",
+   "milestone": {
+    "label": "Fire cape",
+    "reward": "x-fire-cape",
+    "kc": 1
+   }
   },
   {
    "id": "vardorvis",
