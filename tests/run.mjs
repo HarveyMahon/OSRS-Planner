@@ -74,7 +74,15 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   // The only intended difference: refs to an alias spelling come back as the canonical name
   const alias = { 'Wine of Zamorak': 'Wine of zamorak' };
   const norm = o => JSON.parse(JSON.stringify(o), (k, v) => typeof v === 'string' && alias[v] ? alias[v] : v);
-  assert.deepEqual(norm(got.bosses), norm(want.bosses));
+  // Data changed on purpose since the port (field values the pet calculator now gets differently)
+  const INTENTIONAL = { tombs_of_amascut: ['defaultKph', 'kphSource'] };
+  const strip = (list) => list.map(b => { const c = { ...b }; (INTENTIONAL[b.id] || []).forEach(f => delete c[f]); return c; });
+  const g = norm(strip(got.bosses)), w = norm(strip(want.bosses));
+  assert.equal(g.length, w.length, 'boss count');
+  for (let i = 0; i < w.length; i++) {
+    try { assert.deepEqual(g[i], w[i]); }
+    catch { throw new Error(`pet adapter: ${w[i].id} differs from the original data`); }
+  }
   assert.deepEqual(norm(got.skillingPets), norm(want.skillingPets));
   // Items: same names, and the same fields except prices the core derives (checked separately)
   assert.deepEqual(Object.keys(got.items).sort(), Object.keys(want.items).sort());

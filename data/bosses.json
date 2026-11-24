@@ -21145,14 +21145,19 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 2,
-     "unitsPerHrSource": "Estimate for solo raids at level 300 (the Wiki guide gives 1.5 an hour at level 450)",
+     "unitsPerHr": 1.75,
+     "unitsPerHrSource": "Site owner: solo, raid level 300, 1.75 raids an hour, about 18,500 points per raid",
      "unitsPerTrip": null,
      "requires": null,
      "gear": [],
      "supplies": [],
      "costSource": "Wiki money-making guide supplies (181,629 gp per hour at 1.5 per hour)",
-     "flatCostPerUnit": 121086
+     "flatCostPerUnit": 121086,
+     "raid": {
+      "teamSize": 1,
+      "raidLevel": 300,
+      "points": 18500
+     }
     }
    ],
    "defaultSetup": "high"
