@@ -39,6 +39,9 @@
   .btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 6px; padding: 6px 12px; font: 500 13px var(--sans); cursor: pointer; }
   .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
   .btn.small { padding: 4px 10px; }
+  .filterbar { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; color: var(--muted); font-size: 14px; }
+  .filterbar p { margin: 0; } .filterbar a { color: var(--accent); }
+  tr.locked td { opacity: .55; } tr.locked .needs { font-size: 12px; color: var(--cost); white-space: normal; }
   .error { color: var(--cost); border: 1px solid var(--cost); border-radius: 8px; padding: 10px 14px; }
 </style>
 </head>
@@ -50,6 +53,7 @@
       <p>Bosses ranked by GP per hour: average loot minus supplies, times kills (or raids, runs) per hour. Select a name to change its rate or supplies; your changes are saved in this browser. <span id="prices"></span></p>
     </div>
   </div>
+  <div class="filterbar"><p id="filter-note"></p><label id="locked-toggle" hidden><input type="checkbox" id="show-locked"> Show methods I can't do yet</label></div>
   <div class="scroller">
     <table id="table">
       <thead><tr><th></th><th>Method</th><th>Setup</th><th class="num">Rate / hr</th><th class="num">Loot each</th><th class="num">Supplies each</th><th class="num">GP / hr</th></tr></thead>

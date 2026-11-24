@@ -1,8 +1,11 @@
 // Money Makers: boss methods ranked by GP per hour after supplies.
-// v0: bosses only, every method shown (account filtering comes with requirements data).
+// With an account saved (My Account), only methods it meets are listed, using each boss's best
+// setup the account can do. Requirements include the guides' recommended levels for now.
 
-import { loadItems, loadBosses } from '../core/data.js';
+import { loadItems, loadBosses, loadQuests } from '../core/data.js';
 import { bossMethod, setupOf } from '../core/money.js';
+import { isMet, unmet, describe } from '../core/requirements.js';
+import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
 import { getOverride, setOverride, resetOverride, withQty, withRemoved, withAdded } from '../core/overrides.js';
 
 console.log('Money Makers: starting');
@@ -25,28 +28,47 @@ const gpClass = n => n < 0 ? 'cost' : Math.abs(n) >= 1e7 ? 'gp-high' : Math.abs(
 const gp = n => `<span class="${gpClass(n)}">${gpShort(n)}</span>`;
 const num = n => (Math.round(n * 100) / 100).toLocaleString('en-GB');
 
-let ITEMS, BOSSES, open = null;
+let ITEMS, BOSSES, QUESTS, ACCOUNT = null, open = null;
 const setupChoice = id => store.get('setup:' + id);
+const ctx = () => ({ quests: QUESTS.quests });
+const meets = s => !ACCOUNT || isMet(s.requires, ACCOUNT, ctx());
+const method = (b, setupId) => bossMethod(b, ITEMS.items, { setupId, override: getOverride(b.id, setupId) });
 
+// For each boss: the setup you picked if you meet it, else the best-paying setup you meet.
+// Bosses with no setup you meet are "locked", shown (with what's missing) only on request.
 function rows() {
   return BOSSES.map(b => {
-    const setupId = setupOf(b, setupChoice(b.id)).id;
-    return bossMethod(b, ITEMS.items, { setupId, override: getOverride(b.id, setupId) });
+    const chosen = setupChoice(b.id) && b.setups.find(s => s.id === setupChoice(b.id));
+    const ok = b.setups.filter(meets);
+    let m;
+    if (chosen && meets(chosen)) m = method(b, chosen.id);
+    else if (ok.length) m = ok.map(s => method(b, s.id)).sort((x, y) => y.gpPerHr - x.gpPerHr)[0];
+    else {
+      m = method(b, setupOf(b, chosen?.id).id);
+      m.locked = unmet(m.setup.requires, ACCOUNT, ctx()).map(r => describe(r, { quests: QUESTS.quests }));
+    }
+    return m;
   }).sort((a, b) => b.gpPerHr - a.gpPerHr);
 }
 
 function render() {
-  const list = rows();
+  const all = rows();
+  const showLocked = $('show-locked').checked;
+  const list = all.filter(r => !r.locked || showLocked);
+  $('filter-note').innerHTML = ACCOUNT
+    ? `Showing what your account can do: <b>${all.filter(r => !r.locked).length}</b> of ${all.length} methods. Levels include the Wiki guides' recommended levels. <a href="../account/">Edit your stats</a>`
+    : `Showing every method. <a href="../account/">Enter your stats</a> to see only what you can do.`;
+  $('locked-toggle').hidden = !ACCOUNT;
   $('table').tBodies[0].innerHTML = list.map((r, i) => {
     const b = BOSSES.find(x => x.id === r.bossId);
     const costNote = r.costSource === 'flat' ? ' <span class="tag" title="Flat GP figure from before supplies were item lists">flat</span>'
       : r.missing.length ? ' <span class="tag warn" title="Some supplies have no price yet">incomplete</span>' : '';
     const setupCell = b.setups.length > 1
-      ? `<select data-setup="${b.id}" aria-label="Setup for ${esc(b.name)}">${b.setups.map(s => `<option value="${s.id}"${s.id === r.setup.id ? ' selected' : ''}>${esc(s.label)}</option>`).join('')}</select>`
+      ? `<select data-setup="${b.id}" aria-label="Setup for ${esc(b.name)}">${b.setups.map(s => `<option value="${s.id}"${s.id === r.setup.id ? ' selected' : ''}>${esc(s.label)}${meets(s) ? '' : ' (locked)'}</option>`).join('')}</select>`
       : esc(r.setup.label);
-    const row = `<tr data-id="${b.id}" class="${open === b.id ? 'open' : ''}">
+    const row = `<tr data-id="${b.id}" class="${open === b.id ? 'open' : ''}${r.locked ? ' locked' : ''}">
       <td class="rank">${i + 1}</td>
-      <td class="name"><button type="button" class="link" data-open="${b.id}">${esc(b.name)}</button>${r.setup.customised ? ' <span class="tag mine" title="You have changed this setup">edited</span>' : ''}</td>
+      <td class="name"><button type="button" class="link" data-open="${b.id}">${esc(b.name)}</button>${r.setup.customised ? ' <span class="tag mine" title="You have changed this setup">edited</span>' : ''}${r.locked ? `<div class="needs">Needs ${esc(r.locked.join(', '))}</div>` : ''}</td>
       <td>${setupCell}</td>
       <td class="num">${num(r.unitsPerHr)} <span class="unit">${esc(b.unit)}s</span></td>
       <td class="num">${gp(r.lootPerUnit)}</td>
@@ -72,6 +94,7 @@ function editor(b, r) {
       <label>${esc(b.unit)}s per hour <input type="number" min="0" step="any" id="ed-uph" value="${s.unitsPerHr ?? ''}" placeholder="${def.unitsPerHr ?? ''}"></label>
       <label>${esc(b.unit)}s per trip <input type="number" min="0" step="any" id="ed-upt" value="${s.unitsPerTrip ?? ''}" placeholder="for per-trip supplies"></label>
     </div>
+    <p class="src">Requires: ${def.requires ? esc(describe(def.requires, { quests: QUESTS.quests })) : 'nothing listed'}.</p>
     <p class="src">Rate: ${esc(def.unitsPerHrSource || 'n/a')}. Cost: ${esc(def.costSource || 'n/a')}.${def.guide ? ` <a href="https://oldschool.runescape.wiki/w/${encodeURI(def.guide.replace(/ /g, '_'))}" target="_blank" rel="noopener">Wiki guide</a>` : ''}</p>
     ${s.supplies.length ? `<table class="supplies"><thead><tr><th>Supply</th><th>Qty</th><th></th><th class="num">Cost</th><th></th></tr></thead><tbody>${lines}</tbody></table>`
       : `<p class="src">No item list yet${s.flatCostPerUnit != null ? `: using a flat ${Math.round(s.flatCostPerUnit).toLocaleString('en-GB')} gp per ${esc(b.unit)}` : ''}. Adding a supply replaces the flat figure.</p>`}
@@ -92,7 +115,10 @@ function editOverride(fn) {
 }
 
 async function init() {
-  [ITEMS, { bosses: BOSSES }] = await Promise.all([loadItems(), loadBosses()]);
+  [ITEMS, { bosses: BOSSES }, QUESTS] = await Promise.all([loadItems(), loadBosses(), loadQuests()]);
+  if (hasAccount()) ACCOUNT = forRequirements(loadAccount());
+  $('show-locked').checked = store.get('showLocked') === '1';
+  $('show-locked').addEventListener('change', () => { store.set('showLocked', $('show-locked').checked ? '1' : '0'); render(); });
   // Minigames and other activities (category "misc") belong to the pet calculator only
   // and bosses marked moneyMaker: false (e.g. Zalcano: team loot split by contribution)
   BOSSES = BOSSES.filter(b => b.category !== 'misc' && b.moneyMaker !== false);

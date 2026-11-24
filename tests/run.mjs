@@ -80,6 +80,15 @@ t('account storage', () => {
   const b = loadAccount(); assert.equal(levelForXp(b.xp.Slayer), 93); assert.equal(b.gp, 1e6); assert.ok(b.updatedAt);
 });
 
+const { unmet, describe } = await import('../core/requirements.js');
+t('unmet and describe', () => {
+  const acc = { xp: { Ranged: xpForLevel(85), Prayer: xpForLevel(77) }, quests: { dragon_slayer_ii: 'complete' }, diaries: new Set() };
+  const req = { all: [{ skill: 'Ranged', level: 90 }, { skill: 'Prayer', level: 70 }, { quest: 'dragon_slayer_ii' }, { quest: 'regicide' }, { any: [{ skill: 'Magic', level: 80 }, { skill: 'Ranged', level: 80 }] }] };
+  const u = unmet(req, acc);
+  assert.deepEqual(u.map(r => describe(r, { quests: { regicide: { name: 'Regicide' } } })), ['Ranged 90', 'Regicide']);
+  assert.equal(describe({ any: [{ skill: 'Ranged', level: 80 }, { skill: 'Magic', level: 80 }] }), 'Ranged 80 or Magic 80');
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');

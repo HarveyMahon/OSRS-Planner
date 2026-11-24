@@ -60,3 +60,26 @@ function questReached(account, questId, milestone, quests = {}) {
   const ri = ms.indexOf(reached), ti = ms.indexOf(target);
   return ri !== -1 && ti !== -1 && ri >= ti;
 }
+
+/**
+ * The parts of `req` the account doesn't meet, as leaf requirements (for "you need ..." text).
+ * An unmet { any } is returned whole.
+ */
+export function unmet(req, account, ctx = {}) {
+  if (!req) return [];
+  if (req.all) return req.all.flatMap(r => unmet(r, account, ctx));
+  return isMet(req, account, ctx) ? [] : [req];
+}
+
+/** Short text for a requirement, e.g. "Slayer 95", "Dragon Slayer II", "Ranged 80 or Magic 80". */
+export function describe(req, names = {}) {
+  if (req.any) return req.any.map(r => describe(r, names)).join(' or ');
+  if (req.all) return req.all.map(r => describe(r, names)).join(', ');
+  if (req.skill) return `${req.skill} ${req.level}`;
+  if (req.combatLevel) return `Combat ${req.combatLevel}`;
+  if (req.quest) return (names.quests?.[req.quest]?.name ?? req.quest) + (req.milestone ? ` (${req.milestone})` : '');
+  if (req.diary) return `${req.tier} ${req.diary} diary`;
+  if (req.item) return names.items?.[req.item]?.name ?? req.item;
+  if (req.kc) return `${req.n} ${req.kc} kills`;
+  return JSON.stringify(req);
+}

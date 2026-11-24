@@ -6,7 +6,7 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 | Page | Status |
 |---|---|
 | **Goal Planner** (`planner/`) | In development. Ordered plans of XP, kill count, GP and quest steps. |
-| **Money Makers** (`money/`) | Early version: bosses ranked by GP/hr after supplies, with editable rates and supplies. Account filtering comes with requirements data. |
+| **Money Makers** (`money/`) | Bosses ranked by GP/hr after supplies, with editable rates and supplies, filtered to your account (recommended levels included, for now). |
 | My Account (`account/`) | Your stats (levels or XP) and cash stack, saved in this browser (`core/account.js`). |
 | Pet Hunting (`pets/`) | Side tool, ported from [Pet-Hunt-Profit-Calculator](https://github.com/HarveyMahon/Pet-Hunt-Profit-Calculator). |
 
@@ -19,7 +19,8 @@ data/      items.json (keyed by item ID), bosses.json, skilling-pets.json (pet t
 planner/  money/  pets/     one folder per page
 scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless check),
            import_supplies.py (Wiki money-making guides -> supply review, run by hand),
-           apply_supplies.py (applies the review: setups, supplies, new items; offline)
+           apply_supplies.py (applies the review: setups, supplies, new items; offline),
+           apply_requirements.py (setup requirements and data/quests.json from the guides; offline)
 tests/     node tests/run.mjs
 logs/      last price update's full log
 ```

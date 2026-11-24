@@ -3,6 +3,7 @@
 import { SKILLS, levelForXp, toXp, MAX_LEVEL, MAX_XP } from '../core/xp.js';
 import { combatLevel } from '../core/requirements.js';
 import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
+import { loadQuests } from '../core/data.js';
 
 console.log('Account: starting');
 const $ = id => document.getElementById(id);
@@ -84,7 +85,22 @@ $('reset').addEventListener('click', () => {
   commit();
   $('gp').value = '';
   render();
+  renderQuests();
+});
+
+// Quests: the ones that money-making methods and plans depend on, ticked when complete
+async function renderQuests() {
+  const { quests } = await loadQuests();
+  $('quests').innerHTML = Object.entries(quests).map(([id, q]) => `
+    <label class="quest"><input type="checkbox" data-quest="${id}"${account.quests[id] === 'complete' ? ' checked' : ''}> ${q.name}</label>`).join('');
+}
+$('quests').addEventListener('change', e => {
+  const id = e.target.dataset.quest;
+  if (!id) return;
+  if (e.target.checked) account.quests[id] = 'complete'; else delete account.quests[id];
+  commit();
 });
 
 render();
-document.documentElement.dataset.ready = '1';
+renderQuests().catch(err => { $('quests').textContent = `Couldn't load the quest list (${err.message}).`; })
+  .finally(() => { document.documentElement.dataset.ready = '1'; });

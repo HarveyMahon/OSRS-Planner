@@ -27,6 +27,10 @@
   .row input { width: 200px; }
   .btn { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 7px 12px; font: 500 13px var(--sans); cursor: pointer; }
   .btn:hover { color: var(--cost); border-color: var(--cost); }
+  .quests-wrap { display: grid; gap: 10px; }
+  #quests { display: grid; gap: 6px 18px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); max-width: 720px; }
+  .quest { display: flex; gap: 8px; align-items: center; color: var(--text); }
+  .quest input { width: auto; }
   #saved { font-size: 13px; color: var(--faint); }
 </style>
 </head>
@@ -43,6 +47,11 @@
   </div>
   <div class="summary" id="summary"></div>
   <div id="grid"></div>
+  <section class="quests-wrap">
+    <h2>Quests</h2>
+    <p>Tick the quests you've completed. Only quests that money-making methods need are listed for now.</p>
+    <div id="quests"></div>
+  </section>
   <div class="row">
     <label>Cash stack (GP) <input type="text" inputmode="numeric" id="gp" placeholder="e.g. 25,000,000"></label>
     <button type="button" class="btn" id="reset">Clear all stats</button>

@@ -50,6 +50,10 @@ export async function loadBosses() {
   return structuredClone(await loadJson('bosses.json'));
 }
 
+export async function loadQuests() {
+  return structuredClone(await loadJson('quests.json'));
+}
+
 // Raw access for tab-specific files (e.g. the pet calculator's skilling-pets.json)
 export async function loadFile(file) {
   return structuredClone(await loadJson(file));

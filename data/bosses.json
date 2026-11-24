@@ -714,7 +714,34 @@
      "unitsPerHr": 39.0,
      "unitsPerHrSource": "Wiki: Killing the Abyssal Sire",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 85
+       },
+       {
+        "skill": "Attack",
+        "level": 85
+       },
+       {
+        "skill": "Ranged",
+        "level": 85
+       },
+       {
+        "skill": "Magic",
+        "level": 92
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "skill": "Construction",
+        "level": 84
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -751,7 +778,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Abyssal Sire (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Abyssal Sire"
+     "guide": "Money making guide/Killing the Abyssal Sire",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -1399,7 +1427,26 @@
      "unitsPerHr": 25.0,
      "unitsPerHrSource": "Wiki: Killing the Alchemical Hydra",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 95
+       },
+       {
+        "skill": "Ranged",
+        "level": 75
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 85
+       }
+      ]
+     },
      "gear": [
       "22951",
       "22954",
@@ -1439,7 +1486,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Alchemical Hydra (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Alchemical Hydra"
+     "guide": "Money making guide/Killing the Alchemical Hydra",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -1730,7 +1778,29 @@
      "unitsPerHr": 40.0,
      "unitsPerHrSource": "Wiki: Killing Amoxliatl",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 48
+       },
+       {
+        "skill": "Attack",
+        "level": 60
+       },
+       {
+        "skill": "Strength",
+        "level": 60
+       },
+       {
+        "skill": "Prayer",
+        "level": 37
+       },
+       {
+        "quest": "the_heart_of_darkness"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -1755,7 +1825,8 @@
       }
      ],
      "costSource": "Wiki: Killing Amoxliatl (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Amoxliatl"
+     "guide": "Money making guide/Killing Amoxliatl",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -2383,7 +2454,45 @@
      "unitsPerHr": 39.0,
      "unitsPerHrSource": "Wiki: Killing Araxxor",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Strength",
+        "level": 90
+       },
+       {
+        "skill": "Ranged",
+        "level": 86
+       },
+       {
+        "skill": "Magic",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "skill": "Slayer",
+        "level": 92
+       },
+       {
+        "skill": "Smithing",
+        "level": 72
+       },
+       {
+        "skill": "Crafting",
+        "level": 86
+       },
+       {
+        "quest": "priest_in_peril"
+       }
+      ]
+     },
      "gear": [
       "29801",
       "24420",
@@ -2457,7 +2566,8 @@
       }
      ],
      "costSource": "Wiki: Killing Araxxor (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Araxxor"
+     "guide": "Money making guide/Killing Araxxor",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -2809,7 +2919,26 @@
      "unitsPerHr": 52.0,
      "unitsPerHrSource": "Wiki: Killing Artio",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Hitpoints",
+        "level": 60
+       },
+       {
+        "skill": "Ranged",
+        "level": 75
+       },
+       {
+        "skill": "Magic",
+        "level": 70
+       },
+       {
+        "skill": "Prayer",
+        "level": 43
+       }
+      ]
+     },
      "gear": [
       "19547",
       "27238",
@@ -2858,7 +2987,8 @@
       }
      ],
      "costSource": "Wiki: Killing Artio (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Artio"
+     "guide": "Money making guide/Killing Artio",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -3434,7 +3564,29 @@
      "unitsPerHr": 25.0,
      "unitsPerHrSource": "Wiki: Killing Callisto",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "combatLevel": 90
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 60
+       },
+       {
+        "skill": "Ranged",
+        "level": 70
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       },
+       {
+        "skill": "Defence",
+        "level": 70
+       }
+      ]
+     },
      "gear": [
       "385",
       "3144"
@@ -3482,7 +3634,8 @@
       }
      ],
      "costSource": "Wiki: Killing Callisto (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Callisto"
+     "guide": "Money making guide/Killing Callisto",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -3841,7 +3994,14 @@
      "unitsPerHr": 55.0,
      "unitsPerHrSource": "Wiki: Killing Calvar'ion",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Prayer",
+        "level": 43
+       }
+      ]
+     },
      "gear": [
       "26384"
      ],
@@ -3878,7 +4038,8 @@
       }
      ],
      "costSource": "Wiki: Killing Calvar'ion (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Calvar'ion"
+     "guide": "Money making guide/Killing Calvar'ion",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -4639,7 +4800,22 @@
      "unitsPerHr": 50.0,
      "unitsPerHrSource": "Wiki: Killing Cerberus",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 91
+       },
+       {
+        "skill": "Attack",
+        "level": 85
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -4659,7 +4835,8 @@
       }
      ],
      "costSource": "Wiki: Killing Cerberus (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Cerberus"
+     "guide": "Money making guide/Killing Cerberus",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -4979,7 +5156,41 @@
      "unitsPerHr": 1.7,
      "unitsPerHrSource": "Wiki: Chambers of Xeric (Challenge Mode)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 95
+       },
+       {
+        "skill": "Prayer",
+        "level": 85
+       },
+       {
+        "skill": "Farming",
+        "level": 55
+       },
+       {
+        "skill": "Herblore",
+        "level": 78
+       },
+       {
+        "skill": "Construction",
+        "level": 30
+       },
+       {
+        "skill": "Woodcutting",
+        "level": 84
+       },
+       {
+        "skill": "Mining",
+        "level": 80
+       },
+       {
+        "quest": "king_s_ransom"
+       }
+      ]
+     },
      "gear": [
       "30750",
       "30753",
@@ -5048,7 +5259,8 @@
      "guide": "Money making guide/Chambers of Xeric (Challenge Mode)",
      "raid": {
       "mode": "challenge"
-     }
+     },
+     "requiresSource": "Wiki guide (recommended levels included)"
     },
     {
      "id": "budget",
@@ -5056,7 +5268,41 @@
      "unitsPerHr": 3.0,
      "unitsPerHrSource": "Wiki: Chambers of Xeric (Normal Mode)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "skill": "Farming",
+        "level": 55
+       },
+       {
+        "skill": "Herblore",
+        "level": 78
+       },
+       {
+        "skill": "Construction",
+        "level": 30
+       },
+       {
+        "skill": "Woodcutting",
+        "level": 70
+       },
+       {
+        "skill": "Mining",
+        "level": 70
+       },
+       {
+        "quest": "king_s_ransom"
+       }
+      ]
+     },
      "gear": [
       "26382",
       "28307",
@@ -5134,7 +5380,8 @@
      "guide": "Money making guide/Chambers of Xeric (Normal Mode)",
      "raid": {
       "mode": "normal"
-     }
+     },
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -5647,7 +5894,22 @@
      "unitsPerHr": 60.0,
      "unitsPerHrSource": "Wiki: Killing Chaos Elemental",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Hitpoints",
+        "level": 60
+       },
+       {
+        "skill": "Ranged",
+        "level": 75
+       },
+       {
+        "skill": "Prayer",
+        "level": 43
+       }
+      ]
+     },
      "gear": [
       "19547",
       "27238",
@@ -5686,7 +5948,8 @@
       }
      ],
      "costSource": "Wiki: Killing Chaos Elemental (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Chaos Elemental"
+     "guide": "Money making guide/Killing Chaos Elemental",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -6067,7 +6330,36 @@
      "unitsPerHr": 27.0,
      "unitsPerHrSource": "Wiki: Killing Commander Zilyana",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "combatLevel": 100
+       },
+       {
+        "skill": "Agility",
+        "level": 70
+       },
+       {
+        "skill": "Ranged",
+        "level": 80
+       },
+       {
+        "skill": "Defence",
+        "level": 80
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 70
+       },
+       {
+        "skill": "Prayer",
+        "level": 44
+       },
+       {
+        "quest": "troll_stronghold"
+       }
+      ]
+     },
      "gear": [
       "20997",
       "11785",
@@ -6116,7 +6408,8 @@
       }
      ],
      "costSource": "Wiki: Killing Commander Zilyana (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Commander Zilyana"
+     "guide": "Money making guide/Killing Commander Zilyana",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -6474,7 +6767,14 @@
      "unitsPerHr": 10.0,
      "unitsPerHrSource": "Wiki: Killing the Corporeal Beast",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Prayer",
+        "level": 37
+       }
+      ]
+     },
      "gear": [
       "21003",
       "13576",
@@ -6506,7 +6806,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Corporeal Beast (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Corporeal Beast"
+     "guide": "Money making guide/Killing the Corporeal Beast",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -6739,11 +7040,38 @@
      "unitsPerHr": 6.0,
      "unitsPerHrSource": "Wiki: Completing The Corrupted Gauntlet",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Strength",
+        "level": 85
+       },
+       {
+        "skill": "Ranged",
+        "level": 85
+       },
+       {
+        "skill": "Magic",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "song_of_the_elves"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [],
      "costSource": "Wiki: Completing The Corrupted Gauntlet (per completion, teleports excluded)",
-     "guide": "Money making guide/Completing The Corrupted Gauntlet"
+     "guide": "Money making guide/Completing The Corrupted Gauntlet",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -10630,7 +10958,33 @@
      "unitsPerHr": 2.5,
      "unitsPerHrSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "the_final_dawn"
+       }
+      ]
+     },
      "gear": [
       "20997",
       "26374"
@@ -10705,7 +11059,8 @@
      ],
      "costSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16) (per run, teleports excluded)",
      "guide": "Money making guide/Killing the Doom of Mokhaiotl (Delve 1-16)",
-     "delve": 16
+     "delve": 16,
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -11067,7 +11422,29 @@
      "unitsPerHr": 34.0,
      "unitsPerHrSource": "Wiki: Killing Duke Sucellus",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Strength",
+        "level": 90
+       },
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "desert_treasure_ii"
+       }
+      ]
+     },
      "gear": [
       "11804",
       "30756",
@@ -11122,7 +11499,8 @@
       }
      ],
      "costSource": "Wiki: Killing Duke Sucellus (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Duke Sucellus"
+     "guide": "Money making guide/Killing Duke Sucellus",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -11348,11 +11726,38 @@
      "unitsPerHr": 7.0,
      "unitsPerHrSource": "Wiki: Completing The Gauntlet",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Strength",
+        "level": 85
+       },
+       {
+        "skill": "Ranged",
+        "level": 85
+       },
+       {
+        "skill": "Magic",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "song_of_the_elves"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [],
      "costSource": "Wiki: Completing The Gauntlet (per completion, teleports excluded)",
-     "guide": "Money making guide/Completing The Gauntlet"
+     "guide": "Money making guide/Completing The Gauntlet",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -11937,7 +12342,33 @@
      "unitsPerHr": 27.0,
      "unitsPerHrSource": "Wiki: Killing General Graardor",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Strength",
+        "level": 70
+       },
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Defence",
+        "level": 80
+       },
+       {
+        "skill": "Magic",
+        "level": 75
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "troll_stronghold"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -11962,7 +12393,8 @@
       }
      ],
      "costSource": "Wiki: Killing General Graardor (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing General Graardor"
+     "guide": "Money making guide/Killing General Graardor",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -12351,7 +12783,18 @@
      "unitsPerHr": 85.0,
      "unitsPerHrSource": "Wiki: Killing the Giant Mole (Twisted bow)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 85
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       }
+      ]
+     },
      "gear": [
       "952",
       "20997"
@@ -12384,7 +12827,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Giant Mole (Twisted bow) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Giant Mole (Twisted bow)"
+     "guide": "Money making guide/Killing the Giant Mole (Twisted bow)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -12717,7 +13161,28 @@
      "unitsPerHr": 24.0,
      "unitsPerHrSource": "Wiki: Killing the Grotesque Guardians",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 75
+       },
+       {
+        "combatLevel": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "quest": "priest_in_peril"
+       }
+      ]
+     },
      "gear": [
       "4151",
       "11806",
@@ -12758,7 +13223,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Grotesque Guardians (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Grotesque Guardians"
+     "guide": "Money making guide/Killing the Grotesque Guardians",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -13045,7 +13511,29 @@
      "unitsPerHr": 7.0,
      "unitsPerHrSource": "Wiki: Killing Hueycoatl (Solo)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Strength",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "skill": "Magic",
+        "level": 76
+       },
+       {
+        "quest": "children_of_the_sun"
+       }
+      ]
+     },
      "gear": [
       "22978",
       "24419",
@@ -13088,7 +13576,8 @@
      "guide": "Money making guide/Killing Hueycoatl (Solo)",
      "team": {
       "size": 1
-     }
+     },
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -13637,7 +14126,34 @@
      "unitsPerHr": 22.0,
      "unitsPerHrSource": "Wiki: Killing the Kalphite Queen",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Strength",
+        "level": 80
+       },
+       {
+        "skill": "Defence",
+        "level": 80
+       },
+       {
+        "skill": "Ranged",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 85
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -13677,7 +14193,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Kalphite Queen (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Kalphite Queen"
+     "guide": "Money making guide/Killing the Kalphite Queen",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -14073,7 +14590,26 @@
      "unitsPerHr": 30.0,
      "unitsPerHrSource": "Wiki: Killing the King Black Dragon",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Ranged",
+        "level": 70
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 70
+       },
+       {
+        "skill": "Prayer",
+        "level": 44
+       }
+      ]
+     },
      "gear": [
       "1540",
       "11284",
@@ -14107,7 +14643,8 @@
       }
      ],
      "costSource": "Wiki: Killing the King Black Dragon (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the King Black Dragon"
+     "guide": "Money making guide/Killing the King Black Dragon",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -14692,7 +15229,18 @@
      "unitsPerHr": 60.0,
      "unitsPerHrSource": "Wiki: Killing the Kraken",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 87
+       },
+       {
+        "skill": "Magic",
+        "level": 85
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -14714,7 +15262,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Kraken (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Kraken"
+     "guide": "Money making guide/Killing the Kraken",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -15109,7 +15658,29 @@
      "unitsPerHr": 27.0,
      "unitsPerHrSource": "Wiki: Killing Kree'arra",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "any": [
+         {
+          "skill": "Ranged",
+          "level": 80
+         },
+         {
+          "skill": "Magic",
+          "level": 80
+         }
+        ]
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "troll_stronghold"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -15143,7 +15714,8 @@
       }
      ],
      "costSource": "Wiki: Killing Kree'arra (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Kree'arra"
+     "guide": "Money making guide/Killing Kree'arra",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -15517,7 +16089,33 @@
      "unitsPerHr": 26.0,
      "unitsPerHrSource": "Wiki: Killing K'ril Tsutsaroth",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Hitpoints",
+        "level": 70
+       },
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 75
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "troll_stronghold"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -15542,7 +16140,8 @@
       }
      ],
      "costSource": "Wiki: Killing K'ril Tsutsaroth (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing K'ril Tsutsaroth"
+     "guide": "Money making guide/Killing K'ril Tsutsaroth",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -15913,7 +16512,25 @@
      "unitsPerHr": 24.0,
      "unitsPerHrSource": "Wiki: Killing The Leviathan",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "quest": "desert_treasure_ii"
+       }
+      ]
+     },
      "gear": [
       "26374",
       "19547",
@@ -15947,7 +16564,8 @@
       }
      ],
      "costSource": "Wiki: Killing The Leviathan (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing The Leviathan"
+     "guide": "Money making guide/Killing The Leviathan",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -16348,7 +16966,29 @@
      "unitsPerHr": 40.0,
      "unitsPerHrSource": "Wiki: Killing the Mad Angel",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 60
+       },
+       {
+        "skill": "Strength",
+        "level": 60
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "skill": "Magic",
+        "level": 76
+       },
+       {
+        "quest": "fallen_from_grace"
+       }
+      ]
+     },
      "gear": [
       "21742",
       "28997",
@@ -16381,7 +17021,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Mad Angel (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Mad Angel"
+     "guide": "Money making guide/Killing the Mad Angel",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -16595,7 +17236,33 @@
      "unitsPerHr": 25.0,
      "unitsPerHrSource": "Wiki: Killing the Maggot King",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Strength",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 95
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "skill": "Crafting",
+        "level": 84
+       },
+       {
+        "quest": "blood_moon_rises"
+       }
+      ]
+     },
      "gear": [
       "13441"
      ],
@@ -16636,7 +17303,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Maggot King (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Maggot King"
+     "guide": "Money making guide/Killing the Maggot King",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -16882,7 +17550,40 @@
      "unitsPerHr": 6.5,
      "unitsPerHrSource": "Wiki: Killing Nex (Duo)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Strength",
+        "level": 95
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Ranged",
+        "level": 95
+       },
+       {
+        "skill": "Magic",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 84
+       },
+       {
+        "quest": "troll_stronghold"
+       },
+       {
+        "quest": "the_frozen_door"
+       }
+      ]
+     },
      "gear": [
       "26219",
       "20997",
@@ -16944,7 +17645,8 @@
      "guide": "Money making guide/Killing Nex (Duo)",
      "team": {
       "size": 2
-     }
+     },
+     "requiresSource": "Wiki guide (recommended levels included)"
     },
     {
      "id": "budget",
@@ -16952,7 +17654,32 @@
      "unitsPerHr": 10.0,
      "unitsPerHrSource": "Wiki: Killing Nex (Team)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 85
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "quest": "troll_stronghold"
+       },
+       {
+        "quest": "the_frozen_door"
+       }
+      ]
+     },
      "gear": [
       "26374",
       "21944",
@@ -17013,7 +17740,8 @@
       }
      ],
      "costSource": "Wiki: Killing Nex (Team) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Nex (Team)"
+     "guide": "Money making guide/Killing Nex (Team)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -17353,7 +18081,37 @@
      "unitsPerHr": 12.0,
      "unitsPerHrSource": "Wiki: Killing The Nightmare",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 85
+       },
+       {
+        "skill": "Strength",
+        "level": 85
+       },
+       {
+        "skill": "Defence",
+        "level": 85
+       },
+       {
+        "skill": "Magic",
+        "level": 85
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 85
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "priest_in_peril"
+       }
+      ]
+     },
      "gear": [
       "13263",
       "24417",
@@ -17386,7 +18144,8 @@
       }
      ],
      "costSource": "Wiki: Killing The Nightmare (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing The Nightmare"
+     "guide": "Money making guide/Killing The Nightmare",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -18083,7 +18842,29 @@
      "unitsPerHr": 25.0,
      "unitsPerHrSource": "Wiki: Killing Phantom Muspah (Twisted bow)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "skill": "Magic",
+        "level": 85
+       },
+       {
+        "quest": "secrets_of_the_north"
+       }
+      ]
+     },
      "gear": [
       "20997",
       "21003",
@@ -18132,7 +18913,8 @@
       }
      ],
      "costSource": "Wiki: Killing Phantom Muspah (Twisted bow) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Phantom Muspah (Twisted bow)"
+     "guide": "Money making guide/Killing Phantom Muspah (Twisted bow)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -18420,7 +19202,25 @@
      "unitsPerHr": 9.5,
      "unitsPerHrSource": "Wiki: Killing Phosani's Nightmare",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Hitpoints",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "priest_in_peril"
+       }
+      ]
+     },
      "gear": [
       "13263",
       "28338",
@@ -18461,7 +19261,8 @@
       }
      ],
      "costSource": "Wiki: Killing Phosani's Nightmare (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Phosani's Nightmare"
+     "guide": "Money making guide/Killing Phosani's Nightmare",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -19603,7 +20404,14 @@
      "unitsPerHr": 30.0,
      "unitsPerHrSource": "Wiki: Killing Sarachnis",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Prayer",
+        "level": 70
+       }
+      ]
+     },
      "gear": [
       "29806",
       "946"
@@ -19621,7 +20429,8 @@
       }
      ],
      "costSource": "Wiki: Killing Sarachnis (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Sarachnis"
+     "guide": "Money making guide/Killing Sarachnis",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -19910,7 +20719,18 @@
      "unitsPerHr": 72.0,
      "unitsPerHrSource": "Wiki: Killing Scorpia",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Magic",
+        "level": 82
+       },
+       {
+        "skill": "Prayer",
+        "level": 40
+       }
+      ]
+     },
      "gear": [
       "25404",
       "25416",
@@ -19953,7 +20773,8 @@
       }
      ],
      "costSource": "Wiki: Killing Scorpia (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Scorpia"
+     "guide": "Money making guide/Killing Scorpia",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -20159,7 +20980,17 @@
      "unitsPerHr": 40.0,
      "unitsPerHrSource": "Wiki: Killing Scurrius",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "combatLevel": 60
+       },
+       {
+        "skill": "Prayer",
+        "level": 43
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -20179,7 +21010,8 @@
       }
      ],
      "costSource": "Wiki: Killing Scurrius (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Scurrius"
+     "guide": "Money making guide/Killing Scurrius",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -21386,7 +22218,22 @@
      "unitsPerHr": 60.0,
      "unitsPerHrSource": "Wiki: Killing Spindel",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Strength",
+        "level": 80
+       },
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       }
+      ]
+     },
      "gear": [
       "809",
       "26386",
@@ -21433,7 +22280,8 @@
       }
      ],
      "costSource": "Wiki: Killing Spindel (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Spindel"
+     "guide": "Money making guide/Killing Spindel",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -21603,7 +22451,14 @@
      "unitsPerHr": 60.0,
      "unitsPerHrSource": "Wiki: Subduing Tempoross",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Fishing",
+        "level": 35
+       }
+      ]
+     },
      "gear": [
       "311",
       "954",
@@ -21619,7 +22474,8 @@
       }
      ],
      "costSource": "Wiki: Subduing Tempoross (per reward roll, teleports excluded)",
-     "guide": "Money making guide/Subduing Tempoross"
+     "guide": "Money making guide/Subduing Tempoross",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -21924,7 +22780,44 @@
      "unitsPerHr": 3.0,
      "unitsPerHrSource": "Wiki: Theatre of Blood",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 95
+       },
+       {
+        "skill": "Strength",
+        "level": 99
+       },
+       {
+        "skill": "Defence",
+        "level": 95
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 95
+       },
+       {
+        "skill": "Ranged",
+        "level": 99
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "priest_in_peril"
+       },
+       {
+        "quest": "desert_treasure_i"
+       }
+      ]
+     },
      "gear": [
       "19553",
       "x-fire-cape",
@@ -22023,7 +22916,8 @@
       }
      ],
      "costSource": "Wiki: Theatre of Blood (per raid, teleports excluded)",
-     "guide": "Money making guide/Theatre of Blood"
+     "guide": "Money making guide/Theatre of Blood",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -22447,7 +23341,21 @@
      "unitsPerHr": 80.0,
      "unitsPerHrSource": "Wiki: Killing the Thermonuclear smoke devil",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Slayer",
+        "level": 93
+       },
+       {
+        "combatLevel": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       }
+      ]
+     },
      "gear": [
       "4151",
       "385"
@@ -22465,7 +23373,8 @@
       }
      ],
      "costSource": "Wiki: Killing the Thermonuclear smoke devil (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing the Thermonuclear smoke devil"
+     "guide": "Money making guide/Killing the Thermonuclear smoke devil",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -22656,7 +23565,41 @@
      "unitsPerHr": 1.75,
      "unitsPerHrSource": "Site owner: solo, raid level 300, 1.75 raids an hour, about 18,500 points per raid",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 95
+       },
+       {
+        "skill": "Strength",
+        "level": 95
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 95
+       },
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "beneath_cursed_sands"
+       }
+      ]
+     },
      "gear": [
       "26219",
       "22324",
@@ -22703,7 +23646,8 @@
       "raidLevel": 300,
       "points": 18500
      },
-     "guide": "Money making guide/Tombs of Amascut (solo 450 raid level)"
+     "guide": "Money making guide/Tombs of Amascut (solo 450 raid level)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -23188,7 +24132,29 @@
      "unitsPerHr": 32.0,
      "unitsPerHrSource": "Wiki: Killing Vardorvis",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Strength",
+        "level": 90
+       },
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "desert_treasure_ii"
+       }
+      ]
+     },
      "gear": [
       "28338",
       "27690",
@@ -23233,7 +24199,8 @@
       }
      ],
      "costSource": "Wiki: Killing Vardorvis (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Vardorvis"
+     "guide": "Money making guide/Killing Vardorvis",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -23634,7 +24601,22 @@
      "unitsPerHr": 26.0,
      "unitsPerHrSource": "Wiki: Killing Venenatis",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Strength",
+        "level": 80
+       },
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       }
+      ]
+     },
      "gear": [
       "809",
       "2497",
@@ -23683,7 +24665,8 @@
       }
      ],
      "costSource": "Wiki: Killing Venenatis (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Venenatis"
+     "guide": "Money making guide/Killing Venenatis",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -24091,7 +25074,14 @@
      "unitsPerHr": 37.0,
      "unitsPerHrSource": "Wiki: Killing Vet'ion",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Prayer",
+        "level": 43
+       }
+      ]
+     },
      "gear": [
       "24420",
       "28307"
@@ -24129,7 +25119,8 @@
       }
      ],
      "costSource": "Wiki: Killing Vet'ion (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Vet'ion"
+     "guide": "Money making guide/Killing Vet'ion",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -25132,7 +26123,25 @@
      "unitsPerHr": 30.0,
      "unitsPerHrSource": "Wiki: Killing Vorkath (Dragon hunter lance)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 85
+       },
+       {
+        "skill": "Prayer",
+        "level": 70
+       },
+       {
+        "quest": "dragon_slayer_ii"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -25169,7 +26178,8 @@
       }
      ],
      "costSource": "Wiki: Killing Vorkath (Dragon hunter lance) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Vorkath (Dragon hunter lance)"
+     "guide": "Money making guide/Killing Vorkath (Dragon hunter lance)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     },
     {
      "id": "budget",
@@ -25177,7 +26187,25 @@
      "unitsPerHr": 22.0,
      "unitsPerHrSource": "Wiki: Killing Vorkath (Toxic blowpipe)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "quest": "dragon_slayer_ii"
+       }
+      ]
+     },
      "gear": [
       "25849",
       "11804",
@@ -25229,7 +26257,8 @@
       }
      ],
      "costSource": "Wiki: Killing Vorkath (Toxic blowpipe) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Vorkath (Toxic blowpipe)"
+     "guide": "Money making guide/Killing Vorkath (Toxic blowpipe)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -25600,7 +26629,21 @@
      "unitsPerHr": 20.0,
      "unitsPerHrSource": "Wiki: Killing The Whisperer",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Magic",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "desert_treasure_ii"
+       }
+      ]
+     },
      "gear": [
       "21021",
       "21024",
@@ -25642,7 +26685,8 @@
       }
      ],
      "costSource": "Wiki: Killing The Whisperer (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing The Whisperer"
+     "guide": "Money making guide/Killing The Whisperer",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -26014,7 +27058,37 @@
      "unitsPerHr": 10.0,
      "unitsPerHrSource": "Wiki: Killing Yama (solo)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 80
+       },
+       {
+        "skill": "Strength",
+        "level": 80
+       },
+       {
+        "skill": "Defence",
+        "level": 75
+       },
+       {
+        "skill": "Magic",
+        "level": 82
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "a_kingdom_divided"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -26069,7 +27143,8 @@
       }
      ],
      "costSource": "Wiki: Killing Yama (solo) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Yama (solo)"
+     "guide": "Money making guide/Killing Yama (solo)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -27142,7 +28217,25 @@
      "unitsPerHr": 40.0,
      "unitsPerHrSource": "Wiki: Killing Zulrah (max efficiency)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "skill": "Ranged",
+        "level": 95
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "regicide"
+       }
+      ]
+     },
      "gear": [
       "22804",
       "20997",
@@ -27218,7 +28311,8 @@
       }
      ],
      "costSource": "Wiki: Killing Zulrah (max efficiency) (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Zulrah (max efficiency)"
+     "guide": "Money making guide/Killing Zulrah (max efficiency)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     },
     {
      "id": "budget",
@@ -27226,7 +28320,25 @@
      "unitsPerHr": 20.0,
      "unitsPerHrSource": "Wiki: Killing Zulrah",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "skill": "Ranged",
+        "level": 80
+       },
+       {
+        "skill": "Prayer",
+        "level": 45
+       },
+       {
+        "quest": "regicide"
+       }
+      ]
+     },
      "gear": [
       "4734",
       "7946",
@@ -27285,7 +28397,8 @@
       }
      ],
      "costSource": "Wiki: Killing Zulrah (per kill, teleports excluded)",
-     "guide": "Money making guide/Killing Zulrah"
+     "guide": "Money making guide/Killing Zulrah",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -28914,7 +30027,14 @@
      "unitsPerHr": 3.0,
      "unitsPerHrSource": "Wiki: Barbarian assault high gambles",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Ranged",
+        "level": 50
+       }
+      ]
+     },
      "gear": [
       "10284",
       "11235",
@@ -28936,7 +30056,8 @@
       }
      ],
      "costSource": "Wiki: Barbarian assault high gambles (per high gamble, teleports excluded)",
-     "guide": "Money making guide/Barbarian assault high gambles"
+     "guide": "Money making guide/Barbarian assault high gambles",
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -29223,7 +30344,41 @@
      "unitsPerHr": 3.0,
      "unitsPerHrSource": "Wiki: The Fractured Archive (Duo)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Strength",
+        "level": 95
+       },
+       {
+        "skill": "Defence",
+        "level": 80
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 90
+       },
+       {
+        "skill": "Ranged",
+        "level": 95
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "while_guthix_sleeps"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -29260,7 +30415,8 @@
       }
      ],
      "costSource": "Wiki: The Fractured Archive (Duo) (per raid, teleports excluded)",
-     "guide": "Money making guide/The Fractured Archive (Duo)"
+     "guide": "Money making guide/The Fractured Archive (Duo)",
+     "requiresSource": "Wiki guide (recommended levels included)"
     },
     {
      "id": "budget",
@@ -29268,7 +30424,41 @@
      "unitsPerHr": 3.0,
      "unitsPerHrSource": "Wiki: The Fractured Archive (4-scale)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 90
+       },
+       {
+        "skill": "Strength",
+        "level": 95
+       },
+       {
+        "skill": "Defence",
+        "level": 80
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 90
+       },
+       {
+        "skill": "Ranged",
+        "level": 95
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "while_guthix_sleeps"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [
       {
@@ -29306,7 +30496,8 @@
      ],
      "costSource": "Wiki: The Fractured Archive (4-scale) (per raid, teleports excluded)",
      "guide": "Money making guide/The Fractured Archive (4-scale)",
-     "lootShare": 0.8194
+     "lootShare": 0.8194,
+     "requiresSource": "Wiki guide (recommended levels included)"
     }
    ],
    "defaultSetup": "high"

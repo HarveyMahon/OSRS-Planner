@@ -1,0 +1,61 @@
+{
+ "meta": {
+  "description": "Quests the app knows. Milestones (partial completion steps) are curated by hand."
+ },
+ "quests": {
+  "a_kingdom_divided": {
+   "name": "A Kingdom Divided"
+  },
+  "beneath_cursed_sands": {
+   "name": "Beneath Cursed Sands"
+  },
+  "blood_moon_rises": {
+   "name": "Blood moon rises"
+  },
+  "children_of_the_sun": {
+   "name": "Children of the Sun"
+  },
+  "desert_treasure_i": {
+   "name": "Desert Treasure I"
+  },
+  "desert_treasure_ii": {
+   "name": "Desert Treasure II"
+  },
+  "dragon_slayer_ii": {
+   "name": "Dragon Slayer II"
+  },
+  "fallen_from_grace": {
+   "name": "Fallen From Grace"
+  },
+  "king_s_ransom": {
+   "name": "King's Ransom"
+  },
+  "priest_in_peril": {
+   "name": "Priest in Peril"
+  },
+  "regicide": {
+   "name": "Regicide"
+  },
+  "secrets_of_the_north": {
+   "name": "Secrets of the North"
+  },
+  "song_of_the_elves": {
+   "name": "Song of the Elves"
+  },
+  "the_final_dawn": {
+   "name": "The Final Dawn"
+  },
+  "the_frozen_door": {
+   "name": "The Frozen Door"
+  },
+  "the_heart_of_darkness": {
+   "name": "The Heart of Darkness"
+  },
+  "troll_stronghold": {
+   "name": "Troll Stronghold"
+  },
+  "while_guthix_sleeps": {
+   "name": "While Guthix Sleeps"
+  }
+ }
+}
