@@ -30,7 +30,7 @@
    "Items with 'derivedFrom' are priced from other items: price = sum(item price x factor) over its terms (e.g. Tokkul = Uncut onyx / 260,000; vestiges = ring - 3 chromium ingots). Items marked referenceOnly are only used for these formulas.",
    "'skillingPets' holds skilling pets modelled per training method (trees, success chances, logistics) rather than drop tables; the app lists the 5 methods with the best average of their rank for hours to the pet and their rank for total profit at the pet rate."
   ],
-  "setups": "Each boss has up to two setups (e.g. budget and max). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies."
+  "setups": "Each boss has up to two setups ('high' for high level, 'budget'). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies."
  },
  "bosses": [
   {
@@ -707,8 +707,8 @@
    "notes": "Includes the Unsired (1/100 per kill) and what it gives at the Font of Consumption. The pet comes from the Unsired, which works out at 1/2,560 per kill.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 39,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -719,7 +719,7 @@
      "flatCostPerUnit": 9398
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "alchemical_hydra",
@@ -1359,8 +1359,8 @@
    "wikiAverage": 180584.03,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 25,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -1371,7 +1371,7 @@
      "flatCostPerUnit": 28783
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "amoxliatl",
@@ -1654,8 +1654,8 @@
    "wikiAverage": 17816.99,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 40,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -1666,7 +1666,7 @@
      "flatCostPerUnit": 3926
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "araxxor",
@@ -2286,8 +2286,8 @@
    "notes": "Normal looting. The Wiki also lists a 1/1,500 pet rate for the alternative option, which isn't modelled.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 39,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -2298,7 +2298,7 @@
      "flatCostPerUnit": 32328
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "artio",
@@ -2642,8 +2642,8 @@
    "notes": "Singles version of Callisto, which shares its pet at a lower rate (1/2,800).",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 52,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -2654,7 +2654,7 @@
      "flatCostPerUnit": 8248
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "brutus",
@@ -2817,8 +2817,8 @@
    "notes": "Members-world drops.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 300,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -2829,7 +2829,7 @@
      "flatCostPerUnit": 300
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "callisto",
@@ -3222,8 +3222,8 @@
    "notes": "Solo kill (it can also be fought in a team, which isn't modelled here).",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 25,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -3234,7 +3234,7 @@
      "flatCostPerUnit": 18845
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "calvarion",
@@ -3585,8 +3585,8 @@
    "notes": "Singles version of Vet'ion, which shares its pet at a lower rate (1/2,800).",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 55,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -3597,7 +3597,7 @@
      "flatCostPerUnit": 7476
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "cerberus",
@@ -4350,8 +4350,8 @@
    "unit": "kill",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 50,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -4362,7 +4362,7 @@
      "flatCostPerUnit": 9471
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "chambers_of_xeric",
@@ -4674,8 +4674,8 @@
    "drops": [],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 1.5,
      "unitsPerHrSource": "Estimate for solo raids at scale 1 (the Wiki guide assumes teams at 3 an hour)",
      "unitsPerTrip": null,
@@ -4686,7 +4686,7 @@
      "flatCostPerUnit": 333381
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "chaos_elemental",
@@ -5191,8 +5191,8 @@
    "notes": "Tick the Krystilia option to include Wilderness slayer drops.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 60,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -5203,7 +5203,7 @@
      "flatCostPerUnit": 5874
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "commander_zilyana",
@@ -5576,8 +5576,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 27,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -5588,7 +5588,7 @@
      "flatCostPerUnit": 13082
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "corporeal_beast",
@@ -5938,8 +5938,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 10,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -5950,7 +5950,7 @@
      "flatCostPerUnit": 18411
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "corrupted_gauntlet",
@@ -6175,8 +6175,8 @@
    "notes": "Counted per Corrupted Hunllef completion.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 6,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -6187,7 +6187,7 @@
      "flatCostPerUnit": 0
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "dagannoth_prime",
@@ -6792,8 +6792,8 @@
    "wikiAverage": 28183.27,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 8.333,
      "unitsPerHrSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
      "unitsPerTrip": null,
@@ -6804,7 +6804,7 @@
      "flatCostPerUnit": 11250
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "dagannoth_rex",
@@ -7353,8 +7353,8 @@
    "wikiAverage": 44653.56,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 28,
      "unitsPerHrSource": "Wiki money-making guide (Rex only)",
      "unitsPerTrip": null,
@@ -7365,7 +7365,7 @@
      "flatCostPerUnit": 6083
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "dagannoth_supreme",
@@ -7963,8 +7963,8 @@
    "wikiAverage": 34612.62,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 8.333,
      "unitsPerHrSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
      "unitsPerTrip": null,
@@ -7975,7 +7975,7 @@
      "flatCostPerUnit": 11250
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "doom_of_mokhaiotl",
@@ -10066,8 +10066,8 @@
    "drops": [],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 6,
      "unitsPerHrSource": "Wiki money-making guide (delves 1-8)",
      "unitsPerTrip": null,
@@ -10078,7 +10078,7 @@
      "flatCostPerUnit": 211090
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "duke_sucellus",
@@ -10432,8 +10432,8 @@
    "defaultPerfectPercent": 50,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 34,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -10444,7 +10444,7 @@
      "flatCostPerUnit": 22873
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "the_gauntlet",
@@ -10662,8 +10662,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 7,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -10674,7 +10674,7 @@
      "flatCostPerUnit": 0
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "graardor",
@@ -11251,8 +11251,8 @@
    "unit": "kill",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 27,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -11263,7 +11263,7 @@
      "flatCostPerUnit": 17260
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "giant_mole",
@@ -11644,8 +11644,8 @@
    "wikiAverage": 21091.18,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 50,
      "unitsPerHrSource": "Wiki money-making guide (Dharok's)",
      "unitsPerTrip": null,
@@ -11656,7 +11656,7 @@
      "flatCostPerUnit": 3168
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "grotesque_guardians",
@@ -11981,8 +11981,8 @@
    "wikiAverage": 74423.71,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 24,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -11993,7 +11993,7 @@
      "flatCostPerUnit": 17069
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "the_hueycoatl",
@@ -12272,8 +12272,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 7,
      "unitsPerHrSource": "Wiki money-making guide (solo)",
      "unitsPerTrip": null,
@@ -12284,7 +12284,7 @@
      "flatCostPerUnit": 62880
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "kalphite_queen",
@@ -12825,8 +12825,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 22,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -12837,7 +12837,7 @@
      "flatCostPerUnit": 19177
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "king_black_dragon",
@@ -13225,8 +13225,8 @@
    "wikiAverage": 20725.27,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 30,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -13237,7 +13237,7 @@
      "flatCostPerUnit": 10794
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "kraken",
@@ -13814,8 +13814,8 @@
    "unit": "kill",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 60,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -13826,7 +13826,7 @@
      "flatCostPerUnit": 5654
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "kreearra",
@@ -14213,8 +14213,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 27,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -14225,7 +14225,7 @@
      "flatCostPerUnit": 62080
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "kril_tsutsaroth",
@@ -14591,8 +14591,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 26,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -14603,7 +14603,7 @@
      "flatCostPerUnit": 14800
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "the_leviathan",
@@ -14966,8 +14966,8 @@
    "defaultPerfectPercent": 50,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 24,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -14978,7 +14978,7 @@
      "flatCostPerUnit": 17508
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "mad_angel",
@@ -15371,8 +15371,8 @@
    "wikiAverage": 29071.0,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 40,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -15383,7 +15383,7 @@
      "flatCostPerUnit": 10975
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "maggot_king",
@@ -15589,8 +15589,8 @@
    "notes": "Normal looting (open-stomach). Taking eggs gives a different pet chance and isn't modelled.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 25,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -15601,7 +15601,7 @@
      "flatCostPerUnit": 49022
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "nex",
@@ -15839,8 +15839,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 10,
      "unitsPerHrSource": "Wiki money-making guide (team)",
      "unitsPerTrip": null,
@@ -15851,7 +15851,7 @@
      "flatCostPerUnit": 104674
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "the_nightmare",
@@ -16183,8 +16183,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 12,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -16195,7 +16195,7 @@
      "flatCostPerUnit": 29766
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "phantom_muspah",
@@ -16884,8 +16884,8 @@
    "wikiAverage": 265246.7,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 25,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -16896,7 +16896,7 @@
      "flatCostPerUnit": 39306
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "phosanis_nightmare",
@@ -17176,8 +17176,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 9.5,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -17188,7 +17188,7 @@
      "flatCostPerUnit": 58117
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "royal_titans",
@@ -17775,8 +17775,8 @@
    "drops": [],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 24,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -17787,7 +17787,7 @@
      "flatCostPerUnit": 14332
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "sarachnis",
@@ -18322,8 +18322,8 @@
    "wikiAverage": 27096.78,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 30,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -18334,7 +18334,7 @@
      "flatCostPerUnit": 10311
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "scorpia",
@@ -18615,8 +18615,8 @@
    "notes": "Tick the Krystilia option to include Wilderness slayer drops.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 72,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -18627,7 +18627,7 @@
      "flatCostPerUnit": 5302
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "scurrius",
@@ -18825,8 +18825,8 @@
    "notes": "Solo or top-damage (MVP) drop table.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 40,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -18837,7 +18837,7 @@
      "flatCostPerUnit": 4113
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "shellbane_gryphon",
@@ -19210,8 +19210,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 70,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -19222,7 +19222,7 @@
      "flatCostPerUnit": 10000
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "skotizo",
@@ -19470,8 +19470,8 @@
    "wikiAverage": 161739.21,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 0.5,
      "unitsPerHrSource": "Rate provided by the site owner (including getting totems)",
      "unitsPerTrip": null,
@@ -19482,7 +19482,7 @@
      "flatCostPerUnit": 20000
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "sol_heredit",
@@ -19694,8 +19694,8 @@
    },
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 2.5,
      "unitsPerHrSource": "Wiki money-making guide (full Colosseum runs)",
      "unitsPerTrip": null,
@@ -19706,7 +19706,7 @@
      "flatCostPerUnit": 522465
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "spindel",
@@ -20036,8 +20036,8 @@
    "notes": "Singles version of Venenatis, which shares its pet at a lower rate (1/2,800).",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 60,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -20048,7 +20048,7 @@
      "flatCostPerUnit": 6706
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "tempoross",
@@ -20210,8 +20210,8 @@
    "notes": "Counted per reward-pool roll, with fish for Fishing level 81+. Caskets and spirit flakes are valued at 0.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 60,
      "unitsPerHrSource": "Wiki money-making guide (reward permits per hour)",
      "unitsPerTrip": null,
@@ -20222,7 +20222,7 @@
      "flatCostPerUnit": 23
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "theatre_of_blood",
@@ -20519,8 +20519,8 @@
    "drops": [],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 3,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -20531,7 +20531,7 @@
      "flatCostPerUnit": 310557
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "thermonuclear_smoke_devil",
@@ -20947,8 +20947,8 @@
    "wikiAverage": 25462.86,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 80,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -20959,7 +20959,7 @@
      "flatCostPerUnit": 3005
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "tombs_of_amascut",
@@ -21142,8 +21142,8 @@
    "drops": [],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 2,
      "unitsPerHrSource": "Estimate for solo raids at level 300 (the Wiki guide gives 1.5 an hour at level 450)",
      "unitsPerTrip": null,
@@ -21154,7 +21154,7 @@
      "flatCostPerUnit": 121086
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "tzkal_zuk",
@@ -21199,8 +21199,8 @@
    },
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 0.5,
      "unitsPerHrSource": "Estimate: about 2 hours per Inferno run",
      "unitsPerTrip": null,
@@ -21211,7 +21211,7 @@
      "flatCostPerUnit": 300000
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "tztok_jad",
@@ -21256,8 +21256,8 @@
    },
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 1,
      "unitsPerHrSource": "Estimate from the Wiki Fight Cave strategies (runs often take about an hour)",
      "unitsPerTrip": null,
@@ -21268,7 +21268,7 @@
      "flatCostPerUnit": 100000
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "vardorvis",
@@ -21631,8 +21631,8 @@
    "defaultPerfectPercent": 50,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 32,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -21643,7 +21643,7 @@
      "flatCostPerUnit": 15834
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "venenatis",
@@ -22036,8 +22036,8 @@
    "notes": "Solo kill (it can also be fought in a team, which isn't modelled here).",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 26,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -22048,7 +22048,7 @@
      "flatCostPerUnit": 12052
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "vetion",
@@ -22448,8 +22448,8 @@
    "notes": "Solo kill (it can also be fought in a team, which isn't modelled here).",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 37,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -22460,7 +22460,7 @@
      "flatCostPerUnit": 9979
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "vorkath",
@@ -23455,8 +23455,8 @@
    "unit": "kill",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 30,
      "unitsPerHrSource": "Wiki money-making guide (dragon hunter crossbow)",
      "unitsPerTrip": null,
@@ -23467,7 +23467,7 @@
      "flatCostPerUnit": 27710
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "the_whisperer",
@@ -23830,8 +23830,8 @@
    "defaultPerfectPercent": 50,
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 20,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -23842,7 +23842,7 @@
      "flatCostPerUnit": 79996
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "wintertodt",
@@ -23941,8 +23941,8 @@
    "notes": "Counted per reward-cart roll. Logs, ores, herbs, seeds, gems and fish depend on your skill levels and aren't included, so real loot is higher than shown.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 28,
      "unitsPerHrSource": "Wiki Wintertodt strategies (about 28 reward rolls an hour)",
      "unitsPerTrip": null,
@@ -23953,7 +23953,7 @@
      "flatCostPerUnit": 0
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "yama",
@@ -24206,8 +24206,8 @@
    "notes": "Standard fight with no contract, for players dealing at least 15% of the damage.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 10,
      "unitsPerHrSource": "Wiki money-making guide (solo)",
      "unitsPerTrip": null,
@@ -24218,7 +24218,7 @@
      "flatCostPerUnit": 179576
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "zalcano",
@@ -24409,8 +24409,8 @@
    "notes": "Quantities scale with your contribution; the midpoint is used.",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 48,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -24421,7 +24421,7 @@
      "flatCostPerUnit": 670
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "zulrah",
@@ -25251,8 +25251,8 @@
    "unit": "kill",
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 20,
      "unitsPerHrSource": "Wiki money-making guide",
      "unitsPerTrip": null,
@@ -25263,7 +25263,7 @@
      "flatCostPerUnit": 32337
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "bloodhound",
@@ -26498,8 +26498,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 2,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -26510,7 +26510,7 @@
      "flatCostPerUnit": 20000
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "chompy-birds",
@@ -26524,8 +26524,8 @@
    "drops": [],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 200,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -26541,7 +26541,7 @@
      "costSource": "2 mithril brutal arrows per bird"
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "soul-wars",
@@ -26619,8 +26619,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 6,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -26631,7 +26631,7 @@
      "flatCostPerUnit": 10000
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   },
   {
    "id": "barbarian-assault",
@@ -26884,8 +26884,8 @@
    ],
    "setups": [
     {
-     "id": "default",
-     "label": "Default",
+     "id": "high",
+     "label": "High level",
      "unitsPerHr": 4,
      "unitsPerHrSource": "Rate provided by the site owner",
      "unitsPerTrip": null,
@@ -26896,7 +26896,7 @@
      "flatCostPerUnit": 6654
     }
    ],
-   "defaultSetup": "default"
+   "defaultSetup": "high"
   }
  ]
 }

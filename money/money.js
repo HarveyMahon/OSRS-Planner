@@ -36,8 +36,7 @@ function rows() {
 }
 
 function render() {
-  const showMisc = $('show-misc').checked;
-  const list = rows().filter(r => showMisc || BOSSES.find(b => b.id === r.bossId).category !== 'misc');
+  const list = rows();
   $('table').tBodies[0].innerHTML = list.map((r, i) => {
     const b = BOSSES.find(x => x.id === r.bossId);
     const costNote = r.costSource === 'flat' ? ' <span class="tag" title="Flat GP figure from before supplies were item lists">flat</span>'
@@ -94,10 +93,10 @@ function editOverride(fn) {
 
 async function init() {
   [ITEMS, { bosses: BOSSES }] = await Promise.all([loadItems(), loadBosses()]);
+  // Minigames and other activities (category "misc") belong to the pet calculator only
+  BOSSES = BOSSES.filter(b => b.category !== 'misc');
   $('prices').textContent = `Prices as of ${ITEMS.meta.pricesUpdated}.`;
   $('item-names').innerHTML = Object.values(ITEMS.items).filter(i => i.tradeable).map(i => `<option value="${esc(i.name)}">`).join('');
-  $('show-misc').checked = store.get('showMisc') === '1';
-  $('show-misc').addEventListener('change', () => { store.set('showMisc', $('show-misc').checked ? '1' : '0'); render(); });
 
   const tbody = $('table').tBodies[0];
   tbody.addEventListener('click', e => {

@@ -62,11 +62,10 @@ function serve() {
     where = '/money/';
     await page.goto(base + 'money/');
     await page.waitForFunction(() => document.documentElement.dataset.ready === '1', null, { timeout: 15000 });
-    await page.check('#show-misc');
     const moneyRows = await page.$$eval('#table tbody tr[data-id]', r => r.length);
-    if (moneyRows !== data.bosses.length) problems.push(`Money Makers shows ${moneyRows} rows, expected ${data.bosses.length}.`);
+    const moneyExpected = data.bosses.filter(b => b.category !== 'misc').length;   // misc = pet calculator only
+    if (moneyRows !== moneyExpected) problems.push(`Money Makers shows ${moneyRows} rows, expected ${moneyExpected}.`);
     if (BAD.test(await page.$eval('#table', t => t.innerText))) problems.push('Money Makers table contains NaN/undefined.');
-    await page.uncheck('#show-misc');
 
     // Pet calculator (side tool)
     where = '/pets/';
