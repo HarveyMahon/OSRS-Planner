@@ -84,22 +84,24 @@ function coxRun(boss, modeKey, n, points, target) {
 }
 // Tombs of Amascut: per-player loot for one raid
 function toaWeights(R, L) {
+  // Anchors give weights for some uniques (fang, Lightbearer) at set raid levels; interpolate
+  // between them in steps of 5 levels. Every key except raidLevel is an item reference.
   const a = R.uniqueWeightAnchors;
-  let f, l;
-  if (L <= a[0].raidLevel) { f = a[0]["Osmumten's fang"]; l = a[0].Lightbearer; }
-  else if (L >= a[a.length - 1].raidLevel) { f = a[a.length - 1]["Osmumten's fang"]; l = a[a.length - 1].Lightbearer; }
+  const varying = Object.keys(a[0]).filter(k => k !== 'raidLevel');
+  const at = {};
+  if (L <= a[0].raidLevel) varying.forEach(k => at[k] = a[0][k]);
+  else if (L >= a[a.length - 1].raidLevel) varying.forEach(k => at[k] = a[a.length - 1][k]);
   else {
     const L5 = L - (L % 5);
     for (let i = 0; i < a.length - 1; i++) {
       if (a[i].raidLevel <= L5 && L5 <= a[i + 1].raidLevel) {
         const t = (L5 - a[i].raidLevel) / (a[i + 1].raidLevel - a[i].raidLevel);
-        f = a[i]["Osmumten's fang"] + (a[i + 1]["Osmumten's fang"] - a[i]["Osmumten's fang"]) * t;
-        l = a[i].Lightbearer + (a[i + 1].Lightbearer - a[i].Lightbearer) * t;
+        varying.forEach(k => at[k] = a[i][k] + (a[i + 1][k] - a[i][k]) * t);
         break;
       }
     }
   }
-  const w = { ...R.uniqueFixedWeights, "Osmumten's fang": f, Lightbearer: l };
+  const w = { ...R.uniqueFixedWeights, ...at };
   const tot = Object.values(w).reduce((x, y) => x + y, 0);
   Object.keys(w).forEach(k => w[k] /= tot);
   return w;

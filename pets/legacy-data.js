@@ -6,12 +6,16 @@ import { loadItems, loadBosses, loadFile } from '../core/data.js';
 
 const REF_FIELDS = new Set(['item', 'cape', 'seed', 'splinterItem', 'rationItem', 'secateursItem', 'log', 'leaves']);
 const REF_LISTS = new Set(['items']);
+// Objects whose KEYS are item references (ToA unique weights); other keys (e.g. raidLevel) pass through
+const REF_KEYED = new Set(['uniqueFixedWeights', 'uniqueMinRaidLevel', 'uniqueWeightAnchors']);
+const rekey = (o, nameOf) => Object.fromEntries(Object.entries(o).map(([k, v]) => [nameOf(k), v]));
 
 function toNames(o, nameOf) {
   if (Array.isArray(o)) { o.forEach(v => toNames(v, nameOf)); return; }
   if (!o || typeof o !== 'object') return;
   for (const [f, v] of Object.entries(o)) {
-    if (REF_FIELDS.has(f) && typeof v === 'string') o[f] = nameOf(v);
+    if (REF_KEYED.has(f) && v && typeof v === 'object') o[f] = Array.isArray(v) ? v.map(x => rekey(x, nameOf)) : rekey(v, nameOf);
+    else if (REF_FIELDS.has(f) && typeof v === 'string') o[f] = nameOf(v);
     else if (REF_LISTS.has(f) && Array.isArray(v) && v.every(x => typeof x === 'string')) o[f] = v.map(nameOf);
     else toNames(v, nameOf);
   }
@@ -34,7 +38,7 @@ export async function loadPetData() {
     b.defaultKph = s.unitsPerHr; b.kphSource = s.unitsPerHrSource; b.costSource = s.costSource;
     if (s.flatCostPerUnit !== undefined) b.defaultCost = s.flatCostPerUnit;
     if (s.supplies.length) b.defaultCostItems = s.supplies.filter(x => x.per === 'unit').map(x => ({ item: x.item, qty: x.qty }));
-    delete b.setups; delete b.defaultSetup;
+    delete b.setups; delete b.defaultSetup; delete b.moneyMaker; delete b.moneyMakerNote;
   }
   toNames(bosses.bosses, nameOf);
   toNames(pets.skillingPets, nameOf);

@@ -94,7 +94,8 @@ function editOverride(fn) {
 async function init() {
   [ITEMS, { bosses: BOSSES }] = await Promise.all([loadItems(), loadBosses()]);
   // Minigames and other activities (category "misc") belong to the pet calculator only
-  BOSSES = BOSSES.filter(b => b.category !== 'misc');
+  // and bosses marked moneyMaker: false (e.g. Zalcano: team loot split by contribution)
+  BOSSES = BOSSES.filter(b => b.category !== 'misc' && b.moneyMaker !== false);
   $('prices').textContent = `Prices as of ${ITEMS.meta.pricesUpdated}.`;
   $('item-names').innerHTML = Object.values(ITEMS.items).filter(i => i.tradeable).map(i => `<option value="${esc(i.name)}">`).join('');
 

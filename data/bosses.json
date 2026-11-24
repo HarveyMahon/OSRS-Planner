@@ -30,7 +30,8 @@
    "Items with 'derivedFrom' are priced from other items: price = sum(item price x factor) over its terms (e.g. Tokkul = Uncut onyx / 260,000; vestiges = ring - 3 chromium ingots). Items marked referenceOnly are only used for these formulas.",
    "'skillingPets' holds skilling pets modelled per training method (trees, success chances, logistics) rather than drop tables; the app lists the 5 methods with the best average of their rank for hours to the pet and their rank for total profit at the pet rate."
   ],
-  "setups": "Each boss has up to two setups ('high' for high level, 'budget'). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies."
+  "setups": "Each boss has up to two setups ('high' for high level, 'budget'). A setup has its own rate (unitsPerHr), requirements, gear and supplies. Supplies are per unit (kill, raid, run...) or per trip. flatCostPerUnit is a legacy flat GP cost from before supplies were item lists; it is used only when a setup has no supplies.",
+  "moneyMaker": "Bosses with moneyMaker: false (and category 'misc' activities) appear only in the pet calculator."
  },
  "bosses": [
   {
@@ -20985,45 +20986,45 @@
     "uniqueWeightAnchors": [
      {
       "raidLevel": 300,
-      "Osmumten's fang": 7,
-      "Lightbearer": 7
+      "26219": 7,
+      "25975": 7
      },
      {
       "raidLevel": 350,
-      "Osmumten's fang": 6,
-      "Lightbearer": 6
+      "26219": 6,
+      "25975": 6
      },
      {
       "raidLevel": 400,
-      "Osmumten's fang": 4,
-      "Lightbearer": 5
+      "26219": 4,
+      "25975": 5
      },
      {
       "raidLevel": 450,
-      "Osmumten's fang": 4,
-      "Lightbearer": 4
+      "26219": 4,
+      "25975": 4
      },
      {
       "raidLevel": 500,
-      "Osmumten's fang": 3,
-      "Lightbearer": 3.5
+      "26219": 3,
+      "25975": 3.5
      }
     ],
     "uniqueFixedWeights": {
-     "Elidinis' ward": 3,
-     "Masori mask": 2,
-     "Masori body": 2,
-     "Masori chaps": 2,
-     "Tumeken's shadow (uncharged)": 1
+     "25985": 3,
+     "27226": 2,
+     "27229": 2,
+     "27232": 2,
+     "27277": 1
     },
     "uniqueMinRaidLevel": {
-     "Osmumten's fang": 50,
-     "Lightbearer": 50,
-     "Elidinis' ward": 150,
-     "Masori mask": 150,
-     "Masori body": 150,
-     "Masori chaps": 150,
-     "Tumeken's shadow (uncharged)": 150
+     "26219": 50,
+     "25975": 50,
+     "25985": 150,
+     "27226": 150,
+     "27229": 150,
+     "27232": 150,
+     "27277": 150
     },
     "underLevelConversion": 0.02,
     "commonRolls": 3,
@@ -24421,7 +24422,9 @@
      "flatCostPerUnit": 670
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "moneyMaker": false,
+   "moneyMakerNote": "Loot is split by contribution in a team and solo kills are much slower, so it isn't treated as a money maker."
   },
   {
    "id": "zulrah",
