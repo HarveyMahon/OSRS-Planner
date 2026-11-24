@@ -10384,21 +10384,30 @@
    "price": 10898210,
    "tradeable": true,
    "id": 22547,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Craw's bow"
+   ]
   },
   "22542": {
    "name": "Viggora's chainmace (u)",
    "price": 2926621,
    "tradeable": true,
    "id": 22542,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Viggora's chainmace"
+   ]
   },
   "22552": {
    "name": "Thammaron's sceptre (u)",
    "price": 1751982,
    "tradeable": true,
    "id": 22552,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Thammaron's sceptre"
+   ]
   },
   "22557": {
    "name": "Amulet of avarice",
@@ -12843,7 +12852,8 @@
   "x-bone-mace": {
    "name": "Bone mace",
    "price": 0,
-   "tradeable": true
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
   },
   "x-mixed-hide-boots": {
    "name": "Mixed hide boots",
@@ -12880,16 +12890,6 @@
    "id": 30634,
    "limit": 8
   },
-  "x-breach-of-the-scarab": {
-   "name": "Breach of the scarab",
-   "price": 0,
-   "tradeable": true
-  },
-  "x-keris-partisan": {
-   "name": "Keris partisan",
-   "price": 0,
-   "tradeable": true
-  },
   "x-ring-of-shadows": {
    "name": "Ring of shadows",
    "price": 0,
@@ -12919,6 +12919,12 @@
    "price": 0,
    "tradeable": false,
    "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-keris-partisan-of-breaching": {
+   "name": "Keris partisan of breaching",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: made from untradeable Tombs of Amascut rewards, so earned rather than bought"
   }
  }
 }

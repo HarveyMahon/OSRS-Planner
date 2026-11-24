@@ -1294,6 +1294,58 @@
      },
      "x-dragon-defender"
     ]
+   },
+   "high": {
+    "source": "Wiki: Chambers of Xeric/Strategies, Melee + Ranged, 24 Nov 2026",
+    "gear": [
+     [
+      "30750",
+      "26382"
+     ],
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "30753",
+      "26384"
+     ],
+     [
+      "30756",
+      "26386"
+     ],
+     "22486",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "11804",
+     "21003",
+     [
+      "27226",
+      "27235"
+     ],
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     [
+      "27229",
+      "27238"
+     ],
+     [
+      "27232",
+      "27241"
+     ],
+     "20997",
+     "34681",
+     "26235",
+     {
+      "item": "33595",
+      "qty": 200
+     }
+    ]
    }
   },
   "tombs_of_amascut": {
@@ -1366,6 +1418,894 @@
       "qty": 200
      }
     ]
+   },
+   "high": {
+    "source": "Wiki: Tombs of Amascut/Strategies, Melee + Ranged + Magic (body, legs and weapon), 24 Nov 2026",
+    "gear": [
+     "26382",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "26384",
+     "26386",
+     "26219",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "28307",
+     [
+      "11804",
+      "27690",
+      "21003"
+     ],
+     "27235",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "20997",
+     "34681",
+     "26235",
+     "28310",
+     "26374",
+     "21021",
+     "21024",
+     "27277",
+     {
+      "item": "33595",
+      "qty": 200
+     },
+     {
+      "item": "34696",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "abyssal_sire": {
+   "high": {
+    "source": "Wiki: Abyssal Sire/Strategies, Phase 1 Melee (Scorching bow) + the Emberlight and Avernic defender switch its footnote gives for phases 2-3, 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "26384",
+     "26386",
+     "x-scorching-bow",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "x-emberlight",
+     "x-avernic-defender"
+    ]
+   }
+  },
+  "amoxliatl": {
+   "high": {
+    "source": "Wiki: Amoxliatl/Strategies, Melee (non-task head), 24 Nov 2026",
+    "gear": [
+     "24419",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "13652"
+    ]
+   }
+  },
+  "artio": {
+   "high": {
+    "source": "Wiki: Artio/Strategies, Ranged (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "33639",
+     "x-ava-s-assembler",
+     "27238",
+     "2497",
+     "x-webweaver-bow-u",
+     "x-barrows-gloves",
+     "x-ring-of-shadows",
+     "26374"
+    ]
+   }
+  },
+  "brutus": {
+   "high": {
+    "source": "Wiki: Brutus/Strategies, Members melee (high level); hands/boots/ring rows not readable, 24 Nov 2026",
+    "gear": [
+     "26382",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "26384",
+     "26386",
+     "22486"
+    ]
+   }
+  },
+  "callisto": {
+   "high": {
+    "source": "Wiki: Callisto/Strategies, Ranged (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "33639",
+     "x-ava-s-assembler",
+     "27238",
+     "2497",
+     [
+      "22547",
+      "x-webweaver-bow-u"
+     ],
+     "x-barrows-gloves",
+     "x-ring-of-shadows",
+     "26374"
+    ]
+   }
+  },
+  "calvarion": {
+   "high": {
+    "source": "Wiki: Calvar'ion/Strategies, Melee (2 Trouver parchments to lock the cape and torso), 24 Nov 2026",
+    "gear": [
+     [
+      "10828",
+      "x-zombie-helmet"
+     ],
+     "x-salve-amulet-e",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "x-fighter-torso",
+     {
+      "item": "x-trouver-parchment",
+      "qty": 2
+     },
+     "2497",
+     "x-ursine-chainmace-u",
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-barrows-gloves",
+     "11840",
+     "28307"
+    ]
+   }
+  },
+  "chaos_elemental": {
+   "high": {
+    "source": "Wiki: Chaos Elemental/Strategies, Ranged (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     [
+      "22547",
+      "x-webweaver-bow-u"
+     ],
+     "x-barrows-gloves",
+     "x-mixed-hide-boots",
+     "x-ring-of-suffering-i",
+     "x-trouver-parchment"
+    ]
+   }
+  },
+  "commander_zilyana": {
+   "high": {
+    "source": "Wiki: Commander Zilyana/Strategies, Magic, 24 Nov 2026",
+    "gear": [
+     "21018",
+     "12002",
+     "x-imbued-god-cape",
+     "21021",
+     "21024",
+     "27277",
+     "31106",
+     "x-avernic-treads-max",
+     "28313",
+     "34727"
+    ]
+   }
+  },
+  "corporeal_beast": {
+   "high": {
+    "source": "Wiki: Corporeal Beast/Strategies, Stat draining, 24 Nov 2026",
+    "gear": [
+     "26382",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "27238",
+     "27241",
+     "29796",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "x-crystal-halberd"
+    ]
+   }
+  },
+  "graardor": {
+   "high": {
+    "source": "Wiki: General Graardor/Strategies, Melee (Solo) (Masori body (f): Torva only if flicking), 24 Nov 2026",
+    "gear": [
+     "26382",
+     "x-amulet-of-blood-fury",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "27238",
+     "26386",
+     "26219",
+     "34719",
+     "x-barrows-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "27690"
+    ]
+   }
+  },
+  "giant_mole": {
+   "high": {
+    "source": "Wiki: Giant Mole/Strategies, Ranged, 24 Nov 2026",
+    "gear": [
+     "27235",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "20997",
+     "26235",
+     "x-avernic-treads-max",
+     "28310",
+     "26374",
+     {
+      "item": "33595",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "grotesque_guardians": {
+   "high": {
+    "source": "Wiki: Grotesque Guardians/Strategies, Melee + Ranged switches (task only), 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "30753",
+      "26384"
+     ],
+     [
+      "30756",
+      "26386"
+     ],
+     "22486",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "13652",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "27612",
+     "12924",
+     "26235",
+     {
+      "item": "11212",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "the_hueycoatl": {
+   "high": {
+    "source": "Wiki: The Hueycoatl/Strategies, Melee + Tail, 24 Nov 2026",
+    "gear": [
+     "24419",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     "33631",
+     "28997",
+     "x-ursine-chainmace-u"
+    ]
+   }
+  },
+  "kalphite_queen": {
+   "high": {
+    "source": "Wiki: Kalphite Queen/Strategies, High level melee (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "24420",
+      "26384"
+     ],
+     [
+      "24421",
+      "26386"
+     ],
+     "x-keris-partisan-of-breaching",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "x-ring-of-suffering-i",
+     "27690"
+    ]
+   }
+  },
+  "king_black_dragon": {
+   "high": {
+    "source": "Wiki: King Black Dragon/Strategies, 4-item melee, 24 Nov 2026",
+    "gear": [
+     "10828",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "x-mixed-hide-top",
+     "29283",
+     [
+      "26219",
+      "22978"
+     ],
+     "x-avernic-defender",
+     "x-barrows-gloves",
+     "11840",
+     "28307",
+     [
+      "29577",
+      "27690"
+     ]
+    ]
+   }
+  },
+  "kraken": {
+   "high": {
+    "source": "Wiki: Kraken/Strategies, Magic (task only), 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "12002",
+     "x-imbued-god-cape",
+     "21021",
+     "21024",
+     [
+      "31115",
+      "27277"
+     ],
+     "x-elidinis-ward-f",
+     "31106",
+     "x-avernic-treads-max",
+     "28313",
+     "34727"
+    ]
+   }
+  },
+  "kreearra": {
+   "high": {
+    "source": "Wiki: Kree'arra/Strategies, Magic (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "12002",
+     "x-imbued-god-cape",
+     "21021",
+     "21024",
+     "27277",
+     "31106",
+     "x-avernic-treads-max",
+     "28313",
+     "34727"
+    ]
+   }
+  },
+  "kril_tsutsaroth": {
+   "high": {
+    "source": "Wiki: K'ril Tsutsaroth/Strategies, Solo Melee, 24 Nov 2026",
+    "gear": [
+     "26382",
+     "x-amulet-of-blood-fury",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "27238",
+     "27241",
+     "x-emberlight",
+     "x-avernic-defender",
+     "x-barrows-gloves",
+     "x-avernic-treads-max",
+     "25975",
+     "11806"
+    ]
+   }
+  },
+  "mad_angel": {
+   "high": {
+    "source": "Wiki: Mad Angel/Strategies, Melee, 24 Nov 2026",
+    "gear": [
+     "24419",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "24420",
+     "24421",
+     "34717",
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     [
+      "27690",
+      "33631"
+     ]
+    ]
+   }
+  },
+  "nex": {
+   "high": {
+    "source": "Wiki: Nex/Strategies, Ranged, 24 Nov 2026",
+    "gear": [
+     "27235",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     "26374",
+     "34681",
+     "21000",
+     "26235",
+     "x-avernic-treads-max",
+     "25975",
+     {
+      "item": "21944",
+      "qty": 200
+     },
+     {
+      "item": "34696",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "royal_titans": {
+   "high": {
+    "source": "Wiki: Royal Titans/Strategies, Melee (Low Level) + magic weapon (the high level table isn't readable), 24 Nov 2026",
+    "gear": [
+     [
+      "1725",
+      "6585"
+     ],
+     "x-fire-cape",
+     "29022",
+     "29025",
+     "28997",
+     "x-dragon-defender",
+     "x-barrows-gloves",
+     "29806",
+     "x-berserker-ring-i",
+     [
+      "x-arkan-blade",
+      "1215",
+      "x-crystal-halberd"
+     ],
+     "x-twinflame-staff"
+    ]
+   }
+  },
+  "sarachnis": {
+   "high": {
+    "source": "Wiki: Sarachnis/Strategies, Melee (High level); ring/spec rows not readable, 24 Nov 2026",
+    "gear": [
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "27238",
+     "27241",
+     "34717",
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-ferocious-gloves",
+     "29806"
+    ]
+   }
+  },
+  "scorpia": {
+   "high": {
+    "source": "Wiki: Scorpia/Strategies, Magic (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "12002",
+     "x-imbued-god-cape",
+     "25404",
+     "25416",
+     [
+      "22552",
+      "x-accursed-sceptre-u"
+     ],
+     "x-elidinis-ward-f",
+     "31106",
+     [
+      "4097",
+      "x-bloodbark-boots"
+     ],
+     "x-ring-of-shadows"
+    ]
+   }
+  },
+  "scurrius": {
+   "high": {
+    "source": "Wiki: Scurrius/Strategies, Melee (mid level; the high level table isn't readable), 24 Nov 2026",
+    "gear": [
+     "x-void-melee-helm",
+     "6585",
+     "x-fire-cape",
+     "x-void-knight-top",
+     "x-void-knight-robe",
+     "x-bone-mace",
+     "x-dragon-defender",
+     "x-void-knight-gloves",
+     "11840",
+     "x-berserker-ring-i",
+     "x-arkan-blade"
+    ]
+   }
+  },
+  "shellbane_gryphon": {
+   "high": {
+    "source": "Wiki: Shellbane Gryphon/Strategies, Melee, 24 Nov 2026",
+    "gear": [
+     "x-black-mask",
+     "29801",
+     "x-tortugan-shield",
+     [
+      "30753",
+      "26384"
+     ],
+     [
+      "30756",
+      "26386"
+     ],
+     "22486",
+     [
+      "21183",
+      "x-ferocious-gloves"
+     ],
+     "x-avernic-treads-max",
+     "28307",
+     "13652"
+    ]
+   }
+  },
+  "skotizo": {
+   "high": {
+    "source": "Wiki: Skotizo/Strategies, Melee, 24 Nov 2026",
+    "gear": [
+     "30750",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "30753",
+     "30756",
+     "x-emberlight",
+     "x-avernic-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28307",
+     [
+      "29577",
+      "13652"
+     ]
+    ]
+   }
+  },
+  "spindel": {
+   "high": {
+    "source": "Wiki: Spindel/Strategies, Melee (Trouver parchments for the cape and torso), 24 Nov 2026",
+    "gear": [
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "x-fighter-torso",
+     {
+      "item": "x-trouver-parchment",
+      "qty": 2
+     },
+     "2497",
+     [
+      "22542",
+      "x-ursine-chainmace-u"
+     ],
+     [
+      "34719",
+      "x-avernic-defender"
+     ],
+     "x-barrows-gloves",
+     [
+      "11840",
+      "29806"
+     ],
+     "28307"
+    ]
+   }
+  },
+  "thermonuclear_smoke_devil": {
+   "high": {
+    "source": "Wiki: Thermonuclear smoke devil/Strategies, Magic table 1 (task only), 24 Nov 2026",
+    "gear": [
+     "x-slayer-helmet-i",
+     "12002",
+     "x-imbued-god-cape",
+     "26243",
+     "26245",
+     "27277",
+     "31106",
+     "x-avernic-treads-max",
+     "28313",
+     "34727"
+    ]
+   }
+  },
+  "venenatis": {
+   "high": {
+    "source": "Wiki: Venenatis/Strategies, Melee (Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "x-fighter-torso",
+     "2497",
+     [
+      "22542",
+      "x-ursine-chainmace-u"
+     ],
+     "x-avernic-defender",
+     "x-barrows-gloves",
+     "11840",
+     "28307",
+     "21015"
+    ]
+   }
+  },
+  "vetion": {
+   "high": {
+    "source": "Wiki: Vet'ion/Strategies, Melee (Trouver parchments for the cape and torso), 24 Nov 2026",
+    "gear": [
+     "10828",
+     "x-salve-amulet-e",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "x-fighter-torso",
+     {
+      "item": "x-trouver-parchment",
+      "qty": 2
+     },
+     "2497",
+     [
+      "22542",
+      "x-ursine-chainmace-u"
+     ],
+     "x-avernic-defender",
+     "x-barrows-gloves",
+     "11840",
+     "28307",
+     "21003"
+    ]
+   }
+  },
+  "zulrah": {
+   "high": {
+    "source": "Wiki: Zulrah/Strategies, Magic + Ranged (the best setup uses both), 24 Nov 2026",
+    "gear": [
+     "21018",
+     "12002",
+     "x-imbued-god-cape",
+     "21021",
+     "21024",
+     [
+      "31115",
+      "27277"
+     ],
+     [
+      "20716",
+      "x-elidinis-ward-f"
+     ],
+     "31106",
+     "x-avernic-treads-max",
+     "28313",
+     "x-ring-of-suffering-i",
+     "34727",
+     "27235",
+     "33639",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "27238",
+     "27241",
+     [
+      "34681",
+      "20997"
+     ],
+     "26235",
+     {
+      "item": "34696",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "dagannoth_prime": {
+   "high": {
+    "source": "Wiki: Dagannoth Kings/Strategies, Tribrid (all kings; Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "29801",
+     "12002",
+     "33639",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "26384",
+     "27238",
+     "26386",
+     "27241",
+     "22486",
+     "31115",
+     "20997",
+     "x-spectral-spirit-shield",
+     "x-ferocious-gloves",
+     "31106",
+     "26235",
+     "x-avernic-treads-max",
+     {
+      "item": "33595",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "dagannoth_rex": {
+   "high": {
+    "source": "Wiki: Dagannoth Kings/Strategies, Tribrid (all kings; Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "29801",
+     "12002",
+     "33639",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "26384",
+     "27238",
+     "26386",
+     "27241",
+     "22486",
+     "31115",
+     "20997",
+     "x-spectral-spirit-shield",
+     "x-ferocious-gloves",
+     "31106",
+     "26235",
+     "x-avernic-treads-max",
+     {
+      "item": "33595",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "dagannoth_supreme": {
+   "high": {
+    "source": "Wiki: Dagannoth Kings/Strategies, Tribrid (all kings; Slayer helmet left out: task only), 24 Nov 2026",
+    "gear": [
+     "29801",
+     "12002",
+     "33639",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "26384",
+     "27238",
+     "26386",
+     "27241",
+     "22486",
+     "31115",
+     "20997",
+     "x-spectral-spirit-shield",
+     "x-ferocious-gloves",
+     "31106",
+     "26235",
+     "x-avernic-treads-max",
+     {
+      "item": "33595",
+      "qty": 200
+     }
+    ]
+   }
+  },
+  "the_gauntlet": {
+   "high": {
+    "source": "No items can be brought into the Gauntlet",
+    "gear": [],
+    "noGear": true
    }
   }
  },
@@ -1377,6 +2317,18 @@
    "taskOnly": true
   },
   "cerberus": {
+   "taskOnly": true
+  },
+  "abyssal_sire": {
+   "taskOnly": true
+  },
+  "grotesque_guardians": {
+   "taskOnly": true
+  },
+  "thermonuclear_smoke_devil": {
+   "taskOnly": true
+  },
+  "kraken": {
    "taskOnly": true
   }
  }
