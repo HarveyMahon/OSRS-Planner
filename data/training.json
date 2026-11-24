@@ -13,31 +13,52 @@
     "stages": [
      {
       "from": 1,
-      "name": "Quests, then Rock/Sand crabs",
-      "xpPerHr": 15000
+      "name": "Quests (Waterfall, Witch's House), then crabs",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 30,
-      "name": "Sand crabs (Hosidius)",
-      "xpPerHr": 30000
-     },
-     {
-      "from": 60,
-      "name": "Nightmare Zone (rock cake, absorptions)",
-      "xpPerHr": 65000
-     },
-     {
-      "from": 80,
+      "from": 55,
       "name": "Sulphur nagua (Neypotzli)",
-      "xpPerHr": 95000,
+      "xpPerHr": 75000,
       "requires": {
        "all": [
         {
-         "skill": "Herblore",
-         "level": 38
+         "skill": "Prayer",
+         "level": 43
         },
         {
          "quest": "perilous_moons"
+        }
+       ]
+      }
+     },
+     {
+      "from": 65,
+      "name": "Sulphur nagua",
+      "xpPerHr": 100000,
+      "note": "Between the Wiki's 75K (60) and 130K (75).",
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
+     },
+     {
+      "from": 75,
+      "name": "Maniacal monkeys with Hallowfell",
+      "xpPerHr": 200000,
+      "note": "200K+ with good stacking; up to 300K.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
         }
        ]
       }
@@ -45,32 +66,61 @@
     ]
    },
    {
-    "id": "attack_balanced_slayer_style_combat",
+    "id": "attack_balanced_balanced",
     "kind": "balanced",
-    "label": "Slayer-style combat",
+    "label": "Balanced",
     "intensity": 3,
     "stages": [
      {
       "from": 1,
-      "name": "Hill giants / Moss giants",
-      "xpPerHr": 15000
+      "name": "Quests, then crabs",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Ammonite crabs (Fossil Island)",
+      "from": 30,
+      "name": "Gemstone Crab",
       "xpPerHr": 35000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
+     },
+     {
+      "from": 55,
+      "name": "Sulphur nagua",
+      "xpPerHr": 75000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
         }
        ]
       }
      },
      {
       "from": 70,
-      "name": "Nightmare Zone (absorptions)",
-      "xpPerHr": 60000
+      "name": "Sulphur nagua",
+      "xpPerHr": 115000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
      }
     ]
    },
@@ -82,25 +132,28 @@
     "stages": [
      {
       "from": 1,
-      "name": "Rock crabs / Sand crabs (re-aggro every 10 minutes)",
-      "xpPerHr": 12000
+      "name": "Rock / Sand crabs",
+      "xpPerHr": 15000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Ammonite crabs",
+      "from": 30,
+      "name": "Gemstone Crab (very low intensity)",
       "xpPerHr": 30000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
         }
        ]
       }
      },
      {
       "from": 60,
-      "name": "Nightmare Zone (absorptions, very AFK)",
-      "xpPerHr": 55000
+      "name": "Nightmare Zone (one input every 20 minutes)",
+      "xpPerHr": 70000,
+      "note": "Estimate: the Wiki gives no rate for this. The Wiki calls it the most AFK melee method."
      }
     ]
    }
@@ -114,31 +167,52 @@
     "stages": [
      {
       "from": 1,
-      "name": "Quests, then Rock/Sand crabs",
-      "xpPerHr": 15000
+      "name": "Quests (Waterfall, Witch's House), then crabs",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 30,
-      "name": "Sand crabs (Hosidius)",
-      "xpPerHr": 30000
-     },
-     {
-      "from": 60,
-      "name": "Nightmare Zone (rock cake, absorptions)",
-      "xpPerHr": 65000
-     },
-     {
-      "from": 80,
+      "from": 55,
       "name": "Sulphur nagua (Neypotzli)",
-      "xpPerHr": 95000,
+      "xpPerHr": 75000,
       "requires": {
        "all": [
         {
-         "skill": "Herblore",
-         "level": 38
+         "skill": "Prayer",
+         "level": 43
         },
         {
          "quest": "perilous_moons"
+        }
+       ]
+      }
+     },
+     {
+      "from": 65,
+      "name": "Sulphur nagua",
+      "xpPerHr": 100000,
+      "note": "Between the Wiki's 75K (60) and 130K (75).",
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
+     },
+     {
+      "from": 75,
+      "name": "Maniacal monkeys with Hallowfell",
+      "xpPerHr": 200000,
+      "note": "200K+ with good stacking; up to 300K.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
         }
        ]
       }
@@ -146,32 +220,61 @@
     ]
    },
    {
-    "id": "strength_balanced_slayer_style_combat",
+    "id": "strength_balanced_balanced",
     "kind": "balanced",
-    "label": "Slayer-style combat",
+    "label": "Balanced",
     "intensity": 3,
     "stages": [
      {
       "from": 1,
-      "name": "Hill giants / Moss giants",
-      "xpPerHr": 15000
+      "name": "Quests, then crabs",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Ammonite crabs (Fossil Island)",
+      "from": 30,
+      "name": "Gemstone Crab",
       "xpPerHr": 35000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
+     },
+     {
+      "from": 55,
+      "name": "Sulphur nagua",
+      "xpPerHr": 75000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
         }
        ]
       }
      },
      {
       "from": 70,
-      "name": "Nightmare Zone (absorptions)",
-      "xpPerHr": 60000
+      "name": "Sulphur nagua",
+      "xpPerHr": 115000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
      }
     ]
    },
@@ -183,25 +286,28 @@
     "stages": [
      {
       "from": 1,
-      "name": "Rock crabs / Sand crabs (re-aggro every 10 minutes)",
-      "xpPerHr": 12000
+      "name": "Rock / Sand crabs",
+      "xpPerHr": 15000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Ammonite crabs",
+      "from": 30,
+      "name": "Gemstone Crab (very low intensity)",
       "xpPerHr": 30000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
         }
        ]
       }
      },
      {
       "from": 60,
-      "name": "Nightmare Zone (absorptions, very AFK)",
-      "xpPerHr": 55000
+      "name": "Nightmare Zone (one input every 20 minutes)",
+      "xpPerHr": 70000,
+      "note": "Estimate: the Wiki gives no rate for this. The Wiki calls it the most AFK melee method."
      }
     ]
    }
@@ -215,31 +321,52 @@
     "stages": [
      {
       "from": 1,
-      "name": "Quests, then Rock/Sand crabs",
-      "xpPerHr": 15000
+      "name": "Quests (Waterfall, Witch's House), then crabs",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 30,
-      "name": "Sand crabs (Hosidius)",
-      "xpPerHr": 30000
-     },
-     {
-      "from": 60,
-      "name": "Nightmare Zone (rock cake, absorptions)",
-      "xpPerHr": 65000
-     },
-     {
-      "from": 80,
+      "from": 55,
       "name": "Sulphur nagua (Neypotzli)",
-      "xpPerHr": 95000,
+      "xpPerHr": 75000,
       "requires": {
        "all": [
         {
-         "skill": "Herblore",
-         "level": 38
+         "skill": "Prayer",
+         "level": 43
         },
         {
          "quest": "perilous_moons"
+        }
+       ]
+      }
+     },
+     {
+      "from": 65,
+      "name": "Sulphur nagua",
+      "xpPerHr": 100000,
+      "note": "Between the Wiki's 75K (60) and 130K (75).",
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
+     },
+     {
+      "from": 75,
+      "name": "Maniacal monkeys with Hallowfell",
+      "xpPerHr": 200000,
+      "note": "200K+ with good stacking; up to 300K.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
         }
        ]
       }
@@ -247,32 +374,61 @@
     ]
    },
    {
-    "id": "defence_balanced_slayer_style_combat",
+    "id": "defence_balanced_balanced",
     "kind": "balanced",
-    "label": "Slayer-style combat",
+    "label": "Balanced",
     "intensity": 3,
     "stages": [
      {
       "from": 1,
-      "name": "Hill giants / Moss giants",
-      "xpPerHr": 15000
+      "name": "Quests, then crabs",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Ammonite crabs (Fossil Island)",
+      "from": 30,
+      "name": "Gemstone Crab",
       "xpPerHr": 35000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
+     },
+     {
+      "from": 55,
+      "name": "Sulphur nagua",
+      "xpPerHr": 75000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
         }
        ]
       }
      },
      {
       "from": 70,
-      "name": "Nightmare Zone (absorptions)",
-      "xpPerHr": 60000
+      "name": "Sulphur nagua",
+      "xpPerHr": 115000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Prayer",
+         "level": 43
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
      }
     ]
    },
@@ -284,25 +440,28 @@
     "stages": [
      {
       "from": 1,
-      "name": "Rock crabs / Sand crabs (re-aggro every 10 minutes)",
-      "xpPerHr": 12000
+      "name": "Rock / Sand crabs",
+      "xpPerHr": 15000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Ammonite crabs",
+      "from": 30,
+      "name": "Gemstone Crab (very low intensity)",
       "xpPerHr": 30000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
         }
        ]
       }
      },
      {
       "from": 60,
-      "name": "Nightmare Zone (absorptions, very AFK)",
-      "xpPerHr": 55000
+      "name": "Nightmare Zone (one input every 20 minutes)",
+      "xpPerHr": 70000,
+      "note": "Estimate: the Wiki gives no rate for this. The Wiki calls it the most AFK melee method."
      }
     ]
    }
@@ -325,26 +484,66 @@
   ],
   "Ranged": [
    {
-    "id": "ranged_fastest_fastest",
+    "id": "ranged_fastest_chinning",
     "kind": "fastest",
-    "label": "Fastest",
+    "label": "Chinning",
     "intensity": 5,
     "stages": [
      {
       "from": 1,
-      "name": "Darts / knives at Sand crabs",
-      "xpPerHr": 20000
+      "name": "Dwarf multicannon on ogres",
+      "xpPerHr": 40000,
+      "note": "Cannonball costs.",
+      "requires": {
+       "all": [
+        {
+         "quest": "dwarf_cannon"
+        }
+       ]
+      }
      },
      {
       "from": 45,
-      "name": "Cannon at Ogres / Nightmare Zone",
-      "xpPerHr": 60000
+      "name": "Chinning maniacal monkeys (grey chinchompas)",
+      "xpPerHr": 290000,
+      "note": "Costs chinchompas; rates assume max gear.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 55,
+      "name": "Chinning (red chinchompas)",
+      "xpPerHr": 430000,
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
      },
      {
       "from": 65,
-      "name": "Chinning (grey chinchompas) in the Monkey Madness II tunnels",
-      "xpPerHr": 250000,
-      "note": "Costs grey chinchompas: roughly 1,000 an hour.",
+      "name": "Chinning (black chinchompas)",
+      "xpPerHr": 690000,
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 85,
+      "name": "Chinning (black chinchompas)",
+      "xpPerHr": 860000,
+      "note": "Between the Wiki's 690K (65) and 1.03M (99).",
       "requires": {
        "all": [
         {
@@ -363,25 +562,34 @@
     "stages": [
      {
       "from": 1,
-      "name": "Sand crabs",
-      "xpPerHr": 18000
-     },
-     {
-      "from": 40,
-      "name": "Ammonite crabs",
+      "name": "Dwarf multicannon on ogres",
       "xpPerHr": 40000,
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "dwarf_cannon"
         }
        ]
       }
      },
      {
       "from": 70,
-      "name": "Nightmare Zone (blowpipe or crossbow)",
-      "xpPerHr": 75000
+      "name": "Pest Control",
+      "xpPerHr": 90000,
+      "note": "77K (70) to 113K (99); hard games more."
+     },
+     {
+      "from": 80,
+      "name": "Venator bow on maniacal monkeys",
+      "xpPerHr": 185000,
+      "note": "140-230K.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
      }
     ]
    },
@@ -393,20 +601,27 @@
     "stages": [
      {
       "from": 1,
-      "name": "Sand crabs",
-      "xpPerHr": 15000
-     },
-     {
-      "from": 40,
-      "name": "Ammonite crabs",
-      "xpPerHr": 35000,
+      "name": "Gemstone Crab (idle)",
+      "xpPerHr": 25000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
-         "quest": "bone_voyage"
+         "quest": "children_of_the_sun"
         }
        ]
       }
+     },
+     {
+      "from": 80,
+      "name": "Nightmare Zone with a venator bow",
+      "xpPerHr": 120000,
+      "note": "The Wiki gives 140-150K at 99."
+     },
+     {
+      "from": 95,
+      "name": "Nightmare Zone with a venator bow",
+      "xpPerHr": 145000
      }
     ]
    }
@@ -420,52 +635,78 @@
     "stages": [
      {
       "from": 1,
-      "name": "Strike/Bolt spells at crabs",
-      "xpPerHr": 15000
+      "name": "Strike spells",
+      "xpPerHr": 10000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 45,
-      "name": "Camelot Teleport",
-      "xpPerHr": 90000,
-      "xpEach": 55.5,
-      "inputs": [
-       {
-        "item": "563",
-        "qty": 1
-       },
-       {
-        "item": "556",
-        "qty": 5
-       }
-      ]
+      "from": 7,
+      "name": "Lvl-1 Enchant (sapphire rings)",
+      "xpPerHr": 32000,
+      "f2p": true
      },
      {
-      "from": 70,
-      "name": "Ice Burst on Slayer tasks (catacombs)",
-      "xpPerHr": 140000,
-      "note": "Rune costs vary by task."
+      "from": 27,
+      "name": "Lvl-2 Enchant (emerald rings)",
+      "xpPerHr": 59200
+     },
+     {
+      "from": 43,
+      "name": "Superheat Item",
+      "xpPerHr": 97000
+     },
+     {
+      "from": 62,
+      "name": "Ice Burst on maniacal monkeys",
+      "xpPerHr": 310000,
+      "requires": {
+       "all": [
+        {
+         "quest": "desert_treasure_i"
+        },
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
      },
      {
       "from": 94,
-      "name": "Ice Barrage on Slayer tasks",
-      "xpPerHr": 220000
+      "name": "Ice Barrage on maniacal monkeys",
+      "xpPerHr": 400000,
+      "requires": {
+       "all": [
+        {
+         "quest": "desert_treasure_i"
+        },
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "magic_balanced_high_alchemy",
+    "id": "magic_balanced_alching_and_lunar_spells",
     "kind": "balanced",
-    "label": "High Alchemy",
+    "label": "Alching and Lunar spells",
     "intensity": 2,
     "stages": [
      {
       "from": 1,
-      "name": "Strike/Bolt spells",
-      "xpPerHr": 12000
+      "name": "Strike spells",
+      "xpPerHr": 10000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 7,
+      "name": "Lvl-1 Enchant (profitable)",
+      "xpPerHr": 32000
      },
      {
       "from": 55,
-      "name": "High Level Alchemy (fire staff)",
+      "name": "High Level Alchemy",
       "xpPerHr": 78000,
       "xpEach": 65,
       "inputs": [
@@ -474,60 +715,73 @@
         "qty": 1
        }
       ],
-      "note": "Profit or loss depends on the items you alch; only the nature rune is counted."
+      "note": "Profit or loss depends on what you alch; only the nature rune is counted."
+     },
+     {
+      "from": 80,
+      "name": "String Jewellery (Lunar)",
+      "xpPerHr": 150000,
+      "requires": {
+       "all": [
+        {
+         "quest": "lunar_diplomacy"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "magic_afk_afk_splashing",
+    "id": "magic_afk_splashing",
     "kind": "afk",
-    "label": "AFK (splashing)",
+    "label": "Splashing",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Splashing (-65 magic bonus)",
+      "name": "Splashing (input every 20 minutes)",
       "xpPerHr": 13000,
-      "note": "Needs a combat level that lets you splash safely."
+      "note": "The Wiki gives 6,600 to 75,750 depending on the spell."
+     },
+     {
+      "from": 55,
+      "name": "High Level Alchemy (passive)",
+      "xpPerHr": 78000,
+      "xpEach": 65,
+      "inputs": [
+       {
+        "item": "561",
+        "qty": 1
+       }
+      ]
      }
     ]
    }
   ],
   "Prayer": [
    {
-    "id": "prayer_fastest_fastest",
+    "id": "prayer_fastest_gilded_altar",
     "kind": "fastest",
-    "label": "Fastest",
-    "intensity": 3,
+    "label": "Gilded altar",
+    "intensity": 4,
     "stages": [
      {
       "from": 1,
-      "name": "Gilded altar: big bones",
-      "xpPerHr": 100000,
-      "xpEach": 52.5,
-      "inputs": [
-       {
-        "item": "532",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 20,
       "name": "Gilded altar: dragon bones",
-      "xpPerHr": 480000,
+      "xpPerHr": 643000,
       "xpEach": 252,
       "inputs": [
        {
         "item": "536",
         "qty": 1
        }
-      ]
+      ],
+      "note": "Needs a house with a gilded altar (75 Construction) or a friend's."
      },
      {
       "from": 70,
       "name": "Gilded altar: superior dragon bones",
-      "xpPerHr": 1000000,
+      "xpPerHr": 1340000,
       "xpEach": 525,
       "inputs": [
        {
@@ -539,16 +793,15 @@
     ]
    },
    {
-    "id": "prayer_balanced_chaos_altar_cheaper_per_xp",
+    "id": "prayer_balanced_chaos_altar_half_the_bones",
     "kind": "balanced",
-    "label": "Chaos altar (cheaper per XP)",
+    "label": "Chaos altar (half the bones)",
     "intensity": 3,
-    "note": "Level 38 Wilderness: bring only what you can lose.",
     "stages": [
      {
       "from": 1,
-      "name": "Chaos altar: dragon bones (50% chance to keep each bone)",
-      "xpPerHr": 400000,
+      "name": "Chaos altar: dragon bones",
+      "xpPerHr": 500000,
       "xpEach": 252,
       "inputs": [
        {
@@ -556,49 +809,91 @@
         "qty": 0.5
        }
       ],
-      "wilderness": true
+      "wilderness": true,
+      "note": "50% chance to keep each bone. Up to 860K offering manually. Level 38 Wilderness."
      }
     ]
    },
    {
-    "id": "prayer_afk_lowest_effort",
-    "kind": "afk",
-    "label": "Lowest effort",
-    "intensity": 2,
-    "note": "Prayer has no truly AFK method; the altar is the least demanding.",
+    "id": "prayer_balanced_libation_bowl",
+    "kind": "balanced",
+    "label": "Libation bowl",
+    "intensity": 4,
     "stages": [
      {
       "from": 1,
-      "name": "Gilded altar: big bones",
-      "xpPerHr": 100000,
-      "xpEach": 52.5,
+      "name": "Gilded altar: dragon bones",
+      "xpPerHr": 643000,
+      "xpEach": 252,
       "inputs": [
        {
-        "item": "532",
+        "item": "536",
         "qty": 1
        }
       ]
+     },
+     {
+      "from": 30,
+      "name": "Libation bowl (blessed wine)",
+      "xpPerHr": 670000,
+      "note": "Bone shards from bones; costs depend on the bones used."
+     },
+     {
+      "from": 48,
+      "name": "Libation bowl (blessed wine)",
+      "xpPerHr": 923000
+     },
+     {
+      "from": 62,
+      "name": "Libation bowl (blessed wine)",
+      "xpPerHr": 1050000
+     }
+    ]
+   },
+   {
+    "id": "prayer_afk_calcified_rocks",
+    "kind": "afk",
+    "label": "Calcified rocks",
+    "intensity": 1,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Mining calcified rocks (Cam Torum)",
+      "xpPerHr": 12000,
+      "note": "Relatively AFK; banked shards give Prayer XP.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Mining",
+         "level": 41
+        },
+        {
+         "quest": "perilous_moons"
+        }
+       ]
+      }
      }
     ]
    }
   ],
   "Runecraft": [
    {
-    "id": "runecraft_fastest_fastest",
+    "id": "runecraft_fastest_fastest_solo",
     "kind": "fastest",
-    "label": "Fastest",
+    "label": "Fastest (solo)",
     "intensity": 5,
+    "note": "Faster with paid essence runners (280K+), which can be linked to real-world trading.",
     "stages": [
      {
       "from": 1,
-      "name": "Air / Mind runes",
-      "xpPerHr": 8000,
-      "f2p": true
+      "name": "Talisman tiaras",
+      "xpPerHr": 47000,
+      "note": "Air 36K to elemental 58K."
      },
      {
-      "from": 23,
+      "from": 50,
       "name": "Lava runes",
-      "xpPerHr": 60000,
+      "xpPerHr": 63000,
       "xpEach": 10.5,
       "inputs": [
        {
@@ -618,9 +913,31 @@
       ]
      },
      {
-      "from": 82,
-      "name": "Lava runes (higher levels)",
-      "xpPerHr": 90000,
+      "from": 75,
+      "name": "Lava runes",
+      "xpPerHr": 79000,
+      "xpEach": 10.5,
+      "inputs": [
+       {
+        "item": "7936",
+        "qty": 1
+       },
+       {
+        "item": "557",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "4699",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 85,
+      "name": "Lava runes",
+      "xpPerHr": 101000,
       "xpEach": 10.5,
       "inputs": [
        {
@@ -649,13 +966,14 @@
     "stages": [
      {
       "from": 1,
-      "name": "Air / Mind runes",
-      "xpPerHr": 8000
+      "name": "Talisman tiaras",
+      "xpPerHr": 47000
      },
      {
       "from": 27,
       "name": "Guardians of the Rift",
       "xpPerHr": 45000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
@@ -666,8 +984,9 @@
      },
      {
       "from": 77,
-      "name": "Guardians of the Rift (higher levels)",
+      "name": "Guardians of the Rift",
       "xpPerHr": 60000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
@@ -679,21 +998,21 @@
     ]
    },
    {
-    "id": "runecraft_afk_lowest_effort",
+    "id": "runecraft_afk_guardians_of_the_rift",
     "kind": "afk",
-    "label": "Lowest effort",
+    "label": "Guardians of the Rift",
     "intensity": 2,
     "stages": [
      {
       "from": 1,
-      "name": "Air runes",
-      "xpPerHr": 6000,
-      "f2p": true
+      "name": "Talisman tiaras",
+      "xpPerHr": 40000
      },
      {
       "from": 27,
-      "name": "Guardians of the Rift",
+      "name": "Guardians of the Rift (lower effort)",
       "xpPerHr": 40000,
+      "note": "Estimate: the Wiki gives no rate for this.",
       "requires": {
        "all": [
         {
@@ -701,19 +1020,6 @@
         }
        ]
       }
-     },
-     {
-      "from": 77,
-      "name": "True blood runes (Arceuus)",
-      "xpPerHr": 38000,
-      "xpEach": 24.4,
-      "outputs": [
-       {
-        "item": "565",
-        "qty": 1
-       }
-      ],
-      "note": "No essence to buy: you mine dense essence."
      }
     ]
    }
@@ -723,11 +1029,11 @@
     "id": "construction_fastest_fastest",
     "kind": "fastest",
     "label": "Fastest",
-    "intensity": 4,
+    "intensity": 5,
     "stages": [
      {
       "from": 1,
-      "name": "Crude wooden chairs",
+      "name": "Furniture in your house (crude chairs and up)",
       "xpPerHr": 30000,
       "xpEach": 58,
       "inputs": [
@@ -735,12 +1041,26 @@
         "item": "960",
         "qty": 2
        }
-      ]
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 33,
-      "name": "Oak larders (with a demon butler)",
-      "xpPerHr": 250000,
+      "name": "Oak larders",
+      "xpPerHr": 300000,
+      "xpEach": 480,
+      "inputs": [
+       {
+        "item": "8778",
+        "qty": 8
+       }
+      ],
+      "note": "Up to 500K from 50 with a demon butler."
+     },
+     {
+      "from": 50,
+      "name": "Oak larders (demon butler)",
+      "xpPerHr": 500000,
       "xpEach": 480,
       "inputs": [
        {
@@ -751,8 +1071,20 @@
      },
      {
       "from": 52,
-      "name": "Mahogany tables (with a demon butler)",
-      "xpPerHr": 650000,
+      "name": "Mahogany tables",
+      "xpPerHr": 900000,
+      "xpEach": 840,
+      "inputs": [
+       {
+        "item": "8782",
+        "qty": 6
+       }
+      ]
+     },
+     {
+      "from": 77,
+      "name": "Gnome benches",
+      "xpPerHr": 1100000,
       "xpEach": 840,
       "inputs": [
        {
@@ -764,14 +1096,14 @@
     ]
    },
    {
-    "id": "construction_balanced_oak_larders",
+    "id": "construction_balanced_mythical_capes_oak_doors",
     "kind": "balanced",
-    "label": "Oak larders",
+    "label": "Mythical capes / oak doors",
     "intensity": 3,
     "stages": [
      {
       "from": 1,
-      "name": "Crude wooden chairs",
+      "name": "Furniture in your house",
       "xpPerHr": 30000,
       "xpEach": 58,
       "inputs": [
@@ -779,12 +1111,13 @@
         "item": "960",
         "qty": 2
        }
-      ]
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 33,
       "name": "Oak larders",
-      "xpPerHr": 200000,
+      "xpPerHr": 300000,
       "xpEach": 480,
       "inputs": [
        {
@@ -792,20 +1125,91 @@
         "qty": 8
        }
       ]
+     },
+     {
+      "from": 50,
+      "name": "Mounted mythical capes",
+      "xpPerHr": 430000,
+      "xpEach": 370,
+      "inputs": [
+       {
+        "item": "8780",
+        "qty": 3
+       }
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "dragon_slayer_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 74,
+      "name": "Oak dungeon doors (one key held)",
+      "xpPerHr": 550000,
+      "xpEach": 600,
+      "inputs": [
+       {
+        "item": "8778",
+        "qty": 10
+       }
+      ]
      }
     ]
    },
    {
-    "id": "construction_afk_mahogany_homes",
+    "id": "construction_afk_mahogany_homes_shipwright",
     "kind": "afk",
-    "label": "Mahogany Homes",
+    "label": "Mahogany Homes / shipwright",
     "intensity": 2,
     "stages": [
      {
       "from": 1,
-      "name": "Mahogany Homes contracts",
-      "xpPerHr": 80000,
-      "note": "Plank costs vary with the contract tier."
+      "name": "Mahogany Homes (beginner)",
+      "xpPerHr": 42500,
+      "note": "Planks per hour vary by contract tier."
+     },
+     {
+      "from": 20,
+      "name": "Mahogany Homes (novice)",
+      "xpPerHr": 87500
+     },
+     {
+      "from": 50,
+      "name": "Mahogany Homes (adept)",
+      "xpPerHr": 140000
+     },
+     {
+      "from": 70,
+      "name": "Mahogany Homes (expert)",
+      "xpPerHr": 197500
+     },
+     {
+      "from": 80,
+      "name": "Shipwrights' workbench: ironwood repair kits",
+      "xpPerHr": 360000,
+      "note": "Relaxed: up to 29 seconds idle per inventory.",
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 84,
+      "name": "Shipwrights' workbench: rosewood hull parts",
+      "xpPerHr": 475000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
      }
     ]
    }
@@ -819,40 +1223,30 @@
     "stages": [
      {
       "from": 1,
-      "name": "Gnome Stronghold course",
-      "xpPerHr": 8000
+      "name": "Quests, then Draynor rooftop",
+      "xpPerHr": 9500
      },
      {
-      "from": 10,
-      "name": "Draynor rooftop",
-      "xpPerHr": 9000
-     },
-     {
-      "from": 30,
-      "name": "Varrock rooftop",
-      "xpPerHr": 13000
+      "from": 20,
+      "name": "Brimhaven Agility Arena (floor spikes)",
+      "xpPerHr": 30000,
+      "note": "200 coins entry."
      },
      {
       "from": 40,
-      "name": "Canifis rooftop",
-      "xpPerHr": 19000
+      "name": "Brimhaven Agility Arena (pillars)",
+      "xpPerHr": 47500
      },
      {
       "from": 52,
-      "name": "Hallowed Sepulchre",
+      "name": "Wilderness Agility Course",
       "xpPerHr": 55000,
-      "requires": {
-       "all": [
-        {
-         "quest": "sins_of_the_father"
-        }
-       ]
-      }
+      "wilderness": true
      },
      {
-      "from": 80,
-      "name": "Hallowed Sepulchre (higher floors)",
-      "xpPerHr": 85000,
+      "from": 62,
+      "name": "Hallowed Sepulchre",
+      "xpPerHr": 100000,
       "requires": {
        "all": [
         {
@@ -871,98 +1265,116 @@
     "stages": [
      {
       "from": 1,
-      "name": "Gnome Stronghold course",
-      "xpPerHr": 8000
-     },
-     {
-      "from": 10,
       "name": "Draynor rooftop",
-      "xpPerHr": 9000
+      "xpPerHr": 9500
      },
      {
       "from": 20,
       "name": "Al Kharid rooftop",
-      "xpPerHr": 10000
+      "xpPerHr": 11500
      },
      {
       "from": 30,
       "name": "Varrock rooftop",
-      "xpPerHr": 13000
+      "xpPerHr": 12500
      },
      {
       "from": 40,
       "name": "Canifis rooftop",
-      "xpPerHr": 19000
+      "xpPerHr": 15500
      },
      {
       "from": 50,
       "name": "Falador rooftop",
-      "xpPerHr": 27000
+      "xpPerHr": 31500
      },
      {
       "from": 60,
-      "name": "Seers' Village rooftop (with Kandarin diary)",
-      "xpPerHr": 45000
+      "name": "Seers' Village rooftop",
+      "xpPerHr": 42000,
+      "note": "50-56K with the hard Kandarin diary teleport."
      },
      {
       "from": 70,
       "name": "Pollnivneach rooftop",
-      "xpPerHr": 52000
+      "xpPerHr": 49000,
+      "note": "53-58K with the hard Desert diary."
      },
      {
       "from": 80,
       "name": "Rellekka rooftop",
-      "xpPerHr": 55000
+      "xpPerHr": 51500,
+      "note": "59-63K with the hard Fremennik diary."
      },
      {
       "from": 90,
       "name": "Ardougne rooftop",
-      "xpPerHr": 62000
+      "xpPerHr": 68000
      }
     ]
    },
    {
-    "id": "agility_afk_lowest_effort",
+    "id": "agility_afk_least_intensive",
     "kind": "afk",
-    "label": "Lowest effort",
-    "intensity": 2,
-    "note": "Agility is never AFK; these need the least attention per lap.",
+    "label": "Least intensive",
+    "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Gnome Stronghold course",
-      "xpPerHr": 8000
-     },
-     {
-      "from": 10,
       "name": "Draynor rooftop",
-      "xpPerHr": 9000
+      "xpPerHr": 9500
      },
      {
-      "from": 40,
-      "name": "Canifis rooftop",
-      "xpPerHr": 19000
+      "from": 20,
+      "name": "Brimhaven floor spikes (single click)",
+      "xpPerHr": 30000,
+      "note": "Very low intensity; 200 coins entry."
      },
      {
-      "from": 50,
-      "name": "Colossal Wyrm course (basic)",
-      "xpPerHr": 30000
+      "from": 62,
+      "name": "Colossal Wyrm advanced course",
+      "xpPerHr": 42000,
+      "note": "6 clicks per lap with AFK sections."
+     },
+     {
+      "from": 75,
+      "name": "Prifddinas course",
+      "xpPerHr": 60000,
+      "requires": {
+       "all": [
+        {
+         "quest": "song_of_the_elves"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Prifddinas course",
+      "xpPerHr": 65000,
+      "requires": {
+       "all": [
+        {
+         "quest": "song_of_the_elves"
+        }
+       ]
+      }
      }
     ]
    }
   ],
   "Herblore": [
    {
-    "id": "herblore_fastest_potions",
+    "id": "herblore_fastest_fastest_potions",
     "kind": "fastest",
-    "label": "Potions",
+    "label": "Fastest potions",
     "intensity": 2,
-    "note": "Herblore is buy, mix, sell: the same potions are fastest and least effort.",
+    "note": "About 2,500 potions an hour. Tick manipulation can roughly double rates.",
     "stages": [
      {
       "from": 3,
       "name": "Attack potions",
-      "xpPerHr": 60000,
+      "xpPerHr": 62500,
       "xpEach": 25,
       "inputs": [
        {
@@ -982,79 +1394,35 @@
       ]
      },
      {
-      "from": 26,
-      "name": "Energy potions",
-      "xpPerHr": 160000,
-      "xpEach": 67.5,
+      "from": 12,
+      "name": "Strength potions",
+      "xpPerHr": 125000,
+      "xpEach": 50,
+      "inputs": [
+       {
+        "item": "95",
+        "qty": 1
+       },
+       {
+        "item": "225",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "115",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 22,
+      "name": "Restore potions",
+      "xpPerHr": 156250,
+      "xpEach": 62.5,
       "inputs": [
        {
         "item": "97",
-        "qty": 1
-       },
-       {
-        "item": "1975",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "3010",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 38,
-      "name": "Prayer potions",
-      "xpPerHr": 210000,
-      "xpEach": 87.5,
-      "inputs": [
-       {
-        "item": "99",
-        "qty": 1
-       },
-       {
-        "item": "231",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "139",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 52,
-      "name": "Super energy",
-      "xpPerHr": 280000,
-      "xpEach": 117.5,
-      "inputs": [
-       {
-        "item": "103",
-        "qty": 1
-       },
-       {
-        "item": "2970",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "3018",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 63,
-      "name": "Super restores",
-      "xpPerHr": 340000,
-      "xpEach": 142.5,
-      "inputs": [
-       {
-        "item": "3004",
         "qty": 1
        },
        {
@@ -1064,67 +1432,113 @@
       ],
       "outputs": [
        {
-        "item": "3026",
+        "item": "127",
         "qty": 1
        }
       ]
      },
      {
-      "from": 72,
-      "name": "Ranging potions",
-      "xpPerHr": 390000,
-      "xpEach": 162.5,
+      "from": 45,
+      "name": "Super attack",
+      "xpPerHr": 250000,
+      "xpEach": 100,
+      "inputs": [
+       {
+        "item": "101",
+        "qty": 1
+       },
+       {
+        "item": "221",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "145",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 78,
+      "name": "Zamorak brews",
+      "xpPerHr": 437500,
+      "xpEach": 175,
+      "inputs": [
+       {
+        "item": "111",
+        "qty": 1
+       },
+       {
+        "item": "247",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "189",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 85,
+      "name": "Ancient brews",
+      "xpPerHr": 522500,
+      "xpEach": 190,
       "inputs": [
        {
         "item": "109",
         "qty": 1
        },
        {
-        "item": "245",
+        "item": "26368",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "169",
+        "item": "26342",
         "qty": 1
        }
       ]
      },
      {
-      "from": 81,
-      "name": "Saradomin brews",
-      "xpPerHr": 430000,
-      "xpEach": 180,
+      "from": 89,
+      "name": "Armadyl brews",
+      "xpPerHr": 563750,
+      "xpEach": 205,
       "inputs": [
        {
-        "item": "3002",
+        "item": "31668",
         "qty": 1
        },
        {
-        "item": "6693",
+        "item": "31710",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "6687",
-        "qty": 1
+        "item": "31650",
+        "qty": 0.75
        }
-      ]
+      ],
+      "note": "Output per the Wiki guide's ratio."
      }
     ]
    },
    {
-    "id": "herblore_balanced_cheaper_potions",
+    "id": "herblore_balanced_cheapest_per_xp",
     "kind": "balanced",
-    "label": "Cheaper potions",
+    "label": "Cheapest per XP",
     "intensity": 2,
+    "note": "Herblore is the same effort whichever potion you make.",
     "stages": [
      {
       "from": 3,
       "name": "Attack potions",
-      "xpPerHr": 60000,
+      "xpPerHr": 62500,
       "xpEach": 25,
       "inputs": [
        {
@@ -1144,97 +1558,75 @@
       ]
      },
      {
-      "from": 38,
-      "name": "Prayer potions",
-      "xpPerHr": 210000,
-      "xpEach": 87.5,
+      "from": 22,
+      "name": "Restore potions",
+      "xpPerHr": 156250,
+      "xpEach": 62.5,
       "inputs": [
        {
-        "item": "99",
+        "item": "97",
         "qty": 1
        },
        {
-        "item": "231",
+        "item": "223",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "139",
+        "item": "127",
         "qty": 1
        }
       ]
      },
      {
-      "from": 66,
-      "name": "Super defence",
-      "xpPerHr": 360000,
+      "from": 45,
+      "name": "Super attack",
+      "xpPerHr": 250000,
+      "xpEach": 100,
+      "inputs": [
+       {
+        "item": "101",
+        "qty": 1
+       },
+       {
+        "item": "221",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "145",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 90,
+      "name": "Super combat potions",
+      "xpPerHr": 324900,
       "xpEach": 150,
       "inputs": [
        {
-        "item": "107",
+        "item": "269",
         "qty": 1
        },
        {
-        "item": "239",
+        "item": "2436",
+        "qty": 1
+       },
+       {
+        "item": "2440",
+        "qty": 1
+       },
+       {
+        "item": "2442",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "163",
-        "qty": 1
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "herblore_afk_afk",
-    "kind": "afk",
-    "label": "AFK",
-    "intensity": 1,
-    "stages": [
-     {
-      "from": 3,
-      "name": "Attack potions",
-      "xpPerHr": 60000,
-      "xpEach": 25,
-      "inputs": [
-       {
-        "item": "91",
-        "qty": 1
-       },
-       {
-        "item": "221",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "121",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 38,
-      "name": "Prayer potions",
-      "xpPerHr": 210000,
-      "xpEach": 87.5,
-      "inputs": [
-       {
-        "item": "99",
-        "qty": 1
-       },
-       {
-        "item": "231",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "139",
+        "item": "12695",
         "qty": 1
        }
       ]
@@ -1251,24 +1643,30 @@
     "stages": [
      {
       "from": 1,
-      "name": "Men / women",
+      "name": "Quests, then men / women",
       "xpPerHr": 8000,
-      "f2p": true
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 5,
-      "name": "Cake stalls",
-      "xpPerHr": 16000
+      "name": "Ardougne bakery stalls",
+      "xpPerHr": 19200
      },
      {
       "from": 25,
-      "name": "Fruit stalls (Hosidius)",
-      "xpPerHr": 40000
+      "name": "Hosidius fruit stalls",
+      "xpPerHr": 42750
+     },
+     {
+      "from": 36,
+      "name": "Aldarin Villas chests",
+      "xpPerHr": 45000,
+      "note": "Lockpick and stamina potions."
      },
      {
       "from": 45,
-      "name": "Blackjacking (Pollnivneach)",
-      "xpPerHr": 150000,
+      "name": "Blackjacking (brews)",
+      "xpPerHr": 99000,
       "requires": {
        "all": [
         {
@@ -1278,74 +1676,178 @@
       }
      },
      {
+      "from": 49,
+      "name": "Stealing artefacts",
+      "xpPerHr": 150000
+     },
+     {
       "from": 55,
-      "name": "Ardougne knights",
-      "xpPerHr": 200000
+      "name": "Stealing artefacts",
+      "xpPerHr": 163000
+     },
+     {
+      "from": 60,
+      "name": "Stealing artefacts",
+      "xpPerHr": 174000
+     },
+     {
+      "from": 65,
+      "name": "Blackjacking (brews)",
+      "xpPerHr": 230000,
+      "requires": {
+       "all": [
+        {
+         "quest": "the_feud"
+        }
+       ]
+      }
+     },
+     {
+      "from": 75,
+      "name": "Blackjacking (brews)",
+      "xpPerHr": 242000,
+      "requires": {
+       "all": [
+        {
+         "quest": "the_feud"
+        }
+       ]
+      }
+     },
+     {
+      "from": 84,
+      "name": "Rogues' Castle chests",
+      "xpPerHr": 285000,
+      "wilderness": true,
+      "note": "High risk of player killers."
      }
     ]
    },
    {
-    "id": "thieving_balanced_pyramid_plunder",
+    "id": "thieving_balanced_knights_of_ardougne",
     "kind": "balanced",
-    "label": "Pyramid Plunder",
+    "label": "Knights of Ardougne",
     "intensity": 3,
+    "note": "Medium Ardougne diary recommended.",
     "stages": [
      {
       "from": 1,
       "name": "Men / women",
-      "xpPerHr": 8000
+      "xpPerHr": 8000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 21,
-      "name": "Pyramid Plunder",
-      "xpPerHr": 60000,
-      "requires": {
-       "all": [
-        {
-         "quest": "icthlarin_s_little_helper"
-        }
-       ]
-      }
+      "from": 5,
+      "name": "Ardougne bakery stalls",
+      "xpPerHr": 19200
      },
      {
       "from": 25,
-      "name": "Fruit stalls",
-      "xpPerHr": 40000
+      "name": "Hosidius fruit stalls",
+      "xpPerHr": 42750
      },
      {
-      "from": 71,
-      "name": "Pyramid Plunder (higher rooms)",
-      "xpPerHr": 200000,
-      "requires": {
-       "all": [
-        {
-         "quest": "icthlarin_s_little_helper"
-        }
-       ]
-      }
+      "from": 55,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 86000
+     },
+     {
+      "from": 65,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 109000
+     },
+     {
+      "from": 75,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 141000
+     },
+     {
+      "from": 85,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 182000
+     },
+     {
+      "from": 90,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 209000
+     },
+     {
+      "from": 95,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 240000
      }
     ]
    },
    {
-    "id": "thieving_afk_afk",
+    "id": "thieving_afk_least_intensive",
     "kind": "afk",
-    "label": "AFK",
+    "label": "Least intensive",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
       "name": "Men / women",
-      "xpPerHr": 8000
+      "xpPerHr": 8000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 5,
-      "name": "Cake stalls",
-      "xpPerHr": 16000
+      "name": "Ardougne bakery stalls",
+      "xpPerHr": 19200
      },
      {
       "from": 25,
-      "name": "Fruit stalls (Hosidius)",
-      "xpPerHr": 40000
+      "name": "Hosidius fruit stalls",
+      "xpPerHr": 42750
+     },
+     {
+      "from": 50,
+      "name": "Varlamore valuables",
+      "xpPerHr": 72000,
+      "requires": {
+       "all": [
+        {
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
+     },
+     {
+      "from": 60,
+      "name": "Varlamore valuables",
+      "xpPerHr": 80000,
+      "requires": {
+       "all": [
+        {
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
+     },
+     {
+      "from": 70,
+      "name": "Varlamore valuables",
+      "xpPerHr": 93000,
+      "requires": {
+       "all": [
+        {
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
+     },
+     {
+      "from": 78,
+      "name": "Dorgesh-Kaan rich chests",
+      "xpPerHr": 190000,
+      "note": "Fairly low effort.",
+      "requires": {
+       "all": [
+        {
+         "quest": "death_to_the_dorgeshuun"
+        }
+       ]
+      }
      }
     ]
    }
@@ -1359,110 +1861,14 @@
     "stages": [
      {
       "from": 1,
-      "name": "Cutting opals / gems",
-      "xpPerHr": 30000,
-      "xpEach": 15,
-      "inputs": [
-       {
-        "item": "1625",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "1609",
-        "qty": 1
-       }
-      ]
+      "name": "Leather items",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 20,
       "name": "Cutting sapphires",
-      "xpPerHr": 130000,
-      "xpEach": 50,
-      "inputs": [
-       {
-        "item": "1623",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "1607",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 54,
-      "name": "Air battlestaves",
-      "xpPerHr": 300000,
-      "xpEach": 137.5,
-      "inputs": [
-       {
-        "item": "1391",
-        "qty": 1
-       },
-       {
-        "item": "573",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "1397",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 63,
-      "name": "Green d'hide bodies",
-      "xpPerHr": 340000,
-      "xpEach": 186,
-      "inputs": [
-       {
-        "item": "1745",
-        "qty": 3
-       }
-      ],
-      "outputs": [
-       {
-        "item": "1135",
-        "qty": 1
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "id": "crafting_balanced_gem_cutting",
-    "kind": "balanced",
-    "label": "Gem cutting",
-    "intensity": 2,
-    "stages": [
-     {
-      "from": 1,
-      "name": "Cutting opals",
-      "xpPerHr": 30000,
-      "xpEach": 15,
-      "inputs": [
-       {
-        "item": "1625",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "1609",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 20,
-      "name": "Cutting sapphires",
-      "xpPerHr": 130000,
+      "xpPerHr": 139000,
       "xpEach": 50,
       "inputs": [
        {
@@ -1480,7 +1886,7 @@
      {
       "from": 27,
       "name": "Cutting emeralds",
-      "xpPerHr": 170000,
+      "xpPerHr": 187650,
       "xpEach": 67.5,
       "inputs": [
        {
@@ -1498,7 +1904,7 @@
      {
       "from": 34,
       "name": "Cutting rubies",
-      "xpPerHr": 210000,
+      "xpPerHr": 236300,
       "xpEach": 85,
       "inputs": [
        {
@@ -1516,7 +1922,7 @@
      {
       "from": 43,
       "name": "Cutting diamonds",
-      "xpPerHr": 260000,
+      "xpPerHr": 298850,
       "xpEach": 107.5,
       "inputs": [
        {
@@ -1530,6 +1936,110 @@
         "qty": 1
        }
       ]
+     },
+     {
+      "from": 55,
+      "name": "Cutting dragonstones",
+      "xpPerHr": 382250,
+      "xpEach": 137.5,
+      "inputs": [
+       {
+        "item": "1631",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1615",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 77,
+      "name": "Red d'hide bodies",
+      "xpPerHr": 405000,
+      "xpEach": 234,
+      "inputs": [
+       {
+        "item": "2507",
+        "qty": 3
+       }
+      ],
+      "outputs": [
+       {
+        "item": "2501",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 84,
+      "name": "Black d'hide bodies",
+      "xpPerHr": 447000,
+      "xpEach": 258,
+      "inputs": [
+       {
+        "item": "2509",
+        "qty": 3
+       }
+      ],
+      "outputs": [
+       {
+        "item": "2503",
+        "qty": 1
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "crafting_balanced_cheapest_per_xp",
+    "kind": "balanced",
+    "label": "Cheapest per XP",
+    "intensity": 2,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Leather items",
+      "xpPerHr": 20000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 20,
+      "name": "Cutting sapphires",
+      "xpPerHr": 139000,
+      "xpEach": 50,
+      "inputs": [
+       {
+        "item": "1623",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1607",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 63,
+      "name": "Green d'hide bodies",
+      "xpPerHr": 322000,
+      "xpEach": 186,
+      "inputs": [
+       {
+        "item": "1745",
+        "qty": 3
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1135",
+        "qty": 1
+       }
+      ]
      }
     ]
    },
@@ -1538,11 +2048,12 @@
     "kind": "afk",
     "label": "Glassblowing",
     "intensity": 1,
+    "note": "Needs little attention and little capital.",
     "stages": [
      {
       "from": 1,
       "name": "Beer glasses",
-      "xpPerHr": 30000,
+      "xpPerHr": 30625,
       "xpEach": 17.5,
       "inputs": [
        {
@@ -1560,7 +2071,7 @@
      {
       "from": 46,
       "name": "Unpowered orbs",
-      "xpPerHr": 90000,
+      "xpPerHr": 91875,
       "xpEach": 52.5,
       "inputs": [
        {
@@ -1576,10 +2087,10 @@
       ]
      },
      {
-      "from": 87,
-      "name": "Light orbs",
-      "xpPerHr": 110000,
-      "xpEach": 70,
+      "from": 49,
+      "name": "Lantern lenses",
+      "xpPerHr": 96250,
+      "xpEach": 55,
       "inputs": [
        {
         "item": "1775",
@@ -1588,154 +2099,166 @@
       ],
       "outputs": [
        {
-        "item": "10973",
+        "item": "4542",
         "qty": 1
        }
       ]
+     },
+     {
+      "from": 87,
+      "name": "Empty light orbs",
+      "xpPerHr": 122500,
+      "xpEach": 70,
+      "inputs": [
+       {
+        "item": "1775",
+        "qty": 1
+       }
+      ],
+      "note": "Empty light orbs are not on the GE; only the glass is counted."
      }
     ]
    }
   ],
   "Fletching": [
    {
-    "id": "fletching_fastest_fastest_darts",
+    "id": "fletching_fastest_arrows",
     "kind": "fastest",
-    "label": "Fastest (darts)",
+    "label": "Arrows",
     "intensity": 5,
+    "note": "The Wiki's rates assume 45,000 arrows an hour; mithril to rune are worked out on the same basis.",
     "stages": [
      {
       "from": 1,
-      "name": "Arrow shafts",
-      "xpPerHr": 10000,
-      "xpEach": 5,
+      "name": "Headless arrows",
+      "xpPerHr": 45000,
+      "xpEach": 1,
       "inputs": [
        {
-        "item": "1511",
+        "item": "52",
+        "qty": 1
+       },
+       {
+        "item": "314",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "52",
-        "qty": 15
+        "item": "53",
+        "qty": 1
        }
       ]
      },
      {
-      "from": 37,
-      "name": "Steel darts",
-      "xpPerHr": 450000,
+      "from": 30,
+      "name": "Steel arrows",
+      "xpPerHr": 225000,
+      "xpEach": 5,
+      "inputs": [
+       {
+        "item": "53",
+        "qty": 1
+       },
+       {
+        "item": "41",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "886",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 45,
+      "name": "Mithril arrows",
+      "xpPerHr": 337500,
       "xpEach": 7.5,
       "inputs": [
        {
-        "item": "821",
+        "item": "53",
         "qty": 1
        },
        {
-        "item": "314",
+        "item": "42",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "808",
+        "item": "888",
         "qty": 1
        }
-      ],
-      "requires": {
-       "all": [
-        {
-         "quest": "the_tourist_trap"
-        }
-       ]
-      }
+      ]
      },
      {
-      "from": 52,
-      "name": "Mithril darts",
-      "xpPerHr": 700000,
-      "xpEach": 11.2,
+      "from": 60,
+      "name": "Adamant arrows",
+      "xpPerHr": 450000,
+      "xpEach": 10,
       "inputs": [
        {
-        "item": "822",
+        "item": "53",
         "qty": 1
        },
        {
-        "item": "314",
+        "item": "43",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "809",
+        "item": "890",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 75,
+      "name": "Rune arrows",
+      "xpPerHr": 562500,
+      "xpEach": 12.5,
+      "inputs": [
+       {
+        "item": "53",
+        "qty": 1
+       },
+       {
+        "item": "44",
         "qty": 1
        }
       ],
-      "requires": {
-       "all": [
-        {
-         "quest": "the_tourist_trap"
-        }
-       ]
-      }
+      "outputs": [
+       {
+        "item": "892",
+        "qty": 1
+       }
+      ]
      },
      {
-      "from": 67,
-      "name": "Adamant darts",
-      "xpPerHr": 900000,
+      "from": 90,
+      "name": "Dragon arrows",
+      "xpPerHr": 675000,
       "xpEach": 15,
       "inputs": [
        {
-        "item": "823",
+        "item": "53",
         "qty": 1
        },
        {
-        "item": "314",
+        "item": "11237",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "810",
+        "item": "11212",
         "qty": 1
        }
-      ],
-      "requires": {
-       "all": [
-        {
-         "quest": "the_tourist_trap"
-        }
-       ]
-      }
-     },
-     {
-      "from": 81,
-      "name": "Rune darts",
-      "xpPerHr": 1100000,
-      "xpEach": 18.8,
-      "inputs": [
-       {
-        "item": "824",
-        "qty": 1
-       },
-       {
-        "item": "314",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "811",
-        "qty": 1
-       }
-      ],
-      "requires": {
-       "all": [
-        {
-         "quest": "the_tourist_trap"
-        }
-       ]
-      }
+      ]
      }
     ]
    },
@@ -1747,19 +2270,23 @@
     "stages": [
      {
       "from": 1,
-      "name": "Arrow shafts",
-      "xpPerHr": 10000,
-      "xpEach": 5,
+      "name": "Headless arrows",
+      "xpPerHr": 45000,
+      "xpEach": 1,
       "inputs": [
        {
-        "item": "1511",
+        "item": "52",
+        "qty": 1
+       },
+       {
+        "item": "314",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "52",
-        "qty": 15
+        "item": "53",
+        "qty": 1
        }
       ]
      },
@@ -1783,7 +2310,8 @@
         "item": "851",
         "qty": 1
        }
-      ]
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 70,
@@ -1805,7 +2333,8 @@
         "item": "855",
         "qty": 1
        }
-      ]
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 85,
@@ -1827,69 +2356,130 @@
         "item": "859",
         "qty": 1
        }
-      ]
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
      }
     ]
    },
    {
-    "id": "fletching_afk_cutting_bows",
+    "id": "fletching_afk_darts_while_doing_other_things",
     "kind": "afk",
-    "label": "Cutting bows",
+    "label": "Darts (while doing other things)",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Arrow shafts",
-      "xpPerHr": 10000,
-      "xpEach": 5,
+      "name": "Headless arrows",
+      "xpPerHr": 45000,
+      "xpEach": 1,
       "inputs": [
-       {
-        "item": "1511",
-        "qty": 1
-       }
-      ],
-      "outputs": [
        {
         "item": "52",
-        "qty": 15
-       }
-      ]
-     },
-     {
-      "from": 55,
-      "name": "Cutting maple longbows (u)",
-      "xpPerHr": 85000,
-      "xpEach": 58.3,
-      "inputs": [
+        "qty": 1
+       },
        {
-        "item": "1517",
+        "item": "314",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "62",
+        "item": "53",
         "qty": 1
        }
       ]
      },
      {
-      "from": 70,
-      "name": "Cutting yew longbows (u)",
-      "xpPerHr": 110000,
-      "xpEach": 75,
+      "from": 37,
+      "name": "Steel darts",
+      "xpPerHr": 150000,
+      "xpEach": 7.5,
       "inputs": [
        {
-        "item": "1515",
+        "item": "821",
+        "qty": 1
+       },
+       {
+        "item": "314",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "66",
+        "item": "808",
         "qty": 1
        }
-      ]
+      ],
+      "note": "Estimate: the Wiki gives no rate for this. Two clicks per set; doesn't interrupt movement."
+     },
+     {
+      "from": 52,
+      "name": "Mithril darts",
+      "xpPerHr": 220000,
+      "xpEach": 11.2,
+      "inputs": [
+       {
+        "item": "822",
+        "qty": 1
+       },
+       {
+        "item": "314",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "809",
+        "qty": 1
+       }
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 67,
+      "name": "Adamant darts",
+      "xpPerHr": 300000,
+      "xpEach": 15,
+      "inputs": [
+       {
+        "item": "823",
+        "qty": 1
+       },
+       {
+        "item": "314",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "810",
+        "qty": 1
+       }
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 81,
+      "name": "Rune darts",
+      "xpPerHr": 370000,
+      "xpEach": 18.8,
+      "inputs": [
+       {
+        "item": "824",
+        "qty": 1
+       },
+       {
+        "item": "314",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "811",
+        "qty": 1
+       }
+      ],
+      "note": "Estimate: the Wiki gives no rate for this."
      }
     ]
    }
@@ -1900,6 +2490,7 @@
     "kind": "fastest",
     "label": "Bursting tasks",
     "intensity": 4,
+    "note": "Estimate: the Wiki gives no rate for this. The Wiki gives no Slayer XP rates.",
     "stages": [
      {
       "from": 1,
@@ -1908,12 +2499,12 @@
      },
      {
       "from": 50,
-      "name": "Chaeldar / Nieve tasks",
+      "name": "Chaeldar / Konar tasks",
       "xpPerHr": 25000
      },
      {
       "from": 70,
-      "name": "Nieve / Duradel tasks, bursting where possible",
+      "name": "Nieve / Duradel, bursting or barraging in the Catacombs",
       "xpPerHr": 60000,
       "requires": {
        "all": [
@@ -1931,6 +2522,7 @@
     "kind": "balanced",
     "label": "Standard tasks",
     "intensity": 3,
+    "note": "Estimate: the Wiki gives no rate for this.",
     "stages": [
      {
       "from": 1,
@@ -1945,10 +2537,11 @@
     ]
    },
    {
-    "id": "slayer_afk_afk_tasks_konar_cannon",
+    "id": "slayer_afk_cannon_tasks",
     "kind": "afk",
-    "label": "AFK tasks (Konar, cannon)",
+    "label": "Cannon tasks",
     "intensity": 2,
+    "note": "Estimate: the Wiki gives no rate for this.",
     "stages": [
      {
       "from": 1,
@@ -1957,7 +2550,7 @@
      },
      {
       "from": 50,
-      "name": "Konar tasks, cannon where allowed",
+      "name": "Cannonable tasks with ranged or melee",
       "xpPerHr": 25000
      }
     ]
@@ -1972,18 +2565,58 @@
     "stages": [
      {
       "from": 1,
-      "name": "Bird snaring",
-      "xpPerHr": 5000
+      "name": "Natural History Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 9,
-      "name": "Copper longtails / tropical wagtails",
-      "xpPerHr": 15000
+      "name": "Feldip weasels",
+      "xpPerHr": 13000
      },
      {
-      "from": 46,
-      "name": "Hunter Guild rumours",
+      "from": 15,
+      "name": "Ruby harvests",
+      "xpPerHr": 20000
+     },
+     {
+      "from": 21,
+      "name": "Red crabs",
+      "xpPerHr": 31000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 39,
+      "name": "Embertailed jerboas",
       "xpPerHr": 50000,
+      "requires": {
+       "all": [
+        {
+         "quest": "eagles_peak"
+        }
+       ]
+      }
+     },
+     {
+      "from": 43,
+      "name": "Spotted kebbits (falconry)",
+      "xpPerHr": 65000
+     },
+     {
+      "from": 49,
+      "name": "Razor-backed kebbits",
+      "xpPerHr": 130000
+     },
+     {
+      "from": 72,
+      "name": "Hunters' Rumours (expert)",
+      "xpPerHr": 160000,
       "requires": {
        "all": [
         {
@@ -1993,52 +2626,101 @@
       }
      },
      {
-      "from": 63,
-      "name": "Red chinchompas",
-      "xpPerHr": 110000,
-      "xpEach": 265,
-      "outputs": [
-       {
-        "item": "10034",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 73,
-      "name": "Black chinchompas",
-      "xpPerHr": 150000,
-      "xpEach": 315,
-      "outputs": [
-       {
-        "item": "11959",
-        "qty": 1
-       }
-      ],
-      "wilderness": true
+      "from": 91,
+      "name": "Hunters' Rumours (expert)",
+      "xpPerHr": 195000,
+      "requires": {
+       "all": [
+        {
+         "quest": "children_of_the_sun"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "hunter_balanced_hunter_rumours",
+    "id": "hunter_balanced_drift_nets_rumours",
     "kind": "balanced",
-    "label": "Hunter rumours",
+    "label": "Drift nets / rumours",
     "intensity": 3,
     "stages": [
      {
       "from": 1,
-      "name": "Bird snaring",
-      "xpPerHr": 5000
+      "name": "Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 9,
-      "name": "Copper longtails",
-      "xpPerHr": 15000
+      "name": "Feldip weasels",
+      "xpPerHr": 13000
      },
      {
-      "from": 46,
-      "name": "Hunter Guild rumours",
-      "xpPerHr": 50000,
+      "from": 21,
+      "name": "Red crabs",
+      "xpPerHr": 31000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 44,
+      "name": "Drift net fishing (Hunter XP)",
+      "xpPerHr": 60000,
+      "note": "Also gives Fishing XP.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Fishing",
+         "level": 47
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 55,
+      "name": "Drift net fishing",
+      "xpPerHr": 82000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Fishing",
+         "level": 47
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 65,
+      "name": "Drift net fishing",
+      "xpPerHr": 105000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Fishing",
+         "level": 47
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 72,
+      "name": "Hunters' Rumours (expert)",
+      "xpPerHr": 160000,
       "requires": {
        "all": [
         {
@@ -2050,25 +2732,118 @@
     ]
    },
    {
-    "id": "hunter_afk_lowest_effort",
+    "id": "hunter_afk_bird_house_runs",
     "kind": "afk",
-    "label": "Lowest effort",
-    "intensity": 2,
+    "label": "Bird house runs",
+    "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Bird snaring",
-      "xpPerHr": 5000
+      "name": "Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 9,
-      "name": "Copper longtails",
-      "xpPerHr": 15000
+      "from": 5,
+      "name": "Bird houses (regular)",
+      "xpPerHr": 20160,
+      "note": "Effective rate with a run every 50 minutes.",
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
      },
      {
-      "from": 80,
-      "name": "Herbiboar (Fossil Island)",
-      "xpPerHr": 50000,
+      "from": 14,
+      "name": "Oak bird houses",
+      "xpPerHr": 30240,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 24,
+      "name": "Willow bird houses",
+      "xpPerHr": 40320,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 34,
+      "name": "Teak bird houses",
+      "xpPerHr": 50400,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 44,
+      "name": "Maple bird houses",
+      "xpPerHr": 66420,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 49,
+      "name": "Mahogany bird houses",
+      "xpPerHr": 86400,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 59,
+      "name": "Yew bird houses",
+      "xpPerHr": 110160,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 74,
+      "name": "Magic bird houses",
+      "xpPerHr": 174420,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 89,
+      "name": "Redwood bird houses",
+      "xpPerHr": 216000,
       "requires": {
        "all": [
         {
@@ -2086,26 +2861,77 @@
     "kind": "fastest",
     "label": "Fastest",
     "intensity": 5,
+    "note": "3-tick granite from 45 (87K) is extremely high intensity.",
+    "stages": [
+     {
+      "from": 1,
+      "name": "Quests, then copper / tin",
+      "xpPerHr": 8000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 15,
+      "name": "Iron ore",
+      "xpPerHr": 50000
+     },
+     {
+      "from": 60,
+      "name": "Iron ore (Mining Guild)",
+      "xpPerHr": 75000
+     },
+     {
+      "from": 65,
+      "name": "Granite (3-tick)",
+      "xpPerHr": 103000
+     },
+     {
+      "from": 75,
+      "name": "Granite (3-tick)",
+      "xpPerHr": 109000
+     },
+     {
+      "from": 85,
+      "name": "Granite (3-tick)",
+      "xpPerHr": 114000
+     },
+     {
+      "from": 95,
+      "name": "Granite (3-tick)",
+      "xpPerHr": 119000
+     }
+    ]
+   },
+   {
+    "id": "mining_balanced_motherlode_volcanic_mine",
+    "kind": "balanced",
+    "label": "Motherlode / Volcanic Mine",
+    "intensity": 2,
     "stages": [
      {
       "from": 1,
       "name": "Copper / tin",
       "xpPerHr": 8000,
-      "f2p": true
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 15,
-      "name": "Iron (3-tick)",
+      "name": "Iron ore",
       "xpPerHr": 50000
      },
      {
-      "from": 45,
-      "name": "Granite (3-tick, Desert)",
-      "xpPerHr": 90000,
+      "from": 30,
+      "name": "Motherlode Mine",
+      "xpPerHr": 35000,
+      "note": "Estimate: the Wiki gives no rate for this. About 52-62K at 90."
+     },
+     {
+      "from": 70,
+      "name": "Volcanic Mine (team)",
+      "xpPerHr": 80000,
       "requires": {
        "all": [
         {
-         "quest": "the_tourist_trap"
+         "quest": "bone_voyage"
         }
        ]
       }
@@ -2113,48 +2939,27 @@
     ]
    },
    {
-    "id": "mining_balanced_motherlode_mine",
-    "kind": "balanced",
-    "label": "Motherlode Mine",
-    "intensity": 2,
-    "stages": [
-     {
-      "from": 1,
-      "name": "Copper / tin",
-      "xpPerHr": 8000
-     },
-     {
-      "from": 30,
-      "name": "Motherlode Mine",
-      "xpPerHr": 30000
-     },
-     {
-      "from": 72,
-      "name": "Motherlode Mine (upper level)",
-      "xpPerHr": 40000
-     }
-    ]
-   },
-   {
-    "id": "mining_afk_afk",
+    "id": "mining_afk_least_intensive",
     "kind": "afk",
-    "label": "AFK",
+    "label": "Least intensive",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
       "name": "Copper / tin",
-      "xpPerHr": 8000
+      "xpPerHr": 8000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 30,
-      "name": "Motherlode Mine",
-      "xpPerHr": 28000
+      "name": "Motherlode Mine (low intensity)",
+      "xpPerHr": 35000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 92,
-      "name": "Amethyst",
-      "xpPerHr": 22000
+      "from": 60,
+      "name": "Crashed stars (extremely low attention)",
+      "xpPerHr": 27500
      }
     ]
    }
@@ -2169,7 +2974,7 @@
      {
       "from": 1,
       "name": "Bronze daggers",
-      "xpPerHr": 18000,
+      "xpPerHr": 13900,
       "xpEach": 12.5,
       "inputs": [
        {
@@ -2185,9 +2990,81 @@
       ]
      },
      {
+      "from": 5,
+      "name": "Bronze scimitars",
+      "xpPerHr": 25700,
+      "xpEach": 25,
+      "inputs": [
+       {
+        "item": "2349",
+        "qty": 2
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1321",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 9,
+      "name": "Bronze warhammers",
+      "xpPerHr": 36200,
+      "xpEach": 37.5,
+      "inputs": [
+       {
+        "item": "2349",
+        "qty": 3
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1337",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 18,
+      "name": "Bronze platebodies",
+      "xpPerHr": 52100,
+      "xpEach": 62.5,
+      "inputs": [
+       {
+        "item": "2349",
+        "qty": 5
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1117",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 24,
+      "name": "Iron warhammers",
+      "xpPerHr": 72300,
+      "xpEach": 75,
+      "inputs": [
+       {
+        "item": "2351",
+        "qty": 3
+       }
+      ],
+      "outputs": [
+       {
+        "item": "1335",
+        "qty": 1
+       }
+      ]
+     },
+     {
       "from": 33,
       "name": "Iron platebodies",
-      "xpPerHr": 37000,
+      "xpPerHr": 104200,
       "xpEach": 125,
       "inputs": [
        {
@@ -2205,7 +3082,7 @@
      {
       "from": 40,
       "name": "Blast Furnace: gold bars (goldsmith gauntlets)",
-      "xpPerHr": 300000,
+      "xpPerHr": 380000,
       "xpEach": 56.2,
       "inputs": [
        {
@@ -2238,7 +3115,7 @@
      {
       "from": 1,
       "name": "Bronze daggers",
-      "xpPerHr": 18000,
+      "xpPerHr": 13900,
       "xpEach": 12.5,
       "inputs": [
        {
@@ -2255,27 +3132,53 @@
      },
      {
       "from": 15,
-      "name": "Giants' Foundry",
-      "xpPerHr": 60000,
-      "note": "Bar costs depend on the alloy you use."
+      "name": "Giants' Foundry (iron/steel)",
+      "xpPerHr": 100000,
+      "note": "Bar costs depend on the alloy.",
+      "requires": {
+       "all": [
+        {
+         "quest": "sleeping_giants"
+        }
+       ]
+      }
+     },
+     {
+      "from": 30,
+      "name": "Giants' Foundry (iron/steel)",
+      "xpPerHr": 133920,
+      "requires": {
+       "all": [
+        {
+         "quest": "sleeping_giants"
+        }
+       ]
+      }
      },
      {
       "from": 70,
       "name": "Giants' Foundry (mithril/adamant)",
-      "xpPerHr": 120000
+      "xpPerHr": 198000,
+      "requires": {
+       "all": [
+        {
+         "quest": "sleeping_giants"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "smithing_afk_platebodies_at_an_anvil",
+    "id": "smithing_afk_cannonballs",
     "kind": "afk",
-    "label": "Platebodies at an anvil",
+    "label": "Cannonballs",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
       "name": "Bronze daggers",
-      "xpPerHr": 18000,
+      "xpPerHr": 13900,
       "xpEach": 12.5,
       "inputs": [
        {
@@ -2291,58 +3194,30 @@
       ]
      },
      {
-      "from": 48,
-      "name": "Steel platebodies",
-      "xpPerHr": 56000,
-      "xpEach": 187.5,
+      "from": 35,
+      "name": "Steel cannonballs (double ammo mould)",
+      "xpPerHr": 27648,
+      "xpEach": 25.6,
       "inputs": [
        {
         "item": "2353",
-        "qty": 5
+        "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "1119",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 68,
-      "name": "Mithril platebodies",
-      "xpPerHr": 75000,
-      "xpEach": 250,
-      "inputs": [
-       {
-        "item": "2359",
-        "qty": 5
+        "item": "2",
+        "qty": 4
        }
       ],
-      "outputs": [
-       {
-        "item": "1121",
-        "qty": 1
-       }
-      ]
-     },
-     {
-      "from": 88,
-      "name": "Adamant platebodies",
-      "xpPerHr": 94000,
-      "xpEach": 312.5,
-      "inputs": [
-       {
-        "item": "2361",
-        "qty": 5
-       }
-      ],
-      "outputs": [
-       {
-        "item": "1123",
-        "qty": 1
-       }
-      ]
+      "note": "Needs even less attention than dart tips; profitable.",
+      "requires": {
+       "all": [
+        {
+         "quest": "dwarf_cannon"
+        }
+       ]
+      }
      }
     ]
    }
@@ -2356,28 +3231,94 @@
     "stages": [
      {
       "from": 1,
-      "name": "Shrimps",
+      "name": "Quests, then shrimps",
       "xpPerHr": 8000,
-      "f2p": true
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 20,
-      "name": "Fly fishing trout / salmon",
-      "xpPerHr": 40000
+      "name": "3-tick fly fishing",
+      "xpPerHr": 23000
+     },
+     {
+      "from": 30,
+      "name": "3-tick fly fishing",
+      "xpPerHr": 45000
+     },
+     {
+      "from": 40,
+      "name": "3-tick fly fishing",
+      "xpPerHr": 53000
+     },
+     {
+      "from": 50,
+      "name": "3-tick fly fishing",
+      "xpPerHr": 61000
      },
      {
       "from": 58,
-      "name": "Barbarian fishing (3-tick)",
-      "xpPerHr": 85000,
+      "name": "3-tick Barbarian fishing",
+      "xpPerHr": 68000,
       "requires": {
        "all": [
         {
          "skill": "Agility",
-         "level": 15
+         "level": 30
         },
         {
          "skill": "Strength",
-         "level": 15
+         "level": 30
+        }
+       ]
+      }
+     },
+     {
+      "from": 70,
+      "name": "3-tick Barbarian fishing",
+      "xpPerHr": 90000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 30
+        },
+        {
+         "skill": "Strength",
+         "level": 30
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "3-tick Barbarian fishing",
+      "xpPerHr": 97000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 30
+        },
+        {
+         "skill": "Strength",
+         "level": 30
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "3-tick Barbarian fishing",
+      "xpPerHr": 103000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 30
+        },
+        {
+         "skill": "Strength",
+         "level": 30
         }
        ]
       }
@@ -2393,49 +3334,100 @@
      {
       "from": 1,
       "name": "Shrimps",
-      "xpPerHr": 8000
+      "xpPerHr": 8000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 20,
       "name": "Fly fishing",
-      "xpPerHr": 35000
+      "xpPerHr": 13000
      },
      {
       "from": 35,
       "name": "Tempoross",
-      "xpPerHr": 45000
+      "xpPerHr": 30000
+     },
+     {
+      "from": 50,
+      "name": "Tempoross",
+      "xpPerHr": 46000
+     },
+     {
+      "from": 70,
+      "name": "Tempoross",
+      "xpPerHr": 62000
+     },
+     {
+      "from": 90,
+      "name": "Tempoross",
+      "xpPerHr": 68000
      }
     ]
    },
    {
-    "id": "fishing_afk_afk",
+    "id": "fishing_afk_least_intensive",
     "kind": "afk",
-    "label": "AFK",
+    "label": "Least intensive",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
       "name": "Shrimps",
-      "xpPerHr": 8000
+      "xpPerHr": 8000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 20,
       "name": "Fly fishing (AFK)",
+      "xpPerHr": 13000
+     },
+     {
+      "from": 30,
+      "name": "Fly fishing (AFK)",
+      "xpPerHr": 25000
+     },
+     {
+      "from": 40,
+      "name": "Fly fishing (AFK)",
       "xpPerHr": 30000
      },
      {
-      "from": 58,
-      "name": "Barbarian fishing",
-      "xpPerHr": 45000,
+      "from": 50,
+      "name": "Fly fishing (AFK)",
+      "xpPerHr": 34000
+     },
+     {
+      "from": 62,
+      "name": "Monkfish (raft spot, 3-4 minutes per inventory)",
+      "xpPerHr": 35800,
       "requires": {
        "all": [
         {
-         "skill": "Agility",
-         "level": 15
-        },
+         "quest": "swan_song"
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "Monkfish",
+      "xpPerHr": 38500,
+      "requires": {
+       "all": [
         {
-         "skill": "Strength",
-         "level": 15
+         "quest": "swan_song"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Monkfish",
+      "xpPerHr": 40000,
+      "requires": {
+       "all": [
+        {
+         "quest": "swan_song"
         }
        ]
       }
@@ -2445,74 +3437,123 @@
   ],
   "Cooking": [
    {
-    "id": "cooking_fastest_fastest_wines",
+    "id": "cooking_fastest_1_tick_karambwans",
     "kind": "fastest",
-    "label": "Fastest (wines)",
-    "intensity": 3,
+    "label": "1-tick karambwans",
+    "intensity": 5,
+    "note": "Very click-intensive.",
     "stages": [
      {
       "from": 1,
-      "name": "Shrimps",
-      "xpPerHr": 20000,
-      "xpEach": 30,
-      "inputs": [
-       {
-        "item": "317",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "315",
-        "qty": 1
-       }
-      ],
-      "f2p": true
+      "name": "Fish (sardines to salmon)",
+      "xpPerHr": 30000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 35,
-      "name": "Jugs of wine",
-      "xpPerHr": 450000,
-      "xpEach": 200,
+      "from": 30,
+      "name": "1-tick karambwans",
+      "xpPerHr": 464000,
+      "xpEach": 190,
       "inputs": [
        {
-        "item": "1987",
-        "qty": 1
-       },
-       {
-        "item": "1937",
+        "item": "3142",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "1993",
+        "item": "3144",
         "qty": 1
        }
-      ]
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "tai_bwo_wannai_trio"
+        }
+       ]
+      }
+     },
+     {
+      "from": 60,
+      "name": "1-tick karambwans",
+      "xpPerHr": 700000,
+      "xpEach": 190,
+      "inputs": [
+       {
+        "item": "3142",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "3144",
+        "qty": 1
+       }
+      ],
+      "note": "Between the Wiki's 464K (30) and 950K (99).",
+      "requires": {
+       "all": [
+        {
+         "quest": "tai_bwo_wannai_trio"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "1-tick karambwans",
+      "xpPerHr": 900000,
+      "xpEach": 190,
+      "inputs": [
+       {
+        "item": "3142",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "3144",
+        "qty": 1
+       }
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "tai_bwo_wannai_trio"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "cooking_balanced_cooking_fish_for_food",
+    "id": "cooking_balanced_cooking_fish",
     "kind": "balanced",
-    "label": "Cooking fish for food",
+    "label": "Cooking fish",
     "intensity": 2,
+    "note": "Cooking gauntlets for the best rates; sharks and anglerfish are profitable.",
     "stages": [
      {
       "from": 1,
-      "name": "Shrimps",
-      "xpPerHr": 20000,
-      "xpEach": 30,
+      "name": "Fish (sardines to salmon)",
+      "xpPerHr": 30000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 30,
+      "name": "Tuna",
+      "xpPerHr": 92500,
+      "xpEach": 100,
       "inputs": [
        {
-        "item": "317",
+        "item": "359",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "315",
+        "item": "361",
         "qty": 1
        }
       ]
@@ -2520,7 +3561,7 @@
      {
       "from": 40,
       "name": "Lobsters",
-      "xpPerHr": 150000,
+      "xpPerHr": 142500,
       "xpEach": 120,
       "inputs": [
        {
@@ -2536,9 +3577,27 @@
       ]
      },
      {
+      "from": 68,
+      "name": "Monkfish",
+      "xpPerHr": 182500,
+      "xpEach": 150,
+      "inputs": [
+       {
+        "item": "7944",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "7946",
+        "qty": 1
+       }
+      ]
+     },
+     {
       "from": 80,
       "name": "Sharks",
-      "xpPerHr": 260000,
+      "xpPerHr": 280000,
       "xpEach": 210,
       "inputs": [
        {
@@ -2552,90 +3611,141 @@
         "qty": 1
        }
       ]
+     },
+     {
+      "from": 84,
+      "name": "Anglerfish",
+      "xpPerHr": 317500,
+      "xpEach": 230,
+      "inputs": [
+       {
+        "item": "13439",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "13441",
+        "qty": 1
+       }
+      ]
      }
     ]
    },
    {
-    "id": "cooking_afk_lowest_effort",
+    "id": "cooking_afk_afk_karambwans",
     "kind": "afk",
-    "label": "Lowest effort",
+    "label": "AFK karambwans",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Shrimps",
-      "xpPerHr": 20000,
-      "xpEach": 30,
-      "inputs": [
-       {
-        "item": "317",
-        "qty": 1
-       }
-      ],
-      "outputs": [
-       {
-        "item": "315",
-        "qty": 1
-       }
-      ]
+      "name": "Fish (sardines to salmon)",
+      "xpPerHr": 30000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 40,
-      "name": "Lobsters (Hosidius range)",
-      "xpPerHr": 140000,
-      "xpEach": 120,
+      "from": 30,
+      "name": "Karambwans (AFK)",
+      "xpPerHr": 141000,
+      "xpEach": 190,
       "inputs": [
        {
-        "item": "377",
+        "item": "3142",
         "qty": 1
        }
       ],
       "outputs": [
        {
-        "item": "379",
+        "item": "3144",
         "qty": 1
        }
-      ]
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "tai_bwo_wannai_trio"
+        }
+       ]
+      }
+     },
+     {
+      "from": 60,
+      "name": "Karambwans (AFK)",
+      "xpPerHr": 205000,
+      "xpEach": 190,
+      "inputs": [
+       {
+        "item": "3142",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "3144",
+        "qty": 1
+       }
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "tai_bwo_wannai_trio"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Karambwans (AFK)",
+      "xpPerHr": 258000,
+      "xpEach": 190,
+      "inputs": [
+       {
+        "item": "3142",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "3144",
+        "qty": 1
+       }
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "tai_bwo_wannai_trio"
+        }
+       ]
+      }
      }
     ]
    }
   ],
   "Firemaking": [
    {
-    "id": "firemaking_fastest_burning_logs",
+    "id": "firemaking_fastest_tick_perfect_burning",
     "kind": "fastest",
-    "label": "Burning logs",
-    "intensity": 3,
+    "label": "Tick-perfect burning",
+    "intensity": 4,
     "stages": [
      {
       "from": 1,
-      "name": "Logs",
-      "xpPerHr": 30000,
-      "xpEach": 40,
-      "inputs": [
-       {
-        "item": "1511",
-        "qty": 1
-       }
-      ],
-      "f2p": true
-     },
-     {
-      "from": 15,
-      "name": "Oak logs",
-      "xpPerHr": 45000,
-      "xpEach": 60,
-      "inputs": [
-       {
-        "item": "1521",
-        "qty": 1
-       }
-      ]
+      "name": "1-tick pyre logs",
+      "xpPerHr": 92000,
+      "note": "Profitable.",
+      "requires": {
+       "all": [
+        {
+         "quest": "shades_of_mort_ton"
+        }
+       ]
+      }
      },
      {
       "from": 30,
       "name": "Willow logs",
-      "xpPerHr": 65000,
+      "xpPerHr": 107000,
       "xpEach": 90,
       "inputs": [
        {
@@ -2645,9 +3755,21 @@
       ]
      },
      {
+      "from": 35,
+      "name": "Teak logs",
+      "xpPerHr": 138000,
+      "xpEach": 105,
+      "inputs": [
+       {
+        "item": "6333",
+        "qty": 1
+       }
+      ]
+     },
+     {
       "from": 45,
       "name": "Maple logs",
-      "xpPerHr": 100000,
+      "xpPerHr": 200475,
       "xpEach": 135,
       "inputs": [
        {
@@ -2657,9 +3779,21 @@
       ]
      },
      {
+      "from": 50,
+      "name": "Mahogany logs",
+      "xpPerHr": 233887,
+      "xpEach": 157.5,
+      "inputs": [
+       {
+        "item": "6332",
+        "qty": 1
+       }
+      ]
+     },
+     {
       "from": 60,
       "name": "Yew logs",
-      "xpPerHr": 150000,
+      "xpPerHr": 300712,
       "xpEach": 202.5,
       "inputs": [
        {
@@ -2671,11 +3805,23 @@
      {
       "from": 75,
       "name": "Magic logs",
-      "xpPerHr": 230000,
+      "xpPerHr": 451143,
       "xpEach": 303.8,
       "inputs": [
        {
         "item": "1513",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 90,
+      "name": "Redwood logs",
+      "xpPerHr": 519750,
+      "xpEach": 350,
+      "inputs": [
+       {
+        "item": "19669",
         "qty": 1
        }
       ]
@@ -2687,11 +3833,24 @@
     "kind": "balanced",
     "label": "Wintertodt",
     "intensity": 2,
+    "note": "Wintertodt is low effort and profitable.",
     "stages": [
      {
       "from": 1,
-      "name": "Logs / oak logs",
-      "xpPerHr": 35000,
+      "name": "Forester's campfire (manual)",
+      "xpPerHr": 39000,
+      "xpEach": 40,
+      "inputs": [
+       {
+        "item": "1511",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 15,
+      "name": "Campfire: oak logs",
+      "xpPerHr": 58500,
       "xpEach": 60,
       "inputs": [
        {
@@ -2701,27 +3860,78 @@
       ]
      },
      {
-      "from": 50,
-      "name": "Wintertodt (supply crates as loot)",
-      "xpPerHr": 180000
+      "from": 30,
+      "name": "Campfire: willow logs",
+      "xpPerHr": 87750,
+      "xpEach": 90,
+      "inputs": [
+       {
+        "item": "1519",
+        "qty": 1
+       }
+      ]
      },
      {
-      "from": 85,
-      "name": "Wintertodt (higher levels)",
-      "xpPerHr": 280000
+      "from": 45,
+      "name": "Campfire: maple logs",
+      "xpPerHr": 131625,
+      "xpEach": 135,
+      "inputs": [
+       {
+        "item": "1517",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 50,
+      "name": "Wintertodt",
+      "xpPerHr": 161000
+     },
+     {
+      "from": 60,
+      "name": "Wintertodt",
+      "xpPerHr": 193000
+     },
+     {
+      "from": 70,
+      "name": "Wintertodt",
+      "xpPerHr": 226000
+     },
+     {
+      "from": 80,
+      "name": "Wintertodt",
+      "xpPerHr": 258000
+     },
+     {
+      "from": 90,
+      "name": "Wintertodt",
+      "xpPerHr": 290000
      }
     ]
    },
    {
-    "id": "firemaking_afk_wintertodt",
+    "id": "firemaking_afk_forester_s_campfire_automatic",
     "kind": "afk",
-    "label": "Wintertodt",
+    "label": "Forester's campfire (automatic)",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Logs / oak logs",
-      "xpPerHr": 30000,
+      "name": "Campfire: logs",
+      "xpPerHr": 26600,
+      "xpEach": 40,
+      "inputs": [
+       {
+        "item": "1511",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 15,
+      "name": "Campfire: oak logs",
+      "xpPerHr": 39900,
       "xpEach": 60,
       "inputs": [
        {
@@ -2731,91 +3941,281 @@
       ]
      },
      {
-      "from": 50,
-      "name": "Wintertodt (low effort)",
-      "xpPerHr": 140000
+      "from": 30,
+      "name": "Campfire: willow logs",
+      "xpPerHr": 59850,
+      "xpEach": 90,
+      "inputs": [
+       {
+        "item": "1519",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 45,
+      "name": "Campfire: maple logs",
+      "xpPerHr": 89775,
+      "xpEach": 135,
+      "inputs": [
+       {
+        "item": "1517",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 60,
+      "name": "Campfire: yew logs",
+      "xpPerHr": 134662,
+      "xpEach": 202.5,
+      "inputs": [
+       {
+        "item": "1515",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 75,
+      "name": "Campfire: magic logs",
+      "xpPerHr": 202027,
+      "xpEach": 303.8,
+      "inputs": [
+       {
+        "item": "1513",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 90,
+      "name": "Campfire: redwood logs",
+      "xpPerHr": 232750,
+      "xpEach": 350,
+      "inputs": [
+       {
+        "item": "19669",
+        "qty": 1
+       }
+      ]
      }
     ]
    }
   ],
   "Woodcutting": [
    {
-    "id": "woodcutting_fastest_fastest",
+    "id": "woodcutting_fastest_1_5_tick_teaks",
     "kind": "fastest",
-    "label": "Fastest",
+    "label": "1.5-tick teaks",
     "intensity": 5,
     "stages": [
      {
       "from": 1,
-      "name": "Trees / oaks",
-      "xpPerHr": 8000,
-      "f2p": true
+      "name": "Regular trees",
+      "xpPerHr": 10000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 30,
-      "name": "Willows",
-      "xpPerHr": 35000
+      "from": 15,
+      "name": "Oak trees",
+      "xpPerHr": 40000
      },
      {
       "from": 35,
-      "name": "Teaks (2-tick)",
-      "xpPerHr": 75000
+      "name": "1.5-tick teaks (Fossil Island)",
+      "xpPerHr": 93000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
      },
      {
-      "from": 70,
-      "name": "Teaks (2-tick, higher levels)",
-      "xpPerHr": 110000
+      "from": 41,
+      "name": "1.5-tick teaks",
+      "xpPerHr": 115000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 50,
+      "name": "1.5-tick teaks",
+      "xpPerHr": 126000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 61,
+      "name": "1.5-tick teaks",
+      "xpPerHr": 173000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 71,
+      "name": "1.5-tick teaks",
+      "xpPerHr": 194000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "1.5-tick teaks",
+      "xpPerHr": 208000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "1.5-tick teaks",
+      "xpPerHr": 222000,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "woodcutting_balanced_forestry_teaks",
+    "id": "woodcutting_balanced_no_tick_manipulation",
     "kind": "balanced",
-    "label": "Forestry teaks",
+    "label": "No tick manipulation",
     "intensity": 2,
     "stages": [
      {
       "from": 1,
-      "name": "Trees / oaks",
-      "xpPerHr": 8000
+      "name": "Regular trees",
+      "xpPerHr": 10000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 30,
-      "name": "Willows",
-      "xpPerHr": 30000
+      "from": 15,
+      "name": "Oak trees",
+      "xpPerHr": 40000
      },
      {
       "from": 35,
-      "name": "Teaks with Forestry events",
-      "xpPerHr": 55000
+      "name": "Teaks",
+      "xpPerHr": 34000
+     },
+     {
+      "from": 41,
+      "name": "Teaks",
+      "xpPerHr": 42000
+     },
+     {
+      "from": 50,
+      "name": "Teaks",
+      "xpPerHr": 46000
+     },
+     {
+      "from": 61,
+      "name": "Teaks",
+      "xpPerHr": 65000
+     },
+     {
+      "from": 65,
+      "name": "Sulliuscep",
+      "xpPerHr": 82700,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 71,
+      "name": "Sulliuscep",
+      "xpPerHr": 86300,
+      "requires": {
+       "all": [
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 77,
+      "name": "Bloodwood",
+      "xpPerHr": 170000,
+      "note": "130-210K with a dragon felling axe.",
+      "requires": {
+       "all": [
+        {
+         "quest": "blood_moon_rises"
+        }
+       ]
+      }
      }
     ]
    },
    {
-    "id": "woodcutting_afk_afk",
+    "id": "woodcutting_afk_least_intensive",
     "kind": "afk",
-    "label": "AFK",
+    "label": "Least intensive",
     "intensity": 1,
     "stages": [
      {
       "from": 1,
-      "name": "Trees / oaks",
-      "xpPerHr": 7000
+      "name": "Regular trees",
+      "xpPerHr": 10000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
-      "from": 30,
-      "name": "Willows",
-      "xpPerHr": 28000
+      "from": 15,
+      "name": "Oak trees",
+      "xpPerHr": 40000
      },
      {
-      "from": 60,
-      "name": "Yews",
-      "xpPerHr": 30000
+      "from": 35,
+      "name": "Teaks",
+      "xpPerHr": 34000
      },
      {
-      "from": 90,
-      "name": "Redwoods",
-      "xpPerHr": 65000
+      "from": 62,
+      "name": "Blisterwood (sound cue when it stops)",
+      "xpPerHr": 69000,
+      "requires": {
+       "all": [
+        {
+         "quest": "sins_of_the_father"
+        }
+       ]
+      }
      }
     ]
    }
@@ -2826,21 +4226,25 @@
     "kind": "fastest",
     "label": "Tithe Farm",
     "intensity": 4,
+    "note": "The Wiki gives no Tithe Farm rate and says active methods suit Farming as a last 99.",
     "stages": [
      {
       "from": 1,
       "name": "Allotments / early trees",
-      "xpPerHr": 5000
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 34,
       "name": "Tithe Farm",
-      "xpPerHr": 45000
+      "xpPerHr": 45000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 74,
       "name": "Tithe Farm (logavano)",
-      "xpPerHr": 80000
+      "xpPerHr": 80000,
+      "note": "Estimate: the Wiki gives no rate for this."
      }
     ]
    },
@@ -2849,18 +4253,19 @@
     "kind": "balanced",
     "label": "Tree runs",
     "intensity": 2,
-    "note": "XP/hr is per hour of active time; each run is limited by growth time.",
+    "note": "The Wiki: around 2.4M XP per actively spent hour on full tree runs; each run waits for trees to grow.",
     "stages": [
      {
       "from": 1,
       "name": "Allotments / herbs (until 15)",
-      "xpPerHr": 5000
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 15,
       "name": "Oak tree runs",
       "xpPerHr": 600000,
-      "xpEach": 467.3,
+      "xpEach": 481.3,
       "inputs": [
        {
         "item": "5370",
@@ -2868,8 +4273,8 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
-       "hoursToGrow": 3.5,
+       "minutesPerRun": 6,
+       "hoursToGrow": 3.3,
        "perRun": 5
       }
      },
@@ -2877,7 +4282,7 @@
       "from": 30,
       "name": "Willow tree runs",
       "xpPerHr": 1500000,
-      "xpEach": 1456.5,
+      "xpEach": 1481.5,
       "inputs": [
        {
         "item": "5371",
@@ -2885,8 +4290,8 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
-       "hoursToGrow": 4.7,
+       "minutesPerRun": 6,
+       "hoursToGrow": 4,
        "perRun": 5
       }
      },
@@ -2894,7 +4299,7 @@
       "from": 45,
       "name": "Maple tree runs",
       "xpPerHr": 2000000,
-      "xpEach": 3403.4,
+      "xpEach": 3448.4,
       "inputs": [
        {
         "item": "5372",
@@ -2902,7 +4307,7 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
+       "minutesPerRun": 6,
        "hoursToGrow": 5.3,
        "perRun": 5
       }
@@ -2910,8 +4315,8 @@
      {
       "from": 60,
       "name": "Yew tree runs",
-      "xpPerHr": 2500000,
-      "xpEach": 7069.9,
+      "xpPerHr": 2400000,
+      "xpEach": 7150.9,
       "inputs": [
        {
         "item": "5373",
@@ -2919,7 +4324,7 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
+       "minutesPerRun": 6,
        "hoursToGrow": 6.7,
        "perRun": 5
       }
@@ -2927,8 +4332,8 @@
      {
       "from": 75,
       "name": "Magic tree runs",
-      "xpPerHr": 3000000,
-      "xpEach": 13768.3,
+      "xpPerHr": 2400000,
+      "xpEach": 13913.8,
       "inputs": [
        {
         "item": "5374",
@@ -2936,7 +4341,7 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
+       "minutesPerRun": 6,
        "hoursToGrow": 8,
        "perRun": 5
       }
@@ -2952,13 +4357,14 @@
      {
       "from": 1,
       "name": "Allotments / herbs (until 15)",
-      "xpPerHr": 5000
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
      },
      {
       "from": 15,
       "name": "Oak tree runs",
       "xpPerHr": 600000,
-      "xpEach": 467.3,
+      "xpEach": 481.3,
       "inputs": [
        {
         "item": "5370",
@@ -2966,16 +4372,16 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
-       "hoursToGrow": 3.5,
+       "minutesPerRun": 6,
+       "hoursToGrow": 3.3,
        "perRun": 5
       }
      },
      {
       "from": 60,
       "name": "Yew tree runs",
-      "xpPerHr": 2500000,
-      "xpEach": 7069.9,
+      "xpPerHr": 2400000,
+      "xpEach": 7150.9,
       "inputs": [
        {
         "item": "5373",
@@ -2983,7 +4389,7 @@
        }
       ],
       "recurring": {
-       "minutesPerRun": 8,
+       "minutesPerRun": 6,
        "hoursToGrow": 6.7,
        "perRun": 5
       }
@@ -2991,6 +4397,160 @@
     ]
    }
   ],
-  "Sailing": []
+  "Sailing": [
+   {
+    "id": "sailing_fastest_barracuda_trials",
+    "kind": "fastest",
+    "label": "Barracuda trials",
+    "intensity": 5,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Courier tasks, sea charting, trimming sails",
+      "xpPerHr": 8000,
+      "note": "The Wiki gives about 10K/hr for sea charting at 22; early couriers have no listed rate.",
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 30,
+      "name": "Barracuda trials: The Tempor Tantrum",
+      "xpPerHr": 21938
+     },
+     {
+      "from": 55,
+      "name": "Barracuda trials: The Jubbly Jive",
+      "xpPerHr": 80905
+     },
+     {
+      "from": 72,
+      "name": "Barracuda trials: The Gwenith Glide",
+      "xpPerHr": 144543,
+      "note": "184K/hr at Marlin rank; ~198K with a crystal extractor."
+     }
+    ]
+   },
+   {
+    "id": "sailing_balanced_port_tasks_couriers",
+    "kind": "balanced",
+    "label": "Port tasks (couriers)",
+    "intensity": 4,
+    "note": "High complexity: route planning and juggling several tasks.",
+    "stages": [
+     {
+      "from": 1,
+      "name": "Courier tasks, sea charting, trimming sails",
+      "xpPerHr": 8000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 45,
+      "name": "Courier tasks: Summer Shore",
+      "xpPerHr": 20000,
+      "note": "Needs about 20K coins to start.",
+      "requires": {
+       "all": [
+        {
+         "quest": "troubled_tortugans"
+        }
+       ]
+      }
+     },
+     {
+      "from": 62,
+      "name": "Courier tasks: Rellekka",
+      "xpPerHr": 66000
+     },
+     {
+      "from": 65,
+      "name": "Courier tasks: Rellekka and Etceteria",
+      "xpPerHr": 99000
+     },
+     {
+      "from": 76,
+      "name": "Courier tasks: Lunar Isle",
+      "xpPerHr": 145000,
+      "note": "130-160K/hr; heavy route planning. Rates are pre-XP-boost estimates."
+     }
+    ]
+   },
+   {
+    "id": "sailing_afk_shipwreck_salvaging_with_crew",
+    "kind": "afk",
+    "label": "Shipwreck salvaging (with crew)",
+    "intensity": 1,
+    "note": "Needs a salvaging hook and a crewmate with deckhandiness. Active play or tick manipulation gives about 2-2.5x.",
+    "stages": [
+     {
+      "from": 1,
+      "name": "Courier tasks, sea charting, trimming sails",
+      "xpPerHr": 8000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 15,
+      "name": "Salvaging: small shipwrecks",
+      "xpPerHr": 2400
+     },
+     {
+      "from": 26,
+      "name": "Salvaging: fisherman's shipwrecks",
+      "xpPerHr": 5250
+     },
+     {
+      "from": 35,
+      "name": "Salvaging: barracuda shipwrecks",
+      "xpPerHr": 10250
+     },
+     {
+      "from": 42,
+      "name": "Salvaging: barracuda shipwrecks (2 hooks, salvaging station)",
+      "xpPerHr": 15250
+     },
+     {
+      "from": 53,
+      "name": "Salvaging: large shipwrecks",
+      "xpPerHr": 24000
+     },
+     {
+      "from": 64,
+      "name": "Salvaging: pirate shipwrecks",
+      "xpPerHr": 41000
+     },
+     {
+      "from": 73,
+      "name": "Salvaging: mercenary shipwrecks",
+      "xpPerHr": 62500
+     },
+     {
+      "from": 80,
+      "name": "Salvaging: Fremennik shipwrecks",
+      "xpPerHr": 75000
+     },
+     {
+      "from": 87,
+      "name": "Salvaging: merchant shipwrecks",
+      "xpPerHr": 82500
+     }
+    ]
+   }
+  ]
  }
 }

@@ -12088,6 +12088,76 @@
    "tradeable": true,
    "id": 5373,
    "limit": 200
+  },
+  "115": {
+   "name": "Strength potion(3)",
+   "price": 88,
+   "tradeable": true,
+   "id": 115,
+   "limit": 2000
+  },
+  "127": {
+   "name": "Restore potion(3)",
+   "price": 14,
+   "tradeable": true,
+   "id": 127,
+   "limit": 2000
+  },
+  "111": {
+   "name": "Torstol potion (unf)",
+   "price": 3790,
+   "tradeable": true,
+   "id": 111,
+   "limit": 10000
+  },
+  "26368": {
+   "name": "Nihil dust",
+   "price": 2928,
+   "tradeable": true,
+   "id": 26368,
+   "limit": 11000
+  },
+  "4542": {
+   "name": "Lantern lens",
+   "price": 4,
+   "tradeable": true,
+   "id": 4542,
+   "limit": 10000
+  },
+  "41": {
+   "name": "Steel arrowtips",
+   "price": 34,
+   "tradeable": true,
+   "id": 41,
+   "limit": 10000
+  },
+  "42": {
+   "name": "Mithril arrowtips",
+   "price": 72,
+   "tradeable": true,
+   "id": 42,
+   "limit": 10000
+  },
+  "1321": {
+   "name": "Bronze scimitar",
+   "price": 62,
+   "tradeable": true,
+   "id": 1321,
+   "limit": 125
+  },
+  "1337": {
+   "name": "Bronze warhammer",
+   "price": 76,
+   "tradeable": true,
+   "id": 1337,
+   "limit": 125
+  },
+  "1117": {
+   "name": "Bronze platebody",
+   "price": 72,
+   "tradeable": true,
+   "id": 1117,
+   "limit": 125
   }
  }
 }
