@@ -78,7 +78,7 @@ function segmentHtml(step, seg) {
 function stepHtml(s, i) {
   if (s.kind === 'train') {
     const cost = s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : '';
-    return `<li class="step train"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b> ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}`}
+    return `<li class="step train"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b> ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}${s.towardsHp ? ` <span class="muted">(towards ${s.towardsHp} Hitpoints)</span>` : ''}`}
       <span class="right">${hrs(s.hours)}${s.realHours > s.hours * 1.5 ? ` · ${Math.ceil(s.realHours / 24)} days of growing` : ''} ${cost}</span></div>
       ${s.skill === 'Slayer' ? '<div class="note">Slayer masters, task choices and blocklists aren\'t planned yet; the time is a rough estimate.</div>'
         : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;

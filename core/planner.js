@@ -81,7 +81,7 @@ export function applySwaps(track, swaps, training, skill) {
 export function plan(goals, d) {
   const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, hideWild = false } = d;
   const reqCtx = { quests };
-  const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.owned || {}) },
+  const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
   const warnings = [];
   const steps = [];
@@ -243,15 +243,23 @@ export function plan(goals, d) {
 
   // Hitpoints isn't trained on its own: train a combat skill until Hitpoints gets there.
   // `prefer` = the combat skill the content leans on (e.g. Ranged for the Inferno).
-  function trainHitpoints(level, prefer) {
-    const missing = xpForLevel(level) - (sim.xp.Hitpoints || 0);
-    if (missing <= 0) return;
-    const skill = prefer || [...COMBAT_HP].sort((a, b) => (sim.xp[a] || 0) - (sim.xp[b] || 0))[0];
-    const toXp = Math.min(200e6, (sim.xp[skill] || 0) + missing * 3);
-    train(skill, levelForXp(toXp, { virtual: true }), { toXp, untilHp: level });
+  // `order` = the content's combat skills, most-required first (Ranged, then Defence, for the Inferno); after
+  // those, the lowest combat skill. A skill that would pass 99 stops there and the next one takes over.
+  function trainHitpoints(level, order = []) {
+    const cap = xpForLevel(99);
+    const rest = [...COMBAT_HP].filter(s => !order.includes(s)).sort((a, b) => (sim.xp[a] || 0) - (sim.xp[b] || 0));
+    for (const skill of [...order, ...rest]) {
+      const missing = xpForLevel(level) - (sim.xp.Hitpoints || 0);
+      if (missing <= 0) return;
+      const fromXp = sim.xp[skill] || 0;
+      if (fromXp >= cap) continue;
+      const wanted = fromXp + Math.ceil(missing * 3);
+      if (wanted > cap) train(skill, 99, { towardsHp: level });              // "Train Ranged 90 → 99", then the next skill
+      else train(skill, levelForXp(wanted, { virtual: true }), { toXp: wanted, untilHp: level });
+    }
   }
 
-  function train(skill, level, { toXp: exactXp, untilHp } = {}) {
+  function train(skill, level, { toXp: exactXp, untilHp, towardsHp } = {}) {
     if (skill === 'Hitpoints' && !untilHp) return trainHitpoints(level);
     const toXp = exactXp ?? xpForLevel(level);
     const fromXp = sim.xp[skill] || 0;
@@ -280,7 +288,7 @@ export function plan(goals, d) {
       if (e.blocked) warnings.push(`${skill}: no method you can use at level ${e.blocked}.`);
     }
     const step = { kind: 'train', skill, fromXp, toXp, fromLevel: levelForXp(fromXp, { virtual: true }), toLevel: level,
-                   track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp };
+                   track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp, towardsHp };
     pay(e.gp, `${skill} ${step.fromLevel}–${level}`);
     steps.push(step);
     sim.xp[skill] = toXp;
@@ -306,10 +314,10 @@ export function plan(goals, d) {
 
   // ---- 2. walk the milestones in order ----
   // the combat skill a piece of content leans on: its highest combat-skill requirement
-  const mainCombat = needs => Object.entries(needs).filter(([s]) => COMBAT_HP.has(s)).sort((a, b) => b[1] - a[1])[0]?.[0];
+  const combatOrder = needs => Object.entries(needs).filter(([s]) => COMBAT_HP.has(s)).sort((a, b) => b[1] - a[1]).map(([s]) => s);
   const trainNeeds = needs => {
     for (const [skill, level] of Object.entries(needs)) if (skill !== 'Hitpoints') train(skill, level);
-    if (needs.Hitpoints) trainHitpoints(needs.Hitpoints, mainCombat(needs));
+    if (needs.Hitpoints) trainHitpoints(needs.Hitpoints, combatOrder(needs));
   };
 
   for (const m of milestones) {

@@ -44,3 +44,4 @@ a.card:hover { border-color: var(--accent); }
 .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .card.minor { background: transparent; }
 .badge { justify-self: start; font: 500 12px/1 var(--mono); padding: 4px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+textarea { width: 100%; max-width: 720px; box-sizing: border-box; font: inherit; font-size: 0.85rem; padding: 0.5rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: inherit; resize: vertical; }

@@ -46,7 +46,7 @@ export function isMet(req, account, ctx = {}) {
   }
   if (req.quest) return questReached(account, req.quest, req.milestone, ctx.quests);
   if (req.diary) return account.diaries?.has?.(`${req.diary}:${req.tier}`) ?? false;
-  if (req.item) return (account.owned?.[req.item] || 0) >= (req.qty || 1);
+  if (req.item) return Math.max(account.owned?.[req.item] || 0, account.bank?.[req.item] || 0) >= (req.qty || 1);
   if (req.combatLevel) return combatLevel(account.xp || {}) >= req.combatLevel;
   if (req.kc) return (account.kc?.[req.kc] || 0) >= req.n;
   if (req.questPoints) return questPoints(account, ctx.quests) >= req.questPoints;

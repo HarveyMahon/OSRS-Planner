@@ -1,7 +1,8 @@
 // The user's account, kept in this browser. Every page reads it through here.
 //
 // Account = { version, xp: {Skill: xp}, quests: {questId: milestoneId}, diaries: ['region:tier'],
-//             owned: {itemKey: qty}, kc: {bossId: n}, gp, updatedAt }
+//             owned: {itemKey: qty}, bank: {itemKey: qty}, bankImportedAt, kc: {bossId: n}, gp, updatedAt }
+// owned = ticked by hand on My Account; bank = from a pasted Bank Memory export (replaced on each import).
 // v1 fills in skills (and GP); quests, diaries, items and kill counts come with requirements data.
 
 import { SKILLS, xpForLevel, MAX_XP } from './xp.js';
@@ -12,7 +13,7 @@ const VERSION = 1;
 export function freshAccount() {
   const xp = Object.fromEntries(SKILLS.map(s => [s, 0]));
   xp.Hitpoints = xpForLevel(10);              // every account starts at 10 Hitpoints
-  return { version: VERSION, xp, quests: {}, diaries: [], owned: {}, kc: {}, gp: 0, updatedAt: null };
+  return { version: VERSION, xp, quests: {}, diaries: [], owned: {}, bank: {}, bankImportedAt: null, kc: {}, gp: 0, updatedAt: null };
 }
 
 // Fill gaps and clamp bad values, so pages can trust what they get back
@@ -30,6 +31,7 @@ export function normalise(a) {
     quests: a.quests && typeof a.quests === 'object' ? a.quests : {},
     diaries: Array.isArray(a.diaries) ? a.diaries : [],
     owned: a.owned && typeof a.owned === 'object' ? a.owned : {},
+    bank: a.bank && typeof a.bank === 'object' ? a.bank : {},
     kc: a.kc && typeof a.kc === 'object' ? a.kc : {},
   };
 }

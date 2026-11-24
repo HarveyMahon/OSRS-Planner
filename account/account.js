@@ -5,6 +5,7 @@ import { combatLevel } from '../core/requirements.js';
 import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
 import { loadQuests, loadItems, loadBosses } from '../core/data.js';
 import { requiredItems, prerequisiteQuests, questPoints } from '../core/requirements.js';
+import { parseBank, resolveBank } from '../core/bank.js';
 
 console.log('Account: starting');
 const $ = id => document.getElementById(id);
@@ -84,6 +85,7 @@ $('reset').addEventListener('click', () => {
   if (!confirm('Clear all your stats on this page? This cannot be undone.')) return;
   account = freshAccount();
   commit();
+  bankStatus();
   $('gp').value = '';
   render();
   renderQuests();
@@ -117,7 +119,7 @@ async function renderUnlocks() {
   const [items, { bosses }] = await Promise.all([loadItems(), loadBosses()]);
   const keys = requiredItems(bosses).sort((a, b) => items.get(a)?.name.localeCompare(items.get(b)?.name));
   $('unlocks').innerHTML = keys.map(k => `
-    <label class="quest"><input type="checkbox" data-owned="${k}"${account.owned[k] ? ' checked' : ''}> ${items.get(k)?.name ?? k}</label>`).join('');
+    <label class="quest"><input type="checkbox" data-owned="${k}"${account.owned[k] || account.bank[k] ? ' checked' : ''}${account.bank[k] ? ' disabled' : ''}> ${items.get(k)?.name ?? k}${account.bank[k] ? ' <span class="mini">in bank</span>' : ''}</label>`).join('');
 }
 $('unlocks').addEventListener('change', e => {
   const k = e.target.dataset.owned;
@@ -126,7 +128,31 @@ $('unlocks').addEventListener('change', e => {
   commit();
 });
 
+// Bank: a pasted Bank Memory export, matched to known items; replaces the previous import
+function bankStatus(extra = '') {
+  const n = Object.keys(account.bank).length;
+  $('bank-status').textContent = extra || (n ? `${n.toLocaleString('en-GB')} relevant items from your bank, imported ${new Date(account.bankImportedAt).toLocaleDateString('en-GB')}.` : 'No bank imported.');
+}
+$('bank-import').addEventListener('click', async () => {
+  const rows = parseBank($('bank-text').value);
+  if (!rows.length) return bankStatus("Couldn't find any items. Paste the whole export, including the tab-separated columns.");
+  const { items } = await loadItems();
+  const r = resolveBank(rows, items);
+  account.bank = r.bank;
+  account.bankImportedAt = new Date().toISOString();
+  let gpNote = '';
+  if (r.gp != null) { account.gp = r.gp; $('gp').value = gpText(r.gp); gpNote = ` Cash stack set to the ${gpText(r.gp)} coins in it.`; }
+  commit();
+  $('bank-text').value = '';
+  renderUnlocks();
+  bankStatus(`Imported ${rows.length.toLocaleString('en-GB')} items; ${Object.keys(r.bank).length.toLocaleString('en-GB')} are ones the planner uses.${gpNote}`);
+});
+$('bank-clear').addEventListener('click', () => {
+  account.bank = {}; account.bankImportedAt = null; commit(); renderUnlocks(); bankStatus();
+});
+
 render();
+bankStatus();
 renderUnlocks().catch(err => { $('unlocks').textContent = `Couldn't load unlocks (${err.message}).`; });
 renderQuests().catch(err => { $('quests').textContent = `Couldn't load the quest list (${err.message}).`; })
   .finally(() => { document.documentElement.dataset.ready = '1'; });

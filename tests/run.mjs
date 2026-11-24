@@ -198,6 +198,13 @@ t('planner', () => {
   assert.equal(kcRun(5000).setupId, 'high'); assert.equal(kcRun(5000).why, 'affordable');
   assert.equal(kcRun(10).setupId, 'budget'); assert.equal(kcRun(10).why, 'gear');
   assert.equal(kcRun(5000, { two: 'budget' }).setupId, 'budget');
+  // Hitpoints split: a skill that would pass 99 stops there and the next combat skill finishes it
+  const split = plan([{ type: 'kc', bossId: 'cave', n: 1 }], { ...d, training: { skills: { ...hpTraining.skills, Defence: [tr('Defence', [{ from: 1, name: 'Crabs', xpPerHr: 30000 }])] } },
+    bosses: [...bosses, { ...hpBoss, setups: [{ ...hpBoss.setups[0], requires: { all: [{ skill: 'Ranged', level: 98 }, { skill: 'Defence', level: 5 }, { skill: 'Hitpoints', level: 70 }] } }] }],
+    account: { ...account, xp: { ...account.xp, Hitpoints: xpForLevel(10), Ranged: xpForLevel(98), Defence: 0, Attack: 0 } } });
+  const sp = split.steps.filter(s => s.untilHp || s.towardsHp);
+  assert.deepEqual(sp.map(s => [s.skill, s.towardsHp ? 'to99' : 'until']), [['Ranged', 'to99'], ['Defence', 'until']]);
+  assert.ok(split.endAccount.xp.Hitpoints >= xpForLevel(70));
   // max cape covers every skill with data
   const mc = plan([{ type: 'maxcape' }], d);
   assert.deepEqual(mc.steps.filter(s => s.kind === 'train').map(s => s.skill).sort(), ['Agility', 'Prayer']);

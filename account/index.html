@@ -61,9 +61,18 @@
     <p>Items that some methods need you to have earned.</p>
     <div id="unlocks"></div>
   </section>
+  <section class="quests-wrap">
+    <h2>Bank</h2>
+    <p>Paste the export from the Bank Memory RuneLite plugin (right-click your bank in its panel, then Export). The planner
+      uses it to see which gear you already own, so it only counts the gear you'd still have to buy when choosing a setup.
+      It also ticks any unlocks above that it finds.</p>
+    <textarea id="bank-text" rows="6" placeholder="Item id&#9;Item name&#9;Item quantity" aria-label="Bank Memory export"></textarea>
+    <div class="row"><button type="button" class="btn" id="bank-import">Import bank</button>
+      <button type="button" class="btn" id="bank-clear">Clear bank</button><span id="bank-status" class="hint" role="status"></span></div>
+  </section>
   <div class="row">
     <label>Cash stack (GP) <input type="text" inputmode="numeric" id="gp" placeholder="e.g. 25,000,000">
-      <span class="hint">Money Makers uses this to cap methods that buy supplies: you can only run them as fast as you can afford the supplies.</span></label>
+      <span class="hint">Money Makers uses this to cap methods that buy supplies: you can only run them as fast as you can afford the supplies. The planner uses it to check whether you can afford a High level setup.</span></label>
     <button type="button" class="btn" id="reset">Clear all stats</button>
     <span id="saved" role="status"></span>
   </div>
