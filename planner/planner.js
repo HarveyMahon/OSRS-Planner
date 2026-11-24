@@ -18,6 +18,7 @@ const wiki = t => `https://oldschool.runescape.wiki/w/${encodeURI(t.replace(/ /g
 
 let D = null, ACCOUNT = null;
 let state = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch { return null; } })() || { goals: [], intensity: 'balanced', swaps: [] };
+state.setups ||= {};
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
 const hideWild = () => { try { return localStorage.getItem('osrsplanner:hide-wild') === '1'; } catch { return false; } };
 
@@ -79,12 +80,24 @@ function stepHtml(s, i) {
     const cost = s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : '';
     return `<li class="step train"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b> ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}`}
       <span class="right">${hrs(s.hours)}${s.realHours > s.hours * 1.5 ? ` · ${Math.ceil(s.realHours / 24)} days of growing` : ''} ${cost}</span></div>
-      <ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul></li>`;
+      ${s.skill === 'Slayer' ? '<div class="note">Slayer masters, task choices and blocklists aren\'t planned yet; the time is a rough estimate.</div>'
+        : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;
   }
   if (s.kind === 'quest') return `<li class="step quest"><div class="head"><span class="n">${i + 1}</span><b>Quest:</b> <a href="${wiki(s.name)}" target="_blank" rel="noopener">${esc(s.name)}</a>
       <span class="right">~${hrs(s.hours || 0)}${s.forTraining ? ' · unlocks a training method' : ''}</span></div></li>`;
-  if (s.kind === 'kc') return `<li class="step kc"><div class="head"><span class="n">${i + 1}</span><b>Kill ${esc(s.name)}</b> × ${s.n} <span class="muted">(${esc(s.setup)} setup)</span>
-      <span class="right">${hrs(s.hours)} ${s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : ''}</span></div></li>`;
+  if (s.kind === 'kc') {
+    const pick = s.setups.length > 1
+      ? `<select data-setup="${esc(s.bossId)}" aria-label="Setup for ${esc(s.name)}">${s.setups.map(o => `<option value="${esc(o.id)}"${o.id === s.setupId ? ' selected' : ''}>${esc(o.label)} setup</option>`).join('')}</select>`
+        + (s.why === 'chosen' ? ` <button type="button" class="x" data-unsetup="${esc(s.bossId)}" title="Back to the suggested setup">reset</button>` : '')
+      : `<span class="muted">(${esc(s.setup)} setup)</span>`;
+    const high = s.setups.find(o => o.id !== 'budget');
+    const why = { affordable: 'High level: you meet its requirements and your cash stack covers its gear',
+                  gear: `Budget: your cash stack doesn't cover the High level gear (${gpShort(high?.gearToBuy || 0)} to buy)`,
+                  requirements: "Budget: you don't meet the High level requirements yet",
+                  unknown: "Budget: the High level gear isn't in the data yet, so the planner can't tell if you can afford it" }[s.why];
+    return `<li class="step kc"><div class="head"><span class="n">${i + 1}</span><b>Kill ${esc(s.name)}</b> × ${s.n} ${pick}
+      <span class="right">${hrs(s.hours)} ${s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : ''}</span></div>${why ? `<div class="note">${why}</div>` : ''}</li>`;
+  }
   return `<li class="step gp"><div class="head"><span class="n">${i + 1}</span><b>Make ${gpShort(s.amount)} GP</b> ${s.method ? `at ${esc(s.method.name)}${s.method.wilderness ? ' <span class="wild">Wilderness</span>' : ''}` : '<span class="cost">no money maker available</span>'}
       <span class="right">${hrs(s.hours)}</span></div><div class="note">For ${esc(s.reason)}${s.method ? ` · ${gpShort(s.method.gpPerHr)}/hr` : ''}</div></li>`;
 }
@@ -93,10 +106,12 @@ function render() {
   document.querySelectorAll('#intensity button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.i === state.intensity)));
   $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
     : '<span class="muted">No goals yet: add one above.</span>';
-  $('swaps-note').innerHTML = state.swaps.length ? `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''} · <button type="button" class="linkbtn" id="clear-swaps">clear</button>` : '';
+  const nSetups = Object.keys(state.setups).length;
+  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`].filter(Boolean);
+  $('swaps-note').innerHTML = changes.length ? `${changes.join(', ')} · <button type="button" class="linkbtn" id="clear-swaps">clear</button>` : '';
   if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
   const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
-                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, hideWild: hideWild() });
+                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, setupChoices: state.setups, hideWild: hideWild() });
   const t = r.totals;
   $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
     <div><span class="lbl">Money to make</span>${gpShort(t.gpMade)}</div>
@@ -120,7 +135,15 @@ async function init() {
   $('add-goal').addEventListener('click', addGoal);
   $('goals').addEventListener('click', e => { if (e.target.dataset.remove != null) { state.goals.splice(+e.target.dataset.remove, 1); save(); render(); } });
   $('intensity').addEventListener('click', e => { if (e.target.dataset.i) { state.intensity = e.target.dataset.i; save(); render(); } });
-  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; save(); render(); } });
+  $('steps').addEventListener('change', e => {
+    const b = e.target.dataset?.setup; if (!b) return;
+    state.setups[b] = e.target.value; save(); render();
+  });
+  $('steps').addEventListener('click', e => {
+    const b = e.target.dataset?.unsetup; if (!b) return;
+    delete state.setups[b]; save(); render();
+  });
+  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; save(); render(); } });
   $('steps').addEventListener('change', e => {
     const k = e.target.dataset.swap;
     if (!k) return;

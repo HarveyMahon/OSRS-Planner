@@ -189,6 +189,15 @@ t('planner', () => {
   assert.equal(hpStep.skill, 'Ranged'); assert.equal(hpStep.untilHp, 20);
   assert.ok(!hp.steps.some(s => s.kind === 'train' && s.skill === 'Hitpoints'));
   assert.ok(hp.endAccount.xp.Hitpoints >= xpForLevel(20) - 1);
+  // kill-count setup: High level when requirements are met and the cash stack covers its gear
+  const twoBoss = { id: 'two', name: 'Two', unit: 'kill', drops: [], moneyMaker: false, defaultSetup: 'high', setups: [
+    { id: 'high', label: 'High level', unitsPerHr: 2, supplies: [], gear: ['g1'], requires: { all: [{ skill: 'Ranged', level: 1 }] } },
+    { id: 'budget', label: 'Budget', unitsPerHr: 1, supplies: [], gear: [], requires: { all: [] } }] };
+  const kcRun = (gp, choice) => plan([{ type: 'kc', bossId: 'two', n: 1 }], { ...d, items: { ...d.items, g1: { name: 'G', price: 1000 } },
+    bosses: [...bosses, twoBoss], setupChoices: choice || {}, account: { ...account, gp } }).steps.find(x => x.kind === 'kc');
+  assert.equal(kcRun(5000).setupId, 'high'); assert.equal(kcRun(5000).why, 'affordable');
+  assert.equal(kcRun(10).setupId, 'budget'); assert.equal(kcRun(10).why, 'gear');
+  assert.equal(kcRun(5000, { two: 'budget' }).setupId, 'budget');
   // max cape covers every skill with data
   const mc = plan([{ type: 'maxcape' }], d);
   assert.deepEqual(mc.steps.filter(s => s.kind === 'train').map(s => s.skill).sort(), ['Agility', 'Prayer']);

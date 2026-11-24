@@ -18,7 +18,7 @@
 // gp on a step: positive = it costs that much, negative = it earns that much.
 
 import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
-import { isMet, describe } from './requirements.js';
+import { isMet, describe, unmet } from './requirements.js';
 import { estimate } from './training.js';
 import { bossMethod, guideMethod, setupOf } from './money.js';
 
@@ -79,7 +79,7 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], hideWild = false } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, hideWild = false } = d;
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
@@ -92,7 +92,24 @@ export function plan(goals, d) {
   const finalLevels = {};
 
   const bossById = id => bosses.find(b => b.id === id);
-  const kcSetup = b => b.setups.find(s => s.id === 'budget') || setupOf(b);   // easier setup to get the kills
+  // Gear the account still has to buy for a setup (owned items count as bought; unpriced items are skipped).
+  const gearToBuy = s => (s.gear || []).reduce((t, k) => t + (sim.owned[k] ? 0 : (items[k]?.price || 0)), 0);
+  // Setup for kill-count steps: the user's choice if they made one; otherwise High level when the account
+  // already meets its requirements and the cash stack covers the gear it doesn't own; otherwise Budget.
+  function kcSetup(b) {
+    const chosen = b.setups.find(s => s.id === setupChoices[b.id]);
+    if (chosen) return { setup: chosen, why: 'chosen' };
+    const budget = b.setups.find(s => s.id === 'budget');
+    const high = b.setups.find(s => s.id !== 'budget');
+    if (!budget || !high) return { setup: budget || setupOf(b), why: 'only' };
+    // requirements the Budget setup shares (e.g. the same quest) get planned either way, so they don't count against High
+    const shared = new Set(unmet(budget.requires, sim, reqCtx).map(r => JSON.stringify(r)));
+    const highMet = unmet(high.requires, sim, reqCtx).every(r => shared.has(JSON.stringify(r)));
+    if (!highMet) return { setup: budget, why: 'requirements' };
+    if (!high.gear?.length) return { setup: budget, why: 'unknown' };          // can't tell if it's affordable
+    if (gearToBuy(high) <= sim.gp) return { setup: high, why: 'affordable' };
+    return { setup: budget, why: 'gear' };
+  }
 
   function needsOf(req, needs, depth = 0) {
     if (!req || depth > 50) return;
@@ -142,10 +159,10 @@ export function plan(goals, d) {
     if (existing) { existing.n = Math.max(existing.n, n); return; }
     if (seen.has(key)) return;
     seen.add(key);
-    const setup = kcSetup(b);
+    const { setup, why } = kcSetup(b);
     const needs = {};
     needsOf(setup.requires, needs, depth);
-    milestones.push({ kind: 'kc', id: bossId, n: Math.max(0, n - have), needs, setupId: setup.id });
+    milestones.push({ kind: 'kc', id: bossId, n: Math.max(0, n - have), needs, setupId: setup.id, why });
   }
 
   const gpGoals = [];
@@ -308,7 +325,8 @@ export function plan(goals, d) {
       const gp = -bm.profitPerUnit * m.n;
       pay(Math.max(0, bm.costPerUnit * m.n), `${b.name} kills`);
       sim.gp += bm.lootPerUnit * m.n;
-      steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, hours, gp,
+      steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, setupId: bm.setup.id, why: m.why,
+                   setups: b.setups.map(s => ({ id: s.id, label: s.label, gearToBuy: gearToBuy(s) })), hours, gp,
                    met: isMet(bm.setup.requires, sim, reqCtx) });
       sim.kc[b.id] = (sim.kc[b.id] || 0) + m.n;
       if (b.milestone?.reward) sim.owned[b.milestone.reward] = 1;
