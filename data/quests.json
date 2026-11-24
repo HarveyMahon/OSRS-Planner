@@ -1,358 +1,6152 @@
 {
  "meta": {
-  "description": "Quests the app knows. Milestones (partial completion steps) are curated by hand."
+  "description": "Quests and miniquests with their requirements (skills, prerequisite quests, quest points, combat level) and quest points awarded, from the Wiki's Quest details. Imported by scripts/import_quests.py; milestones are curated by hand."
  },
  "quests": {
   "a_kingdom_divided": {
-   "name": "A Kingdom Divided"
+   "name": "A Kingdom Divided",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 54
+     },
+     {
+      "skill": "Thieving",
+      "level": 52
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 52
+     },
+     {
+      "skill": "Herblore",
+      "level": 50
+     },
+     {
+      "skill": "Mining",
+      "level": 42
+     },
+     {
+      "skill": "Crafting",
+      "level": 38
+     },
+     {
+      "skill": "Magic",
+      "level": 35
+     },
+     {
+      "quest": "the_depths_of_despair"
+     },
+     {
+      "quest": "the_queen_of_thieves"
+     },
+     {
+      "quest": "the_ascent_of_arceuus"
+     },
+     {
+      "quest": "the_forsaken_tower"
+     },
+     {
+      "quest": "tale_of_the_righteous"
+     },
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 2
   },
-  "achievement_diary_cape": {
-   "name": "Achievement diary cape"
+  "a_new_leaf": {
+   "name": "A New Leaf",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Farming",
+      "level": 45
+     },
+     {
+      "skill": "Cooking",
+      "level": 35
+     },
+     {
+      "skill": "Herblore",
+      "level": 32
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 2
   },
-  "altar": {
-   "name": "Altar"
+  "a_night_at_the_theatre": {
+   "name": "A Night at the Theatre",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "a_taste_of_hope"
+     },
+     {
+      "quest": "darkness_of_hallowvale"
+     },
+     {
+      "quest": "in_aid_of_the_myreque"
+     },
+     {
+      "quest": "in_search_of_the_myreque"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "a_porcine_of_interest": {
+   "name": "A Porcine of Interest",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "a_ruff_situation": {
+   "name": "A Ruff Situation",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 15
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "a_shell_of_a_friend": {
+   "name": "A Shell of a Friend",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Herblore",
+      "level": 16
+     },
+     {
+      "skill": "Construction",
+      "level": 15
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "a_soul_s_bane": {
+   "name": "A Soul's Bane",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "a_tail_of_two_cats": {
+   "name": "A Tail of Two Cats",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "a_taste_of_hope": {
+   "name": "A Taste of Hope",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 48
+     },
+     {
+      "skill": "Agility",
+      "level": 45
+     },
+     {
+      "skill": "Attack",
+      "level": 40
+     },
+     {
+      "skill": "Herblore",
+      "level": 40
+     },
+     {
+      "skill": "Slayer",
+      "level": 38
+     },
+     {
+      "quest": "darkness_of_hallowvale"
+     },
+     {
+      "quest": "in_aid_of_the_myreque"
+     },
+     {
+      "quest": "in_search_of_the_myreque"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "alfred_grimhand_s_barcrawl": {
+   "name": "Alfred Grimhand's Barcrawl",
+   "miniquest": true,
+   "requires": null
   },
   "animal_magnetism": {
-   "name": "Animal magnetism"
+   "name": "Animal Magnetism",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 18
+     },
+     {
+      "skill": "Crafting",
+      "level": 19
+     },
+     {
+      "skill": "Ranged",
+      "level": 30
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 35
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "ernest_the_chicken"
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "ardougne_diary": {
-   "name": "Ardougne Diary"
+  "another_slice_of_h_a_m": {
+   "name": "Another Slice of H.A.M.",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Attack",
+      "level": 15
+     },
+     {
+      "skill": "Prayer",
+      "level": 25
+     },
+     {
+      "quest": "death_to_the_dorgeshuun"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "the_giant_dwarf"
+     },
+     {
+      "quest": "the_dig_site"
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "astral_contact": {
-   "name": "Astral Contact"
+  "architectural_alliance": {
+   "name": "Architectural Alliance",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Mining",
+      "level": 42
+     }
+    ]
+   }
   },
-  "ava_s_device": {
-   "name": "Ava's device"
+  "at_first_light": {
+   "name": "At First Light",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Hunter",
+      "level": 46
+     },
+     {
+      "skill": "Herblore",
+      "level": 30
+     },
+     {
+      "skill": "Construction",
+      "level": 27
+     },
+     {
+      "quest": "children_of_the_sun"
+     },
+     {
+      "quest": "eagles_peak"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "barbarian_training": {
+   "name": "Barbarian Training",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Fishing",
+      "level": 55,
+      "boostable": true
+     },
+     {
+      "skill": "Firemaking",
+      "level": 35
+     },
+     {
+      "skill": "Strength",
+      "level": 35
+     },
+     {
+      "skill": "Agility",
+      "level": 15
+     },
+     {
+      "skill": "Farming",
+      "level": 15
+     },
+     {
+      "skill": "Crafting",
+      "level": 11
+     },
+     {
+      "skill": "Smithing",
+      "level": 5
+     },
+     {
+      "skill": "Herblore",
+      "level": 4
+     },
+     {
+      "quest": "tai_bwo_wannai_trio"
+     }
+    ]
+   }
+  },
+  "bear_your_soul": {
+   "name": "Bear Your Soul",
+   "miniquest": true,
+   "requires": null
   },
   "below_ice_mountain": {
-   "name": "Below Ice Mountain"
+   "name": "Below Ice Mountain",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "questPoints": 16
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "beneath_cursed_sands": {
-   "name": "Beneath Cursed Sands"
+   "name": "Beneath Cursed Sands",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 62
+     },
+     {
+      "skill": "Crafting",
+      "level": 55
+     },
+     {
+      "skill": "Firemaking",
+      "level": 55
+     },
+     {
+      "quest": "contact"
+     },
+     {
+      "quest": "prince_ali_rescue"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "between_a_rock": {
+   "name": "Between a Rock...",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Defence",
+      "level": 30,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "quest": "dwarf_cannon"
+     },
+     {
+      "quest": "fishing_contest"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "big_chompy_bird_hunting": {
-   "name": "Big Chompy Bird Hunting"
+   "name": "Big Chompy Bird Hunting",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Fletching",
+      "level": 5,
+      "boostable": true
+     },
+     {
+      "skill": "Cooking",
+      "level": 30,
+      "boostable": true
+     },
+     {
+      "skill": "Ranged",
+      "level": 30
+     }
+    ]
+   },
+   "questPoints": 2
   },
-  "blood_moon_rises": {
-   "name": "Blood moon rises"
+  "biohazard": {
+   "name": "Biohazard",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "plague_city"
+     }
+    ]
+   },
+   "questPoints": 3
+  },
+  "black_knights_fortress": {
+   "name": "Black Knights' Fortress",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "questPoints": 12
+     }
+    ]
+   },
+   "questPoints": 3
   },
   "bone_voyage": {
-   "name": "Bone voyage"
+   "name": "Bone Voyage",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "the_dig_site"
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "book_of_the_dead": {
-   "name": "Book of the Dead"
+  "burial_at_sea": {
+   "name": "Burial at Sea",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Sailing",
+      "level": 42
+     },
+     {
+      "skill": "Smithing",
+      "level": 38
+     },
+     {
+      "skill": "Construction",
+      "level": 32
+     },
+     {
+      "quest": "pandemonium"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_pirate_pete"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     }
+    ]
+   }
   },
   "cabin_fever": {
-   "name": "Cabin Fever"
+   "name": "Cabin Fever",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 42
+     },
+     {
+      "skill": "Crafting",
+      "level": 45
+     },
+     {
+      "skill": "Smithing",
+      "level": 50
+     },
+     {
+      "skill": "Ranged",
+      "level": 40
+     },
+     {
+      "quest": "pirate_s_treasure"
+     },
+     {
+      "quest": "rum_deal"
+     },
+     {
+      "quest": "zogre_flesh_eaters"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "children_of_the_sun": {
-   "name": "Children of the Sun"
+   "name": "Children of the Sun",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "client_of_kourend": {
-   "name": "Client of Kourend"
+   "name": "Client of Kourend",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "cooking_gauntlets": {
-   "name": "Cooking gauntlets"
+  "clock_tower": {
+   "name": "Clock Tower",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
-  "crack_the_clue_iii": {
-   "name": "Crack the Clue III"
+  "cold_war": {
+   "name": "Cold War",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Hunter",
+      "level": 10
+     },
+     {
+      "skill": "Agility",
+      "level": 30
+     },
+     {
+      "skill": "Crafting",
+      "level": 30
+     },
+     {
+      "skill": "Construction",
+      "level": 34
+     },
+     {
+      "skill": "Thieving",
+      "level": 15
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "dark_mage_abyss": {
-   "name": "Dark Mage (Abyss)"
+  "contact": {
+   "name": "Contact!",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "prince_ali_rescue"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "cook_s_assistant": {
+   "name": "Cook's Assistant",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "crab_quest": {
+   "name": "Crab Quest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Sailing",
+      "level": 40
+     },
+     {
+      "skill": "Fishing",
+      "level": 30
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "creature_of_fenkenstrain": {
+   "name": "Creature of Fenkenstrain",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "current_affairs": {
+   "name": "Current Affairs",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Sailing",
+      "level": 22
+     },
+     {
+      "skill": "Fishing",
+      "level": 10
+     },
+     {
+      "quest": "pandemonium"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "curse_of_the_empty_lord": {
+   "name": "Curse of the Empty Lord",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 53
+     },
+     {
+      "skill": "Prayer",
+      "level": 31
+     },
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   }
+  },
+  "daddy_s_home": {
+   "name": "Daddy's Home",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "darkness_of_hallowvale": {
-   "name": "Darkness of Hallowvale"
+   "name": "Darkness of Hallowvale",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Construction",
+      "level": 5,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 20
+     },
+     {
+      "skill": "Thieving",
+      "level": 22
+     },
+     {
+      "skill": "Agility",
+      "level": 26,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 32
+     },
+     {
+      "skill": "Magic",
+      "level": 33,
+      "boostable": true
+     },
+     {
+      "skill": "Strength",
+      "level": 40
+     },
+     {
+      "quest": "in_aid_of_the_myreque"
+     },
+     {
+      "quest": "in_search_of_the_myreque"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "death_plateau": {
-   "name": "Death Plateau"
+   "name": "Death Plateau",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "death_on_the_isle": {
+   "name": "Death on the Isle",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 34
+     },
+     {
+      "skill": "Agility",
+      "level": 32
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "death_to_the_dorgeshuun": {
-   "name": "Death to the Dorgeshuun"
+   "name": "Death to the Dorgeshuun",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 23,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 23,
+      "boostable": true
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "rune_mysteries"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "defender_of_varrock": {
+   "name": "Defender of Varrock",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Smithing",
+      "level": 55
+     },
+     {
+      "skill": "Hunter",
+      "level": 52
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "below_ice_mountain"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "what_lies_below"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "demon_slayer"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "demon_slayer": {
+   "name": "Demon Slayer",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 3
   },
   "desert_treasure_i": {
-   "name": "Desert Treasure I"
-  },
-  "desert_treasure_ii": {
-   "name": "Desert Treasure II"
+   "name": "Desert Treasure I",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 53
+     },
+     {
+      "skill": "Magic",
+      "level": 50
+     },
+     {
+      "skill": "Firemaking",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Slayer",
+      "level": 10
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "the_tourist_trap"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "plague_city"
+     }
+    ]
+   },
+   "questPoints": 3
   },
   "desert_treasure_ii_the_fallen_empire": {
-   "name": "Desert Treasure II - The Fallen Empire"
+   "name": "Desert Treasure II - The Fallen Empire",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Firemaking",
+      "level": 75
+     },
+     {
+      "skill": "Magic",
+      "level": 75
+     },
+     {
+      "skill": "Thieving",
+      "level": 70
+     },
+     {
+      "skill": "Herblore",
+      "level": 62
+     },
+     {
+      "skill": "Runecraft",
+      "level": 60
+     },
+     {
+      "skill": "Construction",
+      "level": 60
+     },
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "the_tourist_trap"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "secrets_of_the_north"
+     },
+     {
+      "quest": "making_friends_with_my_arm"
+     },
+     {
+      "quest": "my_arm_s_big_adventure"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "the_feud"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "swan_song"
+     },
+     {
+      "quest": "one_small_favour"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "cold_war"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "the_general_s_shadow"
+     },
+     {
+      "quest": "curse_of_the_empty_lord"
+     },
+     {
+      "quest": "fight_arena"
+     },
+     {
+      "quest": "devious_minds"
+     },
+     {
+      "quest": "wanted"
+     },
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "doric_s_quest"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "hazeel_cult"
+     },
+     {
+      "quest": "enakhra_s_lament"
+     },
+     {
+      "quest": "temple_of_the_eye"
+     },
+     {
+      "quest": "the_garden_of_death"
+     },
+     {
+      "quest": "below_ice_mountain"
+     },
+     {
+      "quest": "his_faithful_servants"
+     }
+    ]
+   },
+   "questPoints": 5
+  },
+  "devious_minds": {
+   "name": "Devious Minds",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Smithing",
+      "level": 65,
+      "boostable": true
+     },
+     {
+      "skill": "Runecraft",
+      "level": 50
+     },
+     {
+      "skill": "Fletching",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "quest": "wanted"
+     },
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "doric_s_quest"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "doric_s_quest": {
+   "name": "Doric's Quest",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "dragon_slayer_i": {
-   "name": "Dragon Slayer I"
+   "name": "Dragon Slayer I",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "questPoints": 32
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "dragon_slayer_ii": {
-   "name": "Dragon Slayer II"
-  },
-  "dramen_staff": {
-   "name": "Dramen staff"
+   "name": "Dragon Slayer II",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 75
+     },
+     {
+      "skill": "Smithing",
+      "level": 70
+     },
+     {
+      "skill": "Mining",
+      "level": 68
+     },
+     {
+      "skill": "Crafting",
+      "level": 62
+     },
+     {
+      "skill": "Agility",
+      "level": 60
+     },
+     {
+      "skill": "Thieving",
+      "level": 60
+     },
+     {
+      "skill": "Construction",
+      "level": 50
+     },
+     {
+      "skill": "Hitpoints",
+      "level": 50
+     },
+     {
+      "quest": "legends_quest"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "dream_mentor"
+     },
+     {
+      "quest": "lunar_diplomacy"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "a_tail_of_two_cats"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     },
+     {
+      "quest": "animal_magnetism"
+     },
+     {
+      "quest": "ernest_the_chicken"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "ghosts_ahoy"
+     },
+     {
+      "quest": "bone_voyage"
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     },
+     {
+      "quest": "barbarian_training"
+     },
+     {
+      "questPoints": 200
+     }
+    ]
+   },
+   "questPoints": 5
   },
   "dream_mentor": {
-   "name": "Dream Mentor"
+   "name": "Dream Mentor",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "lunar_diplomacy"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "combatLevel": 85
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "druidic_ritual": {
-   "name": "Druidic Ritual"
-  },
-  "duke_horacio": {
-   "name": "Duke Horacio"
+   "name": "Druidic Ritual",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 4
   },
   "dwarf_cannon": {
-   "name": "Dwarf Cannon"
+   "name": "Dwarf Cannon",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "eadgar_s_ruse": {
+   "name": "Eadgar's Ruse",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Herblore",
+      "level": 31,
+      "boostable": true
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "eagles_peak": {
-   "name": "Eagles' Peak"
+   "name": "Eagles' Peak",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Hunter",
+      "level": 27,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
   },
-  "elite_wilderness_diary": {
-   "name": "Elite Wilderness Diary"
+  "elemental_workshop_i": {
+   "name": "Elemental Workshop I",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Mining",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 20,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "elemental_workshop_ii": {
+   "name": "Elemental Workshop II",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 30,
+      "boostable": true
+     },
+     {
+      "quest": "elemental_workshop_i"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "enakhra_s_lament": {
+   "name": "Enakhra's Lament",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 50
+     },
+     {
+      "skill": "Firemaking",
+      "level": 45,
+      "boostable": true
+     },
+     {
+      "skill": "Prayer",
+      "level": 43
+     },
+     {
+      "skill": "Magic",
+      "level": 39,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "enlightened_journey": {
-   "name": "Enlightened journey"
+   "name": "Enlightened Journey",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Firemaking",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Farming",
+      "level": 30,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 36,
+      "boostable": true
+     },
+     {
+      "questPoints": 20
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "enter_the_abyss": {
-   "name": "Enter the Abyss"
+   "name": "Enter the Abyss",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "rune_mysteries"
+     }
+    ]
+   }
+  },
+  "ernest_the_chicken": {
+   "name": "Ernest the Chicken",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 4
+  },
+  "ethically_acquired_antiquities": {
+   "name": "Ethically Acquired Antiquities",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 25
+     },
+     {
+      "quest": "children_of_the_sun"
+     },
+     {
+      "quest": "shield_of_arrav"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "fairytale_i_growing_pains": {
-   "name": "Fairytale I - Growing Pains"
+   "name": "Fairytale I - Growing Pains",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "fairytale_ii_cure_a_queen": {
-   "name": "Fairytale II - Cure a Queen"
+   "name": "Fairytale II - Cure a Queen",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 40
+     },
+     {
+      "skill": "Farming",
+      "level": 49,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 57,
+      "boostable": true
+     },
+     {
+      "quest": "fairytale_i_growing_pains"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "fairytale_iii_nexus_of_power": {
+   "name": "Fairytale III - Nexus of Power",
+   "miniquest": false,
+   "requires": null
   },
   "fallen_from_grace": {
-   "name": "Fallen From Grace"
+   "name": "Fallen From Grace",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Sailing",
+      "level": 62
+     },
+     {
+      "skill": "Crafting",
+      "level": 60
+     },
+     {
+      "skill": "Runecraft",
+      "level": 47
+     },
+     {
+      "skill": "Mining",
+      "level": 53
+     },
+     {
+      "quest": "pandemonium"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "family_crest": {
-   "name": "Family Crest"
+   "name": "Family Crest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Mining",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Magic",
+      "level": 59,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 40,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "family_pest": {
+   "name": "Family Pest",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "family_crest"
+     }
+    ]
+   }
+  },
+  "fight_arena": {
+   "name": "Fight Arena",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 2
   },
   "fishing_contest": {
-   "name": "Fishing Contest"
+   "name": "Fishing Contest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Fishing",
+      "level": 10
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "fremennik_diary": {
-   "name": "Fremennik Diary"
+  "fool_s_gold": {
+   "name": "Fool's Gold",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "beneath_cursed_sands"
+     },
+     {
+      "quest": "contact"
+     },
+     {
+      "quest": "prince_ali_rescue"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   }
   },
-  "gas_mask": {
-   "name": "Gas mask"
+  "forgettable_tale": {
+   "name": "Forgettable Tale...",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 22,
+      "boostable": true
+     },
+     {
+      "skill": "Farming",
+      "level": 17,
+      "boostable": true
+     },
+     {
+      "quest": "the_giant_dwarf"
+     },
+     {
+      "quest": "fishing_contest"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "garden_of_tranquillity": {
+   "name": "Garden of Tranquillity",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Farming",
+      "level": 25
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "gertrude_s_cat": {
+   "name": "Gertrude's Cat",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "getting_ahead": {
+   "name": "Getting Ahead",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 30
+     },
+     {
+      "skill": "Construction",
+      "level": 26
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "ghosts_ahoy": {
-   "name": "Ghosts Ahoy"
+   "name": "Ghosts Ahoy",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "skill": "Cooking",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "goblin_diplomacy": {
+   "name": "Goblin Diplomacy",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 5
+  },
+  "grim_tales": {
+   "name": "Grim Tales",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Farming",
+      "level": 45,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 52,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 58,
+      "boostable": true
+     },
+     {
+      "skill": "Agility",
+      "level": 59,
+      "boostable": true
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 71,
+      "boostable": true
+     },
+     {
+      "quest": "witch_s_house"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "haunted_mine": {
-   "name": "Haunted Mine"
+   "name": "Haunted Mine",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 35,
+      "boostable": true
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "hazeel_cult": {
+   "name": "Hazeel Cult",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "heroes_quest": {
-   "name": "Heroes' Quest"
+   "name": "Heroes' Quest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 53,
+      "boostable": true
+     },
+     {
+      "skill": "Fishing",
+      "level": 53,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "questPoints": 55
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "humidify": {
-   "name": "Humidify"
+  "his_faithful_servants": {
+   "name": "His Faithful Servants",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   }
+  },
+  "holy_grail": {
+   "name": "Holy Grail",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Attack",
+      "level": 20
+     },
+     {
+      "quest": "merlin_s_crystal"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "hopespear_s_will": {
+   "name": "Hopespear's Will",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Prayer",
+      "level": 50
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "fairytale_ii_cure_a_queen"
+     },
+     {
+      "quest": "land_of_the_goblins"
+     }
+    ]
+   }
+  },
+  "horror_from_the_deep": {
+   "name": "Horror from the Deep",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 35,
+      "boostable": true
+     },
+     {
+      "quest": "alfred_grimhand_s_barcrawl"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "icthlarin_s_little_helper": {
-   "name": "Icthlarin's Little Helper"
+   "name": "Icthlarin's Little Helper",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "imp_catcher": {
+   "name": "Imp Catcher",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "in_aid_of_the_myreque": {
-   "name": "In Aid of the Myreque"
+   "name": "In Aid of the Myreque",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 25
+     },
+     {
+      "skill": "Mining",
+      "level": 15
+     },
+     {
+      "skill": "Magic",
+      "level": 7,
+      "boostable": true
+     },
+     {
+      "quest": "in_search_of_the_myreque"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
   },
-  "jatizso": {
-   "name": "Jatizso"
+  "in_search_of_knowledge": {
+   "name": "In Search of Knowledge",
+   "miniquest": true,
+   "requires": null
   },
-  "kharedst_s_memoirs": {
-   "name": "Kharedst's memoirs"
+  "in_search_of_the_myreque": {
+   "name": "In Search of the Myreque",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "into_the_tombs": {
+   "name": "Into the Tombs",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "beneath_cursed_sands"
+     },
+     {
+      "quest": "contact"
+     },
+     {
+      "quest": "prince_ali_rescue"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   }
+  },
+  "jungle_potion": {
+   "name": "Jungle Potion",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Herblore",
+      "level": 3,
+      "boostable": true
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "king_s_ransom": {
-   "name": "King's Ransom"
+   "name": "King's Ransom",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 45
+     },
+     {
+      "skill": "Defence",
+      "level": 65
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "holy_grail"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "murder_mystery"
+     },
+     {
+      "quest": "one_small_favour"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "lair_of_tarn_razorlor": {
+   "name": "Lair of Tarn Razorlor",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 40
+     },
+     {
+      "quest": "haunted_mine"
+     }
+    ]
+   }
+  },
+  "land_of_the_goblins": {
+   "name": "Land of the Goblins",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 38
+     },
+     {
+      "skill": "Fishing",
+      "level": 40
+     },
+     {
+      "skill": "Thieving",
+      "level": 45
+     },
+     {
+      "skill": "Herblore",
+      "level": 48
+     },
+     {
+      "quest": "another_slice_of_h_a_m"
+     },
+     {
+      "quest": "death_to_the_dorgeshuun"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "the_giant_dwarf"
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "fishing_contest"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "learning_the_ropes": {
+   "name": "Learning the Ropes",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "legends_quest": {
-   "name": "Legends' Quest"
-  },
-  "list_of_mines": {
-   "name": "List of mines"
+   "name": "Legends' Quest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 45,
+      "boostable": true
+     },
+     {
+      "skill": "Magic",
+      "level": 56,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 52,
+      "boostable": true
+     },
+     {
+      "skill": "Prayer",
+      "level": 42,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Strength",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "questPoints": 107
+     }
+    ]
+   },
+   "questPoints": 4
   },
   "lost_city": {
-   "name": "Lost City"
-  },
-  "lumbridge_draynor_diary": {
-   "name": "Lumbridge & Draynor Diary"
+   "name": "Lost City",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 31,
+      "boostable": true
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 36,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 3
   },
   "lunar_diplomacy": {
-   "name": "Lunar Diplomacy"
+   "name": "Lunar Diplomacy",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Herblore",
+      "level": 5
+     },
+     {
+      "skill": "Crafting",
+      "level": 61
+     },
+     {
+      "skill": "Defence",
+      "level": 40
+     },
+     {
+      "skill": "Firemaking",
+      "level": 49
+     },
+     {
+      "skill": "Magic",
+      "level": 65
+     },
+     {
+      "skill": "Mining",
+      "level": 60
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 55
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "mage_arena_i": {
-   "name": "Mage Arena I"
+   "name": "Mage Arena I",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 60
+     }
+    ]
+   }
   },
-  "magic_imbue": {
-   "name": "Magic Imbue"
+  "mage_arena_ii": {
+   "name": "Mage Arena II",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 75
+     },
+     {
+      "quest": "mage_arena_i"
+     }
+    ]
+   }
   },
   "making_friends_with_my_arm": {
-   "name": "Making Friends with My Arm"
+   "name": "Making Friends with My Arm",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Firemaking",
+      "level": 66
+     },
+     {
+      "skill": "Mining",
+      "level": 72,
+      "boostable": true
+     },
+     {
+      "skill": "Construction",
+      "level": 35,
+      "boostable": true
+     },
+     {
+      "skill": "Agility",
+      "level": 68,
+      "boostable": true
+     },
+     {
+      "quest": "my_arm_s_big_adventure"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "the_feud"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "swan_song"
+     },
+     {
+      "quest": "one_small_favour"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "cold_war"
+     },
+     {
+      "quest": "romeo_juliet"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "making_history": {
+   "name": "Making History",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 3
+  },
+  "meat_and_greet": {
+   "name": "Meat and Greet",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "merlin_s_crystal": {
+   "name": "Merlin's Crystal",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 6
+  },
+  "misthalin_mystery": {
+   "name": "Misthalin Mystery",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "monk_s_friend": {
+   "name": "Monk's Friend",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "monkey_madness_i": {
-   "name": "Monkey Madness I"
+   "name": "Monkey Madness I",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "tree_gnome_village"
+     }
+    ]
+   },
+   "questPoints": 3
   },
   "monkey_madness_ii": {
-   "name": "Monkey Madness II"
+   "name": "Monkey Madness II",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 69
+     },
+     {
+      "skill": "Crafting",
+      "level": 70
+     },
+     {
+      "skill": "Hunter",
+      "level": 60
+     },
+     {
+      "skill": "Agility",
+      "level": 55
+     },
+     {
+      "skill": "Thieving",
+      "level": 55
+     },
+     {
+      "skill": "Firemaking",
+      "level": 60
+     },
+     {
+      "quest": "enlightened_journey"
+     },
+     {
+      "quest": "the_eyes_of_glouphrie"
+     },
+     {
+      "quest": "monkey_madness_i"
+     },
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "tree_gnome_village"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "watchtower"
+     }
+    ]
+   },
+   "questPoints": 4
+  },
+  "mountain_daughter": {
+   "name": "Mountain Daughter",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 20,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "mourning_s_end_part_i": {
-   "name": "Mourning's End Part I"
+   "name": "Mourning's End Part I",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Ranged",
+      "level": 60
+     },
+     {
+      "skill": "Thieving",
+      "level": 50
+     },
+     {
+      "quest": "roving_elves"
+     },
+     {
+      "quest": "regicide"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "sheep_herder"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "mourning_s_end_part_ii": {
-   "name": "Mourning's End Part II"
+   "name": "Mourning's End Part II",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "mourning_s_end_part_i"
+     },
+     {
+      "quest": "roving_elves"
+     },
+     {
+      "quest": "regicide"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "sheep_herder"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "mudfoot_s_big_adventure": {
+   "name": "Mudfoot's Big Adventure",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "murder_mystery": {
+   "name": "Murder Mystery",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 3
   },
   "my_arm_s_big_adventure": {
-   "name": "My Arm's Big Adventure"
-  },
-  "nardah": {
-   "name": "Nardah"
+   "name": "My Arm's Big Adventure",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Farming",
+      "level": 29,
+      "boostable": true
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 10
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "the_feud"
+     },
+     {
+      "quest": "jungle_potion"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "nature_spirit": {
-   "name": "Nature Spirit"
+   "name": "Nature Spirit",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
   },
-  "nightmare_zone_strategies": {
-   "name": "Nightmare Zone/Strategies"
+  "observatory_quest": {
+   "name": "Observatory Quest",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 2
   },
   "olaf_s_quest": {
-   "name": "Olaf's Quest"
+   "name": "Olaf's Quest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Firemaking",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "quest": "the_fremennik_trials"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "one_small_favour": {
-   "name": "One Small Favour"
+   "name": "One Small Favour",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 36,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 18,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 30,
+      "boostable": true
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "pandemonium": {
-   "name": "Pandemonium"
+   "name": "Pandemonium",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "perilous_moons": {
-   "name": "Perilous Moons"
+   "name": "Perilous Moons",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 48
+     },
+     {
+      "skill": "Hunter",
+      "level": 20
+     },
+     {
+      "skill": "Fishing",
+      "level": 20
+     },
+     {
+      "skill": "Runecraft",
+      "level": 20
+     },
+     {
+      "skill": "Construction",
+      "level": 10
+     },
+     {
+      "quest": "twilight_s_promise"
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "pirate_s_treasure": {
-   "name": "Pirate's Treasure"
+   "name": "Pirate's Treasure",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 2
   },
   "plague_city": {
-   "name": "Plague City"
+   "name": "Plague City",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "priest_in_peril": {
-   "name": "Priest in Peril"
+   "name": "Priest in Peril",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "prince_ali_rescue": {
+   "name": "Prince Ali Rescue",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 3
+  },
+  "prying_times": {
+   "name": "Prying Times",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Smithing",
+      "level": 30
+     },
+     {
+      "skill": "Sailing",
+      "level": 12
+     },
+     {
+      "quest": "pandemonium"
+     },
+     {
+      "quest": "the_knight_s_sword"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "rag_and_bone_man_i": {
+   "name": "Rag and Bone Man I",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "rag_and_bone_man_ii": {
+   "name": "Rag and Bone Man II",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Defence",
+      "level": 20
+     },
+     {
+      "quest": "rag_and_bone_man_i"
+     },
+     {
+      "quest": "skippy_and_the_mogres"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "rag_and_bone_man_iii": {
+   "name": "Rag and Bone Man III",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 58
+     },
+     {
+      "quest": "rag_and_bone_man_ii"
+     },
+     {
+      "quest": "rag_and_bone_man_i"
+     },
+     {
+      "quest": "skippy_and_the_mogres"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "the_great_brain_robbery"
+     },
+     {
+      "quest": "cabin_fever"
+     },
+     {
+      "quest": "pirate_s_treasure"
+     },
+     {
+      "quest": "rum_deal"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "zogre_flesh_eaters"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_pirate_pete"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "defender_of_varrock"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "below_ice_mountain"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "what_lies_below"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "tower_of_life"
+     },
+     {
+      "quest": "a_soul_s_bane"
+     }
+    ]
+   },
+   "questPoints": 3
   },
   "ratcatchers": {
-   "name": "Ratcatchers"
+   "name": "Ratcatchers",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     },
+     {
+      "quest": "the_giant_dwarf"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "recipe_for_disaster": {
+   "name": "Recipe for Disaster",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 70,
+      "boostable": true
+     },
+     {
+      "skill": "Agility",
+      "level": 48
+     },
+     {
+      "skill": "Mining",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Fishing",
+      "level": 53,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 53
+     },
+     {
+      "skill": "Herblore",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "skill": "Magic",
+      "level": 59,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Firemaking",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "skill": "Ranged",
+      "level": 40
+     },
+     {
+      "skill": "Crafting",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Fletching",
+      "level": 10,
+      "boostable": true
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 36,
+      "boostable": true
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "fishing_contest"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "murder_mystery"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "witch_s_house"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     },
+     {
+      "quest": "shadow_of_the_storm"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "the_golem"
+     },
+     {
+      "quest": "legends_quest"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "monkey_madness_i"
+     },
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "tree_gnome_village"
+     },
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "the_tourist_trap"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "horror_from_the_deep"
+     },
+     {
+      "quest": "alfred_grimhand_s_barcrawl"
+     },
+     {
+      "questPoints": 175
+     }
+    ]
+   },
+   "questPoints": 10
+  },
+  "recipe_for_disaster_another_cook_s_quest": {
+   "name": "Recipe for Disaster/Another Cook's Quest",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 10
+     },
+     {
+      "quest": "cook_s_assistant"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_defeating_the_culinaromancer": {
+   "name": "Recipe for Disaster/Defeating the Culinaromancer",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "the_tourist_trap"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "horror_from_the_deep"
+     },
+     {
+      "quest": "alfred_grimhand_s_barcrawl"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_evil_dave"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_the_goblin_generals"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_the_lumbridge_guide"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_the_mountain_dwarf"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_pirate_pete"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_sir_amik_varze"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_skrach_uglogwee"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_king_awowogei"
+     },
+     {
+      "questPoints": 175
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_evil_dave": {
+   "name": "Recipe for Disaster/Freeing Evil Dave",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "gertrude_s_cat"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "shadow_of_the_storm"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "the_golem"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_king_awowogei": {
+   "name": "Recipe for Disaster/Freeing King Awowogei",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 70,
+      "boostable": true
+     },
+     {
+      "skill": "Agility",
+      "level": 48
+     },
+     {
+      "quest": "monkey_madness_i"
+     },
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "tree_gnome_village"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "recipe_for_disaster_freeing_pirate_pete": {
-   "name": "Recipe for Disaster/Freeing Pirate Pete"
+   "name": "Recipe for Disaster/Freeing Pirate Pete",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 31,
+      "boostable": true
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_sir_amik_varze": {
+   "name": "Recipe for Disaster/Freeing Sir Amik Varze",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "legends_quest"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "questPoints": 107
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_skrach_uglogwee": {
+   "name": "Recipe for Disaster/Freeing Skrach Uglogwee",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 41,
+      "boostable": true
+     },
+     {
+      "skill": "Firemaking",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_the_goblin_generals": {
+   "name": "Recipe for Disaster/Freeing the Goblin generals",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_the_lumbridge_guide": {
+   "name": "Recipe for Disaster/Freeing the Lumbridge Guide",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "murder_mystery"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "witch_s_house"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recipe_for_disaster_freeing_the_mountain_dwarf": {
+   "name": "Recipe for Disaster/Freeing the Mountain Dwarf",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     },
+     {
+      "quest": "fishing_contest"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "recruitment_drive": {
+   "name": "Recruitment Drive",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "regicide": {
-   "name": "Regicide"
+   "name": "Regicide",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 10
+     },
+     {
+      "skill": "Agility",
+      "level": 56,
+      "boostable": true
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     }
+    ]
+   },
+   "questPoints": 3
+  },
+  "romeo_juliet": {
+   "name": "Romeo & Juliet",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 5
+  },
+  "roving_elves": {
+   "name": "Roving Elves",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 56,
+      "boostable": true
+     },
+     {
+      "quest": "regicide"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "waterfall_quest"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "royal_trouble": {
+   "name": "Royal Trouble",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Slayer",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "quest": "throne_of_miscellania"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "rum_deal": {
-   "name": "Rum Deal"
+   "name": "Rum Deal",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 42,
+      "boostable": true
+     },
+     {
+      "skill": "Farming",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "skill": "Prayer",
+      "level": 47,
+      "boostable": true
+     },
+     {
+      "skill": "Slayer",
+      "level": 42
+     },
+     {
+      "skill": "Fishing",
+      "level": 50,
+      "boostable": true
+     },
+     {
+      "quest": "zogre_flesh_eaters"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "rune_mysteries": {
-   "name": "Rune Mysteries"
+   "name": "Rune Mysteries",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
-  "salve_amulet_e": {
-   "name": "Salve amulet (e)"
+  "scorpion_catcher": {
+   "name": "Scorpion Catcher",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Prayer",
+      "level": 31
+     },
+     {
+      "quest": "alfred_grimhand_s_barcrawl"
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "salve_amulet_ei": {
-   "name": "Salve amulet(ei)"
+  "scrambled": {
+   "name": "Scrambled!",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Construction",
+      "level": 38
+     },
+     {
+      "skill": "Cooking",
+      "level": 36
+     },
+     {
+      "skill": "Smithing",
+      "level": 35
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 1
   },
-  "scar_essence_mine": {
-   "name": "Scar essence mine"
+  "sea_slug": {
+   "name": "Sea Slug",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Firemaking",
+      "level": 30,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "secrets_of_the_north": {
-   "name": "Secrets of the North"
+   "name": "Secrets of the North",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 69
+     },
+     {
+      "skill": "Thieving",
+      "level": 64
+     },
+     {
+      "skill": "Hunter",
+      "level": 56
+     },
+     {
+      "quest": "making_friends_with_my_arm"
+     },
+     {
+      "quest": "my_arm_s_big_adventure"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "the_feud"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "swan_song"
+     },
+     {
+      "quest": "one_small_favour"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "cold_war"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "the_general_s_shadow"
+     },
+     {
+      "quest": "curse_of_the_empty_lord"
+     },
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "fight_arena"
+     },
+     {
+      "quest": "devious_minds"
+     },
+     {
+      "quest": "wanted"
+     },
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "doric_s_quest"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "hazeel_cult"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "shades_of_mort_ton": {
-   "name": "Shades of Mort'ton"
+   "name": "Shades of Mort'ton",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 15,
+      "boostable": true
+     },
+     {
+      "skill": "Firemaking",
+      "level": 5,
+      "boostable": true
+     },
+     {
+      "quest": "priest_in_peril"
+     }
+    ]
+   },
+   "questPoints": 3
   },
-  "shadow_veil": {
-   "name": "Shadow Veil"
+  "shadow_of_the_storm": {
+   "name": "Shadow of the Storm",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 30,
+      "boostable": true
+     },
+     {
+      "quest": "the_golem"
+     },
+     {
+      "quest": "demon_slayer"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "shadows_of_custodia": {
+   "name": "Shadows of Custodia",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 54
+     },
+     {
+      "skill": "Fishing",
+      "level": 45
+     },
+     {
+      "skill": "Construction",
+      "level": 41
+     },
+     {
+      "skill": "Hunter",
+      "level": 36
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "sheep_herder": {
+   "name": "Sheep Herder",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 4
+  },
+  "sheep_shearer": {
+   "name": "Sheep Shearer",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "shield_of_arrav": {
+   "name": "Shield of Arrav",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "shilo_village": {
-   "name": "Shilo Village"
-  },
-  "shooting_stars": {
-   "name": "Shooting_Stars"
+   "name": "Shilo Village",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Agility",
+      "level": 32,
+      "boostable": true
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "sins_of_the_father": {
-   "name": "Sins of the Father"
+   "name": "Sins of the Father",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Woodcutting",
+      "level": 62
+     },
+     {
+      "skill": "Fletching",
+      "level": 60
+     },
+     {
+      "skill": "Crafting",
+      "level": 56
+     },
+     {
+      "skill": "Agility",
+      "level": 52
+     },
+     {
+      "skill": "Attack",
+      "level": 50
+     },
+     {
+      "skill": "Slayer",
+      "level": 50
+     },
+     {
+      "skill": "Magic",
+      "level": 49
+     },
+     {
+      "quest": "vampyre_slayer"
+     },
+     {
+      "quest": "a_taste_of_hope"
+     },
+     {
+      "quest": "darkness_of_hallowvale"
+     },
+     {
+      "quest": "in_aid_of_the_myreque"
+     },
+     {
+      "quest": "in_search_of_the_myreque"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "skippy_and_the_mogres": {
-   "name": "Skippy and the Mogres"
+   "name": "Skippy and the Mogres",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Cooking",
+      "level": 20,
+      "boostable": true
+     }
+    ]
+   }
   },
   "sleeping_giants": {
-   "name": "Sleeping Giants"
+   "name": "Sleeping Giants",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Smithing",
+      "level": 15
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "song_of_the_elves": {
-   "name": "Song of the Elves"
+   "name": "Song of the Elves",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 70
+     },
+     {
+      "skill": "Construction",
+      "level": 70
+     },
+     {
+      "skill": "Farming",
+      "level": 70
+     },
+     {
+      "skill": "Herblore",
+      "level": 70
+     },
+     {
+      "skill": "Hunter",
+      "level": 70
+     },
+     {
+      "skill": "Mining",
+      "level": 70
+     },
+     {
+      "skill": "Smithing",
+      "level": 70
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 70
+     },
+     {
+      "quest": "mourning_s_end_part_ii"
+     },
+     {
+      "quest": "mourning_s_end_part_i"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "sheep_herder"
+     },
+     {
+      "quest": "roving_elves"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "regicide"
+     },
+     {
+      "quest": "underground_pass"
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     },
+     {
+      "quest": "making_history"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 4
   },
   "spirits_of_the_elid": {
-   "name": "Spirits of the Elid"
+   "name": "Spirits of the Elid",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 33,
+      "boostable": true
+     },
+     {
+      "skill": "Ranged",
+      "level": 37,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 37,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 37,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "swan_song": {
-   "name": "Swan Song"
+   "name": "Swan Song",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 66,
+      "boostable": true
+     },
+     {
+      "skill": "Cooking",
+      "level": 62,
+      "boostable": true
+     },
+     {
+      "skill": "Fishing",
+      "level": 62,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 45,
+      "boostable": true
+     },
+     {
+      "skill": "Firemaking",
+      "level": 42,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 40,
+      "boostable": true
+     },
+     {
+      "quest": "one_small_favour"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "questPoints": 100
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "tai_bwo_wannai_trio": {
-   "name": "Tai Bwo Wannai Trio"
+   "name": "Tai Bwo Wannai Trio",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 15,
+      "boostable": true
+     },
+     {
+      "skill": "Cooking",
+      "level": 30
+     },
+     {
+      "skill": "Fishing",
+      "level": 5,
+      "boostable": true
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "tale_of_the_righteous": {
+   "name": "Tale of the Righteous",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Strength",
+      "level": 16
+     },
+     {
+      "skill": "Mining",
+      "level": 10
+     },
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "tears_of_guthix": {
+   "name": "Tears of Guthix",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Firemaking",
+      "level": 49,
+      "boostable": true
+     },
+     {
+      "skill": "Crafting",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "questPoints": 43
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "temple_of_ikov": {
+   "name": "Temple of Ikov",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 42,
+      "boostable": true
+     },
+     {
+      "skill": "Ranged",
+      "level": 40
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "temple_of_the_eye": {
-   "name": "Temple of the Eye"
+   "name": "Temple of the Eye",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Runecraft",
+      "level": 10
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "rune_mysteries"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_ascent_of_arceuus": {
+   "name": "The Ascent of Arceuus",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Hunter",
+      "level": 12
+     },
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_birds_and_the_wasps": {
+   "name": "The Birds and the Wasps",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "the_blood_moon_rises": {
+   "name": "The Blood Moon Rises",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 74
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 74
+     },
+     {
+      "skill": "Smithing",
+      "level": 72
+     },
+     {
+      "skill": "Cooking",
+      "level": 72
+     },
+     {
+      "skill": "Fletching",
+      "level": 70
+     },
+     {
+      "skill": "Mining",
+      "level": 66
+     },
+     {
+      "skill": "Hunter",
+      "level": 65
+     },
+     {
+      "skill": "Crafting",
+      "level": 64
+     },
+     {
+      "skill": "Herblore",
+      "level": 64
+     },
+     {
+      "skill": "Magic",
+      "level": 57
+     },
+     {
+      "quest": "a_night_at_the_theatre"
+     },
+     {
+      "quest": "sins_of_the_father"
+     },
+     {
+      "quest": "vampyre_slayer"
+     },
+     {
+      "quest": "a_taste_of_hope"
+     },
+     {
+      "quest": "darkness_of_hallowvale"
+     },
+     {
+      "quest": "in_aid_of_the_myreque"
+     },
+     {
+      "quest": "in_search_of_the_myreque"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     }
+    ]
+   },
+   "questPoints": 4
+  },
+  "the_chosen_commander": {
+   "name": "The Chosen Commander",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 58
+     },
+     {
+      "skill": "Thieving",
+      "level": 54
+     },
+     {
+      "skill": "Strength",
+      "level": 46
+     },
+     {
+      "quest": "land_of_the_goblins"
+     },
+     {
+      "quest": "another_slice_of_h_a_m"
+     },
+     {
+      "quest": "death_to_the_dorgeshuun"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "the_giant_dwarf"
+     },
+     {
+      "quest": "the_dig_site"
+     },
+     {
+      "quest": "fishing_contest"
+     }
+    ]
+   }
   },
   "the_corsair_curse": {
-   "name": "The Corsair Curse"
+   "name": "The Corsair Curse",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 2
+  },
+  "the_curse_of_arrav": {
+   "name": "The Curse of Arrav",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Mining",
+      "level": 64
+     },
+     {
+      "skill": "Ranged",
+      "level": 62
+     },
+     {
+      "skill": "Thieving",
+      "level": 62
+     },
+     {
+      "skill": "Agility",
+      "level": 61
+     },
+     {
+      "skill": "Strength",
+      "level": 58
+     },
+     {
+      "skill": "Slayer",
+      "level": 37
+     },
+     {
+      "quest": "defender_of_varrock"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "below_ice_mountain"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "what_lies_below"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "troll_romance"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_depths_of_despair": {
+   "name": "The Depths of Despair",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 18
+     },
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_dig_site": {
+   "name": "The Dig Site",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 10,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 10,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 25,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_enchanted_key": {
+   "name": "The Enchanted Key",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "making_history"
+     }
+    ]
+   }
+  },
+  "the_eyes_of_glouphrie": {
+   "name": "The Eyes of Glouphrie",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Construction",
+      "level": 5
+     },
+     {
+      "skill": "Magic",
+      "level": 46
+     },
+     {
+      "quest": "the_grand_tree"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "the_feud": {
-   "name": "The Feud"
+   "name": "The Feud",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 30
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "the_final_dawn": {
-   "name": "The Final Dawn"
+   "name": "The Final Dawn",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 66
+     },
+     {
+      "skill": "Runecraft",
+      "level": 52
+     },
+     {
+      "skill": "Fletching",
+      "level": 52
+     },
+     {
+      "quest": "the_heart_of_darkness"
+     },
+     {
+      "quest": "twilight_s_promise"
+     },
+     {
+      "quest": "children_of_the_sun"
+     },
+     {
+      "quest": "perilous_moons"
+     }
+    ]
+   },
+   "questPoints": 3
+  },
+  "the_forsaken_tower": {
+   "name": "The Forsaken Tower",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_fractured_archive_miniquest": {
+   "name": "The Fractured Archive (miniquest)",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "while_guthix_sleeps"
+     },
+     {
+      "quest": "defender_of_varrock"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "below_ice_mountain"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "what_lies_below"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "the_path_of_glouphrie"
+     },
+     {
+      "quest": "the_eyes_of_glouphrie"
+     },
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "tree_gnome_village"
+     },
+     {
+      "quest": "fight_arena"
+     },
+     {
+      "quest": "dream_mentor"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "lunar_diplomacy"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "the_hand_in_the_sand"
+     },
+     {
+      "quest": "wanted"
+     },
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "temple_of_the_eye"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "tears_of_guthix"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "a_tail_of_two_cats"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     }
+    ]
+   }
+  },
+  "the_fremennik_exiles": {
+   "name": "The Fremennik Exiles",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 65
+     },
+     {
+      "skill": "Slayer",
+      "level": 60
+     },
+     {
+      "skill": "Smithing",
+      "level": 60
+     },
+     {
+      "skill": "Fishing",
+      "level": 60
+     },
+     {
+      "skill": "Runecraft",
+      "level": 55
+     },
+     {
+      "skill": "Mining",
+      "level": 60,
+      "boostable": true
+     },
+     {
+      "quest": "the_fremennik_isles"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "lunar_diplomacy"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "mountain_daughter"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "shield_of_arrav"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "the_fremennik_isles": {
-   "name": "The Fremennik Isles"
+   "name": "The Fremennik Isles",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Construction",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "quest": "the_fremennik_trials"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "the_fremennik_trials": {
-   "name": "The Fremennik Trials"
+   "name": "The Fremennik Trials",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 3
   },
   "the_frozen_door": {
-   "name": "The Frozen Door"
+   "name": "The Frozen Door",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 70
+     },
+     {
+      "skill": "Hitpoints",
+      "level": 70,
+      "boostable": true
+     },
+     {
+      "skill": "Ranged",
+      "level": 70
+     },
+     {
+      "skill": "Strength",
+      "level": 70
+     },
+     {
+      "quest": "desert_treasure_i"
+     }
+    ]
+   }
+  },
+  "the_garden_of_death": {
+   "name": "The Garden of Death",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Farming",
+      "level": 20
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_general_s_shadow": {
+   "name": "The General's Shadow",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "quest": "curse_of_the_empty_lord"
+     },
+     {
+      "quest": "desert_treasure_i"
+     },
+     {
+      "quest": "fight_arena"
+     }
+    ]
+   }
   },
   "the_giant_dwarf": {
-   "name": "The Giant Dwarf"
+   "name": "The Giant Dwarf",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 12,
+      "boostable": true
+     },
+     {
+      "skill": "Firemaking",
+      "level": 16,
+      "boostable": true
+     },
+     {
+      "skill": "Magic",
+      "level": 33,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 14,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_golem": {
+   "name": "The Golem",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 20,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 25,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "the_grand_tree": {
-   "name": "The Grand Tree"
+   "name": "The Grand Tree",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 25,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 5
+  },
+  "the_graveyard": {
+   "name": "The Graveyard",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Sailing",
+      "level": 65
+     },
+     {
+      "skill": "Agility",
+      "level": 65
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 56
+     },
+     {
+      "skill": "Fletching",
+      "level": 54
+     },
+     {
+      "quest": "the_fremennik_exiles"
+     },
+     {
+      "quest": "the_fremennik_isles"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "lunar_diplomacy"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "mountain_daughter"
+     },
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "olaf_s_quest"
+     },
+     {
+      "quest": "pandemonium"
+     }
+    ]
+   },
+   "questPoints": 3
+  },
+  "the_great_brain_robbery": {
+   "name": "The Great Brain Robbery",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 16
+     },
+     {
+      "skill": "Construction",
+      "level": 30
+     },
+     {
+      "skill": "Prayer",
+      "level": 50
+     },
+     {
+      "quest": "cabin_fever"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "pirate_s_treasure"
+     },
+     {
+      "quest": "rum_deal"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "zogre_flesh_eaters"
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "recipe_for_disaster_freeing_pirate_pete"
+     },
+     {
+      "quest": "recipe_for_disaster_another_cook_s_quest"
+     },
+     {
+      "quest": "cook_s_assistant"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "the_hand_in_the_sand": {
-   "name": "The Hand in the Sand"
+   "name": "The Hand in the Sand",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 17
+     },
+     {
+      "skill": "Crafting",
+      "level": 49
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "the_heart_of_darkness": {
-   "name": "The Heart of Darkness"
+   "name": "The Heart of Darkness",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Mining",
+      "level": 55
+     },
+     {
+      "skill": "Thieving",
+      "level": 48
+     },
+     {
+      "skill": "Slayer",
+      "level": 48
+     },
+     {
+      "skill": "Agility",
+      "level": 46
+     },
+     {
+      "quest": "twilight_s_promise"
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_ides_of_milk": {
+   "name": "The Ides of Milk",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "the_knight_s_sword": {
+   "name": "The Knight's Sword",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Mining",
+      "level": 10,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_lost_tribe": {
+   "name": "The Lost Tribe",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 13,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 13,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 17,
+      "boostable": true
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "rune_mysteries"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_path_of_glouphrie": {
+   "name": "The Path of Glouphrie",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Strength",
+      "level": 60
+     },
+     {
+      "skill": "Slayer",
+      "level": 56
+     },
+     {
+      "skill": "Thieving",
+      "level": 56
+     },
+     {
+      "skill": "Ranged",
+      "level": 47
+     },
+     {
+      "skill": "Agility",
+      "level": 45
+     },
+     {
+      "quest": "the_eyes_of_glouphrie"
+     },
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "tree_gnome_village"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_queen_of_thieves": {
+   "name": "The Queen of Thieves",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 20
+     },
+     {
+      "quest": "client_of_kourend"
+     },
+     {
+      "quest": "x_marks_the_spot"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_red_reef": {
+   "name": "The Red Reef",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Sailing",
+      "level": 52
+     },
+     {
+      "skill": "Smithing",
+      "level": 48
+     },
+     {
+      "quest": "troubled_tortugans"
+     },
+     {
+      "quest": "pandemonium"
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_restless_ghost": {
+   "name": "The Restless Ghost",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "the_ribbiting_tale_of_a_lily_pad_labour_dispute": {
+   "name": "The Ribbiting Tale of a Lily Pad Labour Dispute",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Woodcutting",
+      "level": 15
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "the_slug_menace": {
+   "name": "The Slug Menace",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Crafting",
+      "level": 30
+     },
+     {
+      "skill": "Runecraft",
+      "level": 30
+     },
+     {
+      "skill": "Slayer",
+      "level": 30
+     },
+     {
+      "skill": "Thieving",
+      "level": 30
+     },
+     {
+      "quest": "wanted"
+     },
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "sea_slug"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "the_tourist_trap": {
-   "name": "The Tourist Trap"
+   "name": "The Tourist Trap",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Fletching",
+      "level": 10,
+      "boostable": true
+     },
+     {
+      "skill": "Smithing",
+      "level": 20,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "the_writing_s_on_the_wall": {
+   "name": "The Writing's on the Wall",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 22
+     },
+     {
+      "skill": "Thieving",
+      "level": 20
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "throne_of_miscellania": {
+   "name": "Throne of Miscellania",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "heroes_quest"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "merlin_s_crystal"
+     },
+     {
+      "quest": "dragon_slayer_i"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "tower_of_life": {
-   "name": "Tower of Life"
+   "name": "Tower of Life",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Construction",
+      "level": 10
+     }
+    ]
+   },
+   "questPoints": 2
+  },
+  "tree_gnome_village": {
+   "name": "Tree Gnome Village",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 2
+  },
+  "tribal_totem": {
+   "name": "Tribal Totem",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 21,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "troll_romance": {
+   "name": "Troll Romance",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 28,
+      "boostable": true
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     }
+    ]
+   },
+   "questPoints": 2
   },
   "troll_stronghold": {
-   "name": "Troll Stronghold"
+   "name": "Troll Stronghold",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Agility",
+      "level": 15,
+      "boostable": true
+     },
+     {
+      "quest": "death_plateau"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "troubled_tortugans": {
-   "name": "Troubled Tortugans"
+   "name": "Troubled Tortugans",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Slayer",
+      "level": 51
+     },
+     {
+      "skill": "Construction",
+      "level": 48
+     },
+     {
+      "skill": "Sailing",
+      "level": 45
+     },
+     {
+      "skill": "Hunter",
+      "level": 45
+     },
+     {
+      "skill": "Woodcutting",
+      "level": 40
+     },
+     {
+      "skill": "Crafting",
+      "level": 34
+     },
+     {
+      "quest": "pandemonium"
+     }
+    ]
+   },
+   "questPoints": 1
+  },
+  "twilight_s_promise": {
+   "name": "Twilight's Promise",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "underground_pass": {
-   "name": "Underground Pass"
+   "name": "Underground Pass",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Ranged",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "quest": "biohazard"
+     },
+     {
+      "quest": "plague_city"
+     }
+    ]
+   },
+   "questPoints": 5
+  },
+  "vale_totems_miniquest": {
+   "name": "Vale Totems (miniquest)",
+   "miniquest": true,
+   "requires": {
+    "all": [
+     {
+      "skill": "Fletching",
+      "level": 20
+     },
+     {
+      "quest": "children_of_the_sun"
+     }
+    ]
+   }
+  },
+  "vampyre_slayer": {
+   "name": "Vampyre Slayer",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 3
+  },
+  "wanted": {
+   "name": "Wanted!",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "questPoints": 32
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "watchtower": {
-   "name": "Watchtower"
+   "name": "Watchtower",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Magic",
+      "level": 14,
+      "boostable": true
+     },
+     {
+      "skill": "Thieving",
+      "level": 15,
+      "boostable": true
+     },
+     {
+      "skill": "Agility",
+      "level": 25,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 14,
+      "boostable": true
+     },
+     {
+      "skill": "Mining",
+      "level": 40,
+      "boostable": true
+     }
+    ]
+   },
+   "questPoints": 4
+  },
+  "waterfall_quest": {
+   "name": "Waterfall Quest",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "what_lies_below": {
+   "name": "What Lies Below",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Runecraft",
+      "level": 35
+     },
+     {
+      "quest": "rune_mysteries"
+     }
+    ]
+   },
+   "questPoints": 1
   },
   "while_guthix_sleeps": {
-   "name": "While Guthix Sleeps"
+   "name": "While Guthix Sleeps",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Thieving",
+      "level": 72
+     },
+     {
+      "skill": "Magic",
+      "level": 67
+     },
+     {
+      "skill": "Agility",
+      "level": 66
+     },
+     {
+      "skill": "Farming",
+      "level": 65
+     },
+     {
+      "skill": "Herblore",
+      "level": 65
+     },
+     {
+      "skill": "Hunter",
+      "level": 62
+     },
+     {
+      "skill": "Firemaking",
+      "level": 49
+     },
+     {
+      "quest": "defender_of_varrock"
+     },
+     {
+      "quest": "shield_of_arrav"
+     },
+     {
+      "quest": "temple_of_ikov"
+     },
+     {
+      "quest": "below_ice_mountain"
+     },
+     {
+      "quest": "family_crest"
+     },
+     {
+      "quest": "what_lies_below"
+     },
+     {
+      "quest": "romeo_juliet"
+     },
+     {
+      "quest": "demon_slayer"
+     },
+     {
+      "quest": "garden_of_tranquillity"
+     },
+     {
+      "quest": "creature_of_fenkenstrain"
+     },
+     {
+      "quest": "priest_in_peril"
+     },
+     {
+      "quest": "the_restless_ghost"
+     },
+     {
+      "quest": "the_path_of_glouphrie"
+     },
+     {
+      "quest": "the_eyes_of_glouphrie"
+     },
+     {
+      "quest": "the_grand_tree"
+     },
+     {
+      "quest": "waterfall_quest"
+     },
+     {
+      "quest": "tree_gnome_village"
+     },
+     {
+      "quest": "fight_arena"
+     },
+     {
+      "quest": "dream_mentor"
+     },
+     {
+      "quest": "eadgar_s_ruse"
+     },
+     {
+      "quest": "druidic_ritual"
+     },
+     {
+      "quest": "troll_stronghold"
+     },
+     {
+      "quest": "death_plateau"
+     },
+     {
+      "quest": "lunar_diplomacy"
+     },
+     {
+      "quest": "the_fremennik_trials"
+     },
+     {
+      "quest": "lost_city"
+     },
+     {
+      "quest": "shilo_village"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "the_hand_in_the_sand"
+     },
+     {
+      "quest": "wanted"
+     },
+     {
+      "quest": "recruitment_drive"
+     },
+     {
+      "quest": "black_knights_fortress"
+     },
+     {
+      "quest": "the_lost_tribe"
+     },
+     {
+      "quest": "goblin_diplomacy"
+     },
+     {
+      "quest": "temple_of_the_eye"
+     },
+     {
+      "quest": "enter_the_abyss"
+     },
+     {
+      "quest": "rune_mysteries"
+     },
+     {
+      "quest": "tears_of_guthix"
+     },
+     {
+      "quest": "nature_spirit"
+     },
+     {
+      "quest": "a_tail_of_two_cats"
+     },
+     {
+      "quest": "icthlarin_s_little_helper"
+     },
+     {
+      "quest": "gertrude_s_cat"
+     },
+     {
+      "questPoints": 180
+     }
+    ]
+   },
+   "questPoints": 5,
+   "requirementNotes": [
+    "Ability to enter the Warriors' Guild (the sum of your Attack and Strength must be at or above 130; OR , OR )"
+   ]
   },
-  "wilderness_diary": {
-   "name": "Wilderness Diary"
+  "witch_s_house": {
+   "name": "Witch's House",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 4
+  },
+  "witch_s_potion": {
+   "name": "Witch's Potion",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
+  },
+  "x_marks_the_spot": {
+   "name": "X Marks the Spot",
+   "miniquest": false,
+   "requires": null,
+   "questPoints": 1
   },
   "zogre_flesh_eaters": {
-   "name": "Zogre Flesh Eaters"
-  },
-  "fairy_rings": {
-   "name": "fairy rings"
-  },
-  "fountain": {
-   "name": "fountain"
+   "name": "Zogre Flesh Eaters",
+   "miniquest": false,
+   "requires": {
+    "all": [
+     {
+      "skill": "Smithing",
+      "level": 4,
+      "boostable": true
+     },
+     {
+      "skill": "Herblore",
+      "level": 8,
+      "boostable": true
+     },
+     {
+      "skill": "Ranged",
+      "level": 30
+     },
+     {
+      "quest": "big_chompy_bird_hunting"
+     },
+     {
+      "quest": "jungle_potion"
+     },
+     {
+      "quest": "druidic_ritual"
+     }
+    ]
+   },
+   "questPoints": 1
   }
  }
 }

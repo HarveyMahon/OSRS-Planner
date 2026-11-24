@@ -663,9 +663,6 @@
      },
      {
       "quest": "the_giant_dwarf"
-     },
-     {
-      "quest": "fremennik_diary"
      }
     ]
    },
@@ -1691,9 +1688,6 @@
      },
      {
       "quest": "fairytale_ii_cure_a_queen"
-     },
-     {
-      "quest": "fairy_rings"
      }
     ]
    },
@@ -1818,9 +1812,6 @@
      },
      {
       "quest": "the_fremennik_isles"
-     },
-     {
-      "quest": "jatizso"
      }
     ]
    },
@@ -1861,9 +1852,6 @@
      },
      {
       "quest": "the_fremennik_isles"
-     },
-     {
-      "quest": "jatizso"
      }
     ]
    },
@@ -2354,9 +2342,6 @@
    "requires": {
     "all": [
      {
-      "quest": "ardougne_diary"
-     },
-     {
       "quest": "desert_treasure_i"
      },
      {
@@ -2436,9 +2421,6 @@
    "xpPerHr": {},
    "requires": {
     "all": [
-     {
-      "quest": "wilderness_diary"
-     },
      {
       "quest": "death_plateau"
      },
@@ -3073,9 +3055,6 @@
     "all": [
      {
       "quest": "rune_mysteries"
-     },
-     {
-      "quest": "duke_horacio"
      }
     ]
    },
@@ -3827,12 +3806,6 @@
      },
      {
       "quest": "lost_city"
-     },
-     {
-      "quest": "dramen_staff"
-     },
-     {
-      "quest": "lumbridge_draynor_diary"
      }
     ]
    },
@@ -4787,9 +4760,6 @@
      },
      {
       "quest": "family_crest"
-     },
-     {
-      "quest": "cooking_gauntlets"
      }
     ]
    },
@@ -4904,9 +4874,6 @@
      },
      {
       "quest": "family_crest"
-     },
-     {
-      "quest": "cooking_gauntlets"
      }
     ]
    },
@@ -5368,9 +5335,6 @@
      },
      {
       "quest": "desert_treasure_ii_the_fallen_empire"
-     },
-     {
-      "quest": "scar_essence_mine"
      }
     ]
    },
@@ -6154,9 +6118,6 @@
      {
       "skill": "Firemaking",
       "level": 90
-     },
-     {
-      "quest": "achievement_diary_cape"
      }
     ]
    },
@@ -6481,16 +6442,7 @@
       "quest": "lunar_diplomacy"
      },
      {
-      "quest": "magic_imbue"
-     },
-     {
-      "quest": "astral_contact"
-     },
-     {
       "quest": "enter_the_abyss"
-     },
-     {
-      "quest": "dark_mage_abyss"
      }
     ]
    },
@@ -6629,16 +6581,7 @@
       "quest": "lunar_diplomacy"
      },
      {
-      "quest": "magic_imbue"
-     },
-     {
-      "quest": "astral_contact"
-     },
-     {
       "quest": "enter_the_abyss"
-     },
-     {
-      "quest": "dark_mage_abyss"
      }
     ]
    },
@@ -7063,16 +7006,7 @@
       "quest": "lunar_diplomacy"
      },
      {
-      "quest": "magic_imbue"
-     },
-     {
-      "quest": "astral_contact"
-     },
-     {
       "quest": "enter_the_abyss"
-     },
-     {
-      "quest": "dark_mage_abyss"
      }
     ]
    },
@@ -7150,7 +7084,7 @@
       "quest": "children_of_the_sun"
      },
      {
-      "quest": "desert_treasure_ii"
+      "quest": "desert_treasure_ii_the_fallen_empire"
      }
     ]
    },
@@ -7332,13 +7266,7 @@
       "quest": "client_of_kourend"
      },
      {
-      "quest": "kharedst_s_memoirs"
-     },
-     {
       "quest": "a_kingdom_divided"
-     },
-     {
-      "quest": "book_of_the_dead"
      }
     ]
    },
@@ -7566,9 +7494,6 @@
     "all": [
      {
       "quest": "heroes_quest"
-     },
-     {
-      "quest": "elite_wilderness_diary"
      }
     ]
    },
@@ -11025,9 +10950,6 @@
      },
      {
       "quest": "dream_mentor"
-     },
-     {
-      "quest": "humidify"
      }
     ]
    },
@@ -11908,9 +11830,6 @@
      },
      {
       "quest": "dream_mentor"
-     },
-     {
-      "quest": "humidify"
      }
     ]
    },
@@ -12843,9 +12762,6 @@
      },
      {
       "quest": "fairytale_ii_cure_a_queen"
-     },
-     {
-      "quest": "fairy_rings"
      }
     ]
    },
@@ -14209,15 +14125,6 @@
      },
      {
       "quest": "spirits_of_the_elid"
-     },
-     {
-      "quest": "nardah"
-     },
-     {
-      "quest": "fountain"
-     },
-     {
-      "quest": "altar"
      }
     ]
    },
@@ -15736,12 +15643,6 @@
      },
      {
       "quest": "lost_city"
-     },
-     {
-      "quest": "dramen_staff"
-     },
-     {
-      "quest": "lumbridge_draynor_diary"
      }
     ]
    },
@@ -16070,9 +15971,6 @@
      },
      {
       "quest": "haunted_mine"
-     },
-     {
-      "quest": "salve_amulet_e"
      }
     ]
    },
@@ -16260,13 +16158,7 @@
       "quest": "animal_magnetism"
      },
      {
-      "quest": "ava_s_device"
-     },
-     {
       "quest": "haunted_mine"
-     },
-     {
-      "quest": "salve_amulet_ei"
      }
     ]
    },
@@ -17784,9 +17676,6 @@
      },
      {
       "quest": "plague_city"
-     },
-     {
-      "quest": "gas_mask"
      }
     ]
    },
@@ -20320,9 +20209,6 @@
      },
      {
       "quest": "children_of_the_sun"
-     },
-     {
-      "quest": "shooting_stars"
      }
     ]
    },
@@ -20891,9 +20777,6 @@
      {
       "skill": "Mining",
       "level": 85
-     },
-     {
-      "quest": "list_of_mines"
      }
     ]
    },
@@ -21819,13 +21702,7 @@
     }
    ],
    "xpPerHr": {},
-   "requires": {
-    "all": [
-     {
-      "quest": "nightmare_zone_strategies"
-     }
-    ]
-   },
+   "requires": null,
    "notes": []
   },
   {
@@ -22336,9 +22213,6 @@
      },
      {
       "quest": "a_kingdom_divided"
-     },
-     {
-      "quest": "shadow_veil"
      }
     ]
    },
@@ -22431,9 +22305,6 @@
      },
      {
       "quest": "a_kingdom_divided"
-     },
-     {
-      "quest": "shadow_veil"
      }
     ]
    },
@@ -22677,9 +22548,6 @@
      },
      {
       "quest": "a_kingdom_divided"
-     },
-     {
-      "quest": "shadow_veil"
      }
     ]
    },
@@ -25688,13 +25556,7 @@
     }
    ],
    "xpPerHr": {},
-   "requires": {
-    "all": [
-     {
-      "quest": "crack_the_clue_iii"
-     }
-    ]
-   },
+   "requires": null,
    "notes": []
   },
   {

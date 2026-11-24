@@ -23,6 +23,7 @@ HERE = Path(__file__).parent
 ROOT = HERE.parent
 import importlib.util, sys
 sys.argv = sys.argv[:1]
+sys.path.insert(0, str(HERE))
 spec = importlib.util.spec_from_file_location("imp", HERE / "import_supplies.py")
 imp = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(imp)
@@ -84,6 +85,9 @@ def skill_reqs(field):
     return [r for r in reqs if "any" in r or best.get(r.get("skill") or "combat") is r]
 
 
+from quest_names import resolve as resolve_quest
+
+
 def quest_reqs(field, items_by_name):
     reqs, skipped = [], []
     for line in field.split("\n"):
@@ -94,11 +98,11 @@ def quest_reqs(field, items_by_name):
             skipped += [f"{l} (optional: “{line.strip()[:70]}”)" for l in links]
             continue
         for l in links:
-            name = l.strip()
-            if name.lower() in NOT_QUESTS or name.lower() in items_by_name:
-                skipped.append(f"{name} (not a quest)")
+            title = resolve_quest(l.strip())
+            if not title:
+                skipped.append(f"{l.strip()} (not a quest)")
                 continue
-            reqs.append({"quest": slug(name), "_name": name})
+            reqs.append({"quest": slug(title), "_name": title})
     return reqs, skipped
 
 
@@ -110,8 +114,6 @@ def main():
     quests_path = ROOT / "data/quests.json"
     quests_doc = json.loads(quests_path.read_text(encoding="utf-8")) if quests_path.exists() else \
         {"meta": {"description": "Quests the app knows. Milestones (partial completion steps) are curated by hand."}, "quests": {}}
-    # Rebuilt from the guides each run; entries that are kept keep any hand-curated fields
-    old_quests, quests_doc["quests"] = quests_doc["quests"], {}
     md = ["# Requirements review", "", "From each setup's Wiki guide. Skill levels include recommended ones (for now).", ""]
     for b in doc["bosses"]:
         if b["id"] in MANUAL:
@@ -128,7 +130,6 @@ def main():
             reqs = skill_reqs(p.get("Skill", ""))
             qreqs, skipped = quest_reqs(p.get("Quest", ""), items_by_name)
             for q in qreqs:
-                quests_doc["quests"].setdefault(q["quest"], old_quests.get(q["quest"]) or {"name": q["_name"]})
                 q.pop("_name", None)
             # one entry per quest
             seen = set()
@@ -144,8 +145,6 @@ def main():
             md.append(f"**{b['name']} · {s['label']}**: " + (", ".join(show(r) for r in all_reqs) or "none"))
             md += [f"- skipped {x}" for x in skipped]
     (ROOT / "data/bosses.json").write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    quests_doc["quests"] = dict(sorted(quests_doc["quests"].items(), key=lambda kv: kv[1]["name"]))
-    quests_path.write_text(json.dumps(quests_doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     (HERE / "out").mkdir(exist_ok=True)
     (HERE / "out/requirements_review.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print(f"Done. {len(quests_doc['quests'])} quests referenced. Review: scripts/out/requirements_review.md")

@@ -815,14 +815,15 @@
     ]
    },
    {
-    "id": "prayer_balanced_libation_bowl",
-    "kind": "balanced",
+    "id": "prayer_afk_libation_bowl",
+    "kind": "afk",
     "label": "Libation bowl",
-    "intensity": 4,
+    "intensity": 1,
+    "note": "About 20% faster with sunfire wine.",
     "stages": [
      {
       "from": 1,
-      "name": "Gilded altar: dragon bones",
+      "name": "Gilded altar: dragon bones (until 30)",
       "xpPerHr": 643000,
       "xpEach": 252,
       "inputs": [
@@ -836,50 +837,32 @@
       "from": 30,
       "name": "Libation bowl (blessed wine)",
       "xpPerHr": 670000,
-      "note": "Uses bone shards (made from bones, or gathered other ways; not tradeable): their cost isn't counted."
+      "note": "Very little active time. Uses bone shards (made from bones, or gathered other ways; not tradeable): their cost isn't counted."
+     },
+     {
+      "from": 34,
+      "name": "Libation bowl",
+      "xpPerHr": 740000
+     },
+     {
+      "from": 40,
+      "name": "Libation bowl",
+      "xpPerHr": 820000
      },
      {
       "from": 48,
-      "name": "Libation bowl (blessed wine)",
+      "name": "Libation bowl",
       "xpPerHr": 923000
      },
      {
       "from": 62,
-      "name": "Libation bowl (blessed wine)",
+      "name": "Libation bowl",
       "xpPerHr": 1050000
-     }
-    ]
-   },
-   {
-    "id": "prayer_afk_least_effort_no_afk_method",
-    "kind": "afk",
-    "label": "Least effort (no AFK method)",
-    "intensity": 3,
-    "note": "Prayer has no AFK training method; the gilded altar is the simplest.",
-    "stages": [
-     {
-      "from": 1,
-      "name": "Gilded altar: dragon bones",
-      "xpPerHr": 643000,
-      "xpEach": 252,
-      "inputs": [
-       {
-        "item": "536",
-        "qty": 1
-       }
-      ]
      },
      {
-      "from": 70,
-      "name": "Gilded altar: superior dragon bones",
-      "xpPerHr": 1340000,
-      "xpEach": 525,
-      "inputs": [
-       {
-        "item": "22124",
-        "qty": 1
-       }
-      ]
+      "from": 88,
+      "name": "Libation bowl",
+      "xpPerHr": 1110000
      }
     ]
    }
@@ -4210,7 +4193,7 @@
       "requires": {
        "all": [
         {
-         "quest": "blood_moon_rises"
+         "quest": "the_blood_moon_rises"
         }
        ]
       }

@@ -25,7 +25,9 @@ scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless c
            apply_requirements.py (setup requirements and data/quests.json from the guides; offline),
            apply_methods.py (data/methods.json from all other guides, Wilderness flags; offline,
            after import_supplies.py --all-guides),
-           build_training.py (hand-written training tracks -> data/training.json)
+           build_training.py (training tracks from the Wiki's training pages -> data/training.json),
+           import_quests.py (quest and miniquest requirements from the Wiki -> data/quests.json),
+           quest_names.py (resolves quest names to Wiki titles for all the scripts)
 tests/     node tests/run.mjs
 logs/      last price update's full log
 ```

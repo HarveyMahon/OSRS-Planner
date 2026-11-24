@@ -132,6 +132,16 @@ t('training estimates', () => {
   assert.equal(r.realHours, 2 * 8); assert.equal(r.hours, 2 * 6 / 60);
 });
 
+const { questPoints, prerequisiteQuests } = await import('../core/requirements.js');
+t('quest points and prerequisites', () => {
+  const quests = { a: { questPoints: 1 }, b: { questPoints: 2, requires: { all: [{ quest: 'a' }] } }, c: { questPoints: 5, requires: { all: [{ quest: 'b' }, { skill: 'Agility', level: 5 }] } } };
+  const acc = { xp: {}, quests: { a: 'complete', b: 'complete', c: 'started' }, diaries: new Set() };
+  assert.equal(questPoints(acc, quests), 3);
+  assert.equal(isMet({ questPoints: 3 }, acc, { quests }), true);
+  assert.equal(isMet({ questPoints: 4 }, acc, { quests }), false);
+  assert.deepEqual([...prerequisiteQuests('c', quests)].sort(), ['a', 'b']);
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');

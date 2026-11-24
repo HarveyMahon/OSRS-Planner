@@ -20,6 +20,9 @@ from pathlib import Path
 
 print("Build training started...", flush=True)
 HERE = Path(__file__).parent
+import sys
+sys.path.insert(0, str(HERE))
+from quest_names import resolve as resolve_quest
 ROOT = HERE.parent
 
 
@@ -117,15 +120,12 @@ SKILLS = {
             S(1, "Chaos altar: dragon bones", 500000, each=252, inp={"Dragon bones": 0.5}, wild=True,
               note="50% chance to keep each bone. Up to 860K offering manually. Level 38 Wilderness."),
         ]),
-        T("balanced", "Libation bowl", 4, [
-            S(1, "Gilded altar: dragon bones", 643000, each=252, inp={"Dragon bones": 1}),
-            S(30, "Libation bowl (blessed wine)", 670000, note="Uses bone shards (made from bones, or gathered other ways; not tradeable): their cost isn't counted."),
-            S(48, "Libation bowl (blessed wine)", 923000), S(62, "Libation bowl (blessed wine)", 1050000),
-        ]),
-        T("afk", "Least effort (no AFK method)", 3, [
-            S(1, "Gilded altar: dragon bones", 643000, each=252, inp={"Dragon bones": 1}),
-            S(70, "Gilded altar: superior dragon bones", 1340000, each=525, inp={"Superior dragon bones": 1}),
-        ], note="Prayer has no AFK training method; the gilded altar is the simplest."),
+        T("afk", "Libation bowl", 1, [
+            S(1, "Gilded altar: dragon bones (until 30)", 643000, each=252, inp={"Dragon bones": 1}),
+            S(30, "Libation bowl (blessed wine)", 670000, note="Very little active time. Uses bone shards (made from bones, or gathered other ways; not tradeable): their cost isn't counted."),
+            S(34, "Libation bowl", 740000), S(40, "Libation bowl", 820000), S(48, "Libation bowl", 923000),
+            S(62, "Libation bowl", 1050000), S(88, "Libation bowl", 1110000),
+        ], note="About 20% faster with sunfire wine."),
     ],
     "Runecraft": [
         T("fastest", "Lava/aether runes with essence runners", 5, [
@@ -520,7 +520,12 @@ def main():
                 st["from"] = s["from"]
                 if s["inputs"]: st["inputs"] = [{"item": key(n), "qty": q} for n, q in s["inputs"].items()]
                 if s["outputs"]: st["outputs"] = [{"item": key(n), "qty": q} for n, q in s["outputs"].items()]
-                reqs = list(s["req"]) + [{"quest": slug(q), "_name": q} for q in s["quests"] if not q.startswith("Nightmare Zone")]
+                reqs = list(s["req"])
+                for q in s["quests"]:
+                    qt = resolve_quest(q)
+                    if not qt:
+                        unresolved.add("quest: " + q); continue
+                    reqs.append({"quest": slug(qt)})
                 if reqs: st["requires"] = {"all": reqs}
                 st.pop("req", None); st.pop("quests", None)
                 if (s["inputs"] or s["outputs"]) and not s["xpEach"]:
@@ -528,18 +533,6 @@ def main():
                 stages.append(st)
             out[skill].append({"id": f"{slug(skill)}_{t['kind']}_{slug(t['label'])}", "kind": t["kind"], "label": t["label"],
                                "intensity": t["intensity"], **({"note": t["note"]} if t["note"] else {}), "stages": stages})
-    # quests referenced by training go into quests.json too
-    qp = ROOT / "data/quests.json"
-    qdoc = json.loads(qp.read_text(encoding="utf-8"))
-    for tracks in out.values():
-        for t in tracks:
-            for s in t["stages"]:
-                for r in s.get("requires", {}).get("all", []):
-                    if "quest" in r:
-                        qdoc["quests"].setdefault(r["quest"], {"name": r.pop("_name")})
-                        r.pop("_name", None)
-    qdoc["quests"] = dict(sorted(qdoc["quests"].items(), key=lambda kv: kv[1]["name"]))
-    qp.write_text(json.dumps(qdoc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     doc = {"meta": {"description": "How to train each skill: fastest / balanced / AFK tracks with stages by level. "
                                    "XP/hr figures are estimates; items are per action (xpEach XP per action). "
                                    "Built by scripts/build_training.py.",

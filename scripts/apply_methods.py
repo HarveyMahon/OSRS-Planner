@@ -176,7 +176,6 @@ def main():
         reqs = req.skill_reqs(p.get("Skill", ""))
         qreqs, _ = req.quest_reqs(p.get("Quest", ""), items_by_name)
         for q in qreqs:
-            quests["quests"].setdefault(q["quest"], {"name": q["_name"]})
             q.pop("_name", None)
         seen = set()
         qreqs = [q for q in qreqs if not (q["quest"] in seen or seen.add(q["quest"]))]
@@ -221,8 +220,6 @@ def main():
            "methods": methods}
     (ROOT / "data/methods.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     (ROOT / "data/items.json").write_text(json.dumps(items_doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    quests["quests"] = dict(sorted(quests["quests"].items(), key=lambda kv: kv[1]["name"]))
-    (ROOT / "data/quests.json").write_text(json.dumps(quests, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     md = ["# Methods review", "", f"{len(methods)} methods built, {len(skipped)} guides skipped.", "",
           "## Wilderness", ""] + [f"- {m['name']}: “{m['wildernessNote']}”" for m in methods if m["wilderness"]] + \
          ["", "## Skipped", ""] + [f"- {t[len(imp.PREFIX):]}: {why}" for t, why in skipped]

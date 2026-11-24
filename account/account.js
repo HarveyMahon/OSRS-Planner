@@ -4,7 +4,7 @@ import { SKILLS, levelForXp, toXp, MAX_LEVEL, MAX_XP } from '../core/xp.js';
 import { combatLevel } from '../core/requirements.js';
 import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
 import { loadQuests, loadItems, loadBosses } from '../core/data.js';
-import { requiredItems } from '../core/requirements.js';
+import { requiredItems, prerequisiteQuests, questPoints } from '../core/requirements.js';
 
 console.log('Account: starting');
 const $ = id => document.getElementById(id);
@@ -90,18 +90,27 @@ $('reset').addEventListener('click', () => {
   renderUnlocks();
 });
 
-// Quests: the ones that money-making methods and plans depend on, ticked when complete
+// Quests: tick the ones you've completed. Ticking a quest also ticks the quests it requires.
+let QUESTS = {};
 async function renderQuests() {
-  const { quests } = await loadQuests();
-  $('quests').innerHTML = Object.entries(quests).map(([id, q]) => `
-    <label class="quest"><input type="checkbox" data-quest="${id}"${account.quests[id] === 'complete' ? ' checked' : ''}> ${q.name}</label>`).join('');
+  ({ quests: QUESTS } = await loadQuests());
+  const f = ($('quest-search').value || '').trim().toLowerCase();
+  const done = Object.keys(account.quests).filter(id => account.quests[id] === 'complete').length;
+  $('quest-summary').textContent = `${done} of ${Object.keys(QUESTS).length} done · ${questPoints(account, QUESTS)} quest points`;
+  $('quests').innerHTML = Object.entries(QUESTS).filter(([, q]) => !f || q.name.toLowerCase().includes(f)).map(([id, q]) => `
+    <label class="quest"><input type="checkbox" data-quest="${id}"${account.quests[id] === 'complete' ? ' checked' : ''}> ${q.name}${q.miniquest ? ' <span class="mini">mini</span>' : ''}</label>`).join('');
 }
 $('quests').addEventListener('change', e => {
   const id = e.target.dataset.quest;
   if (!id) return;
-  if (e.target.checked) account.quests[id] = 'complete'; else delete account.quests[id];
+  if (e.target.checked) {
+    account.quests[id] = 'complete';
+    for (const p of prerequisiteQuests(id, QUESTS)) account.quests[p] = 'complete';
+  } else delete account.quests[id];
   commit();
+  renderQuests();
 });
+$('quest-search').addEventListener('input', () => renderQuests());
 
 // Unlocks: items that requirements depend on (e.g. a Fire cape for the Inferno)
 async function renderUnlocks() {

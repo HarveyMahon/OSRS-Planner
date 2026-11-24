@@ -8,6 +8,7 @@
 //   | { item, qty? }                      owned / unlocked
 //   | { combatLevel }
 //   | { kc: bossId, n }
+//   | { questPoints }                     total quest points from completed quests (ctx.quests)
 //
 // Account = { xp: {Skill: xp}, quests: {questId: milestoneId}, diaries: Set<'region:tier'>,
 //             owned: {itemKey: qty}, kc: {bossId: n}, gp }
@@ -48,7 +49,21 @@ export function isMet(req, account, ctx = {}) {
   if (req.item) return (account.owned?.[req.item] || 0) >= (req.qty || 1);
   if (req.combatLevel) return combatLevel(account.xp || {}) >= req.combatLevel;
   if (req.kc) return (account.kc?.[req.kc] || 0) >= req.n;
+  if (req.questPoints) return questPoints(account, ctx.quests) >= req.questPoints;
   throw new Error(`Unknown requirement: ${JSON.stringify(req)}`);
+}
+
+/** Quest points from the quests marked complete. */
+export function questPoints(account, quests = {}) {
+  return Object.entries(account.quests || {}).reduce((t, [id, m]) => t + (m === 'complete' ? (quests[id]?.questPoints || 0) : 0), 0);
+}
+
+/** Every quest `id` depends on (prerequisite quests, recursively). */
+export function prerequisiteQuests(id, quests, seen = new Set()) {
+  for (const r of quests[id]?.requires?.all || []) {
+    if (r.quest && !seen.has(r.quest)) { seen.add(r.quest); prerequisiteQuests(r.quest, quests, seen); }
+  }
+  return seen;
 }
 
 function questReached(account, questId, milestone, quests = {}) {
@@ -81,6 +96,7 @@ export function describe(req, names = {}) {
   if (req.diary) return `${req.tier} ${req.diary} diary`;
   if (req.item) return names.items?.[req.item]?.name ?? req.item;
   if (req.kc) return `${req.n} ${req.kc} kills`;
+  if (req.questPoints) return `${req.questPoints} quest points`;
   return JSON.stringify(req);
 }
 
