@@ -12383,6 +12383,13 @@
    "price": 0,
    "tradeable": false,
    "valueNote": "Untradeable: earned, not bought"
+  },
+  "9242": {
+   "name": "Ruby bolts (e)",
+   "price": 238,
+   "tradeable": true,
+   "id": 9242,
+   "limit": 11000
   }
  }
 }

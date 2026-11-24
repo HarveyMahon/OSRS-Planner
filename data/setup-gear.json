@@ -1,6 +1,6 @@
 {
  "meta": {
-  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps.",
+  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps. An entry can also be { item, qty }: ammo is always 200 (players rarely hold less), counted as gear to own; what's fired per kill stays in supplies.",
   "rules": "Strategy page Equipment table, best (left) column. Follow footnotes where a cell has '/', otherwise take the cheaper item. Drop items made redundant by a 2h weapon; keep the special attack row. Content needing several styles combines the tables (ToB: all melee, all ranged, 5 magic pieces)."
  },
  "setups": {
@@ -39,7 +39,15 @@
      "21021",
      "21024",
      "31106",
-     "22481"
+     "22481",
+     {
+      "item": "33595",
+      "qty": 200
+     },
+     {
+      "item": "34696",
+      "qty": 200
+     }
     ],
     "dropSupplies": [
      "11959"
@@ -146,7 +154,11 @@
      "26235",
      "x-avernic-treads-max",
      "25975",
-     "26374"
+     "26374",
+     {
+      "item": "34696",
+      "qty": 200
+     }
     ]
    }
   },
@@ -166,7 +178,15 @@
      "26235",
      "x-avernic-treads-max",
      "25975",
-     "26374"
+     "26374",
+     {
+      "item": "33595",
+      "qty": 200
+     },
+     {
+      "item": "21944",
+      "qty": 200
+     }
     ]
    }
   },
@@ -248,7 +268,15 @@
      "26374",
      "29889",
      "31115",
-     "x-scorching-bow"
+     "x-scorching-bow",
+     {
+      "item": "33595",
+      "qty": 200
+     },
+     {
+      "item": "9242",
+      "qty": 200
+     }
     ]
    }
   },
@@ -303,7 +331,15 @@
      "26235",
      "x-avernic-treads-max",
      "25975",
-     "26374"
+     "26374",
+     {
+      "item": "33595",
+      "qty": 200
+     },
+     {
+      "item": "21940",
+      "qty": 200
+     }
     ]
    }
   },
@@ -384,7 +420,11 @@
      "21000",
      "26235",
      "28310",
-     "26374"
+     "26374",
+     {
+      "item": "34696",
+      "qty": 200
+     }
     ]
    }
   },
@@ -423,7 +463,11 @@
      "28307",
      "28313",
      "11806",
-     "13652"
+     "13652",
+     {
+      "item": "33595",
+      "qty": 200
+     }
     ]
    }
   },
@@ -469,7 +513,11 @@
       "25975",
       "28310"
      ],
-     "26374"
+     "26374",
+     {
+      "item": "34696",
+      "qty": 200
+     }
     ]
    }
   }

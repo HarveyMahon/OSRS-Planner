@@ -20,7 +20,7 @@
 import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
 import { isMet, describe, unmet } from './requirements.js';
 import { estimate } from './training.js';
-import { bossMethod, guideMethod, setupOf } from './money.js';
+import { bossMethod, guideMethod, setupOf, gearCost, gearEntry } from './money.js';
 
 const INTENSITY_ORDER = { fastest: ['fastest', 'balanced', 'afk'], balanced: ['balanced', 'fastest', 'afk'], afk: ['afk', 'balanced', 'fastest'] };
 const COMBAT_HP = new Set(['Attack', 'Strength', 'Defence', 'Ranged']);
@@ -94,10 +94,7 @@ export function plan(goals, d) {
   const bossById = id => bosses.find(b => b.id === id);
   // Gear the account still has to buy for a setup (owned items count as bought; unpriced items are skipped).
   // a gear entry is a key or a list of equal keys (owning any covers it; otherwise priced at the first)
-  const gearToBuy = s => (s.gear || []).reduce((t, g) => {
-    const keys = [].concat(g);
-    return t + (keys.some(k => sim.owned[k]) ? 0 : (items[keys[0]]?.price || 0));
-  }, 0);
+  const gearToBuy = s => (s.gear || []).reduce((t, g) => t + gearCost(g, items, k => sim.owned[k] || 0).toBuy, 0);
   // Setup for kill-count steps: the user's choice if they made one; otherwise High level when the account
   // already meets its requirements and the cash stack covers the gear it doesn't own; otherwise Budget.
   function kcSetup(b) {
@@ -339,7 +336,7 @@ export function plan(goals, d) {
       sim.gp += bm.lootPerUnit * m.n;
       steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, setupId: bm.setup.id, why: m.why,
                    setups: b.setups.map(s => ({ id: s.id, label: s.label, gearToBuy: gearToBuy(s) })), hours, gp,
-                   gearMissing: (bm.setup.gear || []).map(g => [].concat(g)).filter(ks => !ks.some(k => sim.owned[k])).map(ks => items[ks[0]]?.name || ks[0]),
+                   gearMissing: (bm.setup.gear || []).filter(g => { const e = gearEntry(g); return e.keys.reduce((t, k) => t + (sim.owned[k] || 0), 0) < e.qty; }).map(g => { const e = gearEntry(g); return (e.qty > 1 ? `${e.qty} × ` : '') + (items[e.keys[0]]?.name || e.keys[0]); }),
                    met: isMet(bm.setup.requires, sim, reqCtx) });
       sim.kc[b.id] = (sim.kc[b.id] || 0) + m.n;
       if (b.milestone?.reward) sim.owned[b.milestone.reward] = 1;

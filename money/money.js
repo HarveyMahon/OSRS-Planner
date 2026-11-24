@@ -167,7 +167,7 @@ function gearHtml(b, s) {
   if (!s.gear?.length) return '<p class="src">Gear: not listed yet.</p>';
   const g = gearList(s, ITEMS.items, ACCOUNT);
   const known = ACCOUNT && (Object.keys(ACCOUNT.bank || {}).length || Object.keys(ACCOUNT.owned || {}).length);
-  const items = g.lines.map(l => `<li class="${l.owned ? 'owned' : ''}">${known ? (l.owned ? '✓ ' : '') : ''}${l.names.map(n => esc(n.replace(/ \((uncharged|empty)\)$/i, ''))).join(' <span class="unit">or</span> ')} <span class="unit">${l.price ? gpShort(l.price) : 'earned'}</span></li>`).join('');
+  const items = g.lines.map(l => `<li class="${l.owned ? 'owned' : ''}">${known ? (l.owned ? '✓ ' : '') : ''}${l.qty > 1 ? `${num(l.qty)} × ` : ''}${l.names.map(n => esc(n.replace(/ \((uncharged|empty)\)$/i, ''))).join(' <span class="unit">or</span> ')} <span class="unit">${l.price ? gpShort(l.price) : 'earned'}</span></li>`).join('');
   return `<details class="gear"><summary>Gear: ${gpShort(g.total)}${known ? ` · <b>${gpShort(g.toBuy)}</b> still to buy` : ''}${s.gearSource ? '' : ' <span class="tag" title="Taken from the money-making guide; not hand-checked">from guide</span>'}</summary>
     <ul class="gearlist">${items}</ul>
     ${s.gearSource ? `<p class="src">${esc(s.gearSource)}</p>` : ''}${known ? '' : '<p class="src">Import your bank on <a href="../account/">My Account</a> to see what you already own.</p>'}</details>`;

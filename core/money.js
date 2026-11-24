@@ -132,10 +132,25 @@ export function guideMethod(m, items, { cash } = {}) {
  * Returns { lines: [{ keys, names, price, owned }], total, toBuy }.
  */
 export function gearList(setup, items, account) {
-  const has = k => (account?.owned?.[k] || 0) > 0 || (account?.bank?.[k] || 0) > 0;
+  const have = k => Math.max(account?.owned?.[k] || 0, account?.bank?.[k] || 0);
   const lines = (setup.gear || []).map(g => {
-    const keys = [].concat(g);
-    return { keys, names: keys.map(k => items[k]?.name || k), price: items[keys[0]]?.price || 0, owned: keys.some(has) };
+    const { keys, qty } = gearEntry(g);
+    const c = gearCost(g, items, have);
+    return { keys, qty, names: keys.map(k => items[k]?.name || k), price: c.full, toBuy: c.toBuy, owned: keys.reduce((t, k) => t + have(k), 0) >= qty };
   });
-  return { lines, total: lines.reduce((t, l) => t + l.price, 0), toBuy: lines.reduce((t, l) => t + (l.owned ? 0 : l.price), 0) };
+  return { lines, total: lines.reduce((t, l) => t + l.price, 0), toBuy: lines.reduce((t, l) => t + l.toBuy, 0) };
+}
+
+/** A gear entry: an item key, a list of equal keys, or { item: key | [keys], qty } (e.g. 200 bolts). */
+export function gearEntry(g) {
+  if (g && typeof g === 'object' && !Array.isArray(g)) return { keys: [].concat(g.item), qty: g.qty || 1 };
+  return { keys: [].concat(g), qty: 1 };
+}
+
+/** Full price of an entry and what's left to buy, given have(key) -> quantity owned. Equal keys pool together. */
+export function gearCost(g, items, have) {
+  const { keys, qty } = gearEntry(g);
+  const price = items[keys[0]]?.price || 0;
+  const owned = keys.reduce((t, k) => t + (have(k) || 0), 0);
+  return { full: price * qty, toBuy: price * Math.max(0, qty - owned) };
 }

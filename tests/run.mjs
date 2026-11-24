@@ -106,6 +106,9 @@ t('guide gear cleanup and gear list', () => {
   assert.ok(Array.isArray(g[0]) && g[0].includes('x-infernal-cape') && g[0].includes('b'));
   const gl = gearList({ gear: g }, items, { bank: { b: 1 } });
   assert.equal(gl.toBuy, 100); assert.equal(gl.total, 100); assert.ok(gl.lines[0].owned);
+  // quantities: 200 bolts, 150 held -> 50 to buy
+  const q = gearList({ gear: [{ item: 'd', qty: 200 }] }, items, { bank: { d: 150 } });
+  assert.equal(q.total, 200); assert.equal(q.toBuy, 50); assert.ok(!q.lines[0].owned);
 });
 const { unmet, describe } = await import('../core/requirements.js');
 t('unmet and describe', () => {
