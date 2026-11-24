@@ -95,6 +95,14 @@ t('guide method gp/hr', () => {
   const m = { id: 'x', name: 'X', inputsPerHr: [{ item: 'a', qty: 50 }, { item: 'gp:Spell', gp: 5, qty: 10 }], outputsPerHr: [{ item: 'b', qty: 20 }, { item: 'zz', qty: 1 }] };
   const r = guideMethod(m, items);
   assert.equal(r.gpPerHr, 2000 - 550); assert.deepEqual(r.missing, ['zz']);
+  // buy limit: 'a' limited to 100 per 4h = 25/hr, guide uses 50/hr -> half rate
+  const lim = { a: { price: 10, limit: 100, name: 'A' }, b: { price: 100 } };
+  const r2 = guideMethod(m, lim);
+  assert.equal(r2.scale, 0.5); assert.equal(r2.cappedBy, 'buy limit'); assert.equal(r2.gpPerHr, (2000 - 550) / 2);
+  // cash: supplies 550/hr, cash 110 -> 0.2
+  const r3 = guideMethod(m, items, { cash: 110 });
+  assert.equal(r3.cappedBy, 'cash'); assert.ok(Math.abs(r3.scale - 0.2) < 1e-9);
+  assert.equal(guideMethod(m, items, { cash: 1e9 }).scale, 1);
 });
 
 const original = process.argv[2];

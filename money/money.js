@@ -53,7 +53,7 @@ function rows() {
     return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, members: true };
   });
   const methodRows = METHODS.map(m => {
-    const r = guideMethod(m, ITEMS.items);
+    const r = guideMethod(m, ITEMS.items, { cash: ACCOUNT?.gp || 0 });
     if (!meets(m)) r.locked = unmet(m.requires, ACCOUNT, ctx()).map(x => describe(x, names()));
     return { ...r, kind: 'method', id: 'm:' + m.id, cat: catOf(m), wilderness: m.wilderness, wildernessNote: m.wildernessNote, members: m.members };
   });
@@ -89,7 +89,7 @@ function methodRow(r, i) {
     <td class="num">${m.actionsPerHr ? `${num(m.actionsPerHr)} <span class="unit">${esc(m.actionName || 'actions')}</span>` : '<span class="unit">–</span>'}</td>
     <td class="num">${gp(r.lootPerHr)} <span class="unit">/hr</span></td>
     <td class="num"><span class="cost">${gpShort(r.costPerHr)}</span> <span class="unit">/hr</span>${r.missing.length ? ' <span class="tag warn" title="Some items have no price yet">incomplete</span>' : ''}</td>
-    <td class="num strong">${gp(r.gpPerHr)}</td>
+    <td class="num strong">${gp(r.gpPerHr)}${r.cappedBy ? `<div class="capped" title="${esc(r.capNote)}">capped by ${r.cappedBy}</div>` : ''}</td>
   </tr>`;
   return open === r.id ? row + `<tr class="editor-row"><td colspan="7">${methodDetail(r)}</td></tr>` : row;
 }
@@ -103,6 +103,7 @@ function methodDetail(r) {
     <p class="src">Requires: ${m.requires ? esc(describe(m.requires, names())) : 'nothing listed'}.${xp ? ` XP per hour: ${esc(xp)}.` : ''}
       <a href="https://oldschool.runescape.wiki/w/${encodeURI(m.guide.replace(/ /g, '_'))}" target="_blank" rel="noopener">Wiki guide</a></p>
     ${m.wilderness ? `<p class="src wildnote">Wilderness: “${esc(m.wildernessNote)}”</p>` : ''}
+    ${r.cappedBy ? `<p class="src">Capped by ${r.cappedBy}: ${esc(r.capNote)}. Runs at ${Math.round(r.scale * 100)}% of the guide's rate (${gpShort(r.uncappedGpPerHr)}/hr uncapped).</p>` : ''}
     <div class="cols"><div><h3>Per hour you use</h3><ul>${m.inputsPerHr.map(line).join('') || '<li>Nothing</li>'}</ul></div>
     <div><h3>Per hour you get</h3><ul>${m.outputsPerHr.map(line).join('')}</ul></div></div>
   </div>`;

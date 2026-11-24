@@ -14791,7 +14791,8 @@
     }
    ],
    "defaultSetup": "high",
-   "wilderness": false
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "kraken",

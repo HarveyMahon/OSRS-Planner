@@ -268,6 +268,8 @@ def run(force):
                 missing.append(name)
             continue
         item["id"] = m["id"]
+        if m.get("limit"):
+            item["limit"] = m["limit"]          # GE buy limit per 4 hours
         p = latest.get(str(m["id"]))
         prices = [v for v in ((p or {}).get("high"), (p or {}).get("low")) if isinstance(v, (int, float)) and v > 0]
         if not prices:

@@ -43,7 +43,8 @@ WILDY_TEXT = re.compile(r"revenant cave|lava maze|deep wilderness|(level|lvl)\s*
                         r"dungeon|bosses|resource area)|larran|rogues' castle|chaos temple \(wilderness\)|demonic ruins|"
                         r"lava dragon isle|mage of zamorak|fountain of rune|wilderness slayer cave|bandit camp \(wilderness\)|dark warriors.? fortress|frozen waste plateau|black salamander|wilderness volcano", re.I)
 WILDERNESS_BOSSES = {"callisto", "artio", "venenatis", "spindel", "vetion", "calvarion", "scorpia",
-                     "chaos_elemental", "chaos_fanatic", "crazy_archaeologist", "revenant_maledictus"}
+                     "chaos_elemental", "chaos_fanatic", "crazy_archaeologist", "revenant_maledictus",
+                     "king_black_dragon"}   # lair reached through the Wilderness
 RECURRING = re.compile(r"recurring", re.I)
 
 

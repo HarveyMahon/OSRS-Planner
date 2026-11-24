@@ -98,9 +98,30 @@ export function listValue(list, items) {
   return { value, missing };
 }
 
-/** A Wiki-guide method (data/methods.json): inputs and outputs are already per hour. */
-export function guideMethod(m, items) {
+/**
+ * A Wiki-guide method (data/methods.json): inputs and outputs are already per hour.
+ *
+ * Realistic cap: inputs you buy are limited by Grand Exchange buy limits (per 4 hours), and,
+ * if `cash` is given (the cash stack on My Account), by what you can afford to buy in an hour.
+ * When either bites, the method runs at that fraction of the guide's rate for the hour.
+ * Returns the capped figures plus { scale, cappedBy: 'buy limit' | 'cash' | null, capNote }.
+ */
+export function guideMethod(m, items, { cash } = {}) {
   const out = listValue(m.outputsPerHr, items), inp = listValue(m.inputsPerHr, items);
-  return { methodId: m.id, name: m.name, method: m, lootPerHr: out.value, costPerHr: inp.value,
-           gpPerHr: out.value - inp.value, missing: [...out.missing, ...inp.missing] };
+  let scale = 1, cappedBy = null, capNote = null;
+  for (const x of m.inputsPerHr) {
+    const lim = x.gp == null ? items[x.item]?.limit : null;
+    if (lim && x.qty > lim / 4) {
+      const s = (lim / 4) / x.qty;
+      if (s < scale) { scale = s; cappedBy = 'buy limit'; capNote = `${items[x.item].name}: buy limit ${lim.toLocaleString('en-GB')} per 4 hours, guide uses ${Math.round(x.qty).toLocaleString('en-GB')} an hour`; }
+    }
+  }
+  if (cash > 0 && inp.value * scale > cash) {
+    scale = cash / inp.value; cappedBy = 'cash';
+    capNote = `Supplies cost ${Math.round(inp.value).toLocaleString('en-GB')} gp an hour; your cash stack is ${Math.round(cash).toLocaleString('en-GB')} gp`;
+  }
+  return { methodId: m.id, name: m.name, method: m,
+           lootPerHr: out.value * scale, costPerHr: inp.value * scale, gpPerHr: (out.value - inp.value) * scale,
+           uncappedGpPerHr: out.value - inp.value, scale, cappedBy, capNote,
+           missing: [...out.missing, ...inp.missing] };
 }

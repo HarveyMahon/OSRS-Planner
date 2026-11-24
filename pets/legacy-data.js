@@ -29,7 +29,7 @@ export async function loadPetData() {
   // Items by name (aliases included), without the core-only fields
   const byName = {};
   for (const it of Object.values(items.items)) {
-    const { key, name, aliases, ...rest } = it;
+    const { key, name, aliases, limit, ...rest } = it;
     if (rest.derivedFrom) { rest.derivedFrom = structuredClone(rest.derivedFrom); toNames(rest.derivedFrom, nameOf); }
     for (const n of [name, ...(aliases || [])]) byName[n] = rest;
   }
