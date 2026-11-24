@@ -1,0 +1,45 @@
+/* Shared look for every page. Colours and fonts carried over from the pet calculator. */
+:root {
+  color-scheme: dark;
+  --bg: #17191c;
+  --surface: #202328;
+  --surface-2: #272b31;
+  --line: #353a41;
+  --text: #e9e5d9;
+  --muted: #9c988c;
+  --faint: #6f6c64;
+  --accent: #d8a443;
+  --accent-ink: #1b1508;
+  --gp-low: #f2e25c;
+  --gp-mid: #f4f1ea;
+  --gp-high: #4fe08a;
+  --cost: #ff6b6b;
+  --display: "Alegreya SC", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+html, body { background: var(--bg); margin: 0; }
+body { color: var(--text); font: 15px/1.5 var(--sans); }
+[hidden] { display: none !important; }
+
+/* Site-wide navigation bar */
+.site-nav { border-bottom: 1px solid var(--line); background: var(--surface); }
+.site-nav-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.site-nav .brand { font: 700 19px/1 var(--display); color: var(--accent); text-decoration: none; letter-spacing: .02em; }
+.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; flex-wrap: wrap; }
+.site-nav a.link { display: block; padding: 6px 12px; border-radius: 6px; color: var(--muted); text-decoration: none; font-weight: 500; }
+.site-nav a.link:hover { color: var(--text); background: var(--surface-2); }
+.site-nav a.link[aria-current="page"] { color: var(--accent-ink); background: var(--accent); }
+.site-nav li.side { margin-left: 10px; padding-left: 14px; border-left: 1px solid var(--line); }
+.site-nav li.side a.link { font-size: 13.5px; }
+
+/* Simple page layout for the app's own pages */
+.page { max-width: 1120px; margin: 0 auto; padding: 28px 16px 56px; display: grid; gap: 24px; }
+.page h1 { font: 700 30px/1.1 var(--display); margin: 0; }
+.page h2 { font: 700 20px/1.2 var(--display); margin: 0; }
+.page p { margin: 0; color: var(--muted); max-width: 70ch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 8px; color: inherit; text-decoration: none; }
+a.card:hover { border-color: var(--accent); }
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.card.minor { background: transparent; }
+.badge { justify-self: start; font: 500 12px/1 var(--mono); padding: 4px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }

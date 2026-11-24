@@ -1,0 +1,83 @@
+name: Weekly price update
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"   # every Monday at 06:17 UTC
+  workflow_dispatch:        # run it by hand from the Actions tab
+    inputs:
+      force:
+        description: "Ignore the 6-hour minimum gap between updates"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: price-update
+  cancel-in-progress: false
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch prices from the OSRS Wiki (2 requests)
+        id: update
+        continue-on-error: true
+        run: python scripts/update_prices.py ${{ inputs.force && '--force' || '' }}
+
+      - uses: actions/setup-node@v4
+        if: steps.update.outcome == 'success'
+        with:
+          node-version: "20"
+
+      - name: Install a headless browser for the page check
+        if: steps.update.outcome == 'success'
+        run: |
+          npm install --no-save --no-audit --no-fund --prefix "$RUNNER_TEMP/pw" playwright@1
+          "$RUNNER_TEMP/pw/node_modules/.bin/playwright" install --with-deps chromium
+
+      - name: Check the site still works with the new prices
+        id: check
+        if: steps.update.outcome == 'success'
+        continue-on-error: true
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: |
+          node tests/run.mjs
+          node scripts/check_page.js
+
+      - name: Commit updated prices and log
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "${{ steps.check.outcome }}" = "failure" ]; then
+            echo "The page check failed, so the new items.json is not committed (the log still is)."
+            git checkout -- data/items.json
+          fi
+          git add data/items.json logs/price_update_log.json
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+          else
+            git commit -m "Weekly price update ($(date -u +%Y-%m-%d))"
+            git push
+          fi
+
+      - name: Mark the run as failed if the update failed
+        if: steps.update.outcome == 'failure'
+        run: |
+          echo "The price update failed; see logs/price_update_log.json for the Wiki's response."
+          exit 1
+
+      - name: Mark the run as failed if the page check failed
+        if: steps.check.outcome == 'failure'
+        run: |
+          echo "The site showed errors with the new prices; see the 'Check the site' step above for what broke."
+          exit 1

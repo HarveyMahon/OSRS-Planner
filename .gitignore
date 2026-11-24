@@ -1,0 +1,4 @@
+# Local cache of the Wiki's item mapping (scripts/update_prices.py re-downloads it when missing)
+scripts/item_mapping.json
+__pycache__/
+node_modules/

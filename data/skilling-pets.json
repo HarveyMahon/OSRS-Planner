@@ -1,0 +1,2991 @@
+{
+ "meta": {
+  "description": "Pet-hunt calculator only: skilling pet methods. Item references are item keys."
+ },
+ "skillingPets": [
+  {
+   "id": "beaver",
+   "name": "Beaver",
+   "skill": "Woodcutting",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Beaver",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per successful chop = 1 / (base chance - 25 x Woodcutting level)",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "setup": {
+    "axe": "Crystal axe (no felling axe or rations)",
+    "tickSeconds": 0.6,
+    "rollTicks": 4,
+    "noLogChance": 0,
+    "rationItem": "28157",
+    "rationsPerChop": 0,
+    "inventoryCapacity": 54,
+    "treeHopSeconds": 4,
+    "twoTickEfficiency": 0.95,
+    "forestry": {
+     "eventsPerHour": 5,
+     "minutesPerEvent": 2.5,
+     "barkPerHour": 1500,
+     "barkValueTerms": [
+      {
+       "item": "28177",
+       "factor": 0.0001
+      },
+      {
+       "item": "1521",
+       "factor": -0.05
+      }
+     ]
+    },
+    "crystalShards": {
+     "chancePerLog": 0.025,
+     "valueTerms": [
+      {
+       "item": "23685",
+       "factor": 2.5
+      },
+      {
+       "item": "12695",
+       "factor": -2.5
+      }
+     ]
+    },
+    "leavesPerLog": 0.5,
+    "secateursPerLog": 0.25,
+    "secateursItem": "28161"
+   },
+   "trees": {
+    "oak": {
+     "name": "Oak tree",
+     "baseChance": 361146,
+     "successLow": 125,
+     "successHigh": 400,
+     "despawnSeconds": 27,
+     "log": "1521",
+     "leaves": "6022"
+    },
+    "willow": {
+     "name": "Willow tree",
+     "baseChance": 289286,
+     "successLow": 64,
+     "successHigh": 195,
+     "despawnSeconds": 30,
+     "log": "1519",
+     "leaves": "6024"
+    },
+    "teak": {
+     "name": "Teak tree",
+     "baseChance": 264336,
+     "successLow": 60,
+     "successHigh": 200,
+     "despawnSeconds": 30,
+     "log": "6333"
+    },
+    "maple": {
+     "name": "Maple tree",
+     "baseChance": 221918,
+     "successLow": 32,
+     "successHigh": 100,
+     "despawnSeconds": 60,
+     "log": "1517",
+     "leaves": "6028"
+    },
+    "mahogany": {
+     "name": "Mahogany tree",
+     "baseChance": 220623,
+     "successLow": 36,
+     "successHigh": 97,
+     "despawnSeconds": 60,
+     "log": "6332"
+    },
+    "arctic": {
+     "name": "Arctic pine tree",
+     "baseChance": 145758,
+     "successLow": 32,
+     "successHigh": 100,
+     "despawnSeconds": 84,
+     "log": "10810"
+    },
+    "yew": {
+     "name": "Yew tree",
+     "baseChance": 145013,
+     "successLow": 16,
+     "successHigh": 50,
+     "despawnSeconds": 114,
+     "log": "1515",
+     "leaves": "6026"
+    },
+    "camphor": {
+     "name": "Camphor tree",
+     "baseChance": 145013,
+     "successLow": 34,
+     "successHigh": 93,
+     "despawnSeconds": 120,
+     "log": "32904"
+    },
+    "magic": {
+     "name": "Magic tree",
+     "baseChance": 72321,
+     "successLow": 8,
+     "successHigh": 23,
+     "despawnSeconds": 234,
+     "log": "1513",
+     "leaves": "6030"
+    },
+    "ironwood": {
+     "name": "Ironwood tree",
+     "baseChance": 72321,
+     "successLow": 30,
+     "successHigh": 83,
+     "despawnSeconds": 240,
+     "log": "32907"
+    },
+    "redwood": {
+     "name": "Redwood tree",
+     "baseChance": 72321,
+     "successLow": 8,
+     "successHigh": 35,
+     "despawnSeconds": 264,
+     "log": "19669"
+    },
+    "rosewood": {
+     "name": "Rosewood tree",
+     "baseChance": 72321,
+     "successLow": 27,
+     "successHigh": 73,
+     "despawnSeconds": 274.8,
+     "log": "32910"
+    }
+   },
+   "methods": [
+    {
+     "id": "oak-seers",
+     "name": "Oaks",
+     "location": "Seers' Village (south of the bank)",
+     "tree": "oak",
+     "inventory": "bank",
+     "bankTripSeconds": 15,
+     "forestry": true,
+     "requirements": "None"
+    },
+    {
+     "id": "willow-draynor",
+     "name": "Willows",
+     "location": "Draynor Village (south of the bank)",
+     "tree": "willow",
+     "inventory": "bank",
+     "bankTripSeconds": 20,
+     "forestry": true,
+     "requirements": "None"
+    },
+    {
+     "id": "maple-seers",
+     "name": "Maples",
+     "location": "Seers' Village (north of the bank)",
+     "tree": "maple",
+     "inventory": "bank",
+     "bankTripSeconds": 15,
+     "forestry": true,
+     "requirements": "None"
+    },
+    {
+     "id": "yew-guild",
+     "name": "Yews",
+     "location": "Woodcutting Guild",
+     "tree": "yew",
+     "inventory": "bank",
+     "bankTripSeconds": 20,
+     "forestry": false,
+     "levelBoost": 7,
+     "requirements": "Woodcutting Guild access",
+     "note": "No Forestry events in the guild; its invisible +7 boost is included."
+    },
+    {
+     "id": "teak-prif",
+     "name": "Teaks",
+     "location": "Prifddinas (north-east)",
+     "tree": "teak",
+     "inventory": "bank",
+     "bankTripSeconds": 40,
+     "prifddinas": true,
+     "forestry": true,
+     "requirements": "Song of the Elves"
+    },
+    {
+     "id": "mahogany-prif",
+     "name": "Mahogany",
+     "location": "Prifddinas (north-east)",
+     "tree": "mahogany",
+     "inventory": "bank",
+     "bankTripSeconds": 40,
+     "prifddinas": true,
+     "forestry": true,
+     "requirements": "Song of the Elves"
+    },
+    {
+     "id": "yew-prif",
+     "name": "Yews",
+     "location": "Prifddinas (by the south-east bank)",
+     "tree": "yew",
+     "inventory": "bank",
+     "bankTripSeconds": 15,
+     "prifddinas": true,
+     "forestry": true,
+     "requirements": "Song of the Elves"
+    },
+    {
+     "id": "magic-prif",
+     "name": "Magic trees",
+     "location": "Prifddinas (north-west)",
+     "tree": "magic",
+     "inventory": "bank",
+     "bankTripSeconds": 20,
+     "prifddinas": true,
+     "forestry": true,
+     "requirements": "Song of the Elves"
+    },
+    {
+     "id": "arctic-neitiznot",
+     "name": "Arctic pines",
+     "location": "Neitiznot yak pen",
+     "tree": "arctic",
+     "inventory": "bank",
+     "bankTripSeconds": 40,
+     "forestry": true,
+     "requirements": "Partial The Fremennik Isles"
+    },
+    {
+     "id": "camphor-grove",
+     "name": "Camphor",
+     "location": "The Sacred Grove",
+     "tree": "camphor",
+     "inventory": "bank",
+     "bankTripSeconds": 12,
+     "forestry": true,
+     "requirements": "The Red Reef (45 Sailing)"
+    },
+    {
+     "id": "ironwood-sunbleak",
+     "name": "Ironwood",
+     "location": "Sunbleak Island",
+     "tree": "ironwood",
+     "inventory": "bank",
+     "bankTripSeconds": 20,
+     "forestry": true,
+     "requirements": "72 Sailing; bank chest space on your boat (70 Construction)"
+    },
+    {
+     "id": "rosewood-drumstick",
+     "name": "Rosewood",
+     "location": "Drumstick Isle",
+     "tree": "rosewood",
+     "inventory": "bank",
+     "bankTripSeconds": 60,
+     "forestry": true,
+     "requirements": "79 Sailing; Greater teleport focus on your boat",
+     "note": "Banked by teleporting off the island and back to the boat."
+    },
+    {
+     "id": "redwood-guild",
+     "name": "Redwood",
+     "location": "Woodcutting Guild",
+     "tree": "redwood",
+     "inventory": "bank",
+     "bankTripSeconds": 30,
+     "forestry": false,
+     "levelBoost": 7,
+     "requirements": "Woodcutting Guild access",
+     "note": "No Forestry events in the guild; its invisible +7 boost is included."
+    },
+    {
+     "id": "magic-guild",
+     "name": "Magic trees",
+     "location": "Woodcutting Guild",
+     "tree": "magic",
+     "inventory": "bank",
+     "bankTripSeconds": 20,
+     "forestry": false,
+     "levelBoost": 7,
+     "requirements": "Woodcutting Guild access",
+     "note": "No Forestry events in the guild; its invisible +7 boost is included."
+    },
+    {
+     "id": "2t-teak-prif",
+     "name": "2-tick teaks",
+     "location": "Prifddinas (north-east)",
+     "tree": "teak",
+     "rollTicks": 2,
+     "tickManipulation": true,
+     "inventory": "drop",
+     "prifddinas": true,
+     "forestry": false,
+     "requirements": "Song of the Elves",
+     "note": "Logs are dropped (no banking while tick manipulating), so the only profit is crystal shards. Uses rabbits for the 2-tick cycle.",
+     "tickLabel": "2-tick"
+    },
+    {
+     "id": "2t-mahogany-prif",
+     "name": "2-tick mahogany",
+     "location": "Prifddinas (north-east)",
+     "tree": "mahogany",
+     "rollTicks": 2,
+     "tickManipulation": true,
+     "inventory": "drop",
+     "prifddinas": true,
+     "forestry": false,
+     "requirements": "Song of the Elves",
+     "note": "Logs are dropped (no banking while tick manipulating), so the only profit is crystal shards. Uses rabbits for the 2-tick cycle.",
+     "tickLabel": "2-tick"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Woodcutting with a crystal axe (no felling axe or rations, as they cost logs without speeding up the pet). Success chances use the Wiki's crystal axe chart for each tree.",
+    "A chop roll every 4 ticks (2.4 s). The two 2-tick methods (teak and mahogany in Prifddinas) roll every 2 ticks at 95% efficiency, from the Wiki's 2-tick teak rates; their logs are dropped, so their only profit is crystal shards.",
+    "Every other method banks its logs, carrying 54 logs per trip (inventory plus a log basket); trip times are estimates for each location.",
+    "Forestry events (not in the Woodcutting Guild): 5 per hour at 2.5 minutes each, with no chopping during them, earning 1,500 anima-infused bark per hour. Bark is valued by buying felling axe handles (10,000 bark + 500 oak logs) and selling them.",
+    "No group bonus from other players on the same tree, and no dragon or crystal axe special attack.",
+    "Crystal shards (1/40 per log received in Prifddinas) are valued as crystal dust for divine super combat potions: 1 shard makes 2.5 potions. This needs 97 Herblore (boostable).",
+    "With a Forestry kit and secateurs attachments, trees with leaves (oak, willow, maple, yew, magic) give 0.5 leaves per log, using 0.25 secateurs per log. Bird nests, clue nests and Forestry event items other than bark are not counted.",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet. Tick-manipulation methods are not ranked and are only listed under \"Show every method\"."
+   ],
+   "rollsLabel": "Logs/hr"
+  },
+  {
+   "id": "rock-golem",
+   "name": "Rock golem",
+   "skill": "Mining",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Rock_golem",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per pet roll = 1 / (base chance - 25 x Mining level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "gem-shilo",
+     "name": "Gem rocks",
+     "location": "Shilo Village mine (underground)",
+     "baseChance": 211886,
+     "actionsPerHour": 1150,
+     "unit": "gems",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "1625",
+       "perAction": 0.4686
+      },
+      {
+       "item": "1627",
+       "perAction": 0.2326
+      },
+      {
+       "item": "1629",
+       "perAction": 0.1176
+      },
+      {
+       "item": "1623",
+       "perAction": 0.0714
+      },
+      {
+       "item": "1621",
+       "perAction": 0.0394
+      },
+      {
+       "item": "1619",
+       "perAction": 0.0389
+      },
+      {
+       "item": "1617",
+       "perAction": 0.0315
+      }
+     ],
+     "inputs": [],
+     "requirements": "Medium Karamja Diary; charged amulet of glory",
+     "rateSource": "Wiki training guide: 75,000 XP/hr at 99 without tick manipulation (65 XP per gem)"
+    },
+    {
+     "id": "motherlode",
+     "name": "Motherlode Mine",
+     "location": "Motherlode Mine (upper level)",
+     "baseChance": 247200,
+     "actionsPerHour": 750,
+     "unit": "pay-dirt",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "453",
+       "perAction": 0.246
+      },
+      {
+       "item": "444",
+       "perAction": 0.2422
+      },
+      {
+       "item": "447",
+       "perAction": 0.2693
+      },
+      {
+       "item": "449",
+       "perAction": 0.1885
+      },
+      {
+       "item": "451",
+       "perAction": 0.0227
+      },
+      {
+       "item": "x-golden-nugget",
+       "perAction": 0.0273
+      }
+     ],
+     "inputs": [],
+     "requirements": "Upper level and larger sack unlocked",
+     "rateSource": "Wiki: about 60,000 XP/hr at 99 (78 XP per pay-dirt incl. ores); ore mix from the Wiki money-making guide"
+    },
+    {
+     "id": "volcanic-mine",
+     "name": "Volcanic Mine",
+     "location": "Fossil Island",
+     "baseChance": 60000,
+     "actionsPerHour": 300,
+     "unit": "ore fragments",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "451",
+       "perAction": 0.06354775828460038
+      }
+     ],
+     "inputs": [],
+     "requirements": "Bone Voyage; permanent access (3,000 numulite); a team of 3-5",
+     "note": "About 16,300 points per hour, spent on runite ore (855 points each). Fragments per hour are an estimate.",
+     "rateSource": "Estimate: about 300 ore fragments per hour, in line with the Wiki calling it only slightly slower than gem rocks for the pet"
+    },
+    {
+     "id": "blast-mine",
+     "name": "Blast Mine",
+     "location": "Lovakengj",
+     "baseChance": 123600,
+     "actionsPerHour": 330,
+     "unit": "hard rock excavations",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "451",
+       "perAction": 0.1337
+      },
+      {
+       "item": "449",
+       "perAction": 0.4093
+      },
+      {
+       "item": "447",
+       "perAction": 0.4744
+      },
+      {
+       "item": "444",
+       "perAction": 0.2949
+      },
+      {
+       "item": "453",
+       "perAction": 0.1874
+      }
+     ],
+     "inputs": [
+      {
+       "item": "13573",
+       "perAction": 1
+      }
+     ],
+     "requirements": "Chisel, tinderbox and dynamite",
+     "rateSource": "Wiki money-making guide: 330 dynamite per hour"
+    },
+    {
+     "id": "amethyst",
+     "name": "Amethyst",
+     "location": "Mining Guild",
+     "baseChance": 46350,
+     "actionsPerHour": 90,
+     "unit": "amethyst",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "21347",
+       "perAction": 1
+      },
+      {
+       "item": "x-unidentified-minerals",
+       "perAction": 0.05
+      }
+     ],
+     "inputs": [],
+     "requirements": "92 Mining",
+     "rateSource": "Wiki money-making guide: 80-100 amethyst per hour"
+    },
+    {
+     "id": "stars",
+     "name": "Crashed stars",
+     "location": "Anywhere (Shooting Stars)",
+     "baseChance": 521550,
+     "actionsPerHour": 961,
+     "unit": "stardust",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-stardust",
+       "perAction": 1
+      },
+      {
+       "item": "1623",
+       "perAction": 0.009737098344693282
+      },
+      {
+       "item": "1621",
+       "perAction": 0.004868549172346641
+      },
+      {
+       "item": "1619",
+       "perAction": 0.0024342745861733205
+      },
+      {
+       "item": "1617",
+       "perAction": 0.0006085686465433301
+      }
+     ],
+     "inputs": [],
+     "requirements": "Crystal pickaxe",
+     "note": "Stardust valued by buying soft clay packs.",
+     "rateSource": "Wiki training guide: 961 stardust per hour at 99 with a crystal pickaxe"
+    },
+    {
+     "id": "runite",
+     "name": "Runite rocks",
+     "location": "Various (world hopping)",
+     "baseChance": 42377,
+     "actionsPerHour": 65,
+     "unit": "ores",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "451",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "",
+     "rateSource": "Wiki money-making guide: 65 ores per hour"
+    },
+    {
+     "id": "3t-gem-shilo",
+     "name": "3-tick gem rocks",
+     "location": "Shilo Village mine (underground)",
+     "baseChance": 211886,
+     "actionsPerHour": 1650,
+     "unit": "gems",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "1625",
+       "perAction": 0.4686
+      },
+      {
+       "item": "1627",
+       "perAction": 0.2326
+      },
+      {
+       "item": "1629",
+       "perAction": 0.1176
+      },
+      {
+       "item": "1623",
+       "perAction": 0.0714
+      },
+      {
+       "item": "1621",
+       "perAction": 0.0394
+      },
+      {
+       "item": "1619",
+       "perAction": 0.0389
+      },
+      {
+       "item": "1617",
+       "perAction": 0.0315
+      }
+     ],
+     "inputs": [],
+     "requirements": "Medium Karamja Diary; charged amulet of glory",
+     "tickManipulation": true,
+     "note": "Gems kept in a gem bag and banked at the deposit box, as in the Wiki profit figure.",
+     "rateSource": "Wiki training guide: 110,000 XP/hr at 99 (the Wiki uses 1,650 gems per hour)",
+     "tickLabel": "3-tick"
+    },
+    {
+     "id": "3t-granite",
+     "name": "3-tick granite",
+     "location": "Desert Quarry",
+     "baseChance": 741600,
+     "actionsPerHour": 2000,
+     "unit": "granite",
+     "inventory": "drop",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "Waterskins or desert protection",
+     "tickManipulation": true,
+     "note": "Granite is dropped, so there is no profit.",
+     "rateSource": "Estimate from the Wiki training guide: 126,000 XP/hr at 99",
+     "tickLabel": "3-tick"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Mining with the best pickaxe for each method; pet chance per roll = 1 / (base chance - 25 x 99), using the Wiki's base chances.",
+    "Rolls per hour come from the Wiki's training guide or money-making guide for each method (hover a method's name to see its source); where the Wiki gives only experience per hour, it is divided by the experience per roll.",
+    "Tick-manipulation methods are not ranked and only appear under \"Show every method\".",
+    "Stardust, golden nuggets and unidentified minerals are valued by buying soft clay packs. Volcanic Mine points are spent on runite ore.",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "heron",
+   "name": "Heron",
+   "skill": "Fishing",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Heron",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per catch = 1 / (base chance - 25 x Fishing level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "angler-diabolic",
+     "name": "Anglerfish (diabolic worms)",
+     "location": "Port Piscarilius",
+     "baseChance": 78649,
+     "actionsPerHour": 450,
+     "unit": "anglerfish",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "13439",
+       "perAction": 1
+      }
+     ],
+     "inputs": [
+      {
+       "item": "30773",
+       "perAction": 1
+      }
+     ],
+     "requirements": "Diabolic worms (from Yama)",
+     "note": "Each catch uses a diabolic worm, which currently costs more than the fish.",
+     "rateSource": "Wiki money-making guide: 300-450 per hour depending on level"
+    },
+    {
+     "id": "angler-sandworms",
+     "name": "Anglerfish (sandworms)",
+     "location": "Port Piscarilius",
+     "baseChance": 78649,
+     "actionsPerHour": 190,
+     "unit": "anglerfish",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "13439",
+       "perAction": 1
+      }
+     ],
+     "inputs": [
+      {
+       "item": "13431",
+       "perAction": 1
+      }
+     ],
+     "requirements": "",
+     "rateSource": "Wiki training guide: about 23,000 XP/hr (120 XP per fish)"
+    },
+    {
+     "id": "karambwan",
+     "name": "Karambwan",
+     "location": "Karamja (fairy ring DKP)",
+     "baseChance": 170874,
+     "actionsPerHour": 800,
+     "unit": "karambwan",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "3142",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Tai Bwo Wannai Trio; fish barrel",
+     "note": "Karambwanji bait caught yourself; its time is included.",
+     "rateSource": "Wiki training guide: 40,000 XP/hr at 99 including catching bait (50 XP per fish)"
+    },
+    {
+     "id": "monkfish",
+     "name": "Monkfish",
+     "location": "Piscatoris Fishing Colony",
+     "baseChance": 138583,
+     "actionsPerHour": 350,
+     "unit": "monkfish",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "7944",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Swan Song",
+     "rateSource": "Wiki training guide: 350 per hour at 99"
+    },
+    {
+     "id": "minnows",
+     "name": "Minnows",
+     "location": "Fishing Guild platform",
+     "baseChance": 977778,
+     "actionsPerHour": 2113,
+     "unit": "catches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "383",
+       "perAction": 0.2957879791765263
+      }
+     ],
+     "inputs": [],
+     "requirements": "Fishing Contest; full angler's outfit",
+     "note": "The pet is rolled once per catch, not per minnow. 25,000 minnows an hour become 625 raw sharks.",
+     "rateSource": "Wiki training guide: 56,000 XP/hr at 99 (26.5 XP per catch)"
+    },
+    {
+     "id": "dark-crabs",
+     "name": "Dark crabs",
+     "location": "Wilderness Resource Area",
+     "baseChance": 149434,
+     "actionsPerHour": 308,
+     "unit": "dark crabs",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "11934",
+       "perAction": 1
+      }
+     ],
+     "inputs": [
+      {
+       "item": "11940",
+       "perAction": 1
+      },
+      {
+       "item": "x-coins",
+       "perAction": 50
+      }
+     ],
+     "requirements": "Elite Wilderness Diary",
+     "note": "Noted at Piles for 50 coins each. Deep Wilderness: player-killer risk not counted.",
+     "rateSource": "Wiki money-making guide: 308 per hour"
+    },
+    {
+     "id": "infernal-eels",
+     "name": "Infernal eels",
+     "location": "Mor Ul Rek",
+     "baseChance": 165000,
+     "actionsPerHour": 358,
+     "unit": "eels",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "9194",
+       "perAction": 0.05714285714285714
+      },
+      {
+       "item": "11994",
+       "perAction": 0.34285714285714286
+      },
+      {
+       "item": "x-tokkul",
+       "perAction": 14.085714285714287
+      }
+     ],
+     "inputs": [
+      {
+       "item": "313",
+       "perAction": 1
+      }
+     ],
+     "requirements": "Fire cape; ice gloves; oily fishing rod",
+     "note": "Eels smashed with a hammer; Tokkul valued as 1/260,000 of an uncut onyx.",
+     "rateSource": "Wiki training guide: 357.89 eels per hour at 99"
+    },
+    {
+     "id": "sacred-eels",
+     "name": "Sacred eels",
+     "location": "Zul-Andra",
+     "baseChance": 99000,
+     "actionsPerHour": 219,
+     "unit": "eels",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "12934",
+       "perAction": 7
+      }
+     ],
+     "inputs": [
+      {
+       "item": "313",
+       "perAction": 1
+      }
+     ],
+     "requirements": "Partial Regicide; 96 Cooking for 7 scales per eel",
+     "rateSource": "Wiki training guide: 219.05 eels per hour at 99"
+    },
+    {
+     "id": "sharks",
+     "name": "Sharks",
+     "location": "Fishing Guild",
+     "baseChance": 82243,
+     "actionsPerHour": 160,
+     "unit": "sharks",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "383",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Harpoon",
+     "rateSource": "Wiki money-making guide: 160 per hour"
+    },
+    {
+     "id": "lobsters",
+     "name": "Lobsters",
+     "location": "Fishing Guild",
+     "baseChance": 116129,
+     "actionsPerHour": 222,
+     "unit": "lobsters",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "377",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Lobster pot",
+     "rateSource": "Wiki money-making guide: 222 per hour"
+    },
+    {
+     "id": "aerial",
+     "name": "Aerial fishing",
+     "location": "Lake Molch",
+     "baseChance": 636833,
+     "actionsPerHour": 2400,
+     "unit": "fish",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "35 Hunter",
+     "note": "Molch pearls and other Alry rewards are not counted.",
+     "rateSource": "Wiki training guide: 2,400 fish per hour"
+    },
+    {
+     "id": "2t-tuna-sword",
+     "name": "2-tick tuna/swordfish",
+     "location": "Port Piscarilius",
+     "baseChance": 257770,
+     "actionsPerHour": 1475,
+     "unit": "fish",
+     "inventory": "drop",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "Crystal harpoon",
+     "tickManipulation": true,
+     "note": "Fish are dropped while tick manipulating, so there is no profit.",
+     "rateSource": "Wiki training guide: 132,800 XP/hr at 99 with a crystal harpoon (about 90 XP per fish)",
+     "tickLabel": "2-tick"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Fishing; pet chance per catch = 1 / (base chance - 25 x 99), using the Wiki's base chances. No shark lures (they make the pet rarer).",
+    "Catches per hour come from the Wiki's training guide or money-making guide for each method (hover a method's name to see its source); where the Wiki gives only experience per hour, it is divided by the experience per catch.",
+    "Fish are sold raw. Tick-manipulation methods are not ranked and only appear under \"Show every method\".",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "rocky",
+   "name": "Rocky",
+   "skill": "Thieving",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Rocky",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per successful theft = 1 / (base chance - 25 x Thieving level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "port-roberts",
+     "name": "Port Roberts stalls",
+     "location": "Port Roberts (cannonball and ore stalls)",
+     "baseChance": 36490,
+     "actionsPerHour": 1203,
+     "unit": "steals",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "31906",
+       "perAction": 0.20572916666666666
+      },
+      {
+       "item": "31908",
+       "perAction": 0.16666666666666666
+      },
+      {
+       "item": "2",
+       "perAction": 0.14583333333333334
+      },
+      {
+       "item": "31910",
+       "perAction": 0.0625
+      },
+      {
+       "item": "31912",
+       "perAction": 0.0625
+      },
+      {
+       "item": "31914",
+       "perAction": 0.020833333333333332
+      },
+      {
+       "item": "31916",
+       "perAction": 0.0026041666666666665
+      },
+      {
+       "item": "440",
+       "perAction": 0.1111111111111111
+      },
+      {
+       "item": "453",
+       "perAction": 0.06666666666666667
+      },
+      {
+       "item": "442",
+       "perAction": 0.044444444444444446
+      },
+      {
+       "item": "444",
+       "perAction": 0.044444444444444446
+      },
+      {
+       "item": "447",
+       "perAction": 0.044444444444444446
+      },
+      {
+       "item": "449",
+       "perAction": 0.017777777777777778
+      },
+      {
+       "item": "451",
+       "perAction": 0.0044444444444444444
+      }
+     ],
+     "inputs": [],
+     "requirements": "50 Sailing; 87 Thieving",
+     "note": "Stealing 4 times from the cannonball stall and 2 times from the ore stall in time with the guards; loot banked at the deposit box.",
+     "rateSource": "Wiki training guide: 255,437 XP/hr at 87-99 (4 x 223 XP + 2 x 191 XP per cycle)"
+    },
+    {
+     "id": "tzhaar-hur",
+     "name": "TzHaar-Hur",
+     "location": "Mor Ul Rek (inner city)",
+     "baseChance": 176743,
+     "actionsPerHour": 2321,
+     "unit": "pickpockets",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-tokkul",
+       "perAction": 9.333333333333334
+      },
+      {
+       "item": "1623",
+       "perAction": 0.05128205128205128
+      },
+      {
+       "item": "1621",
+       "perAction": 0.041025641025641026
+      },
+      {
+       "item": "1619",
+       "perAction": 0.03076923076923077
+      },
+      {
+       "item": "1617",
+       "perAction": 0.010256410256410256
+      }
+     ],
+     "inputs": [],
+     "requirements": "Fire cape; ice gloves; Thieving cape and hard Ardougne Diary",
+     "note": "Full rogue equipment doubles the loot; gems banked with a gem bag.",
+     "rateSource": "Wiki training guide: about 240,000 XP/hr at 99 when banking gems (103.4 XP each)"
+    },
+    {
+     "id": "ardy-knights",
+     "name": "Knights of Ardougne",
+     "location": "Ardougne market",
+     "baseChance": 257211,
+     "actionsPerHour": 2900,
+     "unit": "pickpockets",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 100
+      }
+     ],
+     "inputs": [],
+     "requirements": "Medium Ardougne Diary; dodgy necklaces",
+     "note": "50 coins per pickpocket, doubled by full rogue equipment.",
+     "rateSource": "Wiki training guide: 252,900 XP/hr tick-perfect at 95+, about 245,000 allowing for mistakes (84.3 XP each)"
+    },
+    {
+     "id": "master-farmers",
+     "name": "Master Farmers",
+     "location": "Outside Civitas illa Fortis",
+     "baseChance": 257211,
+     "actionsPerHour": 2733,
+     "unit": "pickpockets",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "5321",
+       "perAction": 0.010582010582010581
+      },
+      {
+       "item": "22879",
+       "perAction": 0.007692307692307693
+      },
+      {
+       "item": "5295",
+       "perAction": 0.007549733871881016
+      },
+      {
+       "item": "5296",
+       "perAction": 0.004514672686230248
+      },
+      {
+       "item": "5298",
+       "perAction": 0.0021119324181626186
+      },
+      {
+       "item": "5299",
+       "perAction": 0.0014398848092152627
+      },
+      {
+       "item": "5300",
+       "perAction": 0.0010785159620362382
+      },
+      {
+       "item": "5301",
+       "perAction": 0.0006720430107526882
+      },
+      {
+       "item": "5302",
+       "perAction": 0.00047996160307175426
+      },
+      {
+       "item": "5303",
+       "perAction": 0.0002880184331797235
+      },
+      {
+       "item": "5304",
+       "perAction": 0.0002157036576869234
+      }
+     ],
+     "inputs": [],
+     "requirements": "Hard Ardougne Diary; 85 Farming for the best seed rates",
+     "note": "Full rogue equipment doubles the loot; only the valuable seeds are counted.",
+     "rateSource": "Wiki training guide: 115,000-120,000 XP/hr at 99 (43 XP each)"
+    },
+    {
+     "id": "blackjacking",
+     "name": "Blackjacking Menaphite Thugs",
+     "location": "Pollnivneach",
+     "baseChance": 257211,
+     "actionsPerHour": 1927,
+     "unit": "pickpockets",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 115.8
+      }
+     ],
+     "inputs": [],
+     "requirements": "The Feud; a blackjack",
+     "note": "Coins per pickpocket from the Wiki (about 219k an hour with rogue equipment); food not counted.",
+     "rateSource": "Wiki training guide: 265,000 XP/hr at 99 (137.5 XP each)"
+    },
+    {
+     "id": "pyramid-plunder",
+     "name": "Pyramid Plunder",
+     "location": "Sophanem",
+     "baseChance": 6893,
+     "actionsPerHour": 12.7,
+     "unit": "runs",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "26945",
+       "perAction": 0.007933126084441874
+      }
+     ],
+     "inputs": [],
+     "requirements": "Icthlarin's Little Helper started; a charged pharaoh's sceptre",
+     "chancePerAction": 0.0006234413965087282,
+     "note": "Pet chance is per run, opening the Grand Gold Chest in all 8 rooms (about 1/1,604 at level 99). Artefacts are not banked; only pharaoh's sceptres are counted.",
+     "rateSource": "Wiki: 270,000 XP/hr at 91+ and about 21,300 XP per run (335 runs from 91 to 99)"
+    },
+    {
+     "id": "vyres",
+     "name": "Vyres",
+     "location": "Darkmeyer",
+     "baseChance": 99175,
+     "actionsPerHour": 720,
+     "unit": "pickpockets",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 414.9431818181818
+      },
+      {
+       "item": "24777",
+       "perAction": 0.0004
+      },
+      {
+       "item": "560",
+       "perAction": 0.24242424242424243
+      },
+      {
+       "item": "565",
+       "perAction": 0.12121212121212122
+      },
+      {
+       "item": "24774",
+       "perAction": 0.09090909090909091
+      },
+      {
+       "item": "1619",
+       "perAction": 0.07575757575757576
+      },
+      {
+       "item": "1601",
+       "perAction": 0.015151515151515152
+      },
+      {
+       "item": "24785",
+       "perAction": 0.015151515151515152
+      }
+     ],
+     "inputs": [
+      {
+       "item": "564",
+       "perAction": 0.4166666666666667
+      }
+     ],
+     "requirements": "Sins of the Father; hard Ardougne Diary",
+     "note": "Full rogue equipment; Shadow Veil costs cosmic runes.",
+     "rateSource": "Wiki money-making guide: 720 pickpockets per hour"
+    },
+    {
+     "id": "elves",
+     "name": "Elves",
+     "location": "Prifddinas",
+     "baseChance": 99175,
+     "actionsPerHour": 560,
+     "unit": "pickpockets",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "23959",
+       "perAction": 0.001953125
+      },
+      {
+       "item": "x-crystal-shard-as-divine-potions",
+       "perAction": 0.05714285714285714
+      },
+      {
+       "item": "x-coins",
+       "perAction": 516.796875
+      },
+      {
+       "item": "560",
+       "perAction": 0.25
+      },
+      {
+       "item": "561",
+       "perAction": 0.234375
+      },
+      {
+       "item": "569",
+       "perAction": 0.03125
+      },
+      {
+       "item": "1601",
+       "perAction": 0.015625
+      },
+      {
+       "item": "444",
+       "perAction": 0.015625
+      }
+     ],
+     "inputs": [
+      {
+       "item": "564",
+       "perAction": 0.5357142857142857
+      }
+     ],
+     "requirements": "Song of the Elves",
+     "note": "Full rogue equipment; crystal shards valued as divine super combat potions.",
+     "rateSource": "Wiki money-making guide: 560 pickpockets per hour"
+    },
+    {
+     "id": "sorceress-garden",
+     "name": "Sorceress's Garden (Summer)",
+     "location": "Al Kharid",
+     "baseChance": 10339,
+     "actionsPerHour": 93,
+     "unit": "sq'irks",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "65 Thieving",
+     "note": "Sq'irk juice is handed in for experience, so there is no profit.",
+     "rateSource": "Wiki training guide: about 140,000 XP/hr (3,000 XP per 2 sq'irks)"
+    },
+    {
+     "id": "valuables",
+     "name": "Stealing valuables",
+     "location": "Civitas illa Fortis",
+     "baseChance": 206777,
+     "actionsPerHour": 1600,
+     "unit": "steals",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 60
+      }
+     ],
+     "inputs": [],
+     "requirements": "Children of the Sun",
+     "note": "Includes time pickpocketing wealthy citizens for house keys; about 96k coins an hour from valuables.",
+     "rateSource": "Estimate from the Wiki: about 2,000 steals and 120k coins per hour of burgling, plus 15 minutes of key collection per hour"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Thieving; pet chance per successful theft = 1 / (base chance - 25 x 99), using the Wiki's base chances (Pyramid Plunder uses the Wiki's per-run chance).",
+    "Rates per hour come from the Wiki's training guide or money-making guide for each method (hover a method's name to see its source).",
+    "Full rogue equipment where it doubles loot. Food, dodgy necklaces and other small costs are not counted unless listed.",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "baby-chinchompa",
+   "name": "Baby chinchompa",
+   "skill": "Hunter",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Baby_chinchompa",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per catch = 1 / (base chance - 25 x Hunter level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "red-chins",
+     "name": "Red chinchompas",
+     "location": "Tlati Rainforest",
+     "baseChance": 98373,
+     "actionsPerHour": 585,
+     "unit": "catches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "10034",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Eagles' Peak (box traps); Children of the Sun",
+     "rateSource": "Wiki training guide: 155,000 XP/hr at 99 without tick manipulation (265 XP each)",
+     "note": "Chinchompas stack in the inventory, so no banking trips."
+    },
+    {
+     "id": "black-chins",
+     "name": "Black chinchompas",
+     "location": "Wilderness Hunter area (level 32-36)",
+     "baseChance": 82758,
+     "actionsPerHour": 350,
+     "unit": "catches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "11959",
+       "perAction": 1
+      }
+     ],
+     "inputs": [
+      {
+       "item": "808",
+       "perAction": 0.125
+      }
+     ],
+     "requirements": "Eagles' Peak (box traps)",
+     "rateSource": "Wiki money-making guide: about 350 per hour with minimal player-killer interference",
+     "note": "Wilderness: player-killer risk not counted. Stray chinchompas shot with steel darts."
+    },
+    {
+     "id": "red-chins-tick",
+     "name": "Red chinchompas (tick manipulation)",
+     "location": "Tlati Rainforest",
+     "baseChance": 98373,
+     "actionsPerHour": 830,
+     "unit": "catches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "10034",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Eagles' Peak (box traps); Children of the Sun",
+     "rateSource": "Wiki training guide: 220,000 XP/hr at 99 with tick manipulation (265 XP each)",
+     "tickManipulation": true,
+     "tickLabel": "Tick manipulation",
+     "note": "Trap resetting with tick manipulation; chinchompas stack, so they are kept."
+    },
+    {
+     "id": "black-chins-tick",
+     "name": "Black chinchompas (tick manipulation)",
+     "location": "Wilderness Hunter area (level 32-36)",
+     "baseChance": 82758,
+     "actionsPerHour": 714,
+     "unit": "catches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "11959",
+       "perAction": 1
+      }
+     ],
+     "inputs": [
+      {
+       "item": "808",
+       "perAction": 0.125
+      }
+     ],
+     "requirements": "Eagles' Peak (box traps)",
+     "rateSource": "Wiki training guide: 225,000 XP/hr at 99 solo with tick manipulation (315 XP each)",
+     "tickManipulation": true,
+     "tickLabel": "Tick manipulation",
+     "note": "Trap resetting with tick manipulation; chinchompas stack, so they are kept. Player-killer risk not counted."
+    }
+   ],
+   "assumptions": [
+    "Level 99 Hunter with 5 box traps; pet chance per catch = 1 / (base chance - 25 x 99), using the Wiki's base chances (red 1/95,898, black 1/80,283 at 99).",
+    "Catches per hour come from the Wiki's training guide or money-making guide (hover a method's name to see its source).",
+    "Chinchompas are stackable, so tick manipulation does not stop you keeping them; those methods are still only listed under \"Show every method\".",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "rift-guardian",
+   "name": "Rift guardian",
+   "skill": "Runecraft",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Rift_guardian",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per essence crafted = 1 / (base chance - 25 x Runecraft level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "lava",
+     "name": "Lava runes",
+     "location": "Fire Altar",
+     "baseChance": 1795758,
+     "actionsPerHour": 9720,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "4699",
+       "perAction": 1.6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "557",
+       "perAction": 1
+      },
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "5521",
+       "perAction": 0.000992063492063492
+      },
+      {
+       "item": "9075",
+       "perAction": 0.031746031746031744
+      },
+      {
+       "item": "31638",
+       "perAction": 0.0001800411522633745
+      }
+     ],
+     "requirements": "Colossal pouch; Magic Imbue (Lunar Diplomacy, 82 Magic)",
+     "note": "Binding necklace, Magic Imbue and extended stamina potions counted.",
+     "rateSource": "Wiki training guide: 102,060 XP/hr at 99 with the colossal pouch (10.5 XP per essence)"
+    },
+    {
+     "id": "mind",
+     "name": "Mind runes",
+     "location": "Mind Altar",
+     "baseChance": 1795758,
+     "actionsPerHour": 7818,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "558",
+       "perAction": 12.8
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      }
+     ],
+     "requirements": "Mind Altar Teleport",
+     "note": "8 mind runes per essence at 99. The Wiki names this the fastest way to the pet without runners.",
+     "rateSource": "Wiki: up to about 43,000 XP/hr at 99 with the Mind Altar Teleport (5.5 XP per essence)"
+    },
+    {
+     "id": "aether",
+     "name": "Aether runes",
+     "location": "Soul Altar area (Aether altar)",
+     "baseChance": 1795758,
+     "actionsPerHour": 4650,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "30843",
+       "perAction": 1.6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "566",
+       "perAction": 1
+      },
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "30771",
+       "perAction": 1.6
+      },
+      {
+       "item": "5521",
+       "perAction": 0.0030241935483870967
+      },
+      {
+       "item": "9075",
+       "perAction": 0.034274193548387094
+      },
+      {
+       "item": "564",
+       "perAction": 0.0020161290322580645
+      }
+     ],
+     "requirements": "90 Runecraft; binding necklace; Magic Imbue (82 Magic)",
+     "note": "Combination rune: soul runes, aether catalysts (one per rune made) and binding necklaces counted.",
+     "rateSource": "Wiki money-making guide: 75 trips per hour of 62 essence"
+    },
+    {
+     "id": "double-nature",
+     "name": "Double nature runes",
+     "location": "Nature Altar",
+     "baseChance": 1795758,
+     "actionsPerHour": 7260,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "561",
+       "perAction": 3.2
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "9075",
+       "perAction": 0.001893939393939394
+      },
+      {
+       "item": "564",
+       "perAction": 0.001893939393939394
+      }
+     ],
+     "requirements": "91 Runecraft; Achievement Diary cape teleport; colossal pouch",
+     "note": "",
+     "rateSource": "Wiki money-making guide: 110 trips per hour of 66 essence"
+    },
+    {
+     "id": "wrath",
+     "name": "Wrath runes",
+     "location": "Wrath Altar",
+     "baseChance": 1795758,
+     "actionsPerHour": 5280,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "21880",
+       "perAction": 1.6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      }
+     ],
+     "requirements": "95 Runecraft; Dragon Slayer II",
+     "note": "",
+     "rateSource": "Wiki money-making guide: 80 trips per hour of 66 essence"
+    },
+    {
+     "id": "astral",
+     "name": "Astral runes",
+     "location": "Astral Altar (Lunar Isle)",
+     "baseChance": 1795758,
+     "actionsPerHour": 5016,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "9075",
+       "perAction": 3.2
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "563",
+       "perAction": 0.015151515151515152
+      },
+      {
+       "item": "9075",
+       "perAction": 0.032196969696969696
+      },
+      {
+       "item": "564",
+       "perAction": 0.001893939393939394
+      },
+      {
+       "item": "12625",
+       "perAction": 0.0015151515151515152
+      }
+     ],
+     "requirements": "Lunar Diplomacy; Moonclan Teleport",
+     "note": "",
+     "rateSource": "Wiki money-making guide: 76 trips per hour of 66 essence"
+    },
+    {
+     "id": "double-law",
+     "name": "Double law runes (Abyss)",
+     "location": "Law Altar via the Abyss",
+     "baseChance": 1795758,
+     "actionsPerHour": 3685,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "563",
+       "perAction": 3.2
+      },
+      {
+       "item": "1704",
+       "perAction": 0.0024875621890547263
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "12625",
+       "perAction": 0.0011940298507462687
+      },
+      {
+       "item": "7946",
+       "perAction": 0.0029850746268656717
+      },
+      {
+       "item": "11978",
+       "perAction": 0.0024875621890547263
+      }
+     ],
+     "requirements": "95 Runecraft; Abyss access",
+     "note": "Glory charges (the uncharged amulet is sold back), stamina potions and food counted.",
+     "rateSource": "Wiki money-making guide: 55 laps per hour of 67 essence"
+    },
+    {
+     "id": "death-abyss",
+     "name": "Death runes (Abyss)",
+     "location": "Death Altar via the Abyss",
+     "baseChance": 1795758,
+     "actionsPerHour": 3350,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "560",
+       "perAction": 3.2
+      },
+      {
+       "item": "1704",
+       "perAction": 0.0024875621890547263
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "12625",
+       "perAction": 0.0011940298507462687
+      },
+      {
+       "item": "7946",
+       "perAction": 0.0029850746268656717
+      },
+      {
+       "item": "11978",
+       "perAction": 0.0024875621890547263
+      }
+     ],
+     "requirements": "99 Runecraft for double deaths; Mourning's End Part II",
+     "note": "Glory charges (the uncharged amulet is sold back), stamina potions and food counted.",
+     "rateSource": "Wiki money-making guide: 50 laps per hour of 67 essence"
+    },
+    {
+     "id": "ourania",
+     "name": "Ourania Altar (ZMI)",
+     "location": "Ourania Cave",
+     "baseChance": 1487213,
+     "actionsPerHour": 4000,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "556",
+       "perAction": 0.0375
+      },
+      {
+       "item": "558",
+       "perAction": 0.0375
+      },
+      {
+       "item": "555",
+       "perAction": 0.0375
+      },
+      {
+       "item": "557",
+       "perAction": 0.05
+      },
+      {
+       "item": "554",
+       "perAction": 0.05
+      },
+      {
+       "item": "559",
+       "perAction": 0.0625
+      },
+      {
+       "item": "564",
+       "perAction": 0.08750000000000001
+      },
+      {
+       "item": "562",
+       "perAction": 0.11249999999999999
+      },
+      {
+       "item": "9075",
+       "perAction": 0.15
+      },
+      {
+       "item": "561",
+       "perAction": 0.18375
+      },
+      {
+       "item": "563",
+       "perAction": 0.216
+      },
+      {
+       "item": "560",
+       "perAction": 0.11750000000000001
+      },
+      {
+       "item": "565",
+       "perAction": 0.057499999999999996
+      },
+      {
+       "item": "566",
+       "perAction": 0.022000000000000002
+      }
+     ],
+     "inputs": [
+      {
+       "item": "7936",
+       "perAction": 1
+      },
+      {
+       "item": "12625",
+       "perAction": 0.003076923076923077
+      },
+      {
+       "item": "558",
+       "perAction": 0.923
+      },
+      {
+       "item": "9075",
+       "perAction": 0.0461
+      },
+      {
+       "item": "563",
+       "perAction": 0.0230769
+      }
+     ],
+     "requirements": "Lunar Diplomacy (Ourania Teleport, NPC Contact)",
+     "note": "Random runes from the Wiki's level-99 rune mix; Raiments of the Eye do not apply.",
+     "rateSource": "Wiki money-making guide: 4,000 essence per hour"
+    },
+    {
+     "id": "blood-arceuus",
+     "name": "Blood runes (Arceuus)",
+     "location": "Arceuus (Dark Altar)",
+     "baseChance": 804984,
+     "actionsPerHour": 1474,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "565",
+       "perAction": 1.6
+      }
+     ],
+     "inputs": [],
+     "requirements": "77 Runecraft; 38 Mining and Crafting; medium Kourend & Kebos Diary",
+     "note": "Dense essence is mined yourself; the pet rolls per essence fragment crafted.",
+     "rateSource": "Wiki training guide: 1,474 blood runes per hour (no outfit)"
+    },
+    {
+     "id": "soul-arceuus",
+     "name": "Soul runes (Arceuus)",
+     "location": "Arceuus (Dark Altar)",
+     "baseChance": 782999,
+     "actionsPerHour": 1451,
+     "unit": "essence",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "566",
+       "perAction": 1.6
+      }
+     ],
+     "inputs": [],
+     "requirements": "90 Runecraft; 38 Mining and Crafting; medium Kourend & Kebos Diary",
+     "note": "Dense essence is mined yourself; the pet rolls per essence fragment crafted.",
+     "rateSource": "Wiki training guide: 1,451 soul runes per hour (no outfit)"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Runecraft; pet chance per essence crafted = 1 / (base chance - 25 x 99), using the Wiki's base chances. Crafting during Guardians of the Rift cannot give the pet, so it is not listed.",
+    "Essence per hour comes from the Wiki's training guide or money-making guide for each method (hover a method's name to see its source).",
+    "Full Raiments of the Eye (60% more runes) everywhere except the Ourania Altar; no abyssal lantern bonus. Runners are not used.",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "giant-squirrel",
+   "name": "Giant squirrel",
+   "skill": "Agility",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Giant_Squirrel",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per lap = 1 / (base chance - 25 x Agility level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "penguin",
+     "name": "Penguin Agility Course",
+     "location": "Iceberg, north of Rellekka",
+     "baseChance": 9779,
+     "actionsPerHour": 55.38,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "30 Agility; Cold War",
+     "rateSource": "Wiki (Giant squirrel page): 65.0-second laps at maximum efficiency",
+     "note": "No marks of grace or other rewards."
+    },
+    {
+     "id": "pyramid",
+     "name": "Agility Pyramid",
+     "location": "Kharidian Desert",
+     "baseChance": 9901,
+     "actionsPerHour": 25.99,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 10000
+      }
+     ],
+     "inputs": [],
+     "requirements": "30 Agility",
+     "rateSource": "Wiki (Giant squirrel page): 138.5-second laps at maximum efficiency",
+     "note": "Each lap ends with a pyramid top, sold to Simon Templeton for 10,000 coins."
+    },
+    {
+     "id": "ardougne",
+     "name": "Ardougne Rooftop",
+     "location": "East Ardougne",
+     "baseChance": 34440,
+     "actionsPerHour": 78.95,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.2786666666666667
+      }
+     ],
+     "inputs": [],
+     "requirements": "90 Agility; elite Ardougne Diary",
+     "rateSource": "Wiki (Giant squirrel page): 45.6-second laps at maximum efficiency; about 22 marks of grace per hour"
+    },
+    {
+     "id": "rellekka",
+     "name": "Rellekka Rooftop",
+     "location": "Rellekka",
+     "baseChance": 31063,
+     "actionsPerHour": 70.59,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.25145833333333334
+      }
+     ],
+     "inputs": [],
+     "requirements": "80 Agility; hard Fremennik Diary",
+     "rateSource": "Wiki (Giant squirrel page): 51.0-second laps at maximum efficiency; about 17.75 marks of grace per hour"
+    },
+    {
+     "id": "canifis",
+     "name": "Canifis Rooftop",
+     "location": "Canifis",
+     "baseChance": 36842,
+     "actionsPerHour": 82.19,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.18249999999999997
+      }
+     ],
+     "inputs": [],
+     "requirements": "40 Agility",
+     "rateSource": "Wiki (Giant squirrel page): 43.8-second laps at maximum efficiency; about 15 marks of grace per hour",
+     "note": "Canifis has no penalty for being far above its level."
+    },
+    {
+     "id": "seers",
+     "name": "Seers' Village Rooftop",
+     "location": "Seers' Village",
+     "baseChance": 35205,
+     "actionsPerHour": 100.0,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.030600000000000002
+      }
+     ],
+     "inputs": [],
+     "requirements": "60 Agility; hard Kandarin Diary",
+     "rateSource": "Wiki (Giant squirrel page): 36.0-second laps at maximum efficiency; about 15.3 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 3.1 an hour)."
+    },
+    {
+     "id": "pollnivneach",
+     "name": "Pollnivneach Rooftop",
+     "location": "Pollnivneach",
+     "baseChance": 33422,
+     "actionsPerHour": 59.41,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.05723333333333334
+      }
+     ],
+     "inputs": [],
+     "requirements": "70 Agility; hard Desert Diary",
+     "rateSource": "Wiki (Giant squirrel page): 60.6-second laps at maximum efficiency; about 17 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 3.4 an hour)."
+    },
+    {
+     "id": "werewolf",
+     "name": "Werewolf Agility Course",
+     "location": "Under Canifis",
+     "baseChance": 32597,
+     "actionsPerHour": 93.99,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.02659722222222222
+      }
+     ],
+     "inputs": [],
+     "requirements": "60 Agility; Creature of Fenkenstrain",
+     "rateSource": "Wiki (Giant squirrel page): 38.3-second laps at maximum efficiency; about 12.5 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 2.5 an hour)."
+    },
+    {
+     "id": "dorgesh",
+     "name": "Dorgesh-Kaan (Agility route)",
+     "location": "Dorgesh-Kaan",
+     "baseChance": 10561,
+     "actionsPerHour": 23.08,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.104
+      }
+     ],
+     "inputs": [],
+     "requirements": "70 Agility; Death to the Dorgeshuun",
+     "rateSource": "Wiki (Giant squirrel page): 156.0-second laps at maximum efficiency; about 12 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 2.4 an hour)."
+    },
+    {
+     "id": "ape-atoll",
+     "name": "Ape Atoll Agility Course",
+     "location": "Ape Atoll",
+     "baseChance": 37720,
+     "actionsPerHour": 94.74,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.011611111111111112
+      }
+     ],
+     "inputs": [],
+     "requirements": "48 Agility; Monkey Madness I",
+     "rateSource": "Wiki (Giant squirrel page): 38.0-second laps at maximum efficiency; about 5.5 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 1.1 an hour)."
+    },
+    {
+     "id": "falador",
+     "name": "Falador Rooftop",
+     "location": "Falador",
+     "baseChance": 26806,
+     "actionsPerHour": 61.86,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.03556666666666667
+      }
+     ],
+     "inputs": [],
+     "requirements": "50 Agility",
+     "rateSource": "Wiki (Giant squirrel page): 58.2-second laps at maximum efficiency; about 11 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 2.2 an hour)."
+    },
+    {
+     "id": "shayzien-adv",
+     "name": "Shayzien Agility Course (advanced)",
+     "location": "Shayzien",
+     "baseChance": 29738,
+     "actionsPerHour": 76.92,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.025999999999999995
+      }
+     ],
+     "inputs": [],
+     "requirements": "45 Agility",
+     "rateSource": "Wiki (Giant squirrel page): 46.8-second laps at maximum efficiency; about 10 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 2.0 an hour)."
+    },
+    {
+     "id": "gnome",
+     "name": "Gnome Stronghold Agility Course",
+     "location": "Tree Gnome Stronghold",
+     "baseChance": 35609,
+     "actionsPerHour": 105.88,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-mark-of-grace",
+       "perAction": 0.02077777777777778
+      }
+     ],
+     "inputs": [],
+     "requirements": "1 Agility",
+     "rateSource": "Wiki (Giant squirrel page): 34.0-second laps at maximum efficiency; about 11 marks of grace per hour before the 5x penalty for being 20+ levels above the course",
+     "note": "At 99 Agility marks of grace are 5x rarer here (about 2.2 an hour)."
+    },
+    {
+     "id": "prifddinas",
+     "name": "Prifddinas Agility Course",
+     "location": "Prifddinas",
+     "baseChance": 25146,
+     "actionsPerHour": 48.65,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "75 Agility; Song of the Elves",
+     "rateSource": "Wiki (Giant squirrel page): 74.0-second laps at maximum efficiency",
+     "note": "Rewards from the course (crystal shards from portals) are not counted."
+    },
+    {
+     "id": "brimhaven",
+     "name": "Brimhaven Agility Arena",
+     "location": "Brimhaven",
+     "baseChance": 26404,
+     "actionsPerHour": 60.0,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-brimhaven-voucher",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "1 Agility",
+     "rateSource": "Wiki (Giant squirrel page): one ticket per minute",
+     "note": "The pet is rolled per ticket; one ticket and one voucher per dispenser tagged (about 60 an hour)."
+    },
+    {
+     "id": "sepulchre",
+     "name": "Hallowed Sepulchre (floor 5)",
+     "location": "Darkmeyer",
+     "baseChance": 2000,
+     "actionsPerHour": 7.0,
+     "unit": "laps",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-hallowed-sepulchre-loot-per-run",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "92 Agility (87 with 84 Thieving); Sins of the Father",
+     "rateSource": "Wiki money-making guide: 7 runs per hour looting floors 4 and 5",
+     "note": "Fixed pet chance of 1/2,000 per run to floor 5. Loot is the Wiki money-making guide's average per run (with supplies deducted); it is fixed rather than updated weekly.",
+     "chancePerAction": 0.0005
+    }
+   ],
+   "assumptions": [
+    "Level 99 Agility; pet chance per lap (or per ticket at Brimhaven) = 1 / (base chance - 25 x 99), using the Wiki's base chances. The Hallowed Sepulchre has a fixed 1/2,000 chance per floor-5 run.",
+    "Lap times are the Wiki's maximum-efficiency figures (hover a method's name to see its source).",
+    "Marks of grace are valued at 10 amylase crystals, Brimhaven vouchers at 1/800 of a Pirate's hook, and pyramid tops at 10,000 coins. At 99 Agility, marks are 5x rarer on courses 20+ levels below you (all except Canifis, Rellekka and Ardougne).",
+    "The Colossal Wyrm course is not listed: the Wiki does not have its current pet rate. (Termites would be valued at 8 amylase crystals.)",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "soup",
+   "name": "Soup",
+   "skill": "Sailing",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Soup",
+   "level": 99,
+   "levelFactor": 0,
+   "petFormula": "Fixed chance per activity (not affected by Sailing level)",
+   "rollsLabel": "Pet rolls/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "courier-aldarin",
+     "name": "Courier tasks (Aldarin–Sunset Coast)",
+     "location": "Aldarin and the Sunset Coast",
+     "baseChance": 4691,
+     "chancePerAction": 0.00021317416329140907,
+     "actionsPerHour": 30,
+     "unit": "tasks",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 1110.2666666666667
+      }
+     ],
+     "inputs": [],
+     "requirements": "46 Sailing",
+     "note": "Level 46-50 courier tasks between Aldarin and the Sunset Coast (about 1/4,691 per task). Only coin bags are counted (4 in 5 tasks, tiny or small bags); reward bags, experience and shark paint are not.",
+     "rateSource": "Pet chance from the Wiki; 30 tasks per hour is an estimate, as the Wiki gives no completion rate"
+    },
+    {
+     "id": "gwenith-shark",
+     "name": "The Gwenith Glide (Shark)",
+     "location": "Barracuda Trials",
+     "baseChance": 4500,
+     "chancePerAction": 0.00022222222222222223,
+     "actionsPerHour": 15.52,
+     "unit": "runs",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "72 Sailing; Shark rank unlocked",
+     "note": "1/4,500 per completion, even if the target time is missed. Rewards are not counted.",
+     "rateSource": "Wiki Sailing training guide: 222-second target time plus 10 seconds between runs"
+    },
+    {
+     "id": "wreck-merchant",
+     "name": "Merchant shipwrecks",
+     "location": "Shipwreck salvaging",
+     "baseChance": 300000,
+     "chancePerAction": 3.3333333333333333e-06,
+     "actionsPerHour": 280,
+     "unit": "salvage",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 838.9464285714286
+      }
+     ],
+     "inputs": [],
+     "requirements": "87 Sailing; sloop with salvaging hooks and a salvaging station; crewmates",
+     "note": "The pet is only rolled on salvage you hook yourself (a third of it, 1/160,000), plus 1/800,000 per salvage sorted. Loot is the Wiki money-making guide's value (234,905 gp/hr), fixed rather than updated weekly.",
+     "rateSource": "Wiki money-making guide: 280 salvage per hour, hooking 1/3 yourself"
+    },
+    {
+     "id": "wreck-fremennik",
+     "name": "Fremennik shipwrecks",
+     "location": "Shipwreck salvaging",
+     "baseChance": 370470,
+     "chancePerAction": 2.699275362318841e-06,
+     "actionsPerHour": 310,
+     "unit": "salvage",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 801.1064516129032
+      }
+     ],
+     "inputs": [],
+     "requirements": "80 Sailing; sloop with salvaging hooks and a salvaging station; crewmates",
+     "note": "The pet is only rolled on salvage you hook yourself (a third of it, 1/230,000), plus 1/800,000 per salvage sorted. Loot is the Wiki money-making guide's value (248,343 gp/hr), fixed rather than updated weekly.",
+     "rateSource": "Wiki money-making guide: 310 salvage per hour, hooking 1/3 yourself"
+    },
+    {
+     "id": "wreck-mercenary",
+     "name": "Mercenary shipwrecks",
+     "location": "Shipwreck salvaging",
+     "baseChance": 315152,
+     "chancePerAction": 3.173076923076923e-06,
+     "actionsPerHour": 315,
+     "unit": "salvage",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 1106.5428571428572
+      }
+     ],
+     "inputs": [],
+     "requirements": "73 Sailing; sloop with salvaging hooks and a salvaging station; crewmates",
+     "note": "The pet is only rolled on salvage you hook yourself (half of it, 1/260,000), plus 1/800,000 per salvage sorted. Loot is the Wiki money-making guide's value (348,561 gp/hr), fixed rather than updated weekly.",
+     "rateSource": "Wiki money-making guide: 315 salvage per hour, hooking 1/2 yourself"
+    },
+    {
+     "id": "wreck-pirate",
+     "name": "Pirate shipwrecks",
+     "location": "Shipwreck salvaging",
+     "baseChance": 406154,
+     "chancePerAction": 2.462121212121212e-06,
+     "actionsPerHour": 360,
+     "unit": "salvage",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-coins",
+       "perAction": 618.5638888888889
+      }
+     ],
+     "inputs": [],
+     "requirements": "64 Sailing; sloop with salvaging hooks and a salvaging station; crewmates",
+     "note": "The pet is only rolled on salvage you hook yourself (a third of it, 1/275,000), plus 1/800,000 per salvage sorted. Loot is the Wiki money-making guide's value (222,683 gp/hr), fixed rather than updated weekly.",
+     "rateSource": "Wiki money-making guide: 360 salvage per hour, hooking 1/3 yourself"
+    }
+   ],
+   "assumptions": [
+    "Soup's chances are fixed per activity and do not improve with Sailing level; they come from the Wiki's Soup page.",
+    "The Barracuda Trials use only The Gwenith Glide at Shark rank, at the Wiki's target time plus 10 seconds between runs, with no profit counted. Courier tasks per hour are an estimate (hover a method's name to see each source).",
+    "Courier tasks count only their coin bags. Shipwreck loot uses each Wiki money-making guide's hourly profit, which is fixed rather than refreshed by the weekly price update.",
+    "Deep sea trawling, sea charting and trimming sails are not listed.",
+    "Methods are ranked by the average of their rank for hours to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "tangleroot",
+   "name": "Tangleroot",
+   "skill": "Farming",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Tangleroot",
+   "level": 99,
+   "levelFactor": 25,
+   "timeUnit": "day",
+   "petFormula": "Chance per patch check (or final harvest) = 1 / (base chance - 25 x Farming level)",
+   "rollsLabel": "Pet rolls/day",
+   "ranking": {
+    "label": "equal weight on days to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "herbs",
+     "name": "Herb run (torstol)",
+     "location": "9-10 herb patches",
+     "baseChance": 98364,
+     "actionsPerHour": 40,
+     "unit": "patches (10 x 4 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "219",
+       "perAction": 9.14
+      }
+     ],
+     "inputs": [
+      {
+       "item": "5304",
+       "perAction": 1
+      },
+      {
+       "item": "21483",
+       "perAction": 1
+      }
+     ],
+     "requirements": "85 Farming; magic secateurs",
+     "note": "8.8-9.1 herbs per patch as in the Wiki's money-making guide.",
+     "rateSource": "10 patches; 1.33333-hour growth (Wiki), so 4 runs a day (capped at 4 a day)"
+    },
+    {
+     "id": "magic-trees",
+     "name": "Tree run (magic trees)",
+     "location": "6 tree patches",
+     "baseChance": 9368,
+     "actionsPerHour": 18.0,
+     "unit": "patches (6 x 3 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "6051",
+       "perAction": 2.5
+      }
+     ],
+     "inputs": [
+      {
+       "item": "5316",
+       "perAction": 1
+      },
+      {
+       "item": "5974",
+       "perAction": 25
+      }
+     ],
+     "requirements": "75 Farming",
+     "note": "Trees are dug up for roots and replanted; the 25-coconut payment protects each tree. Logs are not counted.",
+     "rateSource": "6 patches; 8-hour growth (Wiki), so 3 runs a day"
+    },
+    {
+     "id": "dragonfruit",
+     "name": "Fruit tree run (dragonfruit)",
+     "location": "6 fruit tree patches",
+     "baseChance": 9000,
+     "actionsPerHour": 9.0,
+     "unit": "patches (6 x 1.5 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "22929",
+       "perAction": 6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "22877",
+       "perAction": 1
+      },
+      {
+       "item": "5974",
+       "perAction": 15
+      }
+     ],
+     "requirements": "81 Farming",
+     "note": "",
+     "rateSource": "6 patches; 16-hour growth (Wiki), so 1.5 runs a day"
+    },
+    {
+     "id": "palm",
+     "name": "Fruit tree run (palm trees)",
+     "location": "6 fruit tree patches",
+     "baseChance": 9000,
+     "actionsPerHour": 9.0,
+     "unit": "patches (6 x 1.5 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "5974",
+       "perAction": 6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "5289",
+       "perAction": 1
+      },
+      {
+       "item": "5972",
+       "perAction": 15
+      }
+     ],
+     "requirements": "68 Farming",
+     "note": "",
+     "rateSource": "6 patches; 16-hour growth (Wiki), so 1.5 runs a day"
+    },
+    {
+     "id": "calquat",
+     "name": "Calquat tree",
+     "location": "Tai Bwo Wannai",
+     "baseChance": 6000,
+     "actionsPerHour": 1.125,
+     "unit": "patches (1 x 1.1 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "5980",
+       "perAction": 6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "5290",
+       "perAction": 1
+      },
+      {
+       "item": "6018",
+       "perAction": 8
+      }
+     ],
+     "requirements": "72 Farming",
+     "note": "",
+     "rateSource": "1 patch; 21.3333-hour growth (Wiki), so 1.1 runs a day"
+    },
+    {
+     "id": "celastrus",
+     "name": "Celastrus tree",
+     "location": "Farming Guild",
+     "baseChance": 9000,
+     "actionsPerHour": 1.8,
+     "unit": "patches (1 x 1.8 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "22935",
+       "perAction": 3
+      }
+     ],
+     "inputs": [
+      {
+       "item": "22869",
+       "perAction": 1
+      },
+      {
+       "item": "3138",
+       "perAction": 8
+      }
+     ],
+     "requirements": "85 Farming",
+     "note": "",
+     "rateSource": "1 patch; 13.3333-hour growth (Wiki), so 1.8 runs a day"
+    },
+    {
+     "id": "crystal",
+     "name": "Crystal tree",
+     "location": "Prifddinas",
+     "baseChance": 9000,
+     "actionsPerHour": 3.0,
+     "unit": "patches (1 x 3 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-crystal-shard-as-divine-potions",
+       "perAction": 24
+      }
+     ],
+     "inputs": [],
+     "requirements": "74 Farming; Song of the Elves",
+     "note": "About 24 crystal shards per tree, valued as divine super combat potions (as on the beaver page). Crystal acorns are untradeable, so they are not costed.",
+     "rateSource": "1 patch; 8-hour growth (Wiki), so 3 runs a day"
+    },
+    {
+     "id": "redwood",
+     "name": "Redwood tree",
+     "location": "Farming Guild",
+     "baseChance": 5000,
+     "actionsPerHour": 0.225,
+     "unit": "patches (1 x 0.22 runs)",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [
+      {
+       "item": "22871",
+       "perAction": 1
+      },
+      {
+       "item": "22929",
+       "perAction": 6
+      }
+     ],
+     "requirements": "90 Farming",
+     "note": "Logs are not counted.",
+     "rateSource": "1 patch; 106.667-hour growth (Wiki), so 0.22 runs a day"
+    },
+    {
+     "id": "spirit",
+     "name": "Spirit trees",
+     "location": "Up to 5 spirit tree patches",
+     "baseChance": 5000,
+     "actionsPerHour": 1.875,
+     "unit": "patches (5 x 0.38 runs)",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [
+      {
+       "item": "4012",
+       "perAction": 5
+      },
+      {
+       "item": "4014",
+       "perAction": 1
+      }
+     ],
+     "requirements": "83 Farming",
+     "note": "Spirit seeds and ground teeth are untradeable, so they are not costed.",
+     "rateSource": "5 patches; 64-hour growth (Wiki), so 0.38 runs a day"
+    },
+    {
+     "id": "mahogany",
+     "name": "Hardwood trees (mahogany)",
+     "location": "Fossil Island and Avium Savannah",
+     "baseChance": 5000,
+     "actionsPerHour": 1.125,
+     "unit": "patches (4 x 0.28 runs)",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [
+      {
+       "item": "21488",
+       "perAction": 1
+      },
+      {
+       "item": "5998",
+       "perAction": 25
+      }
+     ],
+     "requirements": "55 Farming",
+     "note": "Logs are not counted.",
+     "rateSource": "4 patches; 85.3333-hour growth (Wiki), so 0.28 runs a day"
+    },
+    {
+     "id": "hespori",
+     "name": "Hespori",
+     "location": "Farming Guild",
+     "baseChance": 7000,
+     "actionsPerHour": 0.75,
+     "unit": "patches (1 x 0.75 runs)",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "65 Farming",
+     "note": "Hespori seeds and the anima seeds it drops are untradeable, so there is no profit.",
+     "rateSource": "1 patch; 32-hour growth (Wiki), so 0.75 runs a day"
+    },
+    {
+     "id": "belladonna",
+     "name": "Belladonna",
+     "location": "Draynor Manor",
+     "baseChance": 8000,
+     "actionsPerHour": 4,
+     "unit": "patches (1 x 4 runs)",
+     "inventory": "bank",
+     "outputs": [],
+     "inputs": [
+      {
+       "item": "5281",
+       "perAction": 1
+      }
+     ],
+     "requirements": "63 Farming",
+     "note": "Nightshade has no Grand Exchange price, so only the seed cost is counted.",
+     "rateSource": "1 patch; 5.33333-hour growth (Wiki), so 4 runs a day (capped at 4 a day)"
+    },
+    {
+     "id": "cactus",
+     "name": "Cactus",
+     "location": "Al Kharid and the Farming Guild",
+     "baseChance": 7000,
+     "actionsPerHour": 5.1429,
+     "unit": "patches (2 x 2.6 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "6016",
+       "perAction": 3
+      }
+     ],
+     "inputs": [
+      {
+       "item": "5280",
+       "perAction": 1
+      },
+      {
+       "item": "753",
+       "perAction": 6
+      }
+     ],
+     "requirements": "55 Farming",
+     "note": "Not potato cactus, which has a much worse pet rate.",
+     "rateSource": "2 patches; 9.33333-hour growth (Wiki), so 2.6 runs a day"
+    },
+    {
+     "id": "seaweed",
+     "name": "Giant seaweed",
+     "location": "Fossil Island (underwater)",
+     "baseChance": 7500,
+     "actionsPerHour": 8,
+     "unit": "patches (2 x 4 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "21504",
+       "perAction": 4
+      }
+     ],
+     "inputs": [
+      {
+       "item": "21490",
+       "perAction": 1
+      }
+     ],
+     "requirements": "23 Farming; Bone Voyage",
+     "note": "About 4 giant seaweed per patch (estimate).",
+     "rateSource": "2 patches; 0.666667-hour growth (Wiki), so 4 runs a day (capped at 4 a day)"
+    },
+    {
+     "id": "mushrooms",
+     "name": "Mushrooms",
+     "location": "Canifis",
+     "baseChance": 7500,
+     "actionsPerHour": 4,
+     "unit": "patches (1 x 4 runs)",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "6004",
+       "perAction": 6
+      }
+     ],
+     "inputs": [
+      {
+       "item": "5282",
+       "perAction": 1
+      }
+     ],
+     "requirements": "53 Farming",
+     "note": "",
+     "rateSource": "1 patch; 4-hour growth (Wiki), so 4 runs a day (capped at 4 a day)"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Farming; pet chance per patch check (or final harvest where a patch has no health check) = 1 / (base chance - 25 x 99), using the Wiki's base chances.",
+    "Time is real-world days: each run is done every time it is ready, up to 4 runs a day (so herb, seaweed, belladonna and mushroom runs are capped at 4 a day). Every patch survives.",
+    "Profit counts produce sold on the Grand Exchange minus seeds, protection payments and compost where listed. Farming experience, tree logs, and untradeable seeds are not counted.",
+    "The Wiki suggests combining runs (trees plus cactus, belladonna, hespori, seaweed and mushrooms) for the fastest pet; each run here is shown on its own.",
+    "Methods are ranked by the average of their rank for days to pet (fastest first) and their rank for total profit by the pet rate (highest first); ties go to the faster pet."
+   ]
+  },
+  {
+   "id": "abyssal-protector",
+   "name": "Abyssal protector",
+   "skill": "Runecraft",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Abyssal_protector",
+   "level": 99,
+   "levelFactor": 0,
+   "petFormula": "Fixed 1/4,000 per Rewards Guardian search",
+   "rollsLabel": "Searches/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "gotr",
+     "name": "Guardians of the Rift (points only)",
+     "location": "Temple of the Eye",
+     "baseChance": 4000,
+     "chancePerAction": 0.00025,
+     "actionsPerHour": 36,
+     "unit": "searches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-rewards-guardian-search-wiki-average",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Temple of the Eye; 27 Runecraft",
+     "note": "Full points each game (600 elemental and 600 catalytic energy), so 6 searches per game. Abyssal pearls are kept for the Raiments of the Eye and other rewards.",
+     "rateSource": "Wiki: up to 1,200 energy per game (6 searches when split evenly); about 6 games per hour is an estimate"
+    },
+    {
+     "id": "gotr-pearls",
+     "name": "Guardians of the Rift (spending pearls)",
+     "location": "Temple of the Eye",
+     "baseChance": 4000,
+     "chancePerAction": 0.00025,
+     "actionsPerHour": 39.37,
+     "unit": "searches",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-rewards-guardian-search-wiki-average",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "Temple of the Eye; 27 Runecraft",
+     "note": "As above, but every 25 abyssal pearls are spent on an extra search (about 2.14 pearls come from each search), about 9% more searches.",
+     "rateSource": "Wiki: 2.14 pearls per search and 25 pearls per extra search; about 6 games per hour is an estimate"
+    }
+   ],
+   "assumptions": [
+    "The Abyssal protector is a fixed 1/4,000 per Rewards Guardian search, whatever your level; searches bought with abyssal pearls can also give it.",
+    "Maximum points each game: 1,200 energy split evenly, giving 6 searches. About 6 games an hour is an estimate (hover a method to see its source); the Abyssal lantern with yew logs would add about 10% more.",
+    "Each search is valued at the Wiki's average of 5,303 gp (runes and talismans), a fixed figure. Abyssal pearls, pouches and other untradeable rewards count as 0, and runes you craft during games are not counted."
+   ]
+  },
+  {
+   "id": "herbi",
+   "name": "Herbi",
+   "skill": "Hunter",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Herbi",
+   "level": 99,
+   "levelFactor": 0,
+   "petFormula": "Fixed 1/6,500 per herbiboar harvested",
+   "rollsLabel": "Herbiboars/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "herbiboar",
+     "name": "Herbiboar hunting",
+     "location": "Mushroom Forest, Fossil Island",
+     "baseChance": 6500,
+     "chancePerAction": 0.00015384615384615385,
+     "actionsPerHour": 60,
+     "unit": "herbiboars",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "199",
+       "perAction": 0.575
+      },
+      {
+       "item": "207",
+       "perAction": 0.246
+      },
+      {
+       "item": "209",
+       "perAction": 0.221
+      },
+      {
+       "item": "211",
+       "perAction": 0.249
+      },
+      {
+       "item": "213",
+       "perAction": 0.327
+      },
+      {
+       "item": "3051",
+       "perAction": 0.207
+      },
+      {
+       "item": "215",
+       "perAction": 0.341
+      },
+      {
+       "item": "2485",
+       "perAction": 0.327
+      },
+      {
+       "item": "217",
+       "perAction": 0.28099999999999997
+      },
+      {
+       "item": "219",
+       "perAction": 0.226
+      },
+      {
+       "item": "21555",
+       "perAction": 13.366666666666667
+      }
+     ],
+     "inputs": [
+      {
+       "item": "12625",
+       "perAction": 0.125
+      }
+     ],
+     "requirements": "80 Hunter; 31 Herblore; Bone Voyage; magic secateurs",
+     "note": "Herbs at 99 Herblore with magic secateurs, plus numulite, as in the Wiki money-making guide; stamina potions counted.",
+     "rateSource": "Wiki money-making guide: 60 herbiboars per hour"
+    }
+   ],
+   "assumptions": [
+    "Herbi is a fixed 1/6,500 per herbiboar harvested, whatever your level.",
+    "Herb yields assume 99 Herblore and magic secateurs, from the Wiki's money-making guide; herbs are sold grimy."
+   ]
+  },
+  {
+   "id": "quetzin",
+   "name": "Quetzin",
+   "skill": "Hunter",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Quetzin",
+   "level": 99,
+   "levelFactor": 0,
+   "petFormula": "Fixed 1/1,000 per expert or master hunters' loot sack",
+   "rollsLabel": "Rumours/hr",
+   "ranking": {
+    "label": "equal weight on hours to pet and total profit",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "master-rumours",
+     "name": "Master rumours",
+     "location": "Hunter Guild (Varlamore)",
+     "baseChance": 1000,
+     "chancePerAction": 0.001,
+     "actionsPerHour": 10,
+     "unit": "rumours",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-hunters-loot-sack-master-wiki-average",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "91 Hunter; Children of the Sun",
+     "note": "One master hunters' loot sack per rumour (1/1,000 for Quetzin), valued at the Wiki's average of 28,216 gp, a fixed figure. Creature drops caught along the way are not counted.",
+     "rateSource": "Estimate: about 10 rumours per hour (the Wiki gives 250,000 XP/hr at 99 but not rumours per hour)"
+    },
+    {
+     "id": "expert-rumours",
+     "name": "Expert rumours",
+     "location": "Hunter Guild (Varlamore)",
+     "baseChance": 1000,
+     "chancePerAction": 0.001,
+     "actionsPerHour": 10,
+     "unit": "rumours",
+     "inventory": "bank",
+     "outputs": [
+      {
+       "item": "x-hunters-loot-sack-expert-wiki-average",
+       "perAction": 1
+      }
+     ],
+     "inputs": [],
+     "requirements": "72 Hunter; Children of the Sun",
+     "note": "One expert hunters' loot sack per rumour (1/1,000 for Quetzin), valued at the Wiki's average of 23,301 gp, a fixed figure. Creature drops caught along the way are not counted.",
+     "rateSource": "Estimate: about 10 rumours per hour (the Wiki gives 250,000 XP/hr at 99 but not rumours per hour)"
+    }
+   ],
+   "assumptions": [
+    "Quetzin is a fixed 1/1,000 per expert or master hunters' loot sack (15 times more common at 200 million Hunter experience, which is not assumed).",
+    "About 10 rumours an hour is an estimate; each loot sack is valued at the Wiki's average, a fixed figure."
+   ]
+  },
+  {
+   "id": "mr-mcgroot",
+   "name": "Mr McGroot",
+   "skill": "Hunter",
+   "wikiUrl": "https://oldschool.runescape.wiki/w/Mr_McGroot",
+   "level": 99,
+   "levelFactor": 25,
+   "petFormula": "Chance per goat = 1 / (40,000 - 25 x Hunter level)",
+   "rollsLabel": "Goats/hr",
+   "costOnly": true,
+   "ranking": {
+    "label": "equal weight on hours to pet and total cost",
+    "method": "averageRank",
+    "top": 5,
+    "excludeTickManipulation": true
+   },
+   "methods": [
+    {
+     "id": "telegrab",
+     "name": "Telekinetic Grab",
+     "location": "Wyrmscraig goat pit",
+     "baseChance": 40000,
+     "actionsPerHour": 926,
+     "unit": "goats",
+     "inventory": "drop",
+     "outputs": [],
+     "inputs": [
+      {
+       "item": "563",
+       "perAction": 1
+      },
+      {
+       "item": "556",
+       "perAction": 1
+      }
+     ],
+     "requirements": "60 Hunter; Sheep Herder",
+     "note": "One law rune and one air rune per goat (a staff of air would save the air runes).",
+     "rateSource": "Wiki: 175,000 XP/hr at 99 with Telekinetic Grab (179 XP per goat looted + 10 per goat pitted)"
+    },
+    {
+     "id": "prod",
+     "name": "Cattleprod",
+     "location": "Wyrmscraig goat pit",
+     "baseChance": 40000,
+     "actionsPerHour": 804,
+     "unit": "goats",
+     "inventory": "drop",
+     "outputs": [],
+     "inputs": [],
+     "requirements": "60 Hunter; Sheep Herder",
+     "note": "The cattleprod and spikes are free from the supplies nearby.",
+     "rateSource": "Wiki: 160,000 XP/hr at 99 with a cattleprod (179 XP per goat looted + 20 per goat pitted)"
+    }
+   ],
+   "assumptions": [
+    "Level 99 Hunter; pet chance per goat = 1 / (40,000 - 25 x 99) = 1/37,525.",
+    "Goat furs and horns are assumed to be dropped, so the table shows only what each method costs by the pet rate (0 for the cattleprod)."
+   ]
+  }
+ ]
+}
