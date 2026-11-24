@@ -32,9 +32,15 @@ SKILLS = ["Attack", "Hitpoints", "Mining", "Strength", "Agility", "Smithing", "D
           "Fletching", "Woodcutting", "Runecraft", "Slayer", "Farming", "Construction", "Hunter", "Sailing"]
 OPTIONAL = re.compile(r"\bif you\b|optional|recommended|not required|faster|alternatively|\bor\b.*\binstead\b", re.I)
 # Links in Quest fields that aren't quests
-NOT_QUESTS = {"morytania", "varlamore", "wyrmscraig", "vampyrium", "dad", "piety", "royal seed pod",
+NOT_QUESTS = {"morytania", "varlamore", "wyrmscraig", "vampyrium", "waterbirth island", "dad", "piety", "royal seed pod",
               "miniquest", "ancient magicks", "elite void knight equipment", "crystal halberd",
               "easy combat achievements", "western_provinces_diary", "hard kandarin diary"}
+
+# Bosses whose only guide covers more than them: take its requirements, not its rate or supplies
+REQUIREMENTS_FROM = {
+    "dagannoth_prime": "Money making guide/Killing Dagannoth Kings (Solo tribrid)",
+    "dagannoth_supreme": "Money making guide/Killing Dagannoth Kings (Solo tribrid)",
+}
 
 slug = lambda s: re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_")
 
@@ -95,23 +101,26 @@ def main():
     quests_path = ROOT / "data/quests.json"
     quests_doc = json.loads(quests_path.read_text(encoding="utf-8")) if quests_path.exists() else \
         {"meta": {"description": "Quests the app knows. Milestones (partial completion steps) are curated by hand."}, "quests": {}}
+    # Rebuilt from the guides each run; entries that are kept keep any hand-curated fields
+    old_quests, quests_doc["quests"] = quests_doc["quests"], {}
     md = ["# Requirements review", "", "From each setup's Wiki guide. Skill levels include recommended ones (for now).", ""]
     for b in doc["bosses"]:
         for s in b["setups"]:
-            if not s.get("guide") or s["guide"] not in pages:
+            guide = s.get("guide") or REQUIREMENTS_FROM.get(b["id"])
+            if not guide or guide not in pages:
                 continue
-            p = imp.template_params(pages[s["guide"]])
+            p = imp.template_params(pages[guide])
             reqs = skill_reqs(p.get("Skill", ""))
             qreqs, skipped = quest_reqs(p.get("Quest", ""), items_by_name)
             for q in qreqs:
-                quests_doc["quests"].setdefault(q["quest"], {"name": q.pop("_name")})
+                quests_doc["quests"].setdefault(q["quest"], old_quests.get(q["quest"]) or {"name": q["_name"]})
                 q.pop("_name", None)
             # one entry per quest
             seen = set()
             qreqs = [q for q in qreqs if not (q["quest"] in seen or seen.add(q["quest"]))]
             all_reqs = reqs + qreqs
             s["requires"] = {"all": all_reqs} if all_reqs else None
-            s["requiresSource"] = "Wiki guide (recommended levels included)"
+            s["requiresSource"] = f"Wiki: {guide[len(imp.PREFIX):]} (recommended levels included)"
             def show(r):
                 if "any" in r: return " or ".join(show(x) for x in r["any"])
                 if "skill" in r: return f"{r['skill']} {r['level']}"

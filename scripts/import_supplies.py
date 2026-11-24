@@ -89,6 +89,15 @@ def fetch_pages(titles):
 norm = lambda s: re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
 
 
+# Guides whose titles don't name the boss (title after "Money making guide/")
+EXTRA_TITLES = {
+    "sol_heredit": ["Completing the Fortis Colosseum (Wave 12)"],
+    "dagannoth_rex": ["Killing Dagannoth Kings (Rex only)"],
+}
+# Fetched for their requirements only (see apply_requirements.py)
+FETCH_ONLY = ["Killing Dagannoth Kings (Solo tribrid)"]
+
+
 def match_guides(bosses, titles):
     """Guide pages whose title mentions the boss, e.g. 'Killing Vorkath (Toxic blowpipe)'.
     A title is given to the boss with the longest matching name, so 'Phosani's Nightmare'
@@ -100,7 +109,10 @@ def match_guides(bosses, titles):
         best = max(((len(n), bid) for bid, ns in names.items() for n in ns if re.search(rf"\b{re.escape(n)}\b", tt)), default=None)
         if best:
             out.setdefault(best[1], []).append(t)
-    return {k: sorted(v) for k, v in out.items()}
+    for bid, extra in EXTRA_TITLES.items():
+        if bid in names:
+            out.setdefault(bid, []).extend(PREFIX + t for t in extra if PREFIX + t in titles)
+    return {k: sorted(set(v)) for k, v in out.items()}
 
 
 # ---------- Parsing: the Wiki's {{Mmgtable}} template ----------
@@ -298,7 +310,7 @@ def main():
     print("Stage 1: listing money-making guides", flush=True)
     titles = cached("guide_titles.json", list_guides, refetch)
     matches = match_guides(bosses + NEW_BOSSES, titles)
-    wanted = sorted({t for ts in matches.values() for t in ts})
+    wanted = sorted({t for ts in matches.values() for t in ts} | {PREFIX + t for t in FETCH_ONLY if PREFIX + t in titles})
     print(f"  {len(titles)} guides, {len(wanted)} match {len(matches)} of our {len(bosses)} bosses", flush=True)
 
     print("Stage 2: fetching matched guide pages", flush=True)

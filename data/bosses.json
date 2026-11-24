@@ -779,7 +779,7 @@
      ],
      "costSource": "Wiki: Killing the Abyssal Sire (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Abyssal Sire",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Abyssal Sire (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -1487,7 +1487,7 @@
      ],
      "costSource": "Wiki: Killing the Alchemical Hydra (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Alchemical Hydra",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Alchemical Hydra (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -1826,7 +1826,7 @@
      ],
      "costSource": "Wiki: Killing Amoxliatl (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Amoxliatl",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Amoxliatl (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -2567,7 +2567,7 @@
      ],
      "costSource": "Wiki: Killing Araxxor (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Araxxor",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Araxxor (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -2988,7 +2988,7 @@
      ],
      "costSource": "Wiki: Killing Artio (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Artio",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Artio (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -3635,7 +3635,7 @@
      ],
      "costSource": "Wiki: Killing Callisto (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Callisto",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Callisto (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -4039,7 +4039,7 @@
      ],
      "costSource": "Wiki: Killing Calvar'ion (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Calvar'ion",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Calvar'ion (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -4836,7 +4836,7 @@
      ],
      "costSource": "Wiki: Killing Cerberus (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Cerberus",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Cerberus (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -5260,7 +5260,7 @@
      "raid": {
       "mode": "challenge"
      },
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Chambers of Xeric (Challenge Mode) (recommended levels included)"
     },
     {
      "id": "budget",
@@ -5381,7 +5381,7 @@
      "raid": {
       "mode": "normal"
      },
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Chambers of Xeric (Normal Mode) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -5949,7 +5949,7 @@
      ],
      "costSource": "Wiki: Killing Chaos Elemental (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Chaos Elemental",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Chaos Elemental (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -6409,7 +6409,7 @@
      ],
      "costSource": "Wiki: Killing Commander Zilyana (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Commander Zilyana",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Commander Zilyana (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -6807,7 +6807,7 @@
      ],
      "costSource": "Wiki: Killing the Corporeal Beast (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Corporeal Beast",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Corporeal Beast (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -7071,7 +7071,7 @@
      "supplies": [],
      "costSource": "Wiki: Completing The Corrupted Gauntlet (per completion, teleports excluded)",
      "guide": "Money making guide/Completing The Corrupted Gauntlet",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Completing The Corrupted Gauntlet (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -7684,11 +7684,42 @@
      "unitsPerHr": 8.333,
      "unitsPerHrSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 85
+       },
+       {
+        "skill": "Ranged",
+        "level": 85
+       },
+       {
+        "skill": "Magic",
+        "level": 85
+       },
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "skill": "Agility",
+        "level": 85
+       },
+       {
+        "quest": "the_fremennik_trials"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [],
      "costSource": "Wiki money-making guide supplies (281,248 gp per hour at 25 per hour)",
-     "flatCostPerUnit": 11250
+     "flatCostPerUnit": 11250,
+     "requiresSource": "Wiki: Killing Dagannoth Kings (Solo tribrid) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -8242,14 +8273,65 @@
     {
      "id": "high",
      "label": "High level",
-     "unitsPerHr": 28,
-     "unitsPerHrSource": "Wiki money-making guide (Rex only)",
+     "unitsPerHr": 28.0,
+     "unitsPerHrSource": "Wiki: Killing Dagannoth Kings (Rex only)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Magic",
+        "level": 78
+       },
+       {
+        "skill": "Defence",
+        "level": 40
+       },
+       {
+        "skill": "Prayer",
+        "level": 43
+       },
+       {
+        "skill": "Agility",
+        "level": 85
+       },
+       {
+        "quest": "the_fremennik_trials"
+       }
+      ]
+     },
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (170,317 gp per hour at 28 per hour)",
-     "flatCostPerUnit": 6083
+     "supplies": [
+      {
+       "item": "gp:Iban Blast",
+       "label": "Iban Blast",
+       "gp": 238.0,
+       "qty": 23.0,
+       "per": "unit"
+      },
+      {
+       "item": "5952",
+       "qty": 0.035714,
+       "per": "unit"
+      },
+      {
+       "item": "2434",
+       "qty": 0.017857,
+       "per": "unit"
+      },
+      {
+       "item": "12625",
+       "qty": 0.035714,
+       "per": "unit"
+      },
+      {
+       "item": "2301",
+       "qty": 0.642857,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Killing Dagannoth Kings (Rex only) (per kill, teleports excluded)",
+     "guide": "Money making guide/Killing Dagannoth Kings (Rex only)",
+     "requiresSource": "Wiki: Killing Dagannoth Kings (Rex only) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -8855,11 +8937,42 @@
      "unitsPerHr": 8.333,
      "unitsPerHrSource": "Wiki money-making guide (solo tribrid: 25 kills an hour across all three kings)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 85
+       },
+       {
+        "skill": "Ranged",
+        "level": 85
+       },
+       {
+        "skill": "Magic",
+        "level": 85
+       },
+       {
+        "skill": "Defence",
+        "level": 70
+       },
+       {
+        "skill": "Prayer",
+        "level": 74
+       },
+       {
+        "skill": "Agility",
+        "level": 85
+       },
+       {
+        "quest": "the_fremennik_trials"
+       }
+      ]
+     },
      "gear": [],
      "supplies": [],
      "costSource": "Wiki money-making guide supplies (281,248 gp per hour at 25 per hour)",
-     "flatCostPerUnit": 11250
+     "flatCostPerUnit": 11250,
+     "requiresSource": "Wiki: Killing Dagannoth Kings (Solo tribrid) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -11060,7 +11173,7 @@
      "costSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16) (per run, teleports excluded)",
      "guide": "Money making guide/Killing the Doom of Mokhaiotl (Delve 1-16)",
      "delve": 16,
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -11500,7 +11613,7 @@
      ],
      "costSource": "Wiki: Killing Duke Sucellus (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Duke Sucellus",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Duke Sucellus (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -11757,7 +11870,7 @@
      "supplies": [],
      "costSource": "Wiki: Completing The Gauntlet (per completion, teleports excluded)",
      "guide": "Money making guide/Completing The Gauntlet",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Completing The Gauntlet (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -12394,7 +12507,7 @@
      ],
      "costSource": "Wiki: Killing General Graardor (per kill, teleports excluded)",
      "guide": "Money making guide/Killing General Graardor",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing General Graardor (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -12828,7 +12941,7 @@
      ],
      "costSource": "Wiki: Killing the Giant Mole (Twisted bow) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Giant Mole (Twisted bow)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Giant Mole (Twisted bow) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -13224,7 +13337,7 @@
      ],
      "costSource": "Wiki: Killing the Grotesque Guardians (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Grotesque Guardians",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Grotesque Guardians (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -13577,7 +13690,7 @@
      "team": {
       "size": 1
      },
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Hueycoatl (Solo) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -14194,7 +14307,7 @@
      ],
      "costSource": "Wiki: Killing the Kalphite Queen (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Kalphite Queen",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Kalphite Queen (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -14644,7 +14757,7 @@
      ],
      "costSource": "Wiki: Killing the King Black Dragon (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the King Black Dragon",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the King Black Dragon (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -15263,7 +15376,7 @@
      ],
      "costSource": "Wiki: Killing the Kraken (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Kraken",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Kraken (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -15715,7 +15828,7 @@
      ],
      "costSource": "Wiki: Killing Kree'arra (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Kree'arra",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Kree'arra (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -16141,7 +16254,7 @@
      ],
      "costSource": "Wiki: Killing K'ril Tsutsaroth (per kill, teleports excluded)",
      "guide": "Money making guide/Killing K'ril Tsutsaroth",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing K'ril Tsutsaroth (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -16565,7 +16678,7 @@
      ],
      "costSource": "Wiki: Killing The Leviathan (per kill, teleports excluded)",
      "guide": "Money making guide/Killing The Leviathan",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing The Leviathan (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -17022,7 +17135,7 @@
      ],
      "costSource": "Wiki: Killing the Mad Angel (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Mad Angel",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Mad Angel (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -17304,7 +17417,7 @@
      ],
      "costSource": "Wiki: Killing the Maggot King (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Maggot King",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Maggot King (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -17646,7 +17759,7 @@
      "team": {
       "size": 2
      },
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Nex (Duo) (recommended levels included)"
     },
     {
      "id": "budget",
@@ -17741,7 +17854,7 @@
      ],
      "costSource": "Wiki: Killing Nex (Team) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Nex (Team)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Nex (Team) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -18145,7 +18258,7 @@
      ],
      "costSource": "Wiki: Killing The Nightmare (per kill, teleports excluded)",
      "guide": "Money making guide/Killing The Nightmare",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing The Nightmare (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -18914,7 +19027,7 @@
      ],
      "costSource": "Wiki: Killing Phantom Muspah (Twisted bow) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Phantom Muspah (Twisted bow)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Phantom Muspah (Twisted bow) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -19262,7 +19375,7 @@
      ],
      "costSource": "Wiki: Killing Phosani's Nightmare (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Phosani's Nightmare",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Phosani's Nightmare (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -20430,7 +20543,7 @@
      ],
      "costSource": "Wiki: Killing Sarachnis (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Sarachnis",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Sarachnis (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -20774,7 +20887,7 @@
      ],
      "costSource": "Wiki: Killing Scorpia (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Scorpia",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Scorpia (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -21011,7 +21124,7 @@
      ],
      "costSource": "Wiki: Killing Scurrius (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Scurrius",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Scurrius (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -21874,13 +21987,112 @@
      "id": "high",
      "label": "High level",
      "unitsPerHr": 2.5,
-     "unitsPerHrSource": "Wiki money-making guide (full Colosseum runs)",
+     "unitsPerHrSource": "Wiki: Completing the Fortis Colosseum (Wave 12)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Attack",
+        "level": 95
+       },
+       {
+        "skill": "Strength",
+        "level": 95
+       },
+       {
+        "skill": "Defence",
+        "level": 90
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 95
+       },
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Magic",
+        "level": 94
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       },
+       {
+        "quest": "children_of_the_sun"
+       }
+      ]
+     },
      "gear": [],
-     "supplies": [],
-     "costSource": "Wiki money-making guide supplies (1,306,162 gp per hour at 2.5 per hour)",
-     "flatCostPerUnit": 522465
+     "supplies": [
+      {
+       "item": "23685",
+       "qty": 1.25,
+       "per": "unit"
+      },
+      {
+       "item": "23733",
+       "qty": 1.25,
+       "per": "unit"
+      },
+      {
+       "item": "3024",
+       "qty": 6.0,
+       "per": "unit"
+      },
+      {
+       "item": "6685",
+       "qty": 2.0,
+       "per": "unit"
+      },
+      {
+       "item": "24777",
+       "qty": 0.022,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Death Charge",
+       "label": "Death Charge",
+       "gp": 1330.0,
+       "qty": 15.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Resurrect Greater Ghost",
+       "label": "Resurrect Greater Ghost",
+       "gp": 2510.0,
+       "qty": 15.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Scythe of Vitur",
+       "label": "Scythe of Vitur",
+       "gp": 739.4300000000001,
+       "qty": 200.0,
+       "per": "unit"
+      },
+      {
+       "item": "11212",
+       "qty": 11.0,
+       "per": "unit"
+      },
+      {
+       "item": "27616",
+       "qty": 11.0,
+       "per": "unit"
+      },
+      {
+       "item": "gp:Tumeken's shadow",
+       "label": "Tumeken's shadow",
+       "gp": 1038.0,
+       "qty": 11.0,
+       "per": "unit"
+      }
+     ],
+     "costSource": "Wiki: Completing the Fortis Colosseum (Wave 12) (per full Colosseum run, teleports excluded)",
+     "guide": "Money making guide/Completing the Fortis Colosseum (Wave 12)",
+     "requiresSource": "Wiki: Completing the Fortis Colosseum (Wave 12) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -22281,7 +22493,7 @@
      ],
      "costSource": "Wiki: Killing Spindel (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Spindel",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Spindel (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -22475,7 +22687,7 @@
      ],
      "costSource": "Wiki: Subduing Tempoross (per reward roll, teleports excluded)",
      "guide": "Money making guide/Subduing Tempoross",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Subduing Tempoross (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -22917,7 +23129,7 @@
      ],
      "costSource": "Wiki: Theatre of Blood (per raid, teleports excluded)",
      "guide": "Money making guide/Theatre of Blood",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Theatre of Blood (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -23374,7 +23586,7 @@
      ],
      "costSource": "Wiki: Killing the Thermonuclear smoke devil (per kill, teleports excluded)",
      "guide": "Money making guide/Killing the Thermonuclear smoke devil",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing the Thermonuclear smoke devil (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -23647,7 +23859,7 @@
       "points": 18500
      },
      "guide": "Money making guide/Tombs of Amascut (solo 450 raid level)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Tombs of Amascut (solo 450 raid level) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -24200,7 +24412,7 @@
      ],
      "costSource": "Wiki: Killing Vardorvis (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Vardorvis",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Vardorvis (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -24666,7 +24878,7 @@
      ],
      "costSource": "Wiki: Killing Venenatis (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Venenatis",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Venenatis (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -25120,7 +25332,7 @@
      ],
      "costSource": "Wiki: Killing Vet'ion (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Vet'ion",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Vet'ion (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -26179,7 +26391,7 @@
      ],
      "costSource": "Wiki: Killing Vorkath (Dragon hunter lance) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Vorkath (Dragon hunter lance)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Vorkath (Dragon hunter lance) (recommended levels included)"
     },
     {
      "id": "budget",
@@ -26258,7 +26470,7 @@
      ],
      "costSource": "Wiki: Killing Vorkath (Toxic blowpipe) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Vorkath (Toxic blowpipe)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Vorkath (Toxic blowpipe) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -26686,7 +26898,7 @@
      ],
      "costSource": "Wiki: Killing The Whisperer (per kill, teleports excluded)",
      "guide": "Money making guide/Killing The Whisperer",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing The Whisperer (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -27144,7 +27356,7 @@
      ],
      "costSource": "Wiki: Killing Yama (solo) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Yama (solo)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Yama (solo) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -28312,7 +28524,7 @@
      ],
      "costSource": "Wiki: Killing Zulrah (max efficiency) (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Zulrah (max efficiency)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Zulrah (max efficiency) (recommended levels included)"
     },
     {
      "id": "budget",
@@ -28398,7 +28610,7 @@
      ],
      "costSource": "Wiki: Killing Zulrah (per kill, teleports excluded)",
      "guide": "Money making guide/Killing Zulrah",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Killing Zulrah (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -30057,7 +30269,7 @@
      ],
      "costSource": "Wiki: Barbarian assault high gambles (per high gamble, teleports excluded)",
      "guide": "Money making guide/Barbarian assault high gambles",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: Barbarian assault high gambles (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
@@ -30416,7 +30628,7 @@
      ],
      "costSource": "Wiki: The Fractured Archive (Duo) (per raid, teleports excluded)",
      "guide": "Money making guide/The Fractured Archive (Duo)",
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: The Fractured Archive (Duo) (recommended levels included)"
     },
     {
      "id": "budget",
@@ -30497,7 +30709,7 @@
      "costSource": "Wiki: The Fractured Archive (4-scale) (per raid, teleports excluded)",
      "guide": "Money making guide/The Fractured Archive (4-scale)",
      "lootShare": 0.8194,
-     "requiresSource": "Wiki guide (recommended levels included)"
+     "requiresSource": "Wiki: The Fractured Archive (4-scale) (recommended levels included)"
     }
    ],
    "defaultSetup": "high"
