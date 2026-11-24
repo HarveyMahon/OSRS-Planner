@@ -115,6 +115,7 @@ t('training estimates', () => {
   ] };
   assert.equal(gpPerXp(track.stages[1], items), 20);
   assert.equal(gpPerXp({ xpEach: 50, inputs: [{ item: 'ore', qty: 1 }], outputs: [{ item: 'bar', qty: 1 }] }, items), -3);
+  assert.equal(gpPerXp({ xpPerHr: 200000, costPerHr: 1e6 }, items), 5);
   // 1 -> 20 at 10k/hr, then 20 -> 30 at 100k/hr costing 20 gp/xp
   const e = estimate(track, 0, xpForLevel(30), items);
   assert.ok(Math.abs(e.hours - (xpForLevel(20) / 10000 + (xpForLevel(30) - xpForLevel(20)) / 100000)) < 1e-9);

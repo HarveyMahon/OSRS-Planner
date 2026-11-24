@@ -836,7 +836,7 @@
       "from": 30,
       "name": "Libation bowl (blessed wine)",
       "xpPerHr": 670000,
-      "note": "Bone shards from bones; costs depend on the bones used."
+      "note": "Uses bone shards (made from bones, or gathered other ways; not tradeable): their cost isn't counted."
      },
      {
       "from": 48,
@@ -851,38 +851,72 @@
     ]
    },
    {
-    "id": "prayer_afk_calcified_rocks",
+    "id": "prayer_afk_least_effort_no_afk_method",
     "kind": "afk",
-    "label": "Calcified rocks",
-    "intensity": 1,
+    "label": "Least effort (no AFK method)",
+    "intensity": 3,
+    "note": "Prayer has no AFK training method; the gilded altar is the simplest.",
     "stages": [
      {
       "from": 1,
-      "name": "Mining calcified rocks (Cam Torum)",
-      "xpPerHr": 12000,
-      "note": "Relatively AFK; banked shards give Prayer XP.",
-      "requires": {
-       "all": [
-        {
-         "skill": "Mining",
-         "level": 41
-        },
-        {
-         "quest": "perilous_moons"
-        }
-       ]
-      }
+      "name": "Gilded altar: dragon bones",
+      "xpPerHr": 643000,
+      "xpEach": 252,
+      "inputs": [
+       {
+        "item": "536",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 70,
+      "name": "Gilded altar: superior dragon bones",
+      "xpPerHr": 1340000,
+      "xpEach": 525,
+      "inputs": [
+       {
+        "item": "22124",
+        "qty": 1
+       }
+      ]
      }
     ]
    }
   ],
   "Runecraft": [
    {
-    "id": "runecraft_fastest_fastest_solo",
+    "id": "runecraft_fastest_lava_aether_runes_with_essence_runners",
     "kind": "fastest",
-    "label": "Fastest (solo)",
+    "label": "Lava/aether runes with essence runners",
     "intensity": 5,
-    "note": "Faster with paid essence runners (280K+), which can be linked to real-world trading.",
+    "stages": [
+     {
+      "from": 1,
+      "name": "Talisman tiaras",
+      "xpPerHr": 47000,
+      "note": "Air 36K to elemental 58K."
+     },
+     {
+      "from": 23,
+      "name": "Lava runes with 4 essence runners",
+      "xpPerHr": 280000,
+      "costPerHr": 48000000,
+      "note": "Runners cost about 9-15M gp an hour each (12M used here)."
+     },
+     {
+      "from": 90,
+      "name": "Aether runes with 6 essence runners",
+      "xpPerHr": 345000,
+      "costPerHr": 72000000
+     }
+    ]
+   },
+   {
+    "id": "runecraft_balanced_solo_lava_runes",
+    "kind": "balanced",
+    "label": "Solo lava runes",
+    "intensity": 4,
     "stages": [
      {
       "from": 1,

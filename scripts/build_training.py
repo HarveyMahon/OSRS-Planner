@@ -23,9 +23,10 @@ HERE = Path(__file__).parent
 ROOT = HERE.parent
 
 
-def S(frm, name, xp, each=None, inp=None, out=None, req=None, quest=None, wild=False, f2p=False, note=None, recurring=None):
-    """One stage: from level `frm`, `xp` XP/hr; items per action (`each` XP per action)."""
-    return {"from": frm, "name": name, "xpPerHr": xp, "xpEach": each, "inputs": inp or {}, "outputs": out or {},
+def S(frm, name, xp, each=None, inp=None, out=None, req=None, quest=None, wild=False, f2p=False, note=None, recurring=None, cost=None):
+    """One stage: from level `frm`, `xp` XP/hr; items per action (`each` XP per action);
+    `cost` = a fixed GP cost per hour on top (e.g. paying essence runners)."""
+    return {"from": frm, "name": name, "xpPerHr": xp, "xpEach": each, "inputs": inp or {}, "outputs": out or {}, "costPerHr": cost,
             "req": req or [], "quests": quest or [], "wilderness": wild, "f2p": f2p, "note": note, "recurring": recurring}
 
 
@@ -118,21 +119,26 @@ SKILLS = {
         ]),
         T("balanced", "Libation bowl", 4, [
             S(1, "Gilded altar: dragon bones", 643000, each=252, inp={"Dragon bones": 1}),
-            S(30, "Libation bowl (blessed wine)", 670000, note="Bone shards from bones; costs depend on the bones used."),
+            S(30, "Libation bowl (blessed wine)", 670000, note="Uses bone shards (made from bones, or gathered other ways; not tradeable): their cost isn't counted."),
             S(48, "Libation bowl (blessed wine)", 923000), S(62, "Libation bowl (blessed wine)", 1050000),
         ]),
-        T("afk", "Calcified rocks", 1, [
-            S(1, "Mining calcified rocks (Cam Torum)", 12000, quest=["Perilous Moons"], req=[{"skill": "Mining", "level": 41}],
-              note="Relatively AFK; banked shards give Prayer XP."),
-        ]),
+        T("afk", "Least effort (no AFK method)", 3, [
+            S(1, "Gilded altar: dragon bones", 643000, each=252, inp={"Dragon bones": 1}),
+            S(70, "Gilded altar: superior dragon bones", 1340000, each=525, inp={"Superior dragon bones": 1}),
+        ], note="Prayer has no AFK training method; the gilded altar is the simplest."),
     ],
     "Runecraft": [
-        T("fastest", "Fastest (solo)", 5, [
+        T("fastest", "Lava/aether runes with essence runners", 5, [
+            S(1, "Talisman tiaras", 47000, note="Air 36K to elemental 58K."),
+            S(23, "Lava runes with 4 essence runners", 280000, cost=48000000, note="Runners cost about 9-15M gp an hour each (12M used here)."),
+            S(90, "Aether runes with 6 essence runners", 345000, cost=72000000),
+        ]),
+        T("balanced", "Solo lava runes", 4, [
             S(1, "Talisman tiaras", 47000, note="Air 36K to elemental 58K."),
             S(50, "Lava runes", 63000, each=10.5, inp={"Pure essence": 1, "Earth rune": 1}, out={"Lava rune": 1}),
             S(75, "Lava runes", 79000, each=10.5, inp={"Pure essence": 1, "Earth rune": 1}, out={"Lava rune": 1}),
             S(85, "Lava runes", 101000, each=10.5, inp={"Pure essence": 1, "Earth rune": 1}, out={"Lava rune": 1}),
-        ], note="Faster with paid essence runners (280K+), which can be linked to real-world trading."),
+        ]),
         T("balanced", "Guardians of the Rift", 3, [
             S(1, "Talisman tiaras", 47000),
             S(27, "Guardians of the Rift", 45000, quest=["Temple of the Eye"], note=EST),

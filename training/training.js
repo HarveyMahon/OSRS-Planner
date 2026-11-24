@@ -32,7 +32,7 @@ function render() {
     const time = e.blocked ? `<span class="cost">No stage you can use at level ${e.blocked}</span>`
       : `${hrs(e.hours)}${e.realHours > e.hours * 1.5 ? ` <span class="muted">(${Math.ceil(e.realHours / 24)} days of growing)</span>` : ''}`;
     const segs = e.segments.map(s => `<li><b>${s.fromLevel}–${s.toLevel}</b> ${esc(s.stage.name)}
-        <span class="muted">${Math.round(s.stage.xpPerHr / 1000)}K XP/hr${s.hours != null ? ` · ${hrs(s.hours)}` : ''}${s.stage.xpEach ? ` · ${gpPerXp(s.stage, ITEMS.items).toFixed(1)} gp/XP` : ''}${s.stage.wilderness ? ' · <span class="wild">Wilderness</span>' : ''}${s.stage.requires ? ` · needs ${esc(describe(s.stage.requires, ctx))}` : ''}</span>
+        <span class="muted">${Math.round(s.stage.xpPerHr / 1000)}K XP/hr${s.hours != null ? ` · ${hrs(s.hours)}` : ''}${s.stage.xpEach || s.stage.costPerHr ? ` · ${gpPerXp(s.stage, ITEMS.items).toFixed(1)} gp/XP` : ''}${s.stage.wilderness ? ' · <span class="wild">Wilderness</span>' : ''}${s.stage.requires ? ` · needs ${esc(describe(s.stage.requires, ctx))}` : ''}</span>
         ${s.stage.note ? `<div class="note">${esc(s.stage.note)}</div>` : ''}</li>`).join('');
     return `<article class="card track ${t.kind}">
       <header><span class="kind">${KIND[t.kind]}</span><h2>${esc(t.label)}</h2><span class="dots" title="Intensity ${t.intensity} of 5">${DOTS(t.intensity)}</span></header>

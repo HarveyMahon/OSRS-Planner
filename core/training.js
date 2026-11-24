@@ -2,7 +2,7 @@
 // to another on a given track, stage by stage.
 //
 // Track = { id, kind: 'fastest'|'balanced'|'afk', label, intensity, stages: [Stage] }
-// Stage = { from, name, xpPerHr, xpEach?, inputs?: [{item, qty}], outputs?: [{item, qty}],
+// Stage = { from, name, xpPerHr, xpEach?, inputs?: [{item, qty}], outputs?: [{item, qty}], costPerHr?,
 //           requires?, wilderness?, recurring?: { minutesPerRun, hoursToGrow, perRun } }
 // Items are per action; an action gives xpEach XP.
 
@@ -10,11 +10,13 @@ import { levelForXp, xpForLevel } from './xp.js';
 import { isMet } from './requirements.js';
 import { listValue } from './money.js';
 
-/** GP per XP for a stage (positive = it costs you, negative = it pays). */
+/** GP per XP for a stage (positive = it costs you, negative = it pays). Items are per action;
+ *  costPerHr is a fixed hourly cost on top (e.g. paying essence runners). */
 export function gpPerXp(stage, items) {
-  if (!stage.xpEach) return 0;
-  const cost = listValue(stage.inputs || [], items).value - listValue(stage.outputs || [], items).value;
-  return cost / stage.xpEach;
+  let perXp = 0;
+  if (stage.xpEach) perXp += (listValue(stage.inputs || [], items).value - listValue(stage.outputs || [], items).value) / stage.xpEach;
+  if (stage.costPerHr) perXp += stage.costPerHr / stage.xpPerHr;
+  return perXp;
 }
 
 /** The stage to use at `level`: the highest-level stage you've reached and whose requirements you meet. */
