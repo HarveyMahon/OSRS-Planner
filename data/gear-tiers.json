@@ -6,7 +6,7 @@
   "groups": [
     { "slot": "cape", "style": "melee", "tiers": [["Infernal cape"], ["Fire cape"]] },
     { "slot": "neck", "style": "melee", "tiers": [["Amulet of rancour"], ["Amulet of torture"], ["Amulet of fury"], ["Amulet of strength"]] },
-    { "slot": "neck", "style": "ranged", "tiers": [["Necklace of anguish"], ["Amulet of fury"], ["Amulet of glory"]] },
+    { "slot": "neck", "style": "ranged", "tiers": [["Necklace of rupture"], ["Necklace of anguish"], ["Amulet of fury"], ["Amulet of glory"]] },
     { "slot": "neck", "style": "magic", "tiers": [["Occult necklace"], ["Amulet of fury"], ["Amulet of glory"]] },
     { "slot": "neck", "style": "melee-low", "tiers": [["Amulet of fury"], ["Amulet of glory"]] },
     { "slot": "head", "style": "melee", "tiers": [["Oathplate helm", "Torva full helm"], ["Neitiznot faceguard"], ["Helm of Neitiznot"]] },
