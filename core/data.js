@@ -82,8 +82,13 @@ export function applySetupGear(d, manual) {
   for (const [bossId, setups] of Object.entries(manual?.setups || {})) {
     const boss = d.bosses.find(b => b.id === bossId);
     for (const [setupId, m] of Object.entries(setups)) {
-      const s = boss?.setups?.find(x => x.id === setupId);
+      let s = boss?.setups?.find(x => x.id === setupId);
+      if (!s && m.copyOf) {                       // a new setup made from another (e.g. Budget from High level)
+        const from = boss?.setups?.find(x => x.id === m.copyOf);
+        if (from) { s = { ...structuredClone(from), id: setupId, label: m.label || setupId }; boss.setups.push(s); }
+      }
       if (!s) continue;
+      if (m.label) s.label = m.label;
       if (m.gear) { s.gear = m.gear; s.gearSource = m.source; }
       if (m.noGear) s.noGear = true;
       if (m.set) Object.assign(s, m.set);          // hand-set rates (unitsPerHr, lootShare, ...)

@@ -12393,6 +12393,54 @@
    "tradeable": true,
    "id": 9242,
    "limit": 11000
+  },
+  "12929": {
+   "name": "Serpentine helm (uncharged)",
+   "price": 2506456,
+   "tradeable": true,
+   "id": 12929,
+   "limit": 8,
+   "aliases": [
+    "Serpentine helm"
+   ]
+  },
+  "x-abyssal-tentacle": {
+   "name": "Abyssal tentacle",
+   "price": 814905,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "12004",
+      "factor": 1
+     },
+     {
+      "item": "4151",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Kraken tentacle and Abyssal whip it is made from"
+  },
+  "x-crystal-halberd": {
+   "name": "Crystal halberd",
+   "price": 367290,
+   "tradeable": false,
+   "derivedFrom": {
+    "terms": [
+     {
+      "item": "4207",
+      "factor": 1
+     }
+    ]
+   },
+   "valueNote": "Untradeable: valued as the Crystal weapon seed it is made from (crystal shards not counted)"
+  },
+  "x-dragon-defender": {
+   "name": "Dragon defender",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
   }
  }
 }

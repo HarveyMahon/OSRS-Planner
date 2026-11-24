@@ -1,6 +1,6 @@
 {
  "meta": {
-  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps. An entry can also be { item, qty }: ammo is always 200 (players rarely hold less), counted as gear to own; what's fired per kill stays in supplies. set overrides setup fields such as unitsPerHr and lootShare.",
+  "about": "Hand-checked High level / Budget gear, applied over bosses.json when the site loads (bosses.json is regenerated from the Wiki guides by scripts, this file is not). A gear entry is an item key, or a list of keys that count as equal (owning any one covers the slot; if none are owned it's priced at the first). dropSupplies removes guide supply lines that don't fit the setup. noGear marks a setup that needs no gear (always affordable). bosses.<id>.taskOnly marks a boss that can only be fought on a Slayer task: it isn't used for planner 'make GP' steps. An entry can also be { item, qty }: ammo is always 200 (players rarely hold less), counted as gear to own; what's fired per kill stays in supplies. set overrides setup fields such as unitsPerHr and lootShare. copyOf creates a setup (e.g. Budget) from another one of the same boss, then applies gear/set/dropSupplies.",
   "rules": "Strategy page Equipment table, best (left) column. Follow footnotes where a cell has '/', otherwise take the cheaper item. Drop items made redundant by a 2h weapon; keep the special attack row. Content needing several styles combines the tables (ToB: all melee, all ranged, 5 magic pieces)."
  },
  "setups": {
@@ -46,6 +46,48 @@
      },
      {
       "item": "34696",
+      "qty": 200
+     }
+    ],
+    "dropSupplies": [
+     "11959"
+    ]
+   },
+   "budget": {
+    "copyOf": "high",
+    "label": "Budget",
+    "source": "Budget rule: High level gear downgraded one strategy-table column at a time (biggest saving first) until under 500M (endgame); weapon set to Abyssal tentacle by the user, 24 Nov 2026. Rates and supplies as High level until real budget figures exist.",
+    "gear": [
+     "12929",
+     "29801",
+     [
+      "x-infernal-cape",
+      "x-fire-cape"
+     ],
+     "30753",
+     "30756",
+     "x-abyssal-tentacle",
+     "x-dragon-defender",
+     "x-ferocious-gloves",
+     "x-avernic-treads-max",
+     "28316",
+     "x-crystal-halberd",
+     "13576",
+     "x-void-ranger-helm",
+     "19547",
+     [
+      "x-dizana-s-quiver",
+      "x-ava-s-assembler"
+     ],
+     "x-elite-void-top",
+     "x-elite-void-robe",
+     "12924",
+     "x-void-knight-gloves",
+     "21024",
+     "31106",
+     "22481",
+     {
+      "item": "11230",
       "qty": 200
      }
     ],
