@@ -1148,8 +1148,8 @@
     "set": {
      "unitsPerHr": 3.33,
      "unitsPerHrSource": "User: 18 minutes per raid in a 3-man team (23 min duo, 40 min solo)",
-     "lootShare": 0.91,
-     "lootShareNote": "Estimate for a 3-man team: between the Wiki guide's duo loot (1.0) and its 4-scale loot (0.82)"
+     "lootShare": 0.9115,
+     "lootShareNote": "Wiki Trio guide: 18.33M loot an hour at 3 raids (6.11M a raid per player) against the Duo guide's 6.70M, so a trio player gets 0.9115 of the duo loot"
     }
    },
    "budget": {
@@ -1227,8 +1227,8 @@
     "set": {
      "unitsPerHr": 3.33,
      "unitsPerHrSource": "User: 18 minutes per raid in a 3-man team (23 min duo, 40 min solo)",
-     "lootShare": 0.91,
-     "lootShareNote": "Estimate for a 3-man team: between the Wiki guide's duo loot (1.0) and its 4-scale loot (0.82)"
+     "lootShare": 0.9115,
+     "lootShareNote": "Wiki Trio guide: 18.33M loot an hour at 3 raids (6.11M a raid per player) against the Duo guide's 6.70M, so a trio player gets 0.9115 of the duo loot"
     }
    }
   },
