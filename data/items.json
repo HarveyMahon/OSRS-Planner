@@ -12816,6 +12816,94 @@
     ]
    },
    "valueNote": "Untradeable: valued as the ring it is imbued from (imbuing costs points, not GP)"
+  },
+  "x-accursed-sceptre-u": {
+   "name": "Accursed sceptre (u)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Accursed sceptre"
+   ]
+  },
+  "x-black-mask": {
+   "name": "Black mask",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-bloodbark-boots": {
+   "name": "Bloodbark boots",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-bone-mace": {
+   "name": "Bone mace",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-mixed-hide-boots": {
+   "name": "Mixed hide boots",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-mixed-hide-top": {
+   "name": "Mixed hide top",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-spectral-spirit-shield": {
+   "name": "Spectral spirit shield",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-trouver-parchment": {
+   "name": "Trouver parchment",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-twinflame-staff": {
+   "name": "Twinflame staff",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-breach-of-the-scarab": {
+   "name": "Breach of the scarab",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-keris-partisan": {
+   "name": "Keris partisan",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-ring-of-shadows": {
+   "name": "Ring of shadows",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-salve-amulet-e": {
+   "name": "Salve amulet (e)",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-tortugan-shield": {
+   "name": "Tortugan shield",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-void-knight-top": {
+   "name": "Void knight top",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-void-knight-robe": {
+   "name": "Void knight robe",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
   }
  }
 }
