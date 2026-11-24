@@ -3,7 +3,7 @@
 import { SKILLS, levelForXp, toXp, MAX_LEVEL, MAX_XP } from '../core/xp.js';
 import { combatLevel } from '../core/requirements.js';
 import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
-import { loadQuests, loadItems, loadBosses } from '../core/data.js';
+import { loadQuests, loadItems, loadBosses, loadFile } from '../core/data.js';
 import { requiredItems, prerequisiteQuests, questPoints } from '../core/requirements.js';
 import { parseBank, resolveBank } from '../core/bank.js';
 
@@ -136,8 +136,8 @@ function bankStatus(extra = '') {
 $('bank-import').addEventListener('click', async () => {
   const rows = parseBank($('bank-text').value);
   if (!rows.length) return bankStatus("Couldn't find any items. Paste the whole export, including the tab-separated columns.");
-  const { items } = await loadItems();
-  const r = resolveBank(rows, items);
+  const [{ items }, tiers] = await Promise.all([loadItems(), loadFile('gear-tiers.json')]);
+  const r = resolveBank(rows, items, tiers);
   account.bank = r.bank;
   account.bankImportedAt = new Date().toISOString();
   let gpNote = '';

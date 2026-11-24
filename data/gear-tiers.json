@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "about": "Gear upgrades: owning an item counts as owning every item in a later (worse) tier of the same group, so a setup doesn't price gear the player has bettered. Groups are one slot and one combat style; items in the same tier are equivalent. Weapons and spec weapons are left out on purpose: bosses often need that exact weapon.",
+    "format": "groups: [{ slot, style, tiers: [[best names], [next], ...] }]"
+  },
+  "groups": [
+    { "slot": "cape", "style": "melee", "tiers": [["Infernal cape"], ["Fire cape"]] },
+    { "slot": "neck", "style": "melee", "tiers": [["Amulet of rancour"], ["Amulet of torture"], ["Amulet of fury"], ["Amulet of strength"]] },
+    { "slot": "neck", "style": "ranged", "tiers": [["Necklace of anguish"], ["Amulet of fury"], ["Amulet of glory"]] },
+    { "slot": "neck", "style": "magic", "tiers": [["Occult necklace"], ["Amulet of fury"], ["Amulet of glory"]] },
+    { "slot": "neck", "style": "melee-low", "tiers": [["Amulet of fury"], ["Amulet of glory"]] },
+    { "slot": "head", "style": "melee", "tiers": [["Oathplate helm", "Torva full helm"], ["Neitiznot faceguard"], ["Helm of Neitiznot"]] },
+    { "slot": "body", "style": "melee", "tiers": [["Oathplate chest", "Torva platebody"], ["Bandos chestplate"], ["Fighter torso"]] },
+    { "slot": "legs", "style": "melee", "tiers": [["Oathplate legs", "Torva platelegs"], ["Bandos tassets"]] },
+    { "slot": "head", "style": "ranged", "tiers": [["Masori mask (f)"], ["Masori mask"], ["Armadyl helmet"], ["Snakeskin bandana"]] },
+    { "slot": "body", "style": "ranged", "tiers": [["Masori body (f)"], ["Masori body"], ["Armadyl chestplate"], ["Black d'hide body"]] },
+    { "slot": "legs", "style": "ranged", "tiers": [["Masori chaps (f)"], ["Masori chaps"], ["Armadyl chainskirt"], ["Black d'hide chaps"]] },
+    { "slot": "head", "style": "magic", "tiers": [["Ancestral hat"], ["Cream hat"]] },
+    { "slot": "body", "style": "magic", "tiers": [["Ancestral robe top"], ["Bloodbark body"]] },
+    { "slot": "legs", "style": "magic", "tiers": [["Ancestral robe bottom"], ["Bloodbark legs"]] },
+    { "slot": "hands", "style": "ranged", "tiers": [["Zaryte vambraces"], ["Barrows gloves"], ["Black d'hide vambraces"]] },
+    { "slot": "hands", "style": "magic", "tiers": [["Confliction gauntlets"], ["Tormented bracelet"]] },
+    { "slot": "hands", "style": "melee", "tiers": [["Ferocious gloves"], ["Barrows gloves"]] },
+    { "slot": "feet", "style": "melee", "tiers": [["Avernic treads (max)", "Avernic treads (pr)", "Avernic treads (pe)", "Avernic treads (et)", "Avernic treads (pr/pe)", "Avernic treads (pr/et)", "Avernic treads (pe/et)"], ["Primordial boots"], ["Dragon boots"]] },
+    { "slot": "feet", "style": "ranged", "tiers": [["Avernic treads (max)"], ["Pegasian boots"], ["Blessed boots"], ["Snakeskin boots"]] },
+    { "slot": "feet", "style": "magic", "tiers": [["Avernic treads (max)"], ["Eternal boots"], ["Mystic boots"]] },
+    { "slot": "ring", "style": "defence", "tiers": [["Ring of suffering (i)"], ["Ring of suffering"], ["Ring of recoil"]] },
+    { "slot": "ring", "style": "melee", "tiers": [["Ultor ring"], ["Berserker ring (i)"], ["Berserker ring"]] },
+    { "slot": "ring", "style": "ranged", "tiers": [["Venator ring"], ["Archers ring (i)"], ["Archers ring"]] },
+    { "slot": "ring", "style": "magic", "tiers": [["Magus ring"], ["Seers ring (i)"], ["Seers ring"]] },
+    { "slot": "boost", "style": "any", "tiers": [["Saturated heart"], ["imbued heart"]] },
+    { "slot": "shield", "style": "dragonfire", "tiers": [["Dragonfire shield", "Dragonfire ward", "Ancient wyvern shield"], ["Anti-dragon shield"]] },
+    { "slot": "tool", "style": "pickaxe", "tiers": [["Infernal pickaxe", "Crystal pickaxe"], ["Dragon pickaxe"]] },
+    { "slot": "head", "style": "slayer", "tiers": [["Slayer helmet (i)", "Black slayer helmet (i)", "Red slayer helmet (i)", "Green slayer helmet (i)", "Purple slayer helmet (i)", "Turquoise slayer helmet (i)", "Hydra slayer helmet (i)", "Twisted slayer helmet (i)", "Tztok slayer helmet (i)", "Vampyric slayer helmet (i)", "Tzkal slayer helmet (i)", "Araxyte slayer helmet (i)"], ["Slayer helmet"]] }
+  ]
+}

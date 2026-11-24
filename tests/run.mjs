@@ -80,6 +80,21 @@ t('account storage', () => {
   const b = loadAccount(); assert.equal(levelForXp(b.xp.Slayer), 93); assert.equal(b.gp, 1e6); assert.ok(b.updatedAt);
 });
 
+const { parseBank, resolveBank } = await import('../core/bank.js');
+t('bank import', () => {
+  const items = { '1': { name: 'Necklace of anguish' }, '2': { name: 'Amulet of torture' }, '3': { name: 'Fire cape' },
+                  '4': { name: 'Dragon dagger' }, '5': { name: 'Amulet of glory' } };
+  const tiers = { groups: [{ tiers: [['Infernal cape'], ['Fire cape']] }, { tiers: [['Amulet of rancour'], ['Amulet of torture']] },
+                           { tiers: [['Necklace of anguish'], ['Amulet of glory']] }] };
+  const rows = parseBank('Item id\tItem name\tItem quantity\n24224\tInfernal cape (l)\t1\n29804\tAmulet of rancour (s)\t1\n5698\tDragon dagger(p++)\t2\n995\tCoins\t1,500\n13204\tPlatinum token\t3\n\nnonsense');
+  assert.equal(rows.length, 5);
+  const r = resolveBank(rows, items, tiers);
+  assert.equal(r.gp, 4500);
+  assert.ok(r.bank['3']);              // Infernal cape covers Fire cape
+  assert.ok(r.bank['2']);              // rancour covers torture (same slot, same style)...
+  assert.ok(!r.bank['1']);             // ...but not anguish (ranged)
+  assert.equal(r.bank['4'], 2);        // poisoned dagger counts as the base dagger
+});
 const { unmet, describe } = await import('../core/requirements.js');
 t('unmet and describe', () => {
   const acc = { xp: { Ranged: xpForLevel(85), Prayer: xpForLevel(77) }, quests: { dragon_slayer_ii: 'complete' }, diaries: new Set() };
