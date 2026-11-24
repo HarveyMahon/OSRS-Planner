@@ -90,21 +90,28 @@ norm = lambda s: re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
 
 
 def match_guides(bosses, titles):
-    """Guide pages whose title mentions the boss, e.g. 'Killing Vorkath', 'Killing Vorkath (low level)'."""
+    """Guide pages whose title mentions the boss, e.g. 'Killing Vorkath (Toxic blowpipe)'.
+    A title is given to the boss with the longest matching name, so 'Phosani's Nightmare'
+    guides don't also count for 'The Nightmare'."""
+    names = {b["id"]: {norm(b["name"]), norm(re.sub(r"^the\s+", "", b["name"], flags=re.I))} for b in bosses}
     out = {}
-    for b in bosses:
-        names = {norm(b["name"]), norm(re.sub(r"^the\s+", "", b["name"], flags=re.I))}
-        hits = [t for t in titles if any(re.search(rf"\b{re.escape(n)}\b", norm(t[len(PREFIX):])) for n in names)]
-        if hits:
-            out[b["id"]] = sorted(hits)
-    return out
+    for t in titles:
+        tt = norm(t[len(PREFIX):])
+        best = max(((len(n), bid) for bid, ns in names.items() for n in ns if re.search(rf"\b{re.escape(n)}\b", tt)), default=None)
+        if best:
+            out.setdefault(best[1], []).append(t)
+    return {k: sorted(v) for k, v in out.items()}
 
 
-# ---------- Parsing (written without seeing the template; check template_fields.txt) ----------
+# ---------- Parsing: the Wiki's {{Mmgtable}} template ----------
+# isperkill = y   -> InputN/OutputN quantities are per kill (unit), except inputs with
+#                    InputNisph = y, which are per hour
+# kph             -> the guide's kills per hour
+# InputNvalue     -> GP value per unit for inputs that aren't GE items (e.g. {{Cheap food}})
 
 def template_params(text):
-    """Top-level |name = value pairs of the first {{Money making guide ...}} call, nesting-aware."""
-    start = re.search(r"\{\{\s*(Money making guide|Mmg)\b", text, re.I)
+    """Top-level |name = value pairs of the {{Mmgtable ...}} call, nesting-aware."""
+    start = re.search(r"\{\{\s*Mmgtable\b", text, re.I)
     if not start:
         return {}
     i, depth, buf, parts = start.start() + 2, 1, "", []
@@ -125,36 +132,108 @@ def template_params(text):
     for p in parts[1:]:
         if "=" in p:
             k, v = p.split("=", 1)
-            params[k.strip()] = v.strip()
+            params[k.strip()] = re.sub(r"<!--.*?-->", "", v, flags=re.S).strip()
     return params
 
 
-def number(v):
-    v = re.sub(r"<[^>]+>|\{\{[^}]*\}\}|,", "", v or "").strip()
-    m = re.match(r"^-?\d+(\.\d+)?", v)
-    return float(m.group()) if m else None
+def safe_arith(expr):
+    """Evaluate + - * / ( ) and numbers only, as used in {{#expr:...}}."""
+    import ast
+    expr = expr.replace("^", "**")
+    tree = ast.parse(expr, mode="eval")
+    ok = (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant, ast.Add, ast.Sub, ast.Mult,
+          ast.Div, ast.Pow, ast.USub, ast.UAdd, ast.Mod)
+    for node in ast.walk(tree):
+        if not isinstance(node, ok) or (isinstance(node, ast.Constant) and not isinstance(node.value, (int, float))):
+            raise ValueError(expr)
+    return float(eval(compile(tree, "expr", "eval"), {"__builtins__": {}}))
+
+
+# Set by main(): item name -> GE price, for {{GEP|Item|qty}} in values
+PRICE_OF = lambda name: None
+
+
+def _gep(m):
+    args = [a.strip() for a in m.group(1).split("|")]
+    price = PRICE_OF(args[0])
+    if price is None:
+        raise ValueError(args[0])
+    qty = float(args[1]) if len(args) > 1 and re.fullmatch(r"[\d.]+", args[1]) else 1
+    return f"({price * qty})"
+
+
+def number(v, variables=None):
+    v = re.sub(r"<!--.*?-->|<[^>]+>", "", v or "", flags=re.S).replace(",", "").strip()
+    try:
+        v = re.sub(r"\{\{\s*GEP\s*\|([^{}]*)\}\}", _gep, v)
+    except ValueError:
+        return None
+    for name, val in (variables or {}).items():     # {{#var:name}} defined on the page
+        v = re.sub(r"\{\{\s*#var\s*:\s*" + re.escape(name) + r"\s*\}\}", f"({val})", v)
+    m = re.fullmatch(r"\{\{\s*#expr\s*:(.*)\}\}", v, re.S)
+    try:
+        if m:
+            return safe_arith(m.group(1))
+        if re.fullmatch(r"[\d\s.+\-*/()]+", v):    # plain arithmetic such as "1 / 600"
+            return safe_arith(v)
+        return None
+    except Exception:
+        return None
+
+
+def page_variables(text):
+    """{{#vardefine:name|value}} definitions, evaluated in order."""
+    out = {}
+    for name, val in re.findall(r"\{\{\s*#vardefine\s*:\s*([^|}]+?)\s*\|(.*?)\}\}(?=\s*(?:\{\{|\n|$))", text, re.S):
+        n = number(val if val.strip().startswith("{{") else val, out)
+        if n is None:
+            n = number("{{#expr:" + val + "}}", out)
+        if n is not None:
+            out[name] = n
+    return out
 
 
 def strip_links(v):
     return re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]*)\]\]", r"\1", v or "").strip()
 
 
+def is_yes(v):
+    return (v or "").strip().lower().startswith(("y", "t"))
+
+
+# Teleports vary too much by account to include (site owner's call)
+EXCLUDE_SUPPLY = re.compile(r"teleport|\btab(let)?\b|house tab", re.I)
+
+# The Wiki's {{Cheap food}} stands for any cheap food; we price it as this item
+CHEAP_FOOD = "Monkfish"
+
+
 def parse_guide(text):
     p = template_params(text)
-    kph = None
-    for k in ("kph", "Kph", "Kills per hour", "kills"):
-        if k in p and number(p[k]):
-            kph = number(p[k]); break
-    inputs = []
-    for k, v in p.items():
-        m = re.fullmatch(r"Input(\d+)", k)
-        if not m or not v:
-            continue
-        n = m.group(1)
-        qty = number(p.get(f"Input{n}num") or p.get(f"Input{n}qty") or "1")
-        per_hour = (p.get(f"Input{n}isph") or "").lower() not in ("no", "false", "0")
-        inputs.append({"name": strip_links(v), "qtyRaw": qty, "perHour": per_hour})
-    return {"params": p, "kph": kph, "inputs": inputs}
+    var = page_variables(text)
+    kph = number(p.get("kph"), var)
+    per_kill = is_yes(p.get("isperkill"))
+    def lines(kind):
+        out = []
+        for k, v in p.items():
+            m = re.fullmatch(kind + r"(\d+)", k)
+            if not m or not v:
+                continue
+            n = m.group(1)
+            isph = p.get(f"{kind}{n}isph")
+            per_hour = is_yes(isph) if isph is not None else not per_kill
+            name, templ = strip_links(v), v.strip().startswith("{{")
+            if re.fullmatch(r"\{\{\s*Cheap food\s*\}\}", v.strip(), re.I):
+                name, templ = CHEAP_FOOD, False
+            out.append({"name": name, "qtyRaw": number(p.get(f"{kind}{n}num", "1"), var),
+                        "perHour": per_hour, "value": number(p.get(f"{kind}{n}value"), var),
+                        "isTemplate": templ})
+        return out
+    return {"params": p, "kph": kph, "inputs": lines("Input"), "outputs": lines("Output")}
+
+
+# Bosses that aren't in data/bosses.json yet, built from their guides alone
+NEW_BOSSES = [{"id": "the_fractured_archive", "name": "The Fractured Archive", "unit": "raid"}]
 
 
 def main():
@@ -166,6 +245,20 @@ def main():
     mp = HERE / "item_mapping.json"
     wiki_ids = {m["name"].lower(): m["id"] for m in json.loads(mp.read_text(encoding="utf-8"))} if mp.exists() else {}
     new_items = {}
+    log = ROOT / "logs" / "price_update_log.json"
+    latest = {}
+    try:
+        for r in json.loads(log.read_text(encoding="utf-8")).get("requests", []):
+            if r.get("url", "").endswith("/latest") and isinstance(r.get("body"), dict):
+                latest = r["body"].get("data", {})
+    except Exception:
+        pass
+
+    def latest_price(key):
+        p = latest.get(str(key)) if key else None
+        vals = [v for v in ((p or {}).get("high"), (p or {}).get("low")) if isinstance(v, (int, float)) and v > 0]
+        return round(sum(vals) / len(vals)) if vals else None
+
     by_name = {}
     for key, it in items.items():
         for n in [it["name"], *it.get("aliases", [])]:
@@ -173,7 +266,7 @@ def main():
 
     print("Stage 1: listing money-making guides", flush=True)
     titles = cached("guide_titles.json", list_guides, refetch)
-    matches = match_guides(bosses, titles)
+    matches = match_guides(bosses + NEW_BOSSES, titles)
     wanted = sorted({t for ts in matches.values() for t in ts})
     print(f"  {len(titles)} guides, {len(wanted)} match {len(matches)} of our {len(bosses)} bosses", flush=True)
 
@@ -182,54 +275,93 @@ def main():
     missing = [t for t in wanted if t not in pages]
     if missing and not refetch:
         print(f"  {len(missing)} matched pages not in cache; fetching them", flush=True)
-        pages.update(fetch_pages(missing))
-        (CACHE / "guide_pages.json").write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
+        try:
+            pages.update(fetch_pages(missing))
+            (CACHE / "guide_pages.json").write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
+        except Exception as e:  # offline: carry on with what's cached
+            print(f"  couldn't fetch them ({type(e).__name__}); continuing with the cache", flush=True)
 
     print("Stage 3: parsing", flush=True)
     OUT.mkdir(exist_ok=True)
     fields = set()
     review, md = {}, ["# Supply import review", "",
-                      "Per-unit costs at current prices. 'Old' is the flat cost per unit in data/bosses.json. "
-                      "Nothing here is applied until it has been reviewed.", ""]
-    for b in sorted(bosses, key=lambda x: x["name"]):
-        guides = matches.get(b["id"], [])
-        old = b.get("defaultCost")
-        md.append(f"## {b['name']} ({b['unit']})")
+                      "Per-unit figures at current prices. 'Ours' is what data/bosses.json has now "
+                      "(flat supply cost; loot from our drop-table model). Nothing here is applied until reviewed.", ""]
+
+    global PRICE_OF
+    def price_of(name):
+        key = by_name.get(name.lower()) or (str(wiki_ids[name.lower()]) if name.lower() in wiki_ids else None)
+        if key in items:
+            return items[key]["price"]
+        return latest_price(key)
+    PRICE_OF = price_of
+
+    def resolve(name):
+        key = by_name.get(name.lower())
+        if key is None and name.lower() in wiki_ids:
+            key = str(wiki_ids[name.lower()])
+            new_items[key] = name
+        return key
+
+    def priced(lines, kph, flags, what):
+        out, total = [], 0.0
+        for ln in lines:
+            if what == "supply" and EXCLUDE_SUPPLY.search(ln["name"]):
+                continue
+            if ln["qtyRaw"] is None:
+                flags.append(f"{what}: couldn't read the quantity of '{ln['name']}'"); continue
+            qty = ln["qtyRaw"] / kph if ln["perHour"] and kph else ln["qtyRaw"]
+            key = None if ln["isTemplate"] else resolve(ln["name"])
+            entry = {"item": key, "name": ln["name"], "qty": round(qty, 6), "per": "unit"}
+            if ln["value"] is not None and (key is None or key not in items):
+                entry["gpEach"] = ln["value"]; total += ln["value"] * qty
+            elif key in items:
+                total += items[key]["price"] * qty
+            elif key and latest_price(key) is not None:
+                entry["newItemPrice"] = latest_price(key); total += latest_price(key) * qty
+            elif key:
+                flags.append(f"{what}: '{ln['name']}' (ID {key}) has no recent GE price")
+            else:
+                flags.append(f"{what}: no item or value for '{ln['name']}'")
+            out.append(entry)
+        return out, total
+
+    targets = [(b, matches.get(b["id"], [])) for b in sorted(bosses, key=lambda x: x["name"])]
+    for nb in NEW_BOSSES:
+        targets.append(({**nb, "new": True}, match_guides([nb], titles).get(nb["id"], [])))
+    for b, guides in targets:
+        setup = None if b.get("new") else next((s for s in b["setups"] if s["id"] == b["defaultSetup"]), b["setups"][0])
+        old_cost = setup.get("flatCostPerUnit") if setup else None
+        md.append(f"## {b['name']} ({b['unit']}){' — NEW' if b.get('new') else ''}")
+        guides = [t for t in guides if "{{disambig" not in pages.get(t, "").lower()]
         if not guides:
-            md += ["No matching guide: supplies need entering by hand.", ""]
+            md += ["No matching guide: entered by hand.", ""]
             continue
         review[b["id"]] = []
         for title in guides:
             g = parse_guide(pages.get(title, ""))
             fields.update(g["params"])
-            kph = g["kph"] or b.get("defaultKph")
-            supplies, flags, cost = [], [], 0.0
+            flags = []
+            if not g["params"]:
+                flags.append("no Mmgtable on the page")
+            kph = g["kph"] or (setup or {}).get("unitsPerHr")
             if not g["kph"]:
-                flags.append(f"no kills per hour on the guide; used ours ({b.get('defaultKph')})")
-            for inp in g["inputs"]:
-                key = by_name.get(inp["name"].lower())
-                if inp["qtyRaw"] is None:
-                    flags.append(f"couldn't read the quantity of '{inp['name']}'")
-                    continue
-                qty = inp["qtyRaw"] / kph if inp["perHour"] and kph else inp["qtyRaw"]
-                if key is None and inp["name"].lower() in wiki_ids:
-                    key = str(wiki_ids[inp["name"].lower()])
-                    new_items[key] = inp["name"]
-                    flags.append(f"'{inp['name']}' is not in items.json yet: cost incomplete until it is added")
-                elif key is None:
-                    flags.append(f"unknown item '{inp['name']}' (not in items.json or the Wiki mapping)")
-                elif key in items:
-                    cost += items[key]["price"] * qty
-                supplies.append({"item": key or inp["name"], "name": inp["name"], "qty": round(qty, 4), "per": "unit"})
-            if not g["inputs"]:
-                flags.append("no inputs parsed (check template_fields.txt)")
-            diff = (cost - old) / old if old else None
+                flags.append(f"no kills per hour on the guide; used ours ({kph})")
+            supplies, cost = priced(g["inputs"], kph, flags, "supply")
+            loot_lines, loot = priced(g["outputs"], kph, flags, "loot")
+            diff = (cost - old_cost) / old_cost if old_cost else None
             if diff is not None and abs(diff) > FLAG_DIFF:
-                flags.append(f"cost differs from old by {diff:+.0%}")
+                flags.append(f"supply cost differs from our flat cost by {diff:+.0%}")
             review[b["id"]].append({"guide": title, "unitsPerHr": kph, "supplies": supplies,
-                                    "costPerUnit": round(cost), "oldCostPerUnit": old, "flags": flags})
-            md.append(f"**{title}** · {kph} per hour · new {round(cost):,} gp vs old {old if old is None else f'{old:,}'} gp per {b['unit']}")
-            md += [f"- {s['qty']} × {s['name']}" for s in supplies]
+                                    "costPerUnit": round(cost), "oldCostPerUnit": old_cost,
+                                    "guideLootPerUnit": round(loot), "loot": loot_lines if b.get("new") else None,
+                                    "flags": flags})
+            label = title[len(PREFIX):]
+            md.append(f"**{label}** · {kph or 0:g} per hour · supplies {round(cost):,} gp"
+                      + (f" (ours {round(old_cost):,})" if old_cost is not None else "")
+                      + f" · guide loot {round(loot):,} gp per {b['unit']} · guide profit "
+                      + f"{round((loot - cost) * (kph or 0)):,} gp/hr")
+            md += [f"- {s['qty']:g} × {s['name']}" + (f" @ {s['gpEach']:,.0f} gp" if 'gpEach' in s else "") for s in supplies]
             md += [f"- ⚠ {f}" for f in flags]
             md.append("")
     (OUT / "supplies_review.json").write_text(json.dumps({"newItems": new_items, "bosses": review}, indent=1, ensure_ascii=False), encoding="utf-8")
