@@ -3,7 +3,8 @@
 import { SKILLS, levelForXp, toXp, MAX_LEVEL, MAX_XP } from '../core/xp.js';
 import { combatLevel } from '../core/requirements.js';
 import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
-import { loadQuests } from '../core/data.js';
+import { loadQuests, loadItems, loadBosses } from '../core/data.js';
+import { requiredItems } from '../core/requirements.js';
 
 console.log('Account: starting');
 const $ = id => document.getElementById(id);
@@ -86,6 +87,7 @@ $('reset').addEventListener('click', () => {
   $('gp').value = '';
   render();
   renderQuests();
+  renderUnlocks();
 });
 
 // Quests: the ones that money-making methods and plans depend on, ticked when complete
@@ -101,6 +103,21 @@ $('quests').addEventListener('change', e => {
   commit();
 });
 
+// Unlocks: items that requirements depend on (e.g. a Fire cape for the Inferno)
+async function renderUnlocks() {
+  const [items, { bosses }] = await Promise.all([loadItems(), loadBosses()]);
+  const keys = requiredItems(bosses).sort((a, b) => items.get(a)?.name.localeCompare(items.get(b)?.name));
+  $('unlocks').innerHTML = keys.map(k => `
+    <label class="quest"><input type="checkbox" data-owned="${k}"${account.owned[k] ? ' checked' : ''}> ${items.get(k)?.name ?? k}</label>`).join('');
+}
+$('unlocks').addEventListener('change', e => {
+  const k = e.target.dataset.owned;
+  if (!k) return;
+  if (e.target.checked) account.owned[k] = 1; else delete account.owned[k];
+  commit();
+});
+
 render();
+renderUnlocks().catch(err => { $('unlocks').textContent = `Couldn't load unlocks (${err.message}).`; });
 renderQuests().catch(err => { $('quests').textContent = `Couldn't load the quest list (${err.message}).`; })
   .finally(() => { document.documentElement.dataset.ready = '1'; });

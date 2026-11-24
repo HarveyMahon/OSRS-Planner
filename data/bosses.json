@@ -23912,11 +23912,34 @@
      "unitsPerHr": 0.5,
      "unitsPerHrSource": "Estimate: about 2 hours per Inferno run",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "item": "x-fire-cape"
+       },
+       {
+        "skill": "Ranged",
+        "level": 90
+       },
+       {
+        "skill": "Defence",
+        "level": 75
+       },
+       {
+        "skill": "Hitpoints",
+        "level": 90
+       },
+       {
+        "skill": "Prayer",
+        "level": 77
+       }
+      ]
+     },
      "gear": [],
      "supplies": [],
      "costSource": "Cost provided by the site owner",
-     "flatCostPerUnit": 300000
+     "flatCostPerUnit": 300000,
+     "requiresSource": "Entered by hand: Fire cape to enter; usual recommended levels"
     }
    ],
    "defaultSetup": "high"
@@ -23969,11 +23992,23 @@
      "unitsPerHr": 1,
      "unitsPerHrSource": "Estimate from the Wiki Fight Cave strategies (runs often take about an hour)",
      "unitsPerTrip": null,
-     "requires": null,
+     "requires": {
+      "all": [
+       {
+        "skill": "Prayer",
+        "level": 43
+       },
+       {
+        "skill": "Ranged",
+        "level": 70
+       }
+      ]
+     },
      "gear": [],
      "supplies": [],
      "costSource": "Cost provided by the site owner",
-     "flatCostPerUnit": 100000
+     "flatCostPerUnit": 100000,
+     "requiresSource": "Entered by hand: protection prayers, usual Ranged recommendation"
     }
    ],
    "defaultSetup": "high"

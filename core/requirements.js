@@ -83,3 +83,11 @@ export function describe(req, names = {}) {
   if (req.kc) return `${req.n} ${req.kc} kills`;
   return JSON.stringify(req);
 }
+
+/** Item keys that requirements anywhere in `bosses` depend on (e.g. a Fire cape). */
+export function requiredItems(bosses) {
+  const out = new Set();
+  const walk = r => { if (!r) return; if (r.all || r.any) (r.all || r.any).forEach(walk); else if (r.item) out.add(r.item); };
+  bosses.forEach(b => b.setups.forEach(s => walk(s.requires)));
+  return [...out];
+}

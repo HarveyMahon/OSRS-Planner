@@ -42,6 +42,15 @@ REQUIREMENTS_FROM = {
     "dagannoth_supreme": "Money making guide/Killing Dagannoth Kings (Solo tribrid)",
 }
 
+# Bosses with no Wiki guide: entered by hand (site owner asked; levels are the usual recommendations)
+MANUAL = {
+    "tztok_jad": {"requires": [{"skill": "Prayer", "level": 43}, {"skill": "Ranged", "level": 70}],
+                  "source": "Entered by hand: protection prayers, usual Ranged recommendation"},
+    "tzkal_zuk": {"requires": [{"item": "x-fire-cape"}, {"skill": "Ranged", "level": 90}, {"skill": "Defence", "level": 75},
+                               {"skill": "Hitpoints", "level": 90}, {"skill": "Prayer", "level": 77}],
+                  "source": "Entered by hand: Fire cape to enter; usual recommended levels"},
+}
+
 slug = lambda s: re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_")
 
 
@@ -105,6 +114,12 @@ def main():
     old_quests, quests_doc["quests"] = quests_doc["quests"], {}
     md = ["# Requirements review", "", "From each setup's Wiki guide. Skill levels include recommended ones (for now).", ""]
     for b in doc["bosses"]:
+        if b["id"] in MANUAL:
+            for s in b["setups"]:
+                s["requires"] = {"all": MANUAL[b["id"]]["requires"]}
+                s["requiresSource"] = MANUAL[b["id"]]["source"]
+            md.append(f"**{b['name']}**: entered by hand")
+            continue
         for s in b["setups"]:
             guide = s.get("guide") or REQUIREMENTS_FROM.get(b["id"])
             if not guide or guide not in pages:

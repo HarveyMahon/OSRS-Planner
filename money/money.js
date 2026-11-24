@@ -45,7 +45,7 @@ function rows() {
     else if (ok.length) m = ok.map(s => method(b, s.id)).sort((x, y) => y.gpPerHr - x.gpPerHr)[0];
     else {
       m = method(b, setupOf(b, chosen?.id).id);
-      m.locked = unmet(m.setup.requires, ACCOUNT, ctx()).map(r => describe(r, { quests: QUESTS.quests }));
+      m.locked = unmet(m.setup.requires, ACCOUNT, ctx()).map(r => describe(r, { quests: QUESTS.quests, items: ITEMS.items }));
     }
     return m;
   }).sort((a, b) => b.gpPerHr - a.gpPerHr);
@@ -94,7 +94,7 @@ function editor(b, r) {
       <label>${esc(b.unit)}s per hour <input type="number" min="0" step="any" id="ed-uph" value="${s.unitsPerHr ?? ''}" placeholder="${def.unitsPerHr ?? ''}"></label>
       <label>${esc(b.unit)}s per trip <input type="number" min="0" step="any" id="ed-upt" value="${s.unitsPerTrip ?? ''}" placeholder="for per-trip supplies"></label>
     </div>
-    <p class="src">Requires: ${def.requires ? esc(describe(def.requires, { quests: QUESTS.quests })) : 'nothing listed'}.</p>
+    <p class="src">Requires: ${def.requires ? esc(describe(def.requires, { quests: QUESTS.quests, items: ITEMS.items })) : 'nothing listed'}.</p>
     <p class="src">Rate: ${esc(def.unitsPerHrSource || 'n/a')}. Cost: ${esc(def.costSource || 'n/a')}.${def.guide ? ` <a href="https://oldschool.runescape.wiki/w/${encodeURI(def.guide.replace(/ /g, '_'))}" target="_blank" rel="noopener">Wiki guide</a>` : ''}</p>
     ${s.supplies.length ? `<table class="supplies"><thead><tr><th>Supply</th><th>Qty</th><th></th><th class="num">Cost</th><th></th></tr></thead><tbody>${lines}</tbody></table>`
       : `<p class="src">No item list yet${s.flatCostPerUnit != null ? `: using a flat ${Math.round(s.flatCostPerUnit).toLocaleString('en-GB')} gp per ${esc(b.unit)}` : ''}. Adding a supply replaces the flat figure.</p>`}
