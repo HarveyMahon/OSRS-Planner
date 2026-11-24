@@ -5,7 +5,7 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 
 | Page | Status |
 |---|---|
-| **Goal Planner** (`planner/`) | In development. Ordered plans of XP, kill count, GP and quest steps. |
+| **Goal Planner** (`planner/`) | Goals (levels, max cape, quests, kill counts, milestones, GP) become ordered steps with training methods (swappable within a skill), quests, kills and money-making steps (`core/planner.js`). |
 | **Money Makers** (`money/`) | Bosses and ~485 other Wiki-guide methods ranked by GP/hr after supplies, filtered to your account (recommended levels included, for now); Wilderness and F2P marked. |
 | Training (`training/`) | Time and cost to a target level per skill: Fastest, Balanced and AFK tracks (`data/training.json`, estimates). |
 | My Account (`account/`) | Your stats (levels or XP) and cash stack, saved in this browser (`core/account.js`). |

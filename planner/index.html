@@ -8,12 +8,73 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../core/theme.css">
+<style>
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: grid; gap: 12px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  select, input { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: 14px var(--sans); }
+  input[type=number] { width: 80px; font-family: var(--mono); }
+  .btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 6px; padding: 7px 14px; font: 500 14px var(--sans); cursor: pointer; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { background: transparent; color: var(--muted); border: 0; padding: 6px 14px; font: 500 13px var(--sans); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 4px 6px 4px 12px; font-size: 14px; }
+  .chip button { background: transparent; border: 0; color: var(--muted); cursor: pointer; font-size: 16px; line-height: 1; }
+  #goals { display: flex; gap: 8px; flex-wrap: wrap; }
+  #summary { display: flex; gap: 28px; flex-wrap: wrap; font: 18px var(--mono); }
+  #summary .lbl { display: block; font: 12px var(--sans); color: var(--faint); }
+  #warnings { margin: 0; padding-left: 18px; color: var(--gp-low); font-size: 14px; }
+  #steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+  .step .head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .step .n { font: 12px var(--mono); color: var(--faint); min-width: 22px; }
+  .step .right { margin-left: auto; font-family: var(--mono); font-size: 14px; color: var(--muted); }
+  .step.quest { border-left: 3px solid #7fb7ff; } .step.kc { border-left: 3px solid var(--cost); }
+  .step.gp { border-left: 3px solid var(--gp-high); } .step.train { border-left: 3px solid var(--accent); }
+  .segs { list-style: none; margin: 8px 0 0 30px; padding: 0; display: grid; gap: 6px; }
+  .segs li { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; }
+  .segs .lv { font-family: var(--mono); color: var(--muted); min-width: 56px; }
+  .segs select { max-width: 420px; }
+  .segs .meta { font-family: var(--mono); color: var(--muted); font-size: 13px; }
+  .segs li.swapped select { border-color: var(--accent); }
+  .x, .linkbtn { background: transparent; border: 0; color: var(--accent); cursor: pointer; font: 12px var(--sans); text-decoration: underline; padding: 0; }
+  .note { flex-basis: 100%; color: var(--faint); font-size: 12.5px; margin-left: 66px; }
+  .step > .note { margin-left: 30px; }
+  .cost { color: var(--cost); } .gain { color: var(--gp-high); } .wild { color: #ff9b6b; } .muted { color: var(--muted); }
+  a { color: var(--accent); }
+  .error { color: var(--cost); }
+</style>
 </head>
 <body>
 <main class="page">
-  <h1>Goal Planner</h1>
-  <p>Set a goal and get an ordered plan of XP, kill count, GP and quest steps, with suggested methods for each. Built after the money-maker ranker, which it uses to fund each plan.</p>
+  <div style="display:grid;gap:8px">
+    <h1>Goal Planner</h1>
+    <p>Add goals and get an ordered plan: the quests and levels they need, how to train each range, and when to make money. Swap any training method for another of the same skill and the plan recalculates, including how much money you need to make.</p>
+    <p id="acct-note" style="font-size:14px"></p>
+  </div>
+  <section class="panel">
+    <div class="row">
+      <select id="goal-type" aria-label="Goal type">
+        <option value="level">Reach a level</option><option value="maxcape">Max cape (all 99s)</option><option value="quest">Complete a quest</option>
+        <option value="kc">Boss kill count</option><option value="milestone">Milestone (e.g. Infernal cape)</option><option value="gp">Make GP</option>
+      </select>
+      <span id="goal-fields" class="row"></span>
+      <button type="button" class="btn" id="add-goal">Add goal</button>
+    </div>
+    <div id="goals"></div>
+    <div class="row">
+      <span class="muted" style="font-size:13px">Training style</span>
+      <div class="seg" id="intensity" role="group" aria-label="Training style">
+        <button type="button" data-i="fastest">Fastest</button><button type="button" data-i="balanced">Balanced</button><button type="button" data-i="afk">AFK</button>
+      </div>
+      <span id="swaps-note" class="muted" style="font-size:13px"></span>
+    </div>
+  </section>
+  <div id="summary"></div>
+  <ul id="warnings"></ul>
+  <ol id="steps"></ol>
+  <datalist id="quest-names"></datalist>
 </main>
+<script type="module" src="planner.js"></script>
 <script type="module" src="../core/nav.js" data-active="planner"></script>
 </body>
 </html>

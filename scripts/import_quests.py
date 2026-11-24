@@ -183,6 +183,9 @@ def main():
         q["requires"] = {"all": reqs} if reqs else None
         if reward_qp is not None:
             q["questPoints"] = reward_qp
+        length = re.sub(r"<[^>]+>|\[\[(?:[^|\]]*\|)?([^\]]*)\]\]", lambda m: m.group(1) or "", template_param(text, "Quest details", "length") or "").strip()
+        if length:
+            q["length"] = length.split("\n")[0][:40]
         if notes:
             q["requirementNotes"] = notes
         parsed += 1

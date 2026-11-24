@@ -59,7 +59,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "a_new_leaf": {
    "name": "A New Leaf",
@@ -83,7 +84,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "a_night_at_the_theatre": {
    "name": "A Night at the Theatre",
@@ -113,13 +115,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "a_porcine_of_interest": {
    "name": "A Porcine of Interest",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "a_ruff_situation": {
    "name": "A Ruff Situation",
@@ -132,7 +136,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "a_shell_of_a_friend": {
    "name": "A Shell of a Friend",
@@ -152,13 +157,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Very Short"
   },
   "a_soul_s_bane": {
    "name": "A Soul's Bane",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "a_tail_of_two_cats": {
    "name": "A Tail of Two Cats",
@@ -173,7 +180,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "a_taste_of_hope": {
    "name": "A Taste of Hope",
@@ -220,12 +228,14 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "alfred_grimhand_s_barcrawl": {
    "name": "Alfred Grimhand's Barcrawl",
    "miniquest": true,
-   "requires": null
+   "requires": null,
+   "length": "Medium"
   },
   "animal_magnetism": {
    "name": "Animal Magnetism",
@@ -259,7 +269,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "another_slice_of_h_a_m": {
    "name": "Another Slice of H.A.M.",
@@ -294,7 +305,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "architectural_alliance": {
    "name": "Architectural Alliance",
@@ -306,7 +318,8 @@
       "level": 42
      }
     ]
-   }
+   },
+   "length": "Long"
   },
   "at_first_light": {
    "name": "At First Light",
@@ -333,7 +346,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "barbarian_training": {
    "name": "Barbarian Training",
@@ -377,12 +391,14 @@
       "quest": "tai_bwo_wannai_trio"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "bear_your_soul": {
    "name": "Bear Your Soul",
    "miniquest": true,
-   "requires": null
+   "requires": null,
+   "length": "Short"
   },
   "below_ice_mountain": {
    "name": "Below Ice Mountain",
@@ -394,7 +410,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "beneath_cursed_sands": {
    "name": "Beneath Cursed Sands",
@@ -427,7 +444,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "between_a_rock": {
    "name": "Between a Rock...",
@@ -457,7 +475,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "big_chompy_bird_hunting": {
    "name": "Big Chompy Bird Hunting",
@@ -480,7 +499,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "biohazard": {
    "name": "Biohazard",
@@ -492,7 +512,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "black_knights_fortress": {
    "name": "Black Knights' Fortress",
@@ -504,7 +525,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Very Short"
   },
   "bone_voyage": {
    "name": "Bone Voyage",
@@ -516,7 +538,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "burial_at_sea": {
    "name": "Burial at Sea",
@@ -594,13 +617,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "children_of_the_sun": {
    "name": "Children of the Sun",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "client_of_kourend": {
    "name": "Client of Kourend",
@@ -612,13 +637,15 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "clock_tower": {
    "name": "Clock Tower",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "cold_war": {
    "name": "Cold War",
@@ -647,7 +674,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "contact": {
    "name": "Contact!",
@@ -665,13 +693,15 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "cook_s_assistant": {
    "name": "Cook's Assistant",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "crab_quest": {
    "name": "Crab Quest",
@@ -688,7 +718,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "creature_of_fenkenstrain": {
    "name": "Creature of Fenkenstrain",
@@ -713,7 +744,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "current_affairs": {
    "name": "Current Affairs",
@@ -733,7 +765,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "curse_of_the_empty_lord": {
    "name": "Curse of the Empty Lord",
@@ -755,13 +788,15 @@
       "quest": "the_restless_ghost"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "daddy_s_home": {
    "name": "Daddy's Home",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "darkness_of_hallowvale": {
    "name": "Darkness of Hallowvale",
@@ -816,13 +851,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "death_plateau": {
    "name": "Death Plateau",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "death_on_the_isle": {
    "name": "Death on the Isle",
@@ -842,7 +879,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "death_to_the_dorgeshuun": {
    "name": "Death to the Dorgeshuun",
@@ -870,7 +908,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "defender_of_varrock": {
    "name": "Defender of Varrock",
@@ -923,13 +962,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "demon_slayer": {
    "name": "Demon Slayer",
    "miniquest": false,
    "requires": null,
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "desert_treasure_i": {
    "name": "Desert Treasure I",
@@ -979,7 +1020,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Long"
   },
   "desert_treasure_ii_the_fallen_empire": {
    "name": "Desert Treasure II - The Fallen Empire",
@@ -1135,7 +1177,8 @@
      }
     ]
    },
-   "questPoints": 5
+   "questPoints": 5,
+   "length": "Very Long"
   },
   "devious_minds": {
    "name": "Devious Minds",
@@ -1194,13 +1237,15 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "doric_s_quest": {
    "name": "Doric's Quest",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "dragon_slayer_i": {
    "name": "Dragon Slayer I",
@@ -1212,7 +1257,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "dragon_slayer_ii": {
    "name": "Dragon Slayer II",
@@ -1358,7 +1404,8 @@
      }
     ]
    },
-   "questPoints": 5
+   "questPoints": 5,
+   "length": "Very Long"
   },
   "dream_mentor": {
    "name": "Dream Mentor",
@@ -1400,19 +1447,22 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "druidic_ritual": {
    "name": "Druidic Ritual",
    "miniquest": false,
    "requires": null,
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Very Short"
   },
   "dwarf_cannon": {
    "name": "Dwarf Cannon",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "eadgar_s_ruse": {
    "name": "Eadgar's Ruse",
@@ -1435,7 +1485,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "eagles_peak": {
    "name": "Eagles' Peak",
@@ -1449,7 +1500,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "elemental_workshop_i": {
    "name": "Elemental Workshop I",
@@ -1473,7 +1525,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "elemental_workshop_ii": {
    "name": "Elemental Workshop II",
@@ -1495,7 +1548,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "enakhra_s_lament": {
    "name": "Enakhra's Lament",
@@ -1522,7 +1576,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "enlightened_journey": {
    "name": "Enlightened Journey",
@@ -1549,7 +1604,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "enter_the_abyss": {
    "name": "Enter the Abyss",
@@ -1560,13 +1616,15 @@
       "quest": "rune_mysteries"
      }
     ]
-   }
+   },
+   "length": "Very Short"
   },
   "ernest_the_chicken": {
    "name": "Ernest the Chicken",
    "miniquest": false,
    "requires": null,
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Very Short"
   },
   "ethically_acquired_antiquities": {
    "name": "Ethically Acquired Antiquities",
@@ -1585,7 +1643,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "fairytale_i_growing_pains": {
    "name": "Fairytale I - Growing Pains",
@@ -1606,7 +1665,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "fairytale_ii_cure_a_queen": {
    "name": "Fairytale II - Cure a Queen",
@@ -1644,7 +1704,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "fairytale_iii_nexus_of_power": {
    "name": "Fairytale III - Nexus of Power",
@@ -1677,7 +1738,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "family_crest": {
    "name": "Family Crest",
@@ -1706,7 +1768,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "family_pest": {
    "name": "Family Pest",
@@ -1717,13 +1780,15 @@
       "quest": "family_crest"
      }
     ]
-   }
+   },
+   "length": "Short"
   },
   "fight_arena": {
    "name": "Fight Arena",
    "miniquest": false,
    "requires": null,
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "fishing_contest": {
    "name": "Fishing Contest",
@@ -1736,7 +1801,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "fool_s_gold": {
    "name": "Fool's Gold",
@@ -1784,7 +1850,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "garden_of_tranquillity": {
    "name": "Garden of Tranquillity",
@@ -1806,13 +1873,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "gertrude_s_cat": {
    "name": "Gertrude's Cat",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "getting_ahead": {
    "name": "Getting Ahead",
@@ -1829,7 +1898,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "ghosts_ahoy": {
    "name": "Ghosts Ahoy",
@@ -1854,13 +1924,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "goblin_diplomacy": {
    "name": "Goblin Diplomacy",
    "miniquest": false,
    "requires": null,
-   "questPoints": 5
+   "questPoints": 5,
+   "length": "Very Short"
   },
   "grim_tales": {
    "name": "Grim Tales",
@@ -1897,7 +1969,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "haunted_mine": {
    "name": "Haunted Mine",
@@ -1914,13 +1987,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "hazeel_cult": {
    "name": "Hazeel Cult",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "heroes_quest": {
    "name": "Heroes' Quest",
@@ -1964,7 +2039,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "his_faithful_servants": {
    "name": "His Faithful Servants",
@@ -1975,7 +2051,8 @@
       "quest": "priest_in_peril"
      }
     ]
-   }
+   },
+   "length": "Very Short"
   },
   "holy_grail": {
    "name": "Holy Grail",
@@ -1991,7 +2068,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "hopespear_s_will": {
    "name": "Hopespear's Will",
@@ -2015,7 +2093,8 @@
       "quest": "land_of_the_goblins"
      }
     ]
-   }
+   },
+   "length": "Short"
   },
   "horror_from_the_deep": {
    "name": "Horror from the Deep",
@@ -2032,7 +2111,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "icthlarin_s_little_helper": {
    "name": "Icthlarin's Little Helper",
@@ -2044,13 +2124,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "imp_catcher": {
    "name": "Imp Catcher",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "in_aid_of_the_myreque": {
    "name": "In Aid of the Myreque",
@@ -2089,12 +2171,14 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "in_search_of_knowledge": {
    "name": "In Search of Knowledge",
    "miniquest": true,
-   "requires": null
+   "requires": null,
+   "length": "Medium"
   },
   "in_search_of_the_myreque": {
    "name": "In Search of the Myreque",
@@ -2117,7 +2201,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "into_the_tombs": {
    "name": "Into the Tombs",
@@ -2140,7 +2225,8 @@
       "quest": "gertrude_s_cat"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "jungle_potion": {
    "name": "Jungle Potion",
@@ -2157,7 +2243,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "king_s_ransom": {
    "name": "King's Ransom",
@@ -2201,7 +2288,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "lair_of_tarn_razorlor": {
    "name": "Lair of Tarn Razorlor",
@@ -2216,7 +2304,8 @@
       "quest": "haunted_mine"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "land_of_the_goblins": {
    "name": "Land of the Goblins",
@@ -2265,13 +2354,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "learning_the_ropes": {
    "name": "Learning the Ropes",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "legends_quest": {
    "name": "Legends' Quest",
@@ -2372,7 +2463,8 @@
      }
     ]
    },
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Long"
   },
   "lost_city": {
    "name": "Lost City",
@@ -2391,7 +2483,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "lunar_diplomacy": {
    "name": "Lunar Diplomacy",
@@ -2446,7 +2539,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "mage_arena_i": {
    "name": "Mage Arena I",
@@ -2458,7 +2552,8 @@
       "level": 60
      }
     ]
-   }
+   },
+   "length": "Short"
   },
   "mage_arena_ii": {
    "name": "Mage Arena II",
@@ -2473,7 +2568,8 @@
       "quest": "mage_arena_i"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "making_friends_with_my_arm": {
    "name": "Making Friends with My Arm",
@@ -2552,7 +2648,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "making_history": {
    "name": "Making History",
@@ -2567,7 +2664,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "meat_and_greet": {
    "name": "Meat and Greet",
@@ -2579,25 +2677,29 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "merlin_s_crystal": {
    "name": "Merlin's Crystal",
    "miniquest": false,
    "requires": null,
-   "questPoints": 6
+   "questPoints": 6,
+   "length": "Short"
   },
   "misthalin_mystery": {
    "name": "Misthalin Mystery",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "monk_s_friend": {
    "name": "Monk's Friend",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "monkey_madness_i": {
    "name": "Monkey Madness I",
@@ -2612,7 +2714,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Long"
   },
   "monkey_madness_ii": {
    "name": "Monkey Madness II",
@@ -2669,7 +2772,8 @@
      }
     ]
    },
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Very Long"
   },
   "mountain_daughter": {
    "name": "Mountain Daughter",
@@ -2683,7 +2787,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "mourning_s_end_part_i": {
    "name": "Mourning's End Part I",
@@ -2724,7 +2829,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "mourning_s_end_part_ii": {
    "name": "Mourning's End Part II",
@@ -2760,19 +2866,22 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "mudfoot_s_big_adventure": {
    "name": "Mudfoot's Big Adventure",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "murder_mystery": {
    "name": "Murder Mystery",
    "miniquest": false,
    "requires": null,
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "my_arm_s_big_adventure": {
    "name": "My Arm's Big Adventure",
@@ -2808,7 +2917,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "nature_spirit": {
    "name": "Nature Spirit",
@@ -2823,13 +2933,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "observatory_quest": {
    "name": "Observatory Quest",
    "miniquest": false,
    "requires": null,
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "olaf_s_quest": {
    "name": "Olaf's Quest",
@@ -2851,7 +2963,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "one_small_favour": {
    "name": "One Small Favour",
@@ -2892,13 +3005,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "pandemonium": {
    "name": "Pandemonium",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "perilous_moons": {
    "name": "Perilous Moons",
@@ -2933,31 +3048,36 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "pirate_s_treasure": {
    "name": "Pirate's Treasure",
    "miniquest": false,
    "requires": null,
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Very Short"
   },
   "plague_city": {
    "name": "Plague City",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "priest_in_peril": {
    "name": "Priest in Peril",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "prince_ali_rescue": {
    "name": "Prince Ali Rescue",
    "miniquest": false,
    "requires": null,
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "prying_times": {
    "name": "Prying Times",
@@ -2980,13 +3100,15 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "rag_and_bone_man_i": {
    "name": "Rag and Bone Man I",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "rag_and_bone_man_ii": {
    "name": "Rag and Bone Man II",
@@ -3013,7 +3135,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "rag_and_bone_man_iii": {
    "name": "Rag and Bone Man III",
@@ -3116,7 +3239,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Medium"
   },
   "ratcatchers": {
    "name": "Ratcatchers",
@@ -3134,7 +3258,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "recipe_for_disaster": {
    "name": "Recipe for Disaster",
@@ -3325,7 +3450,8 @@
      }
     ]
    },
-   "questPoints": 10
+   "questPoints": 10,
+   "length": "Very Long"
   },
   "recipe_for_disaster_another_cook_s_quest": {
    "name": "Recipe for Disaster/Another Cook's Quest",
@@ -3341,7 +3467,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "recipe_for_disaster_defeating_the_culinaromancer": {
    "name": "Recipe for Disaster/Defeating the Culinaromancer",
@@ -3407,7 +3534,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "recipe_for_disaster_freeing_evil_dave": {
    "name": "Recipe for Disaster/Freeing Evil Dave",
@@ -3434,7 +3562,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "recipe_for_disaster_freeing_king_awowogei": {
    "name": "Recipe for Disaster/Freeing King Awowogei",
@@ -3467,7 +3596,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Long"
   },
   "recipe_for_disaster_freeing_pirate_pete": {
    "name": "Recipe for Disaster/Freeing Pirate Pete",
@@ -3487,7 +3617,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "recipe_for_disaster_freeing_sir_amik_varze": {
    "name": "Recipe for Disaster/Freeing Sir Amik Varze",
@@ -3547,7 +3678,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "recipe_for_disaster_freeing_skrach_uglogwee": {
    "name": "Recipe for Disaster/Freeing Skrach Uglogwee",
@@ -3575,7 +3707,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "recipe_for_disaster_freeing_the_goblin_generals": {
    "name": "Recipe for Disaster/Freeing the Goblin generals",
@@ -3593,7 +3726,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "recipe_for_disaster_freeing_the_lumbridge_guide": {
    "name": "Recipe for Disaster/Freeing the Lumbridge Guide",
@@ -3640,7 +3774,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "recipe_for_disaster_freeing_the_mountain_dwarf": {
    "name": "Recipe for Disaster/Freeing the Mountain Dwarf",
@@ -3658,7 +3793,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "recruitment_drive": {
    "name": "Recruitment Drive",
@@ -3673,7 +3809,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "regicide": {
    "name": "Regicide",
@@ -3700,13 +3837,15 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Long"
   },
   "romeo_juliet": {
    "name": "Romeo & Juliet",
    "miniquest": false,
    "requires": null,
-   "questPoints": 5
+   "questPoints": 5,
+   "length": "Short"
   },
   "roving_elves": {
    "name": "Roving Elves",
@@ -3735,7 +3874,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "royal_trouble": {
    "name": "Royal Trouble",
@@ -3775,7 +3915,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "rum_deal": {
    "name": "Rum Deal",
@@ -3823,13 +3964,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "rune_mysteries": {
    "name": "Rune Mysteries",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "scorpion_catcher": {
    "name": "Scorpion Catcher",
@@ -3845,7 +3988,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "scrambled": {
    "name": "Scrambled!",
@@ -3869,7 +4013,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "sea_slug": {
    "name": "Sea Slug",
@@ -3883,7 +4028,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "secrets_of_the_north": {
    "name": "Secrets of the North",
@@ -3997,7 +4143,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "shades_of_mort_ton": {
    "name": "Shades of Mort'ton",
@@ -4024,7 +4171,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Short"
   },
   "shadow_of_the_storm": {
    "name": "Shadow of the Storm",
@@ -4044,7 +4192,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "shadows_of_custodia": {
    "name": "Shadows of Custodia",
@@ -4072,25 +4221,29 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "sheep_herder": {
    "name": "Sheep Herder",
    "miniquest": false,
    "requires": null,
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Short"
   },
   "sheep_shearer": {
    "name": "Sheep Shearer",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "shield_of_arrav": {
    "name": "Shield of Arrav",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "shilo_village": {
    "name": "Shilo Village",
@@ -4115,7 +4268,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "sins_of_the_father": {
    "name": "Sins of the Father",
@@ -4176,7 +4330,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Long"
   },
   "skippy_and_the_mogres": {
    "name": "Skippy and the Mogres",
@@ -4189,7 +4344,8 @@
       "boostable": true
      }
     ]
-   }
+   },
+   "length": "Very Short"
   },
   "sleeping_giants": {
    "name": "Sleeping Giants",
@@ -4202,7 +4358,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "song_of_the_elves": {
    "name": "Song of the Elves",
@@ -4285,7 +4442,8 @@
      }
     ]
    },
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Very Long"
   },
   "spirits_of_the_elid": {
    "name": "Spirits of the Elid",
@@ -4314,7 +4472,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "swan_song": {
    "name": "Swan Song",
@@ -4383,7 +4542,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "tai_bwo_wannai_trio": {
    "name": "Tai Bwo Wannai Trio",
@@ -4412,7 +4572,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "tale_of_the_righteous": {
    "name": "Tale of the Righteous",
@@ -4435,7 +4596,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "tears_of_guthix": {
    "name": "Tears of Guthix",
@@ -4462,7 +4624,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "temple_of_ikov": {
    "name": "Temple of Ikov",
@@ -4480,7 +4643,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "temple_of_the_eye": {
    "name": "Temple of the Eye",
@@ -4499,7 +4663,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_ascent_of_arceuus": {
    "name": "The Ascent of Arceuus",
@@ -4518,13 +4683,15 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_birds_and_the_wasps": {
    "name": "The Birds and the Wasps",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_blood_moon_rises": {
    "name": "The Blood Moon Rises",
@@ -4603,7 +4770,8 @@
      }
     ]
    },
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Very Long"
   },
   "the_chosen_commander": {
    "name": "The Chosen Commander",
@@ -4656,7 +4824,8 @@
    "name": "The Corsair Curse",
    "miniquest": false,
    "requires": null,
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "the_curse_of_arrav": {
    "name": "The Curse of Arrav",
@@ -4737,7 +4906,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_depths_of_despair": {
    "name": "The Depths of Despair",
@@ -4756,7 +4926,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_dig_site": {
    "name": "The Dig Site",
@@ -4780,7 +4951,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_enchanted_key": {
    "name": "The Enchanted Key",
@@ -4791,7 +4963,8 @@
       "quest": "making_history"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "the_eyes_of_glouphrie": {
    "name": "The Eyes of Glouphrie",
@@ -4811,7 +4984,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_feud": {
    "name": "The Feud",
@@ -4824,7 +4998,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "the_final_dawn": {
    "name": "The Final Dawn",
@@ -4857,7 +5032,8 @@
      }
     ]
    },
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Long"
   },
   "the_forsaken_tower": {
    "name": "The Forsaken Tower",
@@ -4872,7 +5048,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_fractured_archive_miniquest": {
    "name": "The Fractured Archive (miniquest)",
@@ -5009,7 +5186,8 @@
       "quest": "gertrude_s_cat"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "the_fremennik_exiles": {
    "name": "The Fremennik Exiles",
@@ -5082,7 +5260,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_fremennik_isles": {
    "name": "The Fremennik Isles",
@@ -5099,13 +5278,15 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "the_fremennik_trials": {
    "name": "The Fremennik Trials",
    "miniquest": false,
    "requires": null,
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Medium"
   },
   "the_frozen_door": {
    "name": "The Frozen Door",
@@ -5133,7 +5314,8 @@
       "quest": "desert_treasure_i"
      }
     ]
-   }
+   },
+   "length": "Short"
   },
   "the_garden_of_death": {
    "name": "The Garden of Death",
@@ -5146,7 +5328,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_general_s_shadow": {
    "name": "The General's Shadow",
@@ -5163,7 +5346,8 @@
       "quest": "fight_arena"
      }
     ]
-   }
+   },
+   "length": "Medium"
   },
   "the_giant_dwarf": {
    "name": "The Giant Dwarf",
@@ -5192,7 +5376,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_golem": {
    "name": "The Golem",
@@ -5211,7 +5396,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_grand_tree": {
    "name": "The Grand Tree",
@@ -5225,7 +5411,8 @@
      }
     ]
    },
-   "questPoints": 5
+   "questPoints": 5,
+   "length": "Medium"
   },
   "the_graveyard": {
    "name": "The Graveyard",
@@ -5355,7 +5542,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_hand_in_the_sand": {
    "name": "The Hand in the Sand",
@@ -5372,7 +5560,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_heart_of_darkness": {
    "name": "The Heart of Darkness",
@@ -5403,13 +5592,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_ides_of_milk": {
    "name": "The Ides of Milk",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_knight_s_sword": {
    "name": "The Knight's Sword",
@@ -5423,7 +5614,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_lost_tribe": {
    "name": "The Lost Tribe",
@@ -5453,7 +5645,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_path_of_glouphrie": {
    "name": "The Path of Glouphrie",
@@ -5494,7 +5687,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_queen_of_thieves": {
    "name": "The Queen of Thieves",
@@ -5513,7 +5707,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "the_red_reef": {
    "name": "The Red Reef",
@@ -5536,13 +5731,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_restless_ghost": {
    "name": "The Restless Ghost",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "the_ribbiting_tale_of_a_lily_pad_labour_dispute": {
    "name": "The Ribbiting Tale of a Lily Pad Labour Dispute",
@@ -5558,7 +5755,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "the_slug_menace": {
    "name": "The Slug Menace",
@@ -5613,7 +5811,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "the_tourist_trap": {
    "name": "The Tourist Trap",
@@ -5632,7 +5831,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "the_writing_s_on_the_wall": {
    "name": "The Writing's on the Wall",
@@ -5649,7 +5849,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "throne_of_miscellania": {
    "name": "Throne of Miscellania",
@@ -5676,7 +5877,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "tower_of_life": {
    "name": "Tower of Life",
@@ -5689,13 +5891,15 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Medium"
   },
   "tree_gnome_village": {
    "name": "Tree Gnome Village",
    "miniquest": false,
    "requires": null,
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "tribal_totem": {
    "name": "Tribal Totem",
@@ -5709,7 +5913,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "troll_romance": {
    "name": "Troll Romance",
@@ -5729,7 +5934,8 @@
      }
     ]
    },
-   "questPoints": 2
+   "questPoints": 2,
+   "length": "Short"
   },
   "troll_stronghold": {
    "name": "Troll Stronghold",
@@ -5746,7 +5952,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "troubled_tortugans": {
    "name": "Troubled Tortugans",
@@ -5782,7 +5989,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "twilight_s_promise": {
    "name": "Twilight's Promise",
@@ -5794,7 +6002,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "underground_pass": {
    "name": "Underground Pass",
@@ -5814,7 +6023,8 @@
      }
     ]
    },
-   "questPoints": 5
+   "questPoints": 5,
+   "length": "Long"
   },
   "vale_totems_miniquest": {
    "name": "Vale Totems (miniquest)",
@@ -5829,13 +6039,15 @@
       "quest": "children_of_the_sun"
      }
     ]
-   }
+   },
+   "length": "Very Short"
   },
   "vampyre_slayer": {
    "name": "Vampyre Slayer",
    "miniquest": false,
    "requires": null,
-   "questPoints": 3
+   "questPoints": 3,
+   "length": "Very Short"
   },
   "wanted": {
    "name": "Wanted!",
@@ -5871,7 +6083,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Medium"
   },
   "watchtower": {
    "name": "Watchtower",
@@ -5905,13 +6118,15 @@
      }
     ]
    },
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Medium"
   },
   "waterfall_quest": {
    "name": "Waterfall Quest",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "what_lies_below": {
    "name": "What Lies Below",
@@ -5927,7 +6142,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   },
   "while_guthix_sleeps": {
    "name": "While Guthix Sleeps",
@@ -6094,6 +6310,7 @@
     ]
    },
    "questPoints": 5,
+   "length": "Very Long",
    "requirementNotes": [
     "Ability to enter the Warriors' Guild (the sum of your Attack and Strength must be at or above 130; OR , OR )"
    ]
@@ -6102,19 +6319,22 @@
    "name": "Witch's House",
    "miniquest": false,
    "requires": null,
-   "questPoints": 4
+   "questPoints": 4,
+   "length": "Very Short"
   },
   "witch_s_potion": {
    "name": "Witch's Potion",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "x_marks_the_spot": {
    "name": "X Marks the Spot",
    "miniquest": false,
    "requires": null,
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Very Short"
   },
   "zogre_flesh_eaters": {
    "name": "Zogre Flesh Eaters",
@@ -6146,7 +6366,8 @@
      }
     ]
    },
-   "questPoints": 1
+   "questPoints": 1,
+   "length": "Short"
   }
  }
 }

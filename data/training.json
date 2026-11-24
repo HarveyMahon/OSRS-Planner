@@ -1389,6 +1389,18 @@
     "note": "About 2,500 potions an hour. Tick manipulation can roughly double rates.",
     "stages": [
      {
+      "from": 1,
+      "name": "Druidic Ritual (quest, 250 XP)",
+      "xpPerHr": 2500,
+      "requires": {
+       "all": [
+        {
+         "quest": "druidic_ritual"
+        }
+       ]
+      }
+     },
+     {
       "from": 3,
       "name": "Attack potions",
       "xpPerHr": 62500,
@@ -1552,6 +1564,18 @@
     "intensity": 2,
     "note": "Herblore is the same effort whichever potion you make.",
     "stages": [
+     {
+      "from": 1,
+      "name": "Druidic Ritual (quest, 250 XP)",
+      "xpPerHr": 2500,
+      "requires": {
+       "all": [
+        {
+         "quest": "druidic_ritual"
+        }
+       ]
+      }
+     },
      {
       "from": 3,
       "name": "Attack potions",
@@ -4423,16 +4447,9 @@
     "stages": [
      {
       "from": 1,
-      "name": "Courier tasks, sea charting, trimming sails",
+      "name": "Pandemonium, then courier tasks, sea charting, trimming sails",
       "xpPerHr": 8000,
-      "note": "The Wiki gives about 10K/hr for sea charting at 22; early couriers have no listed rate.",
-      "requires": {
-       "all": [
-        {
-         "quest": "pandemonium"
-        }
-       ]
-      }
+      "note": "The Wiki gives about 10K/hr for sea charting at 22; early couriers have no listed rate."
      },
      {
       "from": 30,
@@ -4461,15 +4478,8 @@
     "stages": [
      {
       "from": 1,
-      "name": "Courier tasks, sea charting, trimming sails",
-      "xpPerHr": 8000,
-      "requires": {
-       "all": [
-        {
-         "quest": "pandemonium"
-        }
-       ]
-      }
+      "name": "Pandemonium, then courier tasks, sea charting, trimming sails",
+      "xpPerHr": 8000
      },
      {
       "from": 45,
@@ -4511,15 +4521,8 @@
     "stages": [
      {
       "from": 1,
-      "name": "Courier tasks, sea charting, trimming sails",
-      "xpPerHr": 8000,
-      "requires": {
-       "all": [
-        {
-         "quest": "pandemonium"
-        }
-       ]
-      }
+      "name": "Pandemonium, then courier tasks, sea charting, trimming sails",
+      "xpPerHr": 8000
      },
      {
       "from": 15,

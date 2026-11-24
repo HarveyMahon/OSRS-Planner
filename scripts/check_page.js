@@ -77,6 +77,18 @@ function serve() {
       if (BAD.test(text)) problems.push(`Training ${sk}: contains NaN/undefined.`);
     }
 
+    // Goal Planner: a plan with an Infernal cape, a quest and a level renders cleanly
+    where = '/planner/';
+    await page.goto(base + 'planner/');
+    await page.evaluate(() => localStorage.setItem('osrsplanner:plan', JSON.stringify({ goals: [
+      { type: 'milestone', bossId: 'tzkal_zuk' }, { type: 'quest', id: 'dragon_slayer_ii' }, { type: 'level', skill: 'Prayer', level: 99 } ], intensity: 'balanced', swaps: [] })));
+    await page.reload();
+    await page.waitForFunction(() => document.documentElement.dataset.ready === '1', null, { timeout: 30000 });
+    const planText = await page.$eval('main', m => m.innerText);
+    if (BAD.test(planText)) problems.push('Goal Planner contains NaN/undefined.');
+    if (await page.$$eval('#steps li.step', r => r.length) < 3) problems.push('Goal Planner produced too few steps.');
+    await page.evaluate(() => localStorage.removeItem('osrsplanner:plan'));
+
     // Pet calculator (side tool)
     where = '/pets/';
     await page.goto(base + 'pets/');

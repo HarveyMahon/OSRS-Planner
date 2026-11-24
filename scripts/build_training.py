@@ -196,6 +196,7 @@ SKILLS = {
     ],
     "Herblore": [
         T("fastest", "Fastest potions", 2, [
+            S(1, "Druidic Ritual (quest, 250 XP)", 2500, quest=["Druidic Ritual"]),
             S(3, "Attack potions", 62500, each=25, inp={"Guam potion (unf)": 1, "Eye of newt": 1}, out={"Attack potion(3)": 1}),
             S(12, "Strength potions", 125000, each=50, inp={"Tarromin potion (unf)": 1, "Limpwurt root": 1}, out={"Strength potion(3)": 1}),
             S(22, "Restore potions", 156250, each=62.5, inp={"Harralander potion (unf)": 1, "Red spiders' eggs": 1}, out={"Restore potion(3)": 1}),
@@ -206,6 +207,7 @@ SKILLS = {
               note="Output per the Wiki guide's ratio."),
         ], note="About 2,500 potions an hour. Tick manipulation can roughly double rates."),
         T("balanced", "Cheapest per XP", 2, [
+            S(1, "Druidic Ritual (quest, 250 XP)", 2500, quest=["Druidic Ritual"]),
             S(3, "Attack potions", 62500, each=25, inp={"Guam potion (unf)": 1, "Eye of newt": 1}, out={"Attack potion(3)": 1}),
             S(22, "Restore potions", 156250, each=62.5, inp={"Harralander potion (unf)": 1, "Red spiders' eggs": 1}, out={"Restore potion(3)": 1}),
             S(45, "Super attack", 250000, each=100, inp={"Irit potion (unf)": 1, "Eye of newt": 1}, out={"Super attack(3)": 1}),
@@ -454,20 +456,20 @@ SKILLS = {
     # From the Wiki's Sailing training page (Nov 2026): trials at Shark rank, mid-range salvaging rates
     "Sailing": [
         T("fastest", "Barracuda trials", 5, [
-            S(1, "Courier tasks, sea charting, trimming sails", 8000, quest=["Pandemonium"], note="The Wiki gives about 10K/hr for sea charting at 22; early couriers have no listed rate."),
+            S(1, "Pandemonium, then courier tasks, sea charting, trimming sails", 8000, note="The Wiki gives about 10K/hr for sea charting at 22; early couriers have no listed rate."),
             S(30, "Barracuda trials: The Tempor Tantrum", 21938),
             S(55, "Barracuda trials: The Jubbly Jive", 80905),
             S(72, "Barracuda trials: The Gwenith Glide", 144543, note="184K/hr at Marlin rank; ~198K with a crystal extractor."),
         ]),
         T("balanced", "Port tasks (couriers)", 4, [
-            S(1, "Courier tasks, sea charting, trimming sails", 8000, quest=["Pandemonium"]),
+            S(1, "Pandemonium, then courier tasks, sea charting, trimming sails", 8000),
             S(45, "Courier tasks: Summer Shore", 20000, quest=["Troubled Tortugans"], note="Needs about 20K coins to start."),
             S(62, "Courier tasks: Rellekka", 66000),
             S(65, "Courier tasks: Rellekka and Etceteria", 99000),
             S(76, "Courier tasks: Lunar Isle", 145000, note="130-160K/hr; heavy route planning. Rates are pre-XP-boost estimates."),
         ], note="High complexity: route planning and juggling several tasks."),
         T("afk", "Shipwreck salvaging (with crew)", 1, [
-            S(1, "Courier tasks, sea charting, trimming sails", 8000, quest=["Pandemonium"]),
+            S(1, "Pandemonium, then courier tasks, sea charting, trimming sails", 8000),
             S(15, "Salvaging: small shipwrecks", 2400), S(26, "Salvaging: fisherman's shipwrecks", 5250),
             S(35, "Salvaging: barracuda shipwrecks", 10250), S(42, "Salvaging: barracuda shipwrecks (2 hooks, salvaging station)", 15250),
             S(53, "Salvaging: large shipwrecks", 24000), S(64, "Salvaging: pirate shipwrecks", 41000),

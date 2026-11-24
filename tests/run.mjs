@@ -142,6 +142,49 @@ t('quest points and prerequisites', () => {
   assert.deepEqual([...prerequisiteQuests('c', quests)].sort(), ['a', 'b']);
 });
 
+const { plan, stageOptions } = await import('../core/planner.js');
+t('planner', () => {
+  const items = { bone: { price: 1000 }, loot: { price: 500000 } };
+  const tr = (skill, stages, kind = 'balanced') => ({ id: `${skill}_${kind}`, kind, label: kind, intensity: 3, stages });
+  const training = { skills: {
+    Prayer: [tr('Prayer', [{ from: 1, name: 'Altar', xpPerHr: 100000, xpEach: 100, inputs: [{ item: 'bone', qty: 1 }] }]),
+             tr('Prayer', [{ from: 1, name: 'Cheap altar', xpPerHr: 50000, xpEach: 100, inputs: [{ item: 'bone', qty: 0.5 }] }], 'afk')],
+    Agility: [tr('Agility', [{ from: 1, name: 'Course', xpPerHr: 20000 }])],
+  } };
+  const quests = { a: { name: 'A', questPoints: 1, length: 'Short' },
+                   b: { name: 'B', questPoints: 2, length: 'Long', requires: { all: [{ quest: 'a' }, { skill: 'Agility', level: 30 }] } },
+                   c: { name: 'C', questPoints: 5, requires: { all: [{ questPoints: 8 }] } } };
+  const bosses = [
+    { id: 'jad', name: 'Jad', unit: 'kill', drops: [], setups: [{ id: 'high', label: 'High', unitsPerHr: 2, supplies: [], requires: { all: [{ skill: 'Prayer', level: 43 }] } }], defaultSetup: 'high', milestone: { reward: 'cape', kc: 1 }, moneyMaker: false },
+    { id: 'zuk', name: 'Zuk', unit: 'kill', drops: [], setups: [{ id: 'high', label: 'High', unitsPerHr: 1, supplies: [], requires: { all: [{ item: 'cape' }] } }], defaultSetup: 'high', moneyMaker: false },
+    { id: 'farm', name: 'Farm', unit: 'kill', drops: [{ item: 'loot', qtyMin: 1, qtyMax: 1, expectedPerKill: 1, table: 'main' }], setups: [{ id: 'high', label: 'High', unitsPerHr: 10, supplies: [] }], defaultSetup: 'high' },
+  ];
+  const account = { xp: { Prayer: 0, Agility: 0 }, quests: {}, owned: {}, kc: {}, diaries: [], gp: 0 };
+  const d = { items, training, quests, bosses, methods: [], account };
+  // quest B: quest A and Agility 30 first
+  const qb = plan([{ type: 'quest', id: 'b' }], d);
+  assert.deepEqual(qb.steps.map(s => s.kind + ':' + (s.skill || s.id)), ['quest:a', 'train:Agility', 'quest:b']);
+  assert.equal(qb.steps[0].hours, 0.5); assert.equal(qb.steps[2].hours, 2);
+  // Zuk: needs the cape -> Jad -> Prayer 43 (costs money -> make GP at the money maker first)
+  const z = plan([{ type: 'kc', bossId: 'zuk', n: 1 }], d);
+  assert.deepEqual(z.steps.map(s => s.kind + ':' + (s.skill || s.bossId || '')), ['gp:', 'train:Prayer', 'kc:jad', 'kc:zuk']);
+  const prayerCost = z.steps[1].gp;
+  assert.ok(z.steps[0].amount >= prayerCost && z.steps[0].method.name.startsWith('Farm'));
+  // swapping Prayer to the cheaper altar halves the bones, so less money to make
+  const opt = stageOptions(training, 'Prayer').find(o => o.stage.name === 'Cheap altar');
+  const z2 = plan([{ type: 'kc', bossId: 'zuk', n: 1 }], { ...d, swaps: [{ skill: 'Prayer', fromLevel: 1, toLevel: 43, ref: opt.ref }] });
+  assert.ok(Math.abs(z2.steps[1].gp - prayerCost / 2) < 1);
+  assert.ok(z2.steps[0].amount < z.steps[0].amount);
+  assert.ok(z2.steps[1].hours > z.steps[1].hours);
+  // quest points: C needs 8 QP, so quests are added to reach it
+  const qc = plan([{ type: 'quest', id: 'c' }], d);
+  assert.deepEqual(qc.steps.filter(s => s.kind === 'quest').map(s => s.id).sort(), ['a', 'b', 'c']);
+  assert.ok(qc.warnings.some(w => w.includes('8 quest points')));   // 1 + 2 + 5 = 8 counts C itself, so 3 before it
+  // max cape covers every skill with data
+  const mc = plan([{ type: 'maxcape' }], d);
+  assert.deepEqual(mc.steps.filter(s => s.kind === 'train').map(s => s.skill).sort(), ['Agility', 'Prayer']);
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');

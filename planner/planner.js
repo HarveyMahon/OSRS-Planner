@@ -1,0 +1,142 @@
+// Goal Planner page: goals in, ordered steps out. Methods in training steps can be swapped for
+// another method of the same skill; the whole plan (time, costs, money to make) recalculates.
+
+import { loadItems, loadBosses, loadQuests, loadMethods, loadTraining } from '../core/data.js';
+import { plan, stageOptions } from '../core/planner.js';
+import { SKILLS } from '../core/xp.js';
+import { gpPerXp } from '../core/training.js';
+import { loadAccount, hasAccount, freshAccount } from '../core/account.js';
+import { describe } from '../core/requirements.js';
+
+console.log('Planner: starting');
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const KEY = 'osrsplanner:plan';
+const gpShort = n => { const a = Math.abs(n), s = n < 0 ? '-' : ''; return a >= 1e9 ? s + (a / 1e9).toFixed(2) + 'B' : a >= 1e6 ? s + (a / 1e6).toFixed(a >= 1e8 ? 0 : 1) + 'M' : a >= 1e3 ? s + Math.round(a / 1e3) + 'K' : s + Math.round(a); };
+const hrs = h => h >= 100 ? `${Math.round(h).toLocaleString('en-GB')} h` : h >= 1 ? `${h.toFixed(1)} h` : `${Math.round(h * 60)} min`;
+const wiki = t => `https://oldschool.runescape.wiki/w/${encodeURI(t.replace(/ /g, '_'))}`;
+
+let D = null, ACCOUNT = null;
+let state = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch { return null; } })() || { goals: [], intensity: 'balanced', swaps: [] };
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
+const hideWild = () => { try { return localStorage.getItem('osrsplanner:hide-wild') === '1'; } catch { return false; } };
+
+function goalLabel(g) {
+  if (g.type === 'level') return `${g.level} ${g.skill}`;
+  if (g.type === 'maxcape') return 'Max cape (all 99s)';
+  if (g.type === 'quest') return D.quests[g.id]?.name || g.id;
+  if (g.type === 'kc') return `${g.n} ${D.bossName(g.bossId)} kills`;
+  if (g.type === 'milestone') { const b = D.bosses.find(x => x.id === g.bossId); return b?.milestone?.label || b?.name; }
+  if (g.type === 'gp') return `${gpShort(g.amount)} GP`;
+}
+
+function renderGoalForm() {
+  const t = $('goal-type').value;
+  const f = $('goal-fields');
+  if (t === 'level') f.innerHTML = `<select id="g-skill">${SKILLS.map(s => `<option>${s}</option>`).join('')}</select><input type="number" id="g-level" min="2" max="99" value="99" aria-label="Level">`;
+  else if (t === 'quest') f.innerHTML = `<input list="quest-names" id="g-quest" placeholder="Type a quest name" style="width:280px">`;
+  else if (t === 'kc') f.innerHTML = `<select id="g-boss">${D.bosses.filter(b => b.category !== 'misc').sort((a, b) => a.name.localeCompare(b.name)).map(b => `<option value="${b.id}">${esc(b.name)}</option>`).join('')}</select><input type="number" id="g-n" min="1" value="50" aria-label="Kills">`;
+  else if (t === 'milestone') f.innerHTML = `<select id="g-milestone">${D.bosses.filter(b => b.milestone).map(b => `<option value="${b.id}">${esc(b.milestone.label)} (${esc(b.name)})</option>`).join('')}</select>`;
+  else if (t === 'gp') f.innerHTML = `<input type="text" inputmode="numeric" id="g-gp" placeholder="e.g. 100,000,000" style="width:180px">`;
+  else f.innerHTML = '';
+}
+
+function addGoal() {
+  const t = $('goal-type').value;
+  let g = null;
+  if (t === 'level') g = { type: 'level', skill: $('g-skill').value, level: Math.max(2, Math.min(99, parseInt($('g-level').value) || 99)) };
+  else if (t === 'maxcape') g = { type: 'maxcape' };
+  else if (t === 'quest') {
+    const name = $('g-quest').value.trim().toLowerCase();
+    const id = Object.keys(D.quests).find(k => D.quests[k].name.toLowerCase() === name);
+    if (!id) { $('g-quest').setCustomValidity('Pick a quest from the list'); $('g-quest').reportValidity(); return; }
+    g = { type: 'quest', id };
+  } else if (t === 'kc') g = { type: 'kc', bossId: $('g-boss').value, n: Math.max(1, parseInt($('g-n').value) || 1) };
+  else if (t === 'milestone') g = { type: 'milestone', bossId: $('g-milestone').value };
+  else if (t === 'gp') { const n = Number(($('g-gp').value || '').replace(/[, ]/g, '')); if (!(n > 0)) return; g = { type: 'gp', amount: n }; }
+  state.goals.push(g); save(); render();
+}
+
+function segmentHtml(step, seg) {
+  const opts = stageOptions(D.training, step.skill, seg.fromLevel);
+  const cur = seg.stage.swapRef || opts.find(o => o.stage.name === seg.stage.name)?.ref || opts.find(o => o.name === seg.stage.name.replace(/\s*\([^)]*\)\s*$/, ''))?.ref || '';
+  const cost = seg.gp > 0 ? `<span class="cost">${gpShort(seg.gp)}</span>` : seg.gp < 0 ? `<span class="gain">+${gpShort(-seg.gp)}</span>` : '';
+  const ctx = { quests: D.quests, items: D.items };
+  return `<li class="seg${seg.stage.swapped ? ' swapped' : ''}">
+    <span class="lv">${seg.fromLevel}–${seg.toLevel}</span>
+    <select data-swap="${step.skill}|${seg.fromLevel}|${seg.toLevel}" aria-label="Method for ${step.skill} ${seg.fromLevel}-${seg.toLevel}">
+      ${opts.map(o => `<option value="${o.ref}"${o.ref === cur ? ' selected' : ''}>${esc(o.name)} · ${Math.round(o.stage.xpPerHr / 1000)}K/hr${o.stage.wilderness ? ' · Wilderness' : ''}${o.track.kind !== step.track.kind ? ` (${o.track.label})` : ''}</option>`).join('')}
+    </select>
+    <span class="meta">${seg.hours != null ? hrs(seg.hours) : 'recurring'} ${cost}${seg.stage.xpEach || seg.stage.costPerHr ? ` · ${gpPerXp(seg.stage, D.items).toFixed(1)} gp/XP` : ''}</span>
+    ${seg.stage.swapped ? `<button type="button" class="x" data-unswap="${esc(seg.stage.swapRef)}|${step.skill}|${seg.fromLevel}" title="Back to the suggested method">reset</button>` : ''}
+    ${seg.stage.requires ? `<div class="note">Needs ${esc(describe(seg.stage.requires, ctx))}</div>` : ''}
+    ${seg.stage.note ? `<div class="note">${esc(seg.stage.note)}</div>` : ''}
+  </li>`;
+}
+
+function stepHtml(s, i) {
+  if (s.kind === 'train') {
+    const cost = s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : '';
+    return `<li class="step train"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b> ${s.fromLevel} → ${s.toLevel}
+      <span class="right">${hrs(s.hours)}${s.realHours > s.hours * 1.5 ? ` · ${Math.ceil(s.realHours / 24)} days of growing` : ''} ${cost}</span></div>
+      <ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul></li>`;
+  }
+  if (s.kind === 'quest') return `<li class="step quest"><div class="head"><span class="n">${i + 1}</span><b>Quest:</b> <a href="${wiki(s.name)}" target="_blank" rel="noopener">${esc(s.name)}</a>
+      <span class="right">~${hrs(s.hours || 0)}${s.forTraining ? ' · unlocks a training method' : ''}</span></div></li>`;
+  if (s.kind === 'kc') return `<li class="step kc"><div class="head"><span class="n">${i + 1}</span><b>Kill ${esc(s.name)}</b> × ${s.n} <span class="muted">(${esc(s.setup)} setup)</span>
+      <span class="right">${hrs(s.hours)} ${s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : ''}</span></div></li>`;
+  return `<li class="step gp"><div class="head"><span class="n">${i + 1}</span><b>Make ${gpShort(s.amount)} GP</b> ${s.method ? `at ${esc(s.method.name)}${s.method.wilderness ? ' <span class="wild">Wilderness</span>' : ''}` : '<span class="cost">no money maker available</span>'}
+      <span class="right">${hrs(s.hours)}</span></div><div class="note">For ${esc(s.reason)}${s.method ? ` · ${gpShort(s.method.gpPerHr)}/hr` : ''}</div></li>`;
+}
+
+function render() {
+  document.querySelectorAll('#intensity button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.i === state.intensity)));
+  $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
+    : '<span class="muted">No goals yet: add one above.</span>';
+  $('swaps-note').innerHTML = state.swaps.length ? `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''} · <button type="button" class="linkbtn" id="clear-swaps">clear</button>` : '';
+  if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
+  const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
+                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, hideWild: hideWild() });
+  const t = r.totals;
+  $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
+    <div><span class="lbl">Money to make</span>${gpShort(t.gpMade)}</div>
+    <div><span class="lbl">Spent on training</span><span class="cost">${gpShort(t.gpSpent)}</span></div>
+    <div><span class="lbl">Earned along the way</span><span class="gain">${gpShort(t.gpEarned)}</span></div>
+    <div><span class="lbl">Steps</span>${r.steps.length}</div>`;
+  $('warnings').innerHTML = r.warnings.map(w => `<li>${esc(w)}</li>`).join('');
+  $('steps').innerHTML = r.steps.map(stepHtml).join('') || '<li class="muted">Nothing to do: you already meet these goals.</li>';
+  document.documentElement.dataset.ready = '1';
+}
+
+async function init() {
+  const [items, { bosses }, { quests }, { methods }, training] = await Promise.all([loadItems(), loadBosses(), loadQuests(), loadMethods(), loadTraining()]);
+  D = { items: items.items, bosses, quests, methods, training, bossName: id => bosses.find(b => b.id === id)?.name || id };
+  ACCOUNT = hasAccount() ? loadAccount() : freshAccount();
+  $('acct-note').innerHTML = hasAccount() ? 'Planning from your stats, quests and cash on <a href="../account/">My Account</a>.'
+    : 'Planning from a brand-new account. <a href="../account/">Enter your stats</a> to plan from where you are.';
+  $('quest-names').innerHTML = Object.values(quests).map(q => `<option value="${esc(q.name)}">`).join('');
+  $('goal-type').addEventListener('change', renderGoalForm);
+  renderGoalForm();
+  $('add-goal').addEventListener('click', addGoal);
+  $('goals').addEventListener('click', e => { if (e.target.dataset.remove != null) { state.goals.splice(+e.target.dataset.remove, 1); save(); render(); } });
+  $('intensity').addEventListener('click', e => { if (e.target.dataset.i) { state.intensity = e.target.dataset.i; save(); render(); } });
+  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; save(); render(); } });
+  $('steps').addEventListener('change', e => {
+    const k = e.target.dataset.swap;
+    if (!k) return;
+    const [skill, from, to] = k.split('|');
+    state.swaps = state.swaps.filter(s => !(s.skill === skill && s.fromLevel === +from));
+    state.swaps.push({ skill, fromLevel: +from, toLevel: +to, ref: e.target.value });
+    save(); render();
+  });
+  $('steps').addEventListener('click', e => {
+    const k = e.target.dataset.unswap;
+    if (!k) return;
+    const [ref, skill, from] = k.split('|');
+    state.swaps = state.swaps.filter(s => !(s.skill === skill && s.fromLevel === +from && s.ref === ref));
+    save(); render();
+  });
+  render();
+}
+
+init().catch(err => { $('steps').innerHTML = `<li class="error">Couldn't load the app's data (${esc(err.message)}).</li>`; console.error(err); });
