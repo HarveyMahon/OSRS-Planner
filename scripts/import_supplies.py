@@ -158,7 +158,9 @@ def _gep(m):
     price = PRICE_OF(args[0])
     if price is None:
         raise ValueError(args[0])
-    qty = float(args[1]) if len(args) > 1 and re.fullmatch(r"[\d.]+", args[1]) else 1
+    qty = 1
+    if len(args) > 1 and re.fullmatch(r"[\d.\s+\-*/()]+", args[1]):   # e.g. 2 or 1/100
+        qty = safe_arith(args[1])
     return f"({price * qty})"
 
 

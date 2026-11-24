@@ -78,7 +78,9 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   // Data changed on purpose since the port (field values the pet calculator now gets differently)
   // Rates and supply costs now come from setups built from the Wiki guides, so they differ on purpose
   const RATE_COST = ['defaultKph', 'kphSource', 'defaultCost', 'costSource', 'defaultCostItems'];
-  const strip = (list) => list.map(b => { const c = { ...b }; RATE_COST.forEach(f => delete c[f]); return c; });
+  // Bosses whose data was corrected on purpose since the port
+  const CORRECTED = new Set(['zalcano']);   // loot shared across ~15 players (site owner, Wiki)
+  const strip = (list) => list.filter(b => !CORRECTED.has(b.id)).map(b => { const c = { ...b }; RATE_COST.forEach(f => delete c[f]); return c; });
   const g = norm(strip(got.bosses)), w = norm(strip(want.bosses));
   assert.equal(g.length, w.length, 'boss count');
   for (let i = 0; i < w.length; i++) {

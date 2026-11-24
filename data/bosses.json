@@ -2400,7 +2400,7 @@
       {
        "item": "gp:Scythe of Vitur",
        "label": "Scythe of Vitur",
-       "gp": 8207.0,
+       "gp": 739.4300000000001,
        "qty": 21.0,
        "per": "unit"
       },
@@ -2422,7 +2422,7 @@
       {
        "item": "gp:Surge potion(4)",
        "label": "Surge potion(4)",
-       "gp": 3964.0,
+       "gp": 5285.333333333333,
        "qty": 0.083333,
        "per": "unit"
       },
@@ -5027,7 +5027,7 @@
       {
        "item": "gp:Scythe of Vitur",
        "label": "Scythe of Vitur",
-       "gp": 8207.0,
+       "gp": 739.4300000000001,
        "qty": 125.0,
        "per": "unit"
       },
@@ -11097,7 +11097,7 @@
       {
        "item": "gp:Scythe of Vitur",
        "label": "Scythe of Vitur",
-       "gp": 8207.0,
+       "gp": 739.4300000000001,
        "qty": 14.5,
        "per": "unit"
       },
@@ -22007,7 +22007,7 @@
       {
        "item": "gp:Scythe of Vitur",
        "label": "Scythe of Vitur",
-       "gp": 8207.0,
+       "gp": 739.4300000000001,
        "qty": 220.0,
        "per": "unit"
       },
@@ -22685,7 +22685,7 @@
       {
        "item": "gp:Toxic blowpipe",
        "label": "Toxic blowpipe",
-       "gp": 1102.0,
+       "gp": 316.4,
        "qty": 75.0,
        "per": "unit"
       },
@@ -26102,147 +26102,168 @@
      "qtyMin": 64,
      "qtyMax": 480,
      "expectedPerKill": 0.0277778,
-     "table": "Runes"
+     "table": "Runes",
+     "teamScaling": "quantity"
     },
     {
      "item": "564",
      "qtyMin": 295,
      "qtyMax": 926,
      "expectedPerKill": 0.0277778,
-     "table": "Runes"
+     "table": "Runes",
+     "teamScaling": "quantity"
     },
     {
      "item": "560",
      "qtyMin": 201,
      "qtyMax": 832,
      "expectedPerKill": 0.0277778,
-     "table": "Runes"
+     "table": "Runes",
+     "teamScaling": "quantity"
     },
     {
      "item": "563",
      "qtyMin": 166,
      "qtyMax": 790,
      "expectedPerKill": 0.0277778,
-     "table": "Runes"
+     "table": "Runes",
+     "teamScaling": "quantity"
     },
     {
      "item": "566",
      "qtyMin": 47,
      "qtyMax": 392,
      "expectedPerKill": 0.0277778,
-     "table": "Runes"
+     "table": "Runes",
+     "teamScaling": "quantity"
     },
     {
      "item": "561",
      "qtyMin": 1,
      "qtyMax": 937,
      "expectedPerKill": 0.0277778,
-     "table": "Runes"
+     "table": "Runes",
+     "teamScaling": "quantity"
     },
     {
      "item": "442",
      "qtyMin": 86,
      "qtyMax": 800,
      "expectedPerKill": 0.0833333,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "453",
      "qtyMin": 169,
      "qtyMax": 1052,
      "expectedPerKill": 0.0277778,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "447",
      "qtyMin": 56,
      "qtyMax": 469,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "449",
      "qtyMin": 51,
      "qtyMax": 343,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "451",
      "qtyMin": 3,
      "qtyMax": 31,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "444",
      "qtyMin": 86,
      "qtyMax": 756,
      "expectedPerKill": 0.0833333,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "2353",
      "qtyMin": 16,
      "qtyMax": 699,
      "expectedPerKill": 0.0833333,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "2359",
      "qtyMin": 53,
      "qtyMax": 501,
      "expectedPerKill": 0.0833333,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "2361",
      "qtyMin": 13,
      "qtyMax": 111,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "2363",
      "qtyMin": 3,
      "qtyMax": 27,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "1617",
      "qtyMin": 2,
      "qtyMax": 21,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "1631",
      "qtyMin": 1,
      "qtyMax": 12,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "9194",
      "qtyMin": 1,
      "qtyMax": 45,
      "expectedPerKill": 0.0555556,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "7936",
      "qtyMin": 784,
      "qtyMax": 5500,
      "expectedPerKill": 0.0277778,
-     "table": "Materials"
+     "table": "Materials",
+     "teamScaling": "quantity"
     },
     {
      "item": "23953",
      "qtyMin": 1,
      "qtyMax": 1,
      "expectedPerKill": 0.004875,
-     "table": "Tertiary"
+     "table": "Tertiary",
+     "teamScaling": "rate"
     },
     {
      "item": "23908",
@@ -26256,11 +26277,12 @@
      "qtyMin": 1,
      "qtyMax": 1,
      "expectedPerKill": 0.000125,
-     "table": "Tertiary"
+     "table": "Tertiary",
+     "teamScaling": "rate"
     }
    ],
    "wikiAverage": 241177.72,
-   "notes": "Quantities scale with your contribution; the midpoint is used.",
+   "notes": "Loot is shared across the team (default 15 players, as the Wiki assumes): runes and materials are split by contribution and the tool seed and onyx are one roll per kill for the team. The Zalcano shard is per player.",
    "setups": [
     {
      "id": "high",
@@ -26277,7 +26299,15 @@
    ],
    "defaultSetup": "high",
    "moneyMaker": false,
-   "moneyMakerNote": "Loot is split by contribution in a team and solo kills are much slower, so it isn't treated as a money maker."
+   "moneyMakerNote": "Loot is split by contribution in a team and solo kills are much slower, so it isn't treated as a money maker.",
+   "teamOption": {
+    "min": 1,
+    "max": 20,
+    "default": 15,
+    "mvpBonus": 0,
+    "listedAt": "solo",
+    "howItWorks": "Runes and materials are split by contribution (share = 1/N of the listed amounts), and the crystal tool seed and onyx are one roll per kill for the whole team, so each player's chance is 1/N. The Wiki assumes about 15 players. The Zalcano shard and guaranteed drops are per player."
+   }
   },
   {
    "id": "zulrah",
@@ -29219,7 +29249,7 @@
       {
        "item": "gp:Toxic blowpipe",
        "label": "Toxic blowpipe",
-       "gp": 1102.0,
+       "gp": 276.4,
        "qty": 300.0,
        "per": "unit"
       },
@@ -29264,7 +29294,7 @@
       {
        "item": "gp:Toxic blowpipe",
        "label": "Toxic blowpipe",
-       "gp": 1102.0,
+       "gp": 276.4,
        "qty": 300.0,
        "per": "unit"
       },
