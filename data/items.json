@@ -3723,7 +3723,10 @@
    "price": 13494275,
    "tradeable": true,
    "id": 22481,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Sanguinesti staff"
+   ]
   },
   "1607": {
    "name": "Sapphire",
@@ -3802,7 +3805,10 @@
    "price": 1008280918,
    "tradeable": true,
    "id": 22486,
-   "limit": 8
+   "limit": 8,
+   "aliases": [
+    "Scythe of Vitur"
+   ]
   },
   "397": {
    "name": "Sea turtle",
@@ -12438,6 +12444,206 @@
   },
   "x-dragon-defender": {
    "name": "Dragon defender",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-uncharged-toxic-trident": {
+   "name": "Uncharged toxic trident",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Trident of the Swamp"
+   ]
+  },
+  "x-uncharged-trident": {
+   "name": "Uncharged trident",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Trident of the seas"
+   ]
+  },
+  "x-blade-of-saeldor-inactive": {
+   "name": "Blade of saeldor (inactive)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Blade of Saeldor"
+   ]
+  },
+  "x-bow-of-faerdhinen-inactive": {
+   "name": "Bow of faerdhinen (inactive)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Bow of Faerdhinen"
+   ]
+  },
+  "x-crystal-helm-inactive": {
+   "name": "Crystal helm (inactive)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Crystal helm"
+   ]
+  },
+  "x-crystal-body-inactive": {
+   "name": "Crystal body (inactive)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Crystal body"
+   ]
+  },
+  "x-crystal-legs-inactive": {
+   "name": "Crystal legs (inactive)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Crystal legs"
+   ]
+  },
+  "x-webweaver-bow-u": {
+   "name": "Webweaver bow (u)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Webweaver bow"
+   ]
+  },
+  "x-ursine-chainmace-u": {
+   "name": "Ursine chainmace (u)",
+   "price": 0,
+   "tradeable": true,
+   "aliases": [
+    "Ursine chainmace"
+   ]
+  },
+  "x-harmonised-nightmare-staff": {
+   "name": "Harmonised nightmare staff",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-eldritch-nightmare-staff": {
+   "name": "Eldritch nightmare staff",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-hueycoatl-hide-body": {
+   "name": "Hueycoatl hide body",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-hueycoatl-hide-chaps": {
+   "name": "Hueycoatl hide chaps",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-necklace-of-fangs": {
+   "name": "Necklace of fangs",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-infinity-boots": {
+   "name": "Infinity boots",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-infinity-top": {
+   "name": "Infinity top",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-infinity-bottoms": {
+   "name": "Infinity bottoms",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-odium-ward": {
+   "name": "Odium ward",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-dragon-crossbow": {
+   "name": "Dragon crossbow",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-hunters-sunlight-crossbow": {
+   "name": "Hunters' sunlight crossbow",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-ranger-boots": {
+   "name": "Ranger boots",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-obsidian-platelegs": {
+   "name": "Obsidian platelegs",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-ancient-godsword": {
+   "name": "Ancient godsword",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-elemental-amulet": {
+   "name": "Elemental amulet",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-rosewood-blowpipe": {
+   "name": "Rosewood blowpipe",
+   "price": 0,
+   "tradeable": true
+  },
+  "x-barrows-gloves": {
+   "name": "Barrows gloves",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-fighter-torso": {
+   "name": "Fighter torso",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-void-mage-helm": {
+   "name": "Void mage helm",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-void-melee-helm": {
+   "name": "Void melee helm",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-zombie-helmet": {
+   "name": "Zombie helmet",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-arclight": {
+   "name": "Arclight",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-arkan-blade": {
+   "name": "Arkan blade",
+   "price": 0,
+   "tradeable": false,
+   "valueNote": "Untradeable: earned, not bought"
+  },
+  "x-blisterwood-stake": {
+   "name": "Blisterwood stake",
    "price": 0,
    "tradeable": false,
    "valueNote": "Untradeable: earned, not bought"
