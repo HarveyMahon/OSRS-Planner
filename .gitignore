@@ -2,3 +2,5 @@
 scripts/item_mapping.json
 __pycache__/
 node_modules/
+scripts/cache/
+scripts/out/
