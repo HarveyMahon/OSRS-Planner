@@ -95,6 +95,18 @@ t('bank import', () => {
   assert.ok(!r.bank['1']);             // ...but not anguish (ranged)
   assert.equal(r.bank['4'], 2);        // poisoned dagger counts as the base dagger
 });
+const { cleanGuideGear } = await import('../core/data.js');
+const { gearList } = await import('../core/money.js');
+t('guide gear cleanup and gear list', () => {
+  const items = { a: { name: 'Shark', price: 1 }, b: { name: 'Fire cape', price: 0 }, 'x-infernal-cape': { name: 'Infernal cape', price: 0 },
+                  c: { name: 'Twisted bow', price: 100 }, d: { name: 'Nature rune', price: 1 }, 'x-fire-cape': { name: 'Fire cape', price: 0 } };
+  const tiers = { groups: [{ tiers: [['Infernal cape'], ['Fire cape']] }] };
+  const g = cleanGuideGear(['a', 'x-infernal-cape', 'c', 'd', 'b'], items, tiers);
+  assert.equal(g.length, 2);                                   // food and runes gone, capes merged
+  assert.ok(Array.isArray(g[0]) && g[0].includes('x-infernal-cape') && g[0].includes('b'));
+  const gl = gearList({ gear: g }, items, { bank: { b: 1 } });
+  assert.equal(gl.toBuy, 100); assert.equal(gl.total, 100); assert.ok(gl.lines[0].owned);
+});
 const { unmet, describe } = await import('../core/requirements.js');
 t('unmet and describe', () => {
   const acc = { xp: { Ranged: xpForLevel(85), Prayer: xpForLevel(77) }, quests: { dragon_slayer_ii: 'complete' }, diaries: new Set() };
