@@ -42,7 +42,7 @@ export async function loadPetData() {
     b.defaultKph = s.unitsPerHr; b.kphSource = s.unitsPerHrSource; b.costSource = s.costSource;
     const cost = supplyCost(s, items.items);
     if (cost.source !== 'none') b.defaultCost = cost.perUnit;
-    delete b.setups; delete b.defaultSetup; delete b.moneyMaker; delete b.moneyMakerNote; delete b.milestone;
+    delete b.setups; delete b.defaultSetup; delete b.moneyMaker; delete b.moneyMakerNote; delete b.milestone; delete b.wilderness; delete b.wildernessNote;
   }
   toNames(bosses.bosses, nameOf);
   toNames(pets.skillingPets, nameOf);

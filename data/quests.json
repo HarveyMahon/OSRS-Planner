@@ -6,14 +6,68 @@
   "a_kingdom_divided": {
    "name": "A Kingdom Divided"
   },
+  "achievement_diary_cape": {
+   "name": "Achievement diary cape"
+  },
+  "altar": {
+   "name": "Altar"
+  },
+  "animal_magnetism": {
+   "name": "Animal magnetism"
+  },
+  "ardougne_diary": {
+   "name": "Ardougne Diary"
+  },
+  "astral_contact": {
+   "name": "Astral Contact"
+  },
+  "ava_s_device": {
+   "name": "Ava's device"
+  },
+  "below_ice_mountain": {
+   "name": "Below Ice Mountain"
+  },
   "beneath_cursed_sands": {
    "name": "Beneath Cursed Sands"
+  },
+  "big_chompy_bird_hunting": {
+   "name": "Big Chompy Bird Hunting"
   },
   "blood_moon_rises": {
    "name": "Blood moon rises"
   },
+  "bone_voyage": {
+   "name": "Bone voyage"
+  },
+  "book_of_the_dead": {
+   "name": "Book of the Dead"
+  },
+  "cabin_fever": {
+   "name": "Cabin Fever"
+  },
   "children_of_the_sun": {
    "name": "Children of the Sun"
+  },
+  "client_of_kourend": {
+   "name": "Client of Kourend"
+  },
+  "cooking_gauntlets": {
+   "name": "Cooking gauntlets"
+  },
+  "crack_the_clue_iii": {
+   "name": "Crack the Clue III"
+  },
+  "dark_mage_abyss": {
+   "name": "Dark Mage (Abyss)"
+  },
+  "darkness_of_hallowvale": {
+   "name": "Darkness of Hallowvale"
+  },
+  "death_plateau": {
+   "name": "Death Plateau"
+  },
+  "death_to_the_dorgeshuun": {
+   "name": "Death to the Dorgeshuun"
   },
   "desert_treasure_i": {
    "name": "Desert Treasure I"
@@ -21,29 +75,227 @@
   "desert_treasure_ii": {
    "name": "Desert Treasure II"
   },
+  "desert_treasure_ii_the_fallen_empire": {
+   "name": "Desert Treasure II - The Fallen Empire"
+  },
+  "dragon_slayer_i": {
+   "name": "Dragon Slayer I"
+  },
   "dragon_slayer_ii": {
    "name": "Dragon Slayer II"
+  },
+  "dramen_staff": {
+   "name": "Dramen staff"
+  },
+  "dream_mentor": {
+   "name": "Dream Mentor"
+  },
+  "druidic_ritual": {
+   "name": "Druidic Ritual"
+  },
+  "duke_horacio": {
+   "name": "Duke Horacio"
+  },
+  "dwarf_cannon": {
+   "name": "Dwarf Cannon"
+  },
+  "eagles_peak": {
+   "name": "Eagles' Peak"
+  },
+  "elite_wilderness_diary": {
+   "name": "Elite Wilderness Diary"
+  },
+  "enlightened_journey": {
+   "name": "Enlightened journey"
+  },
+  "enter_the_abyss": {
+   "name": "Enter the Abyss"
+  },
+  "fairytale_i_growing_pains": {
+   "name": "Fairytale I - Growing Pains"
+  },
+  "fairytale_ii_cure_a_queen": {
+   "name": "Fairytale II - Cure a Queen"
   },
   "fallen_from_grace": {
    "name": "Fallen From Grace"
   },
+  "family_crest": {
+   "name": "Family Crest"
+  },
+  "fishing_contest": {
+   "name": "Fishing Contest"
+  },
+  "fremennik_diary": {
+   "name": "Fremennik Diary"
+  },
+  "gas_mask": {
+   "name": "Gas mask"
+  },
+  "ghosts_ahoy": {
+   "name": "Ghosts Ahoy"
+  },
+  "haunted_mine": {
+   "name": "Haunted Mine"
+  },
+  "heroes_quest": {
+   "name": "Heroes' Quest"
+  },
+  "humidify": {
+   "name": "Humidify"
+  },
+  "in_aid_of_the_myreque": {
+   "name": "In Aid of the Myreque"
+  },
+  "jatizso": {
+   "name": "Jatizso"
+  },
+  "kharedst_s_memoirs": {
+   "name": "Kharedst's memoirs"
+  },
   "king_s_ransom": {
    "name": "King's Ransom"
+  },
+  "legends_quest": {
+   "name": "Legends' Quest"
+  },
+  "list_of_mines": {
+   "name": "List of mines"
+  },
+  "lost_city": {
+   "name": "Lost City"
+  },
+  "lumbridge_draynor_diary": {
+   "name": "Lumbridge & Draynor Diary"
+  },
+  "lunar_diplomacy": {
+   "name": "Lunar Diplomacy"
+  },
+  "mage_arena_i": {
+   "name": "Mage Arena I"
+  },
+  "magic_imbue": {
+   "name": "Magic Imbue"
+  },
+  "making_friends_with_my_arm": {
+   "name": "Making Friends with My Arm"
+  },
+  "monkey_madness_i": {
+   "name": "Monkey Madness I"
+  },
+  "monkey_madness_ii": {
+   "name": "Monkey Madness II"
+  },
+  "mourning_s_end_part_i": {
+   "name": "Mourning's End Part I"
+  },
+  "mourning_s_end_part_ii": {
+   "name": "Mourning's End Part II"
+  },
+  "my_arm_s_big_adventure": {
+   "name": "My Arm's Big Adventure"
+  },
+  "nardah": {
+   "name": "Nardah"
+  },
+  "nature_spirit": {
+   "name": "Nature Spirit"
+  },
+  "nightmare_zone_strategies": {
+   "name": "Nightmare Zone/Strategies"
+  },
+  "olaf_s_quest": {
+   "name": "Olaf's Quest"
+  },
+  "one_small_favour": {
+   "name": "One Small Favour"
+  },
+  "pandemonium": {
+   "name": "Pandemonium"
+  },
+  "perilous_moons": {
+   "name": "Perilous Moons"
+  },
+  "pirate_s_treasure": {
+   "name": "Pirate's Treasure"
+  },
+  "plague_city": {
+   "name": "Plague City"
   },
   "priest_in_peril": {
    "name": "Priest in Peril"
   },
+  "ratcatchers": {
+   "name": "Ratcatchers"
+  },
+  "recipe_for_disaster_freeing_pirate_pete": {
+   "name": "Recipe for Disaster/Freeing Pirate Pete"
+  },
   "regicide": {
    "name": "Regicide"
+  },
+  "rum_deal": {
+   "name": "Rum Deal"
+  },
+  "rune_mysteries": {
+   "name": "Rune Mysteries"
+  },
+  "salve_amulet_e": {
+   "name": "Salve amulet (e)"
+  },
+  "salve_amulet_ei": {
+   "name": "Salve amulet(ei)"
+  },
+  "scar_essence_mine": {
+   "name": "Scar essence mine"
   },
   "secrets_of_the_north": {
    "name": "Secrets of the North"
   },
+  "shades_of_mort_ton": {
+   "name": "Shades of Mort'ton"
+  },
+  "shadow_veil": {
+   "name": "Shadow Veil"
+  },
+  "shilo_village": {
+   "name": "Shilo Village"
+  },
+  "shooting_stars": {
+   "name": "Shooting_Stars"
+  },
+  "sins_of_the_father": {
+   "name": "Sins of the Father"
+  },
+  "skippy_and_the_mogres": {
+   "name": "Skippy and the Mogres"
+  },
+  "sleeping_giants": {
+   "name": "Sleeping Giants"
+  },
   "song_of_the_elves": {
    "name": "Song of the Elves"
   },
+  "spirits_of_the_elid": {
+   "name": "Spirits of the Elid"
+  },
+  "swan_song": {
+   "name": "Swan Song"
+  },
+  "tai_bwo_wannai_trio": {
+   "name": "Tai Bwo Wannai Trio"
+  },
+  "temple_of_the_eye": {
+   "name": "Temple of the Eye"
+  },
+  "the_corsair_curse": {
+   "name": "The Corsair Curse"
+  },
   "the_final_dawn": {
    "name": "The Final Dawn"
+  },
+  "the_fremennik_isles": {
+   "name": "The Fremennik Isles"
   },
   "the_fremennik_trials": {
    "name": "The Fremennik Trials"
@@ -51,14 +303,47 @@
   "the_frozen_door": {
    "name": "The Frozen Door"
   },
+  "the_giant_dwarf": {
+   "name": "The Giant Dwarf"
+  },
+  "the_grand_tree": {
+   "name": "The Grand Tree"
+  },
+  "the_hand_in_the_sand": {
+   "name": "The Hand in the Sand"
+  },
   "the_heart_of_darkness": {
    "name": "The Heart of Darkness"
+  },
+  "the_tourist_trap": {
+   "name": "The Tourist Trap"
+  },
+  "tower_of_life": {
+   "name": "Tower of Life"
   },
   "troll_stronghold": {
    "name": "Troll Stronghold"
   },
+  "underground_pass": {
+   "name": "Underground Pass"
+  },
+  "watchtower": {
+   "name": "Watchtower"
+  },
   "while_guthix_sleeps": {
    "name": "While Guthix Sleeps"
+  },
+  "wilderness_diary": {
+   "name": "Wilderness Diary"
+  },
+  "zogre_flesh_eaters": {
+   "name": "Zogre Flesh Eaters"
+  },
+  "fairy_rings": {
+   "name": "fairy rings"
+  },
+  "fountain": {
+   "name": "fountain"
   }
  }
 }

@@ -50,6 +50,10 @@ export async function loadBosses() {
   return structuredClone(await loadJson('bosses.json'));
 }
 
+export async function loadMethods() {
+  return structuredClone(await loadJson('methods.json'));
+}
+
 export async function loadQuests() {
   return structuredClone(await loadJson('quests.json'));
 }

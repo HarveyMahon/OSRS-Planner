@@ -6,6 +6,7 @@ Writes a review file; it never changes data/bosses.json. Run on your own compute
 
     python scripts/import_supplies.py            fetch (if not cached) and parse
     python scripts/import_supplies.py --refetch  ignore the cache and fetch again
+    python scripts/import_supplies.py --all-guides  also cache every other guide (for apply_methods.py)
 
 Gentle on the Wiki:
   * Stage 1 lists every "Money making guide/..." page (1 request per 500 titles, about 2-3).
@@ -311,6 +312,8 @@ def main():
     titles = cached("guide_titles.json", list_guides, refetch)
     matches = match_guides(bosses + NEW_BOSSES, titles)
     wanted = sorted({t for ts in matches.values() for t in ts} | {PREFIX + t for t in FETCH_ONLY if PREFIX + t in titles})
+    if "--all-guides" in sys.argv:          # every guide, for scripts/apply_methods.py (about 14 requests, once)
+        wanted = sorted(titles)
     print(f"  {len(titles)} guides, {len(wanted)} match {len(matches)} of our {len(bosses)} bosses", flush=True)
 
     print("Stage 2: fetching matched guide pages", flush=True)

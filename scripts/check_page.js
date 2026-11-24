@@ -63,7 +63,8 @@ function serve() {
     await page.goto(base + 'money/');
     await page.waitForFunction(() => document.documentElement.dataset.ready === '1', null, { timeout: 15000 });
     const moneyRows = await page.$$eval('#table tbody tr[data-id]', r => r.length);
-    const moneyExpected = data.bosses.filter(b => b.category !== 'misc' && b.moneyMaker !== false).length;   // pet calculator only
+    const moneyExpected = data.bosses.filter(b => b.category !== 'misc' && b.moneyMaker !== false).length   // misc = pet calculator only
+      + read('methods.json').methods.length;
     if (moneyRows !== moneyExpected) problems.push(`Money Makers shows ${moneyRows} rows, expected ${moneyExpected}.`);
     if (BAD.test(await page.$eval('#table', t => t.innerText))) problems.push('Money Makers table contains NaN/undefined.');
 

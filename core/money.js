@@ -85,3 +85,22 @@ export function bossMethod(boss, items, { setupId, override } = {}) {
     gpPerHr: (loot - cost.perUnit) * unitsPerHr,
   };
 }
+
+// Value of an {item, qty} list where lines may be fixed-value ({ gp, qty }) instead of items.
+// Returns { value, missing } (missing = item keys with no price data).
+export function listValue(list, items) {
+  let value = 0; const missing = [];
+  for (const x of list) {
+    if (x.gp != null) value += x.gp * x.qty;
+    else if (items[x.item]) value += items[x.item].price * x.qty;
+    else missing.push(x.item);
+  }
+  return { value, missing };
+}
+
+/** A Wiki-guide method (data/methods.json): inputs and outputs are already per hour. */
+export function guideMethod(m, items) {
+  const out = listValue(m.outputsPerHr, items), inp = listValue(m.inputsPerHr, items);
+  return { methodId: m.id, name: m.name, method: m, lootPerHr: out.value, costPerHr: inp.value,
+           gpPerHr: out.value - inp.value, missing: [...out.missing, ...inp.missing] };
+}

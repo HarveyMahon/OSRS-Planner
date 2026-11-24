@@ -6,7 +6,7 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 | Page | Status |
 |---|---|
 | **Goal Planner** (`planner/`) | In development. Ordered plans of XP, kill count, GP and quest steps. |
-| **Money Makers** (`money/`) | Bosses ranked by GP/hr after supplies, with editable rates and supplies, filtered to your account (recommended levels included, for now). |
+| **Money Makers** (`money/`) | Bosses and ~485 other Wiki-guide methods ranked by GP/hr after supplies, filtered to your account (recommended levels included, for now); Wilderness and F2P marked. |
 | My Account (`account/`) | Your stats (levels or XP) and cash stack, saved in this browser (`core/account.js`). |
 | Pet Hunting (`pets/`) | Side tool, ported from [Pet-Hunt-Profit-Calculator](https://github.com/HarveyMahon/Pet-Hunt-Profit-Calculator). |
 
@@ -15,12 +15,15 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 ```
 core/      shared code: data loading, loot (incl. raids), money/GP per hour, supply overrides,
            XP/levels, requirements, nav, theme
-data/      items.json (keyed by item ID), bosses.json, skilling-pets.json (pet tool only)
+data/      items.json (keyed by item ID), bosses.json, methods.json, quests.json,
+           skilling-pets.json (pet tool only)
 planner/  money/  pets/     one folder per page
 scripts/   update_prices.py (weekly, 2 Wiki requests), check_page.js (headless check),
            import_supplies.py (Wiki money-making guides -> supply review, run by hand),
            apply_supplies.py (applies the review: setups, supplies, new items; offline),
-           apply_requirements.py (setup requirements and data/quests.json from the guides; offline)
+           apply_requirements.py (setup requirements and data/quests.json from the guides; offline),
+           apply_methods.py (data/methods.json from all other guides, Wilderness flags; offline,
+           after import_supplies.py --all-guides)
 tests/     node tests/run.mjs
 logs/      last price update's full log
 ```

@@ -89,6 +89,14 @@ t('unmet and describe', () => {
   assert.equal(describe({ any: [{ skill: 'Ranged', level: 80 }, { skill: 'Magic', level: 80 }] }), 'Ranged 80 or Magic 80');
 });
 
+const { guideMethod } = await import('../core/money.js');
+t('guide method gp/hr', () => {
+  const items = { a: { price: 10 }, b: { price: 100 } };
+  const m = { id: 'x', name: 'X', inputsPerHr: [{ item: 'a', qty: 50 }, { item: 'gp:Spell', gp: 5, qty: 10 }], outputsPerHr: [{ item: 'b', qty: 20 }, { item: 'zz', qty: 1 }] };
+  const r = guideMethod(m, items);
+  assert.equal(r.gpPerHr, 2000 - 550); assert.deepEqual(r.missing, ['zz']);
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');

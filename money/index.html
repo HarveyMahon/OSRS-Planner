@@ -42,6 +42,15 @@
   .filterbar { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; color: var(--muted); font-size: 14px; }
   .filterbar p { margin: 0; } .filterbar a { color: var(--accent); }
   tr.locked td { opacity: .55; } tr.locked .needs { font-size: 12px; color: var(--cost); white-space: normal; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+  .seg button { background: transparent; color: var(--muted); border: 0; padding: 6px 12px; font: 500 13px var(--sans); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .tag.wild { color: #ff9b6b; border-color: #6b3a22; }
+  td.muted { color: var(--muted); }
+  .editor .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .editor h3 { font: 600 13px var(--sans); color: var(--muted); margin: 0 0 6px; }
+  .editor ul { margin: 0; padding-left: 18px; font-size: 14px; }
+  .wildnote { color: #ff9b6b !important; }
   .error { color: var(--cost); border: 1px solid var(--cost); border-radius: 8px; padding: 10px 14px; }
 </style>
 </head>
@@ -50,13 +59,18 @@
   <div class="head">
     <div style="display:grid;gap:8px">
       <h1>Money Makers</h1>
-      <p>Bosses ranked by GP per hour: average loot minus supplies, times kills (or raids, runs) per hour. Select a name to change its rate or supplies; your changes are saved in this browser. <span id="prices"></span></p>
+      <p>Bosses and other money makers from the Wiki's guides, ranked by GP per hour after supplies, at current prices. Select a name to change its rate or supplies; your changes are saved in this browser. <span id="prices"></span></p>
     </div>
+  </div>
+  <div class="filterbar">
+    <div class="seg" id="cats" role="group" aria-label="Category"></div>
+    <label><input type="checkbox" id="hide-wild"> Hide Wilderness</label>
+    <label><input type="checkbox" id="f2p"> Free-to-play only</label>
   </div>
   <div class="filterbar"><p id="filter-note"></p><label id="locked-toggle" hidden><input type="checkbox" id="show-locked"> Show methods I can't do yet</label></div>
   <div class="scroller">
     <table id="table">
-      <thead><tr><th></th><th>Method</th><th>Setup</th><th class="num">Rate / hr</th><th class="num">Loot each</th><th class="num">Supplies each</th><th class="num">GP / hr</th></tr></thead>
+      <thead><tr><th></th><th>Method</th><th>Setup / type</th><th class="num">Rate / hr</th><th class="num">Loot</th><th class="num">Supplies</th><th class="num">GP / hr</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>

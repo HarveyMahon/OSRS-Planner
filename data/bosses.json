@@ -783,7 +783,8 @@
      "requiresSource": "Wiki: Killing the Abyssal Sire (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "alchemical_hydra",
@@ -1491,7 +1492,8 @@
      "requiresSource": "Wiki: Killing the Alchemical Hydra (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "amoxliatl",
@@ -1830,7 +1832,8 @@
      "requiresSource": "Wiki: Killing Amoxliatl (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "araxxor",
@@ -2571,7 +2574,8 @@
      "requiresSource": "Wiki: Killing Araxxor (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "artio",
@@ -2992,7 +2996,9 @@
      "requiresSource": "Wiki: Killing Artio (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "brutus",
@@ -3167,7 +3173,8 @@
      "flatCostPerUnit": 300
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "callisto",
@@ -3639,7 +3646,9 @@
      "requiresSource": "Wiki: Killing Callisto (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness"
   },
   {
    "id": "calvarion",
@@ -4043,7 +4052,9 @@
      "requiresSource": "Wiki: Killing Calvar'ion (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "cerberus",
@@ -4840,7 +4851,8 @@
      "requiresSource": "Wiki: Killing Cerberus (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "chambers_of_xeric",
@@ -5385,7 +5397,8 @@
      "requiresSource": "Wiki: Chambers of Xeric (Normal Mode) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "chaos_elemental",
@@ -5953,7 +5966,9 @@
      "requiresSource": "Wiki: Killing Chaos Elemental (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "commander_zilyana",
@@ -6413,7 +6428,8 @@
      "requiresSource": "Wiki: Killing Commander Zilyana (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "corporeal_beast",
@@ -6811,7 +6827,8 @@
      "requiresSource": "Wiki: Killing the Corporeal Beast (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "corrupted_gauntlet",
@@ -7075,7 +7092,8 @@
      "requiresSource": "Wiki: Completing The Corrupted Gauntlet (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "dagannoth_prime",
@@ -7723,7 +7741,8 @@
      "requiresSource": "Wiki: Killing Dagannoth Kings (Solo tribrid) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "dagannoth_rex",
@@ -8335,7 +8354,8 @@
      "requiresSource": "Wiki: Killing Dagannoth Kings (Rex only) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "dagannoth_supreme",
@@ -8976,7 +8996,8 @@
      "requiresSource": "Wiki: Killing Dagannoth Kings (Solo tribrid) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "doom_of_mokhaiotl",
@@ -11177,7 +11198,8 @@
      "requiresSource": "Wiki: Killing the Doom of Mokhaiotl (Delve 1-16) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "duke_sucellus",
@@ -11617,7 +11639,8 @@
      "requiresSource": "Wiki: Killing Duke Sucellus (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "the_gauntlet",
@@ -11874,7 +11897,8 @@
      "requiresSource": "Wiki: Completing The Gauntlet (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "graardor",
@@ -12511,7 +12535,8 @@
      "requiresSource": "Wiki: Killing General Graardor (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "giant_mole",
@@ -12945,7 +12970,8 @@
      "requiresSource": "Wiki: Killing the Giant Mole (Twisted bow) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "grotesque_guardians",
@@ -13341,7 +13367,8 @@
      "requiresSource": "Wiki: Killing the Grotesque Guardians (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "the_hueycoatl",
@@ -13694,7 +13721,8 @@
      "requiresSource": "Wiki: Killing Hueycoatl (Solo) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "kalphite_queen",
@@ -14311,7 +14339,8 @@
      "requiresSource": "Wiki: Killing the Kalphite Queen (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "king_black_dragon",
@@ -14761,7 +14790,8 @@
      "requiresSource": "Wiki: Killing the King Black Dragon (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "kraken",
@@ -15380,7 +15410,8 @@
      "requiresSource": "Wiki: Killing the Kraken (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "kreearra",
@@ -15832,7 +15863,8 @@
      "requiresSource": "Wiki: Killing Kree'arra (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "kril_tsutsaroth",
@@ -16258,7 +16290,8 @@
      "requiresSource": "Wiki: Killing K'ril Tsutsaroth (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "the_leviathan",
@@ -16682,7 +16715,8 @@
      "requiresSource": "Wiki: Killing The Leviathan (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "mad_angel",
@@ -17139,7 +17173,8 @@
      "requiresSource": "Wiki: Killing the Mad Angel (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "maggot_king",
@@ -17421,7 +17456,8 @@
      "requiresSource": "Wiki: Killing the Maggot King (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "nex",
@@ -17858,7 +17894,8 @@
      "requiresSource": "Wiki: Killing Nex (Team) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "the_nightmare",
@@ -18262,7 +18299,8 @@
      "requiresSource": "Wiki: Killing The Nightmare (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "phantom_muspah",
@@ -19031,7 +19069,8 @@
      "requiresSource": "Wiki: Killing Phantom Muspah (Twisted bow) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "phosanis_nightmare",
@@ -19379,7 +19418,8 @@
      "requiresSource": "Wiki: Killing Phosani's Nightmare (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "royal_titans",
@@ -19978,7 +20018,8 @@
      "flatCostPerUnit": 14332
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "sarachnis",
@@ -20547,7 +20588,8 @@
      "requiresSource": "Wiki: Killing Sarachnis (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "scorpia",
@@ -20891,7 +20933,9 @@
      "requiresSource": "Wiki: Killing Scorpia (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "scurrius",
@@ -21128,7 +21172,8 @@
      "requiresSource": "Wiki: Killing Scurrius (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "shellbane_gryphon",
@@ -21513,7 +21558,8 @@
      "flatCostPerUnit": 10000
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "skotizo",
@@ -21773,7 +21819,8 @@
      "flatCostPerUnit": 20000
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "sol_heredit",
@@ -22096,7 +22143,8 @@
      "requiresSource": "Wiki: Completing the Fortis Colosseum (Wave 12) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "spindel",
@@ -22497,7 +22545,9 @@
      "requiresSource": "Wiki: Killing Spindel (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "tempoross",
@@ -22691,7 +22741,8 @@
      "requiresSource": "Wiki: Subduing Tempoross (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "theatre_of_blood",
@@ -23133,7 +23184,8 @@
      "requiresSource": "Wiki: Theatre of Blood (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "thermonuclear_smoke_devil",
@@ -23590,7 +23642,8 @@
      "requiresSource": "Wiki: Killing the Thermonuclear smoke devil (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "tombs_of_amascut",
@@ -23863,7 +23916,8 @@
      "requiresSource": "Wiki: Tombs of Amascut (solo 450 raid level) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "tzkal_zuk",
@@ -23950,7 +24004,8 @@
     "label": "Infernal cape",
     "reward": "x-infernal-cape",
     "kc": 1
-   }
+   },
+   "wilderness": false
   },
   {
    "id": "tztok_jad",
@@ -24026,7 +24081,8 @@
     "label": "Fire cape",
     "reward": "x-fire-cape",
     "kc": 1
-   }
+   },
+   "wilderness": false
   },
   {
    "id": "vardorvis",
@@ -24465,7 +24521,8 @@
      "requiresSource": "Wiki: Killing Vardorvis (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "venenatis",
@@ -24931,7 +24988,9 @@
      "requiresSource": "Wiki: Killing Venenatis (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "vetion",
@@ -25385,7 +25444,9 @@
      "requiresSource": "Wiki: Killing Vet'ion (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": true,
+   "wildernessNote": "Wilderness boss"
   },
   {
    "id": "vorkath",
@@ -26523,7 +26584,8 @@
      "requiresSource": "Wiki: Killing Vorkath (Toxic blowpipe) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "the_whisperer",
@@ -26951,7 +27013,8 @@
      "requiresSource": "Wiki: Killing The Whisperer (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "wintertodt",
@@ -27062,7 +27125,8 @@
      "flatCostPerUnit": 0
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "yama",
@@ -27409,7 +27473,8 @@
      "requiresSource": "Wiki: Killing Yama (solo) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "zalcano",
@@ -27644,7 +27709,8 @@
     "mvpBonus": 0,
     "listedAt": "solo",
     "howItWorks": "Runes and materials are split by contribution (share = 1/N of the listed amounts), and the crystal tool seed and onyx are one roll per kill for the whole team, so each player's chance is 1/N. The Wiki assumes about 15 players. The Zalcano shard and guaranteed drops are per player."
-   }
+   },
+   "wilderness": false
   },
   {
    "id": "zulrah",
@@ -28663,7 +28729,8 @@
      "requiresSource": "Wiki: Killing Zulrah (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "bloodhound",
@@ -29910,7 +29977,8 @@
      "flatCostPerUnit": 20000
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "chompy-birds",
@@ -29941,7 +30009,8 @@
      "costSource": "2 mithril brutal arrows per bird"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "soul-wars",
@@ -30031,7 +30100,8 @@
      "flatCostPerUnit": 10000
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "barbarian-assault",
@@ -30322,7 +30392,8 @@
      "requiresSource": "Wiki: Barbarian assault high gambles (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   },
   {
    "id": "the_fractured_archive",
@@ -30762,7 +30833,8 @@
      "requiresSource": "Wiki: The Fractured Archive (4-scale) (recommended levels included)"
     }
    ],
-   "defaultSetup": "high"
+   "defaultSetup": "high",
+   "wilderness": false
   }
  ]
 }
