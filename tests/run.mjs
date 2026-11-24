@@ -62,6 +62,8 @@ t('boss method gp/hr', () => {
   const m = bossMethod(boss, items);
   assert.equal(m.lootPerUnit, 1000); assert.equal(m.costPerUnit, 300); assert.equal(m.gpPerHr, 14000);
   assert.equal(bossMethod(boss, items, { override: { unitsPerHr: 10 } }).gpPerHr, 7000);
+  boss.setups[0].lootShare = 0.5;
+  assert.equal(bossMethod(boss, items).gpPerHr, (500 - 300) * 20);
 });
 
 const original = process.argv[2];
