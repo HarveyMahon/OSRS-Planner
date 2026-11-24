@@ -163,7 +163,7 @@ def _gep(m):
 
 
 def number(v, variables=None):
-    v = re.sub(r"<!--.*?-->|<[^>]+>", "", v or "", flags=re.S).replace(",", "").strip()
+    v = strip_vardefines(re.sub(r"<!--.*?-->|<[^>]+>", "", v or "", flags=re.S)).replace(",", "").strip()
     try:
         v = re.sub(r"\{\{\s*GEP\s*\|([^{}]*)\}\}", _gep, v)
     except ValueError:
@@ -181,11 +181,40 @@ def number(v, variables=None):
         return None
 
 
+def _vardefines(text):
+    """(start, end, name, value) for each {{#vardefine:name|value}}, brace-matched."""
+    out, i = [], 0
+    while True:
+        m = re.compile(r"\{\{\s*#vardefine\s*:").search(text, i)
+        if not m:
+            return out
+        j, depth = m.end(), 1
+        while j < len(text) and depth:
+            if text.startswith("{{", j): depth += 1; j += 2
+            elif text.startswith("}}", j): depth -= 1; j += 2
+            else: j += 1
+        body = text[m.end():j - 2]
+        d, k = 0, 0
+        while k < len(body):                    # split name|value at the first top-level |
+            if body.startswith("{{", k): d += 1; k += 2; continue
+            if body.startswith("}}", k): d -= 1; k += 2; continue
+            if body[k] == "|" and d == 0: break
+            k += 1
+        out.append((m.start(), j, body[:k].strip(), body[k + 1:]))
+        i = j
+
+
+def strip_vardefines(v):
+    for start, end, _, _ in reversed(_vardefines(v)):
+        v = v[:start] + v[end:]
+    return v
+
+
 def page_variables(text):
-    """{{#vardefine:name|value}} definitions, evaluated in order."""
+    """{{#vardefine:name|value}} definitions, evaluated in order (later ones may use earlier)."""
     out = {}
-    for name, val in re.findall(r"\{\{\s*#vardefine\s*:\s*([^|}]+?)\s*\|(.*?)\}\}(?=\s*(?:\{\{|\n|$))", text, re.S):
-        n = number(val if val.strip().startswith("{{") else val, out)
+    for _, _, name, val in _vardefines(text):
+        n = number(val, out)
         if n is None:
             n = number("{{#expr:" + val + "}}", out)
         if n is not None:
