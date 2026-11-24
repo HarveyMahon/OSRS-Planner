@@ -67,6 +67,19 @@ t('boss method gp/hr', () => {
   assert.equal(bossMethod(boss, items).gpPerHr, (500 - 300) * 20);
 });
 
+globalThis.localStorage = (() => { const m = new Map(); return { getItem: k => m.has(k) ? m.get(k) : null, setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k) }; })();
+const { freshAccount, normalise, loadAccount, saveAccount } = await import('../core/account.js');
+t('account storage', () => {
+  const a = freshAccount();
+  assert.equal(levelForXp(a.xp.Hitpoints), 10); assert.equal(a.xp.Attack, 0); assert.equal(Object.keys(a.xp).length, 24);
+  const n = normalise({ xp: { Attack: 'x', Strength: 3e8, Hitpoints: 5 }, gp: -5, diaries: 'nope' });
+  assert.equal(n.xp.Attack, 0); assert.equal(n.xp.Strength, 200_000_000); assert.equal(levelForXp(n.xp.Hitpoints), 10);
+  assert.equal(n.gp, 0); assert.deepEqual(n.diaries, []);
+  a.xp.Slayer = toXp({ value: 93, unit: 'level' }); a.gp = 1e6;
+  assert.ok(saveAccount(a));
+  const b = loadAccount(); assert.equal(levelForXp(b.xp.Slayer), 93); assert.equal(b.gp, 1e6); assert.ok(b.updatedAt);
+});
+
 const original = process.argv[2];
 if (original) await (async () => {  // pet adapter rebuilds the original data
   const { loadPetData } = await import('../pets/legacy-data.js');

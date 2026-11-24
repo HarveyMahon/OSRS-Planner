@@ -26,7 +26,8 @@ body { color: var(--text); font: 15px/1.5 var(--sans); }
 .site-nav { border-bottom: 1px solid var(--line); background: var(--surface); }
 .site-nav-inner { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .site-nav .brand { font: 700 19px/1 var(--display); color: var(--accent); text-decoration: none; letter-spacing: .02em; }
-.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; flex-wrap: wrap; }
+.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+.site-nav li.right { margin-left: auto; }
 .site-nav a.link { display: block; padding: 6px 12px; border-radius: 6px; color: var(--muted); text-decoration: none; font-weight: 500; }
 .site-nav a.link:hover { color: var(--text); background: var(--surface-2); }
 .site-nav a.link[aria-current="page"] { color: var(--accent-ink); background: var(--accent); }

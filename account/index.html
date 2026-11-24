@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Account · OSRS Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../core/theme.css">
+<style>
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { background: transparent; color: var(--muted); border: 0; padding: 7px 14px; font: 500 14px var(--sans); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .summary { display: flex; gap: 22px; flex-wrap: wrap; color: var(--muted); }
+  .summary b { color: var(--text); font-family: var(--mono); font-weight: 500; }
+  /* Same layout as the in-game skills tab: three columns */
+  #grid { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 720px; }
+  .skill { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px; }
+  .skill:focus-within { border-color: var(--accent); }
+  .skill .name { font-weight: 500; }
+  .skill .sub { font: 12px var(--mono); color: var(--faint); }
+  input { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: 15px var(--mono); width: 100%; box-sizing: border-box; }
+  .row { display: flex; gap: 16px; align-items: end; flex-wrap: wrap; }
+  .row label { display: grid; gap: 4px; color: var(--muted); font-size: 13px; }
+  .row input { width: 200px; }
+  .btn { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 7px 12px; font: 500 13px var(--sans); cursor: pointer; }
+  .btn:hover { color: var(--cost); border-color: var(--cost); }
+  #saved { font-size: 13px; color: var(--faint); }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="head">
+    <div style="display:grid;gap:8px">
+      <h1>My Account</h1>
+      <p>Enter your stats by level or XP. A level is stored as the minimum XP for that level. Everything stays in this browser; other pages use it to filter and plan.</p>
+    </div>
+    <div class="seg" id="unit" role="group" aria-label="Enter stats as">
+      <button type="button" data-unit="level">Levels</button><button type="button" data-unit="xp">XP</button>
+    </div>
+  </div>
+  <div class="summary" id="summary"></div>
+  <div id="grid"></div>
+  <div class="row">
+    <label>Cash stack (GP) <input type="text" inputmode="numeric" id="gp" placeholder="e.g. 25,000,000"></label>
+    <button type="button" class="btn" id="reset">Clear all stats</button>
+    <span id="saved" role="status"></span>
+  </div>
+</main>
+<script type="module" src="account.js"></script>
+<script type="module" src="../core/nav.js" data-active="account"></script>
+</body>
+</html>

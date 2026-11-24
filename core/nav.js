@@ -7,6 +7,7 @@ const PAGES = [
   { id: 'planner', label: 'Goal Planner', path: 'planner/' },
   { id: 'money', label: 'Money Makers', path: 'money/' },
   { id: 'pets', label: 'Pet Hunting', path: 'pets/', side: true },
+  { id: 'account', label: 'My Account', path: 'account/', right: true },
 ];
 
 const active = document.currentScript?.dataset.active
@@ -17,6 +18,6 @@ nav.className = 'site-nav';
 nav.setAttribute('aria-label', 'Site');
 nav.innerHTML = `<div class="site-nav-inner">
   <a class="brand" href="${new URL('./', ROOT)}">OSRS Planner</a>
-  <ul>${PAGES.map(p => `<li${p.side ? ' class="side"' : ''}><a class="link" href="${new URL(p.path, ROOT)}"${p.id === active ? ' aria-current="page"' : ''}>${p.label}</a></li>`).join('')}</ul>
+  <ul>${PAGES.map(p => `<li${p.side ? ' class="side"' : p.right ? ' class="right"' : ''}><a class="link" href="${new URL(p.path, ROOT)}"${p.id === active ? ' aria-current="page"' : ''}>${p.label}</a></li>`).join('')}</ul>
 </div>`;
 document.body.prepend(nav);

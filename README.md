@@ -7,6 +7,7 @@ how to fund it, priced from the [OSRS Wiki real-time prices API](https://oldscho
 |---|---|
 | **Goal Planner** (`planner/`) | In development. Ordered plans of XP, kill count, GP and quest steps. |
 | **Money Makers** (`money/`) | Early version: bosses ranked by GP/hr after supplies, with editable rates and supplies. Account filtering comes with requirements data. |
+| My Account (`account/`) | Your stats (levels or XP) and cash stack, saved in this browser (`core/account.js`). |
 | Pet Hunting (`pets/`) | Side tool, ported from [Pet-Hunt-Profit-Calculator](https://github.com/HarveyMahon/Pet-Hunt-Profit-Calculator). |
 
 ## Layout
