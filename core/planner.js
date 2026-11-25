@@ -19,8 +19,9 @@
 
 import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
 import { isMet, describe, unmet } from './requirements.js';
-import { estimate } from './training.js';
+import { estimate, stageAt } from './training.js';
 import { bossMethod, guideMethod, setupOf, gearCost, gearEntry } from './money.js';
+import { bestMaster, slayerSettings } from './slayer.js';
 
 const INTENSITY_ORDER = { fastest: ['fastest', 'balanced', 'afk'], balanced: ['balanced', 'fastest', 'afk'], afk: ['afk', 'balanced', 'fastest'] };
 const COMBAT_HP = new Set(['Attack', 'Strength', 'Defence', 'Ranged']);
@@ -79,7 +80,7 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null } = d;
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
@@ -295,7 +296,7 @@ export function plan(goals, d) {
     const toXp = exactXp ?? xpForLevel(level);
     const fromXp = sim.xp[skill] || 0;
     if (fromXp >= toXp) return;
-    const track = applySwaps(trackFor(training, skill, intensity, { hideWild }), swaps, training, skill);
+    const track = (skill === 'Slayer' && slayerTrack(fromXp, toXp)) || applySwaps(trackFor(training, skill, intensity, { hideWild }), swaps, training, skill);
     if (!track) { warnings.push(`No training data for ${skill}.`); sim.xp[skill] = toXp; return; }
     let e = estimate(track, fromXp, toXp, items, { account: sim, ctx: reqCtx });
     let used = track;
@@ -319,12 +320,63 @@ export function plan(goals, d) {
       if (e.blocked) warnings.push(`${skill}: no method you can use at level ${e.blocked}.`);
     }
     const step = { kind: 'train', skill, fromXp, toXp, fromLevel: levelForXp(fromXp, { virtual: true }), toLevel: level,
-                   track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp, towardsHp };
+                   track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp, towardsHp,
+                   slayer: used.slayer ? slayerCredit(used, e) : undefined };
     pay(e.gp, `${skill} ${step.fromLevel}–${level}`, `train:${skill}:${level}`);
     steps.push(step);
     sim.xp[skill] = toXp;
     // melee and Ranged training also give a third as much Hitpoints XP
     if (COMBAT_HP.has(skill)) sim.xp.Hitpoints = Math.min(200e6, (sim.xp.Hitpoints || 0) + (toXp - fromXp) / 3);
+    // Slayer tasks also train the combat skills they're done with
+    if (step.slayer) for (const [s, x] of Object.entries(step.slayer.combatXp)) sim.xp[s] = Math.min(200e6, (sim.xp[s] || 0) + x);
+  }
+
+  // Slayer: a track whose stages are the best master's rates at each Slayer level (from the Slayer model and
+  // the user's Slayer tab settings). Below the levels the model has data for, the usual Slayer track is used.
+  const slayerCache = new Map();
+  function slayerTrack(fromXp, toXp) {
+    if (!slayer?.data) return null;
+    const settings = slayerSettings(slayer.settings);
+    const inten = slayer.intensity || settings.intensity || intensity;
+    const fallback = trackFor(training, 'Slayer', intensity, { hideWild });
+    const stages = [];
+    const from = levelForXp(fromXp), to = levelForXp(Math.max(fromXp, toXp - 1), { virtual: true });
+    const levels = [from];
+    for (let L = from - (from % 5) + 5; L <= to; L += 5) levels.push(L);      // re-check every 5 Slayer levels
+    for (const L of levels) {
+      const acc = { ...sim, xp: { ...sim.xp, Slayer: Math.max(sim.xp.Slayer || 0, xpForLevel(Math.min(L, 99))) } };
+      const key = `${L}|${inten}|${['Magic', 'Strength', 'Defence', 'Ranged', 'Attack', 'Hitpoints', 'Prayer'].map(k => levelForXp(sim.xp[k] || 0)).join('.')}`;
+      const prev = stages[stages.length - 1]?.slayerMaster;
+      if (!slayerCache.has(key + prev)) slayerCache.set(key + prev, bestMaster(slayer.data, acc, settings, inten, prev));
+      const best = slayerCache.get(key + prev);
+      if (best) {
+        const style = Object.entries(best.rates.styles).sort((a, b) => b[1] - a[1])[0][0];
+        stages.push({ from: L, name: `${best.master.name} tasks (mostly ${style})`, xpPerHr: best.rates.xpPerHr,
+                      slayerMaster: best.id, styles: best.rates.styles, pointsPerHr: best.rates.pointsPerHr, gpPerHr: best.rates.gpPerHr });
+      } else {
+        const fb = fallback && stageAt(fallback, L);
+        if (fb) stages.push({ ...fb, from: L, fallback: true });
+      }
+    }
+    if (!stages.length || stages.every(s => s.fallback)) return null;
+    // merge neighbouring stages with the same master
+    const merged = stages.filter((s, i) => i === 0 || s.name !== stages[i - 1].name || Math.abs(s.xpPerHr / stages[i - 1].xpPerHr - 1) > 0.03);
+    return { id: 'slayer-model', kind: inten, label: 'Slayer tasks', stages: merged, slayer: true, intensity: inten };
+  }
+  // Combat XP from Slayer: about 4 XP per damage in the style used (2.5 for magic, counting spell XP), and
+  // 1.33 Hitpoints XP, against 1 Slayer XP per hitpoint. Melee is split evenly over Attack, Strength and Defence.
+  function slayerCredit(track, e) {
+    const out = {};
+    for (const seg of e.segments) {
+      const st = seg.stage.styles; if (!st) continue;
+      for (const m of ['Attack', 'Strength', 'Defence']) out[m] = (out[m] || 0) + seg.xp * st.melee * 4 / 3;
+      out.Ranged = (out.Ranged || 0) + seg.xp * st.ranged * 4;
+      out.Magic = (out.Magic || 0) + seg.xp * st.magic * 2.5;
+      out.Hitpoints = (out.Hitpoints || 0) + seg.xp * 1.33;
+    }
+    for (const k of Object.keys(out)) if (out[k] < 1) delete out[k]; else out[k] = Math.round(out[k]);
+    const last = e.segments.filter(s => s.stage.slayerMaster).pop()?.stage;
+    return { combatXp: out, master: last?.name, pointsPerHr: last?.pointsPerHr, intensity: track.intensity };
   }
 
   // Do a quest straight away (prerequisite quests and levels first), e.g. when a training

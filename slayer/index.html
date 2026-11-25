@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slayer · OSRS Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../core/theme.css">
+<style>
+  .credit { border: 1px solid var(--accent); border-radius: 10px; padding: 12px 16px; color: var(--text); background: color-mix(in srgb, var(--accent) 8%, transparent); max-width: 900px; font-size: 14px; line-height: 1.5; }
+  .credit a { color: var(--accent); }
+  .panel { border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; background: var(--surface); display: grid; gap: 14px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+  .opts label { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 14px; }
+  .opts input[type=checkbox] { width: auto; }
+  .opts select, .opts input[type=number] { width: auto; }
+  .seg button[aria-pressed=true] { background: var(--accent); color: var(--accent-ink); }
+  .stats { display: flex; gap: 28px; flex-wrap: wrap; }
+  .stats div span { display: block; color: var(--muted); font-size: 12px; }
+  .stats div b { font: 500 22px var(--mono); }
+  .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 14px; }
+  thead th { font: 500 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); position: sticky; top: 0; }
+  td.num, th.num { text-align: right; font-family: var(--mono); }
+  tr.locked td { color: var(--faint); }
+  tr.block td:not(:nth-child(3)), tr.skip td:not(:nth-child(3)) { opacity: .55; }
+  tr.changed td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  td select { font-size: 13px; padding: 3px 6px; width: auto; max-width: 260px; }
+  .tag { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 99px; padding: 1px 6px; color: var(--faint); }
+  .tag.sug { color: var(--accent); border-color: var(--accent); }
+  button.reset { font: inherit; font-size: 0.8rem; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+  .muted { color: var(--muted); } .faint { color: var(--faint); font-size: 13px; }
+  .unlocks { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Slayer</h1>
+  <p>Pick a Slayer master and set up your task list: what to do, skip, block or extend, and the method for each task.
+    The Goal Planner uses these settings for every Slayer step. Suggested lists are worked out for your account from the rates below.</p>
+  <div class="credit">Task rates, methods, weights and lengths come from <b>KodakKid3's OSRS Slayer Spreadsheets</b> (v3.8.2) —
+    a huge amount of testing and research. <a href="https://docs.google.com/spreadsheets/d/1KR92OY-sK6I8wAAuFLt2TgLq-xadG7yA6Bzgb5YnVQM" target="_blank" rel="noopener">See the original spreadsheet</a>.
+    Task requirements and the masters' points come from the OSRS Wiki.</div>
+  <p id="acct-note" class="faint"></p>
+
+  <section class="panel">
+    <div class="opts">
+      <label>Master <select id="master"></select></label>
+      <label>Goal <span class="seg" id="goal"><button type="button" data-v="xp">XP</button><button type="button" data-v="gp">GP</button></span></label>
+      <label>Style <span class="seg" id="intensity"><button type="button" data-v="fastest">Fastest</button><button type="button" data-v="balanced">Balanced</button><button type="button" data-v="afk">AFK</button></span></label>
+      <label>Bracelet <select id="bracelet"><option value="none">None</option><option value="expeditious">Expeditious</option><option value="slaughter">Slaughter</option></select></label>
+      <label>Block slots <input type="number" id="blocks" min="0" max="7" step="1" style="width:60px"></label>
+    </div>
+    <div class="opts">
+      <label><input type="checkbox" id="kourendElite"> Elite Kourend &amp; Kebos diary (Konar points)</label>
+      <label><input type="checkbox" id="westernElite"> Elite Western Provinces diary (Nieve points)</label>
+      <label><input type="checkbox" id="cannon"> Use a cannon where it helps</label>
+      <label><input type="checkbox" id="wildernessMethods"> Wilderness methods on normal tasks</label>
+      <label><input type="checkbox" id="bossVariants"> Kill the boss for the task (e.g. Abyssal Sire)</label>
+    </div>
+    <details><summary class="muted">Unlocks bought with Slayer points</summary><div id="unlocks" class="unlocks" style="margin-top:8px"></div></details>
+  </section>
+
+  <div id="summary" class="stats"></div>
+  <div class="opts"><span id="changes" class="muted"></span></div>
+  <div class="scroller"><table>
+    <thead><tr><th>Task</th><th class="num">Chance</th><th>Action</th><th>Extend</th><th>Method</th><th class="num">Kills</th><th class="num">Time</th><th class="num">XP/hr</th><th class="num">GP/hr</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <p class="faint">Chance is how often the master gives the task, after blocks and the tasks you can't get yet. A skipped task costs 30 points and
+    the time to get a new one. Tasks with no rate data are counted as skipped. Expected points include streak bonuses; Turael skipping and Konar point boosting aren't modelled yet.</p>
+</main>
+<script type="module" src="slayer.js"></script>
+<script type="module" src="../core/nav.js" data-active="slayer"></script>
+</body>
+</html>

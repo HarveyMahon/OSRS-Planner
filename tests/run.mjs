@@ -127,6 +127,23 @@ t('hiscores lookup (Wise Old Man)', async () => {
   await assert.rejects(lookupPlayer('', [], { fetchFn: fake }));
   await assert.rejects(lookupPlayer('x', [], { fetchFn: async () => ({ ok: false, status: 404 }) }), /No player/);
 });
+const SL = await import('../core/slayer.js');
+t('slayer model', () => {
+  const data = { meta: { streakEvery: [10, 50, 100, 250, 1000], secondsBetweenTasks: 0, resupplySeconds: 0, skipCost: 30 },
+    variants: { good: [{ name: 'Good', xpPerKill: 100, killsPerHr: 600, gpPerKill: 0, style: 'melee' }],
+                bad:  [{ name: 'Bad',  xpPerKill: 10,  killsPerHr: 600, gpPerKill: 0, style: 'ranged' }] },
+    masters: { m: { name: 'M', combat: 0, slayer: 1, points: 15, bonus: [75, 225, 375, 525, 750], block: 100,
+      tasks: [{ task: 'Good', key: 'good', weight: 1, amount: [100, 100] }, { task: 'Bad', key: 'bad', weight: 1, amount: [100, 100] }] } } };
+  const acc = { xp: { Slayer: 0 }, quests: {} }, st = SL.slayerSettings({ blockSlots: 1 });
+  const m = { id: 'm', ...data.masters.m };
+  const none = SL.masterRates(m, data, acc, st, { actions: {}, extends: {}, methods: {} }, 'fastest');
+  assert.ok(Math.abs(none.xpPerHr - 33000) < 1);              // (50% x 10K + 50% x 1K) XP over 10 minutes
+  const plan = SL.suggestPlan(m, data, acc, st, 'fastest');
+  assert.equal(plan.actions.Bad, 'block');                     // the worse task is blocked
+  const best = SL.bestMaster(data, acc, st, 'fastest');
+  assert.equal(best.id, 'm'); assert.ok(Math.abs(best.rates.xpPerHr - 60000) < 1);
+  assert.equal(SL.taskLocked({ requires: { slayer: 50 } }, acc, st), '50 Slayer');
+});
 const { unmet, describe } = await import('../core/requirements.js');
 t('unmet and describe', () => {
   const acc = { xp: { Ranged: xpForLevel(85), Prayer: xpForLevel(77) }, quests: { dragon_slayer_ii: 'complete' }, diaries: new Set() };

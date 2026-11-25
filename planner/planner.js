@@ -1,7 +1,8 @@
 // Goal Planner page: goals in, ordered steps out. Methods in training steps can be swapped for
 // another method of the same skill; the whole plan (time, costs, money to make) recalculates.
 
-import { loadItems, loadBosses, loadQuests, loadMethods, loadTraining } from '../core/data.js';
+import { loadItems, loadBosses, loadQuests, loadMethods, loadTraining, loadFile } from '../core/data.js';
+import { loadSlayer as slayerStore } from '../core/slayer-store.js';
 import { plan, stageOptions } from '../core/planner.js';
 import { SKILLS } from '../core/xp.js';
 import { gpPerXp } from '../core/training.js';
@@ -81,8 +82,7 @@ function stepHtml(s, i) {
     const cost = s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : '';
     return `<li class="step train${s.estimate.segments.some(g => g.stage.swapped) ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b> ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}${s.towardsHp ? ` <span class="muted">(towards ${s.towardsHp} Hitpoints)</span>` : ''}`}
       <span class="right">${hrs(s.hours)}${s.realHours > s.hours * 1.5 ? ` · ${Math.ceil(s.realHours / 24)} days of growing` : ''} ${cost}</span></div>
-      ${s.skill === 'Slayer' ? '<div class="note">Slayer masters, task choices and blocklists aren\'t planned yet; the time is a rough estimate.</div>'
-        : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;
+      ${s.slayer ? slayerHtml(s) : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;
   }
   if (s.kind === 'quest') return `<li class="step quest"><div class="head"><span class="n">${i + 1}</span><b>Quest:</b> <a href="${wiki(s.name)}" target="_blank" rel="noopener">${esc(s.name)}</a>
       <span class="right">~${hrs(s.hours || 0)}${s.forTraining ? ' · unlocks a training method' : ''}</span></div></li>`;
@@ -112,16 +112,33 @@ function gearNote(s) {
   return `<div class="note">Gear to get${cost ? ` (${gpShort(cost)})` : ''}: ${s.gearMissing.map(esc).join(', ')}</div>`;
 }
 
+// A Slayer step: the master for each range (from the Slayer tab's settings), its own training style,
+// expected points and the combat XP the tasks give along the way
+function slayerHtml(s) {
+  const inten = s.slayer.intensity;
+  const segs = s.estimate.segments.map(g => `<li class="seg"><span class="lv">${g.fromLevel}–${g.toLevel}</span>
+      <span>${esc(g.stage.name)} · ${Math.round(g.stage.xpPerHr / 1000)}K XP/hr${g.stage.pointsPerHr != null ? ` · ${g.stage.pointsPerHr >= 0 ? '+' : ''}${Math.round(g.stage.pointsPerHr)} points/hr` : ''}</span>
+      <span class="meta">${hrs(g.hours)}</span></li>`).join('');
+  const xp = Object.entries(s.slayer.combatXp).map(([k, v]) => `${gpShort(v)} ${k}`).join(', ');
+  return `<div class="row slayer-opts"><label class="muted">Style for this step <select data-slayer-intensity aria-label="Slayer training style">
+      ${['fastest', 'balanced', 'afk'].map(k => `<option value="${k}"${k === inten ? ' selected' : ''}>${{ fastest: 'Fastest', balanced: 'Balanced', afk: 'AFK' }[k]}</option>`).join('')}</select></label>
+      ${state.slayerIntensity ? '<button type="button" class="reset" data-unslayer title="Back to the plan\'s training style">↺ Back to suggested</button>' : ''}
+      <a href="../slayer/">Blocks, skips and methods on the Slayer tab</a></div>
+    <ul class="segs">${segs}</ul>
+    ${xp ? `<div class="note">The tasks also give about ${xp} XP (counted in the rest of the plan).</div>` : ''}`;
+}
+
 function render() {
   document.querySelectorAll('#intensity button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.i === state.intensity)));
   $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
     : '<span class="muted">No goals yet: add one above.</span>';
   const nSetups = Object.keys(state.setups).length;
-  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, Object.keys(state.gpChoices).length && `${Object.keys(state.gpChoices).length} money maker choice${Object.keys(state.gpChoices).length > 1 ? 's' : ''}`].filter(Boolean);
+  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, Object.keys(state.gpChoices).length && `${Object.keys(state.gpChoices).length} money maker choice${Object.keys(state.gpChoices).length > 1 ? 's' : ''}`, state.slayerIntensity && 'the Slayer style'].filter(Boolean);
   $('swaps-note').innerHTML = changes.length ? `Your changes: ${changes.join(', ')}. <button type="button" class="reset" id="clear-swaps">↺ Reset all changes</button>` : '';
   if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
   const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
-                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild() });
+                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(),
+                                 slayer: D.slayerData && { data: D.slayerData, settings: slayerStore(), intensity: state.slayerIntensity } });
   const t = r.totals;
   $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
     <div><span class="lbl">Money to make</span>${gpShort(t.gpMade)}</div>
@@ -134,8 +151,8 @@ function render() {
 }
 
 async function init() {
-  const [items, { bosses }, { quests }, { methods }, training] = await Promise.all([loadItems(), loadBosses(), loadQuests(), loadMethods(), loadTraining()]);
-  D = { items: items.items, bosses, quests, methods, training, bossName: id => bosses.find(b => b.id === id)?.name || id };
+  const [items, { bosses }, { quests }, { methods }, training, slayerData] = await Promise.all([loadItems(), loadBosses(), loadQuests(), loadMethods(), loadTraining(), loadFile('slayer.json').catch(() => null)]);
+  D = { items: items.items, bosses, quests, methods, training, slayerData, bossName: id => bosses.find(b => b.id === id)?.name || id };
   ACCOUNT = hasAccount() ? loadAccount() : freshAccount();
   $('acct-note').innerHTML = hasAccount() ? 'Planning from your stats, quests and cash on <a href="../account/">My Account</a>.'
     : 'Planning from a brand-new account. <a href="../account/">Enter your stats</a> to plan from where you are.';
@@ -146,16 +163,18 @@ async function init() {
   $('goals').addEventListener('click', e => { if (e.target.dataset.remove != null) { state.goals.splice(+e.target.dataset.remove, 1); save(); render(); } });
   $('intensity').addEventListener('click', e => { if (e.target.dataset.i) { state.intensity = e.target.dataset.i; save(); render(); } });
   $('steps').addEventListener('change', e => {
+    if (e.target.dataset?.slayerIntensity !== undefined) { state.slayerIntensity = e.target.value; save(); render(); return; }
     if (e.target.dataset?.gpmm !== undefined) { state.gpChoices[e.target.dataset.gpmm] = e.target.value; save(); render(); return; }
     const b = e.target.dataset?.setup; if (!b) return;
     state.setups[b] = e.target.value; save(); render();
   });
   $('steps').addEventListener('click', e => {
+    if (e.target.dataset?.unslayer !== undefined) { delete state.slayerIntensity; save(); render(); return; }
     if (e.target.dataset?.ungp !== undefined) { delete state.gpChoices[e.target.dataset.ungp]; save(); render(); return; }
     const b = e.target.dataset?.unsetup; if (!b) return;
     delete state.setups[b]; save(); render();
   });
-  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; state.gpChoices = {}; save(); render(); } });
+  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; state.gpChoices = {}; delete state.slayerIntensity; save(); render(); } });
   $('steps').addEventListener('change', e => {
     const k = e.target.dataset.swap;
     if (!k) return;

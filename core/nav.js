@@ -8,7 +8,8 @@ const PAGES = [
   { id: 'money', label: 'Money Makers', path: 'money/' },
   { id: 'training', label: 'Training', path: 'training/' },
   { id: 'pets', label: 'Pet Hunting', path: 'pets/', side: true },
-  { id: 'account', label: 'My Account', path: 'account/', right: true },
+  { id: 'slayer', label: 'Slayer', path: 'slayer/', right: true },
+  { id: 'account', label: 'My Account', path: 'account/' },
 ];
 
 const active = document.currentScript?.dataset.active
@@ -22,3 +23,11 @@ nav.innerHTML = `<div class="site-nav-inner">
   <ul>${PAGES.map(p => `<li${p.side ? ' class="side"' : p.right ? ' class="right"' : ''}><a class="link" href="${new URL(p.path, ROOT)}"${p.id === active ? ' aria-current="page"' : ''}>${p.label}</a></li>`).join('')}</ul>
 </div>`;
 document.body.prepend(nav);
+
+// Site-wide footer: data credits
+const footer = document.createElement('footer');
+footer.className = 'site-footer';
+footer.innerHTML = `Data from the <a href="https://oldschool.runescape.wiki/" target="_blank" rel="noopener">Old School RuneScape Wiki</a> and its prices API.
+  Slayer rates from <a href="https://docs.google.com/spreadsheets/d/1KR92OY-sK6I8wAAuFLt2TgLq-xadG7yA6Bzgb5YnVQM" target="_blank" rel="noopener">KodakKid3's OSRS Slayer Spreadsheets</a>.
+  Hiscores via <a href="https://wiseoldman.net/" target="_blank" rel="noopener">Wise Old Man</a>.`;
+document.body.append(footer);

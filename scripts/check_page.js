@@ -52,7 +52,7 @@ function serve() {
     await page.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
 
     // The app's own pages: load cleanly and show the site navigation
-    for (const p of ['', 'planner/', 'money/', 'account/', 'training/']) {
+    for (const p of ['', 'planner/', 'money/', 'account/', 'training/', 'slayer/']) {
       where = '/' + p;
       await page.goto(base + p);
       await page.waitForSelector('.site-nav a.link', { timeout: 15000 });
