@@ -133,7 +133,7 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   - **Wilderness weapons** boost before Inquisitor's, as the calculator does; Fremennik warband members always take
     a max hit from the right style (the calculator's rule).
   Still different, on purpose or out of my hands: Vardorvis (we use his average Defence, 180, not 215, +8%);
-  Silvthrill ballista (the calculator doesn't know it fires javelins yet); the full Inquisitor's set (+1% since
+  the full Inquisitor's set (+1% since
   the July change, not in the calculator yet); Doom (the calculator's phase setting).
 - **Special attacks against the Wiki calculator** (15:15): every spec weapon in a max loadout of its style on
   Vorkath, Graardor, Cerberus and K'ril: 162 of 188 agree within 2% (was 39). Fixed:
@@ -147,8 +147,13 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   - **Magic shortbow/longbow, comp bow, Seercull**: the spec's max hit comes from Ranged + 10 and the arrow only.
   - **Burning claws**: the Wiki's exact damage split and burn odds. **Scorching bow** burns non-demons for 1.
   - **Keris partisan of amascut** has better stats inside ToA only (both versions were in the list as one item).
-  On purpose: Zorya's tome (ours counts the 3 buffed attacks after it), Ancient godsword (ours counts the 25
-  bleed), Bone dagger and Dorgeshuun crossbow (can't miss a fresh target), Soulreaper (worked out as a cycle).
+  On purpose: Zorya's tome (ours counts the 3 buffed attacks after it), Ancient godsword (ours counts its delayed 25
+  damage when the spec hits; it isn't a bleed, Harvey 15:15), Bone dagger and Dorgeshuun crossbow (can't miss a fresh target), Soulreaper (worked out as a cycle).
+- **15:20 (Harvey's answers)**: the Silvthrill ballista is quest-only, so it's left out of the gear lists. King
+  Black Dragon stays non-Wilderness (confirmed). **Osmumten's fang inside ToA** now rolls accuracy twice outright
+  (1 - miss chance squared), as the Wiki calculator does; outside it keeps the higher of two attack rolls.
+  Already in: Tumeken's shadow x4 magic accuracy and damage inside ToA (x3 outside), the Twisted bow's 350 magic
+  cap in CoX (every CoX part is marked Xerician).
 
 ## Next
 

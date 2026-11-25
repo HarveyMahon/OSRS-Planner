@@ -39,7 +39,7 @@ export const SPECS = {
   'Burning claws': { cost: 35, type: 'slash', burning: true },
   'Crimson kisten': { cost: 50, type: 'crush', kisten: true },
   'Zamorak godsword': { cost: 50, type: 'slash', acc: 2, dmg: [1.1] },
-  'Ancient godsword': { cost: 50, type: 'slash', acc: 2, dmg: [1.1], bleed: 25 },
+  'Ancient godsword': { cost: 50, type: 'slash', acc: 2, dmg: [1.1], delayed: 25 },   // a hit sets off 25 damage 8 ticks later (and heals you)
   'Dragon longsword': { cost: 25, type: 'slash', dmg: [1.25] },
   'Dragon mace': { cost: 25, type: 'crush', acc: 1.25, dmg: [1.5] },
   'Dragon sword': { cost: 40, type: 'stab', acc: 1.25, dmg: [1.25] },
@@ -152,7 +152,7 @@ export function specHit(player, lo, monster, sp, opts) {
   if (sp.flat) dmg += sp.flat;                  // Granite hammer: +5 to every hit
   if (sp.onHit) dmg += p * sp.onHit;
   if (sp.demonBurn && !burnImmune(monster)) dmg += monster.attributes.includes('demon') ? sp.demonBurn : 1;
-  if (sp.bleed) dmg += p * sp.bleed;            // Ancient godsword: 25 more after a delay if it hits
+  if (sp.delayed) dmg += p * sp.delayed;        // Ancient godsword: a hit sets off 25 damage after 8 ticks (not a bleed)
   if (sp.burn && !burnImmune(monster)) dmg += p * sp.burn;   // Arkan blade: a 10 damage burn
   return { dmg, p, maxHit: M, secs, avgOnHit: p ? r.perAttack / p : 0 };
 }

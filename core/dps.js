@@ -425,7 +425,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   }
   // ---- expected damage per attack ----
   const def = npcDefRoll(m, opts.spec?.vsDef || (kind === 'melee' ? style.type : kind), w);   // (Saradomin's blessed sword's spec rolls against Magic Defence)
-  let p = spec?.voidwaker || spec?.alwaysHit ? 1 : isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
+  // Osmumten's fang (stab): rolls attack twice and keeps the higher; inside ToA it rolls accuracy twice outright
+  let p = spec?.voidwaker || spec?.alwaysHit ? 1 : isFang(w) && style.type === 'stab' ? (opts.toa ? 1 - (1 - hitChance(atk, def)) ** 2 : fangChance(atk, def)) : hitChance(atk, def);
   // Confliction gauntlets: after a missed magic attack with a one-handed weapon, the next rolls accuracy twice
   if (kind === 'magic' && /^Confliction gauntlets/.test(lo.hands?.name || '') && !w?.two) { const d = fangChance(atk, def); p = d / (1 + d - p); }
   const flat = m.flatArmour || 0, cap = m.damageCap || null;

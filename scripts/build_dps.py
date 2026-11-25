@@ -21,7 +21,7 @@ def n(v):
         try: return float(v)
         except (TypeError, ValueError): return 0
 
-SKIP = re.compile(r"\(unobtainable|\(historical|\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)|^Castle wars (bolts|arrow)|^Corrupted |\((basic|attuned|perfected)\)|^Echo |^Zaryte bow|^Crystal bow \d+/10|^Crystal bow full|^Training |^Signed oak", re.I)
+SKIP = re.compile(r"^Silvthrill ballista|\(unobtainable|\(historical|\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)|^Castle wars (bolts|arrow)|^Corrupted |\((basic|attuned|perfected)\)|^Echo |^Zaryte bow|^Crystal bow \d+/10|^Crystal bow full|^Training |^Signed oak", re.I)
 # Items only usable in minigames, Leagues, Deadman or discontinued events (from the Wiki's categories)
 cat_path = os.path.join(SRC, "categories_raw.json")
 CATS = {k.lower(): v for k, v in json.load(open(cat_path)).items()} if os.path.exists(cat_path) else {}
