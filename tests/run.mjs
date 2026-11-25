@@ -329,5 +329,48 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   assert.deepEqual(got.meta.tableLabels, want.meta.tableLabels);
   passed++;
 })();
+
+// ---- DPS engine (core/dps.js): hand-worked numbers from the Wiki's formulas ----
+{
+  const D = await import('../core/dps.js');
+  const P = { levels: { Attack: 99, Strength: 99, Defence: 99, Ranged: 99, Magic: 99, Prayer: 99, Hitpoints: 99 },
+    prayers: new Set(['piety', 'rigour', 'augury']), quests: new Set(), diaries: new Set(), hearts: null };
+  const mon = { name: 'Test', hp: 500, def: 100, magic: 100, amagic: 0, size: 1, attributes: [], dstab: 0, dslash: 0, dcrush: 0, dmagic: 0,
+    dlight: 0, dstandard: 0, dheavy: 0, drange: 0, flatArmour: 0, weakness: null, weaknessPct: 0 };
+  const sword = { name: 'Test sword', b: { aslash: 100, str: 133 }, speed: 4, category: 'Slash Sword' };
+  t('dps: melee max hit and accuracy', () => {
+    const st = D.attackStyles(sword).find(s => s.name === 'Slash');                 // slash, aggressive
+    const r = D.calc(P, { weapon: sword }, mon, st);
+    // effective strength floor(118 x 1.23) + 3 + 8 = 156; max floor((156 x 197 + 320) / 640) = 48
+    assert.equal(r.maxHit, 48);
+    // effective attack floor(118 x 1.20) + 8 = 149; roll 149 x 164 = 24436; defence roll 109 x 64 = 6976
+    assert.ok(Math.abs(r.accuracy - (1 - 6978 / (2 * 24437))) < 1e-12);
+    assert.ok(Math.abs(r.dps - r.accuracy * (24 + 1 / 49) / 2.4) < 1e-9);
+  });
+  t('dps: fang, scythe, flat armour', () => {
+    const fang = { name: "Osmumten's fang", b: { astab: 105, str: 103 }, speed: 5, category: 'Stab Sword' };
+    const r = D.calc(P, { weapon: fang }, mon, D.attackStyles(fang)[1]);
+    assert.ok(r.minHit > 0 && r.minHit === Math.trunc((r.maxHit + r.minHit) * 3 / 20));
+    const scy = { name: 'Scythe of Vitur', b: { aslash: 125, str: 75 }, speed: 5, category: 'Scythe', two: true };
+    assert.equal(D.calc(P, { weapon: scy }, { ...mon, size: 3 }, D.attackStyles(scy)[0]).hits, 3);
+    assert.equal(D.calc(P, { weapon: scy }, mon, D.attackStyles(scy)[0]).hits, 1);
+    const a = D.calc(P, { weapon: sword }, mon, D.attackStyles(sword)[1]).dps, b = D.calc(P, { weapon: sword }, { ...mon, flatArmour: 10 }, D.attackStyles(sword)[1]).dps;
+    assert.ok(b < a);
+  });
+  t('dps: ammo rules', () => {
+    assert.equal(D.ammoFits({ name: 'Twisted bow', category: 'Bow' }, { name: 'Dragon arrow' }), true);
+    assert.equal(D.ammoFits({ name: 'Magic shortbow', category: 'Bow' }, { name: 'Dragon arrow' }), false);
+    assert.equal(D.ammoFits({ name: 'Rune crossbow', category: 'Crossbow' }, { name: 'Ruby dragon bolts (e)' }), false);
+    assert.equal(D.ammoFits({ name: 'Armadyl crossbow', category: 'Crossbow' }, { name: 'Ruby dragon bolts (e)' }), true);
+    assert.equal(D.ammoFits({ name: 'Ascension crossbows', category: 'Crossbow' }, { name: 'Ruby bolts (e)' }), false);
+    assert.equal(D.ammoFits({ name: "Karil's crossbow", category: 'Crossbow' }, { name: 'Bolt rack' }), true);
+    assert.equal(D.ammoFits({ name: 'Bow of faerdhinen', category: 'Bow' }, { name: 'Dragon arrow' }), false);
+  });
+  t('dps: prayers by unlock and level', () => {
+    assert.equal(D.bestPrayer(P, 'melee').id, 'piety');
+    assert.equal(D.bestPrayer({ ...P, prayers: new Set() }, 'melee').id, 'incredible');
+    assert.equal(D.bestPrayer({ ...P, levels: { ...P.levels, Prayer: 1 } }, 'ranged'), null);
+  });
+}
 await Promise.all(pending);
 console.log(`tests: ${passed} passed`);
