@@ -8,8 +8,8 @@ import { SKILLS } from '../core/xp.js';
 import { gpPerXp } from '../core/training.js';
 import { loadAccount, hasAccount, freshAccount } from '../core/account.js';
 import { describe } from '../core/requirements.js';
-import { accountRates } from '../core/rates.js';
-let RATES = null;
+import { accountRates, rateContext } from '../core/rates.js';
+let RATES = null, RATE_AT = null;
 
 console.log('Planner: starting');
 const $ = id => document.getElementById(id);
@@ -170,7 +170,7 @@ function render() {
   $('swaps-note').innerHTML = changes.length ? `Your changes: ${changes.join(', ')}. <button type="button" class="reset" id="clear-swaps">↺ Reset all changes</button>` : '';
   if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
   const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
-                                 account: ACCOUNT, intensity: state.intensity, order: state.order, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(), rates: RATES,
+                                 account: ACCOUNT, intensity: state.intensity, order: state.order, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(), rates: RATES, rateAt: RATE_AT,
                                  slayer: D.slayerData && { data: D.slayerData, settings: slayerStore(), intensity: state.slayerIntensity } });
   const t = r.totals;
   $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
@@ -234,7 +234,7 @@ async function init() {
   });
   render();
   // your kill rates (DPS from your gear): worked out once per account change, then cached
-  if (hasAccount()) { RATES = await accountRates(ACCOUNT, bosses, items.items); render(); }
+  if (hasAccount()) { [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items), rateContext(ACCOUNT, items.items)]); render(); }
 }
 
 init().catch(err => { $('steps').innerHTML = `<li class="error">Couldn't load the app's data (${esc(err.message)}).</li>`; console.error(err); });

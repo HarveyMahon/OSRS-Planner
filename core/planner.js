@@ -81,7 +81,7 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null, order: userOrder = null, rates = null } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null, order: userOrder = null, rates = null, rateAt = null } = d;
   // Your kill rates (core/rates.js): a boss setup's kills/hr for you, standing in for its recommended combat levels
   const rateOf = (b, s) => rates?.[b.id]?.setups?.[s.id] || null;
   const methodOf = (b, setupId) => { const r = rateOf(b, setupOf(b, setupId)); return bossMethod(b, items, { setupId, override: r ? { unitsPerHr: r.kph } : undefined }); };
@@ -447,7 +447,9 @@ export function plan(goals, d) {
       sim.quests[m.id] = 'complete';
     } else if (m.n > 0) {
       const b = bossById(m.id);
-      const bm = methodOf(b, m.setupId);
+      // kill steps: your kill rate at the levels the plan has reached by now, when the planner can work it out
+      const atNow = rateAt?.(b, setupOf(b, m.setupId), sim.xp);
+      const bm = atNow ? bossMethod(b, items, { setupId: m.setupId, override: { unitsPerHr: atNow.kph } }) : methodOf(b, m.setupId);
       for (const q of questsIn(bm.setup.requires)) doQuestNow(q, { pulledFor: b.name });
       trainNeeds(m.needs);
       const hours = bm.unitsPerHr ? m.n / bm.unitsPerHr : 0;
@@ -457,7 +459,7 @@ export function plan(goals, d) {
       steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, setupId: bm.setup.id, why: m.why,
                    setups: b.setups.map(s => ({ id: s.id, label: s.label, gearToBuy: gearToBuy(s) })), hours, gp,
                    gearMissing: (bm.setup.gear || []).filter(g => { const e = gearEntry(g); return e.keys.reduce((t, k) => t + (sim.owned[k] || 0), 0) < e.qty; }).map(g => { const e = gearEntry(g); return (e.qty > 1 ? `${e.qty} × ` : '') + (items[e.keys[0]]?.name || e.keys[0]); }),
-                   rate: rateOf(b, bm.setup), best: rates?.[b.id] ? { buy: rates[b.id].buy, cost: rates[b.id].cost } : null,
+                   rate: atNow || rateOf(b, setupOf(b, m.setupId)), best: rates?.[b.id] ? { buy: rates[b.id].buy, cost: rates[b.id].cost } : null,
                    met: isMet(bm.setup.requires, sim, reqCtx) });
       sim.kc[b.id] = (sim.kc[b.id] || 0) + m.n;
       if (b.milestone?.reward) sim.owned[b.milestone.reward] = 1;

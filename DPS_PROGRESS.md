@@ -42,7 +42,7 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 
 ## Next
 
-1. Planner: rates are worked out for your *current* stats, not the stats you'll have at that step.
+1. Planner money makers use rates for your current stats (kill steps use the stats the plan has reached).
 2. Spec weapons, overloads and smelling salts (v2).
 3. Refine whole-content targets with you (raids, Inferno waves, Colosseum waves).
 

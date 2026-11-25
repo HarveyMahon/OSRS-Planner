@@ -106,3 +106,35 @@ function guideItems(setup, items, byId) {
   }
   return out;
 }
+
+/**
+ * A synchronous rate function for the planner's kill-count steps, at the levels the plan has reached:
+ * rateAt(boss, setup, xp) -> { kph, factor, myFight, guideFight } or null. Loads the data up front.
+ */
+export async function rateContext(account, items, { budget } = {}) {
+  const gp = budget ?? account.gp ?? 0;
+  const [gear, targets, monsters, { avail }] = await Promise.all([loadGear(), loadTargets(), loadMonsters(), availability(account)]);
+  const byId = new Map();
+  for (const list of Object.values(gear)) for (const it of list) for (const i of idsOf(it)) if (!byId.has(i)) byId.set(i, it);
+  const mine = new Map(), guide = new Map();
+  return (b, s, xp) => {
+    const t = targets[b.id];
+    if (!t?.parts?.length || !s.unitsPerHr) return null;
+    let g = guide.get(`${b.id}:${s.id}`);
+    if (g === undefined) {
+      const set = guideItems(s, items, byId);
+      g = set.size ? bestSetup(guidePlayer(s), gear, t, monsters, it => set.has(it) ? { owned: true, price: 0 } : { owned: false, price: null }, { budget: 0, fast: true })?.time ?? null : null;
+      guide.set(`${b.id}:${s.id}`, g);
+    }
+    if (!g || !isFinite(g)) return null;
+    const acc = { ...account, xp };
+    const lv = COMBAT.map(k => levelForXp(xp?.[k] || 0)).join(',');
+    let f = mine.get(`${b.id}:${lv}`);
+    if (f === undefined) { f = bestSetup(accountPlayer(acc), gear, t, monsters, avail, { budget: gp, fast: true })?.time ?? Infinity; mine.set(`${b.id}:${lv}`, f); }
+    const per = 3600 / s.unitsPerHr, n = teamSize(s, b);
+    const guideFight = Math.min(g / n, per * MAX_FIGHT_SHARE), myFight = f / n;
+    const raw = isFinite(myFight) ? 3600 / (per - guideFight + myFight) / s.unitsPerHr : 0;
+    const factor = raw ? Math.max(MIN_FACTOR, Math.min(MAX_FACTOR, raw)) : 0;
+    return { guideFight, myFight, factor, kph: factor * s.unitsPerHr, capped: raw !== factor && raw > 0 };
+  };
+}
