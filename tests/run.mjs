@@ -12,7 +12,8 @@ globalThis.fetch = async url => {
 const { xpForLevel, levelForXp, toXp } = await import('../core/xp.js');
 const { isMet, combatLevel } = await import('../core/requirements.js');
 let passed = 0;
-const t = (name, fn) => { fn(); passed++; };
+const pending = [];
+const t = (name, fn) => { const r = fn(); if (r && r.then) pending.push(r.then(() => { passed++; })); else passed++; };
 
 t('xp table', () => {
   assert.equal(xpForLevel(1), 0); assert.equal(xpForLevel(2), 83);
@@ -109,6 +110,22 @@ t('guide gear cleanup and gear list', () => {
   // quantities: 200 bolts, 150 held -> 50 to buy
   const q = gearList({ gear: [{ item: 'd', qty: 200 }] }, items, { bank: { d: 150 } });
   assert.equal(q.total, 200); assert.equal(q.toBuy, 50); assert.ok(!q.lines[0].owned);
+});
+const { parsePlayer, lookupPlayer } = await import('../core/hiscores.js');
+t('hiscores lookup (Wise Old Man)', async () => {
+  const p = { displayName: 'Zezima', latestSnapshot: { createdAt: '2026-11-25T00:00:00Z', data: {
+    skills: { attack: { experience: 13034431 }, sailing: { experience: 0 }, cooking: { experience: -1 } },
+    bosses: { general_graardor: { kills: 12 }, zulrah: { kills: -1 }, vorkath: { kills: 3 } } } } };
+  const r = parsePlayer(p, ['graardor', 'zulrah', 'vorkath']);
+  assert.equal(r.xp.Attack, 13034431); assert.equal(r.xp.Sailing, 0); assert.ok(!('Cooking' in r.xp));
+  assert.deepEqual(r.kc, { graardor: 12, vorkath: 3 });
+  // POST refused -> falls back to GET
+  const calls = [];
+  const fake = async (url, o = {}) => { calls.push(o.method || 'GET'); return o.method === 'POST' ? { ok: false, status: 429 } : { ok: true, status: 200, json: async () => p }; };
+  const got = await lookupPlayer('Zezima', ['vorkath'], { fetchFn: fake });
+  assert.deepEqual(calls, ['POST', 'GET']); assert.equal(got.refreshed, false); assert.equal(got.kc.vorkath, 3);
+  await assert.rejects(lookupPlayer('', [], { fetchFn: fake }));
+  await assert.rejects(lookupPlayer('x', [], { fetchFn: async () => ({ ok: false, status: 404 }) }), /No player/);
 });
 const { unmet, describe } = await import('../core/requirements.js');
 t('unmet and describe', () => {
@@ -279,4 +296,5 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   assert.deepEqual(got.meta.tableLabels, want.meta.tableLabels);
   passed++;
 })();
+await Promise.all(pending);
 console.log(`tests: ${passed} passed`);

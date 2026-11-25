@@ -79,7 +79,7 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, hideWild = false } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoice = null, hideWild = false } = d;
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
@@ -209,30 +209,35 @@ export function plan(goals, d) {
   }
 
   // ---- money makers available at a point in the plan ----
-  function bestMoneyMaker() {
-    let best = null;
+  // every money maker the account can do at this point in the plan, best GP/hr first
+  function moneyMakers() {
+    const out = [];
     for (const b of bosses) {
       if (b.category === 'misc' || b.moneyMaker === false || b.taskOnly || (hideWild && b.wilderness)) continue;
       for (const s of b.setups) {
         if (!isMet(s.requires, sim, reqCtx)) continue;
         const m = bossMethod(b, items, { setupId: s.id });
-        if (m.gpPerHr > 0 && (!best || m.gpPerHr > best.gpPerHr)) best = { name: `${b.name} (${s.label})`, gpPerHr: m.gpPerHr, wilderness: !!b.wilderness };
+        if (m.gpPerHr > 0) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: m.gpPerHr, wilderness: !!b.wilderness });
       }
     }
     for (const m of methods) {
       if (m.recurring || (hideWild && m.wilderness) || !isMet(m.requires, sim, reqCtx)) continue;
       const r = guideMethod(m, items, { cash: Math.max(sim.gp, 1) });
       if (r.missing.length || r.gpPerHr <= 0) continue;
-      if (!best || r.gpPerHr > best.gpPerHr) best = { name: m.name, gpPerHr: r.gpPerHr, wilderness: m.wilderness, cappedBy: r.cappedBy };
+      out.push({ id: `m:${m.id}`, name: m.name, gpPerHr: r.gpPerHr, wilderness: m.wilderness, cappedBy: r.cappedBy });
     }
-    return best;
+    return out.sort((a, b) => b.gpPerHr - a.gpPerHr);
   }
 
+  // The user's chosen money maker when the account can do it at this point, otherwise the best one
   function makeGp(amount, reason) {
     const amt = Math.ceil(amount / 100000) * 100000;
-    const mm = bestMoneyMaker();
+    const all = moneyMakers();
+    const chosen = gpChoice && all.find(m => m.id === gpChoice);
+    const mm = chosen || all[0];
     if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += amt; steps.push({ kind: 'gp', amount: amt, method: null, hours: 0, reason }); return; }
-    steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason });
+    steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason, chosen: !!chosen,
+                 choiceUnavailable: !!gpChoice && !chosen, options: all.slice(0, 25) });
     sim.gp += amt;
   }
 

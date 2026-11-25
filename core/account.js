@@ -13,7 +13,7 @@ const VERSION = 1;
 export function freshAccount() {
   const xp = Object.fromEntries(SKILLS.map(s => [s, 0]));
   xp.Hitpoints = xpForLevel(10);              // every account starts at 10 Hitpoints
-  return { version: VERSION, xp, quests: {}, diaries: [], owned: {}, bank: {}, bankImportedAt: null, kc: {}, gp: 0, updatedAt: null };
+  return { version: VERSION, xp, quests: {}, diaries: [], owned: {}, bank: {}, bankImportedAt: null, kc: {}, gp: 0, rsn: '', updatedAt: null };
 }
 
 // Fill gaps and clamp bad values, so pages can trust what they get back
@@ -32,6 +32,7 @@ export function normalise(a) {
     diaries: Array.isArray(a.diaries) ? a.diaries : [],
     owned: a.owned && typeof a.owned === 'object' ? a.owned : {},
     bank: a.bank && typeof a.bank === 'object' ? a.bank : {},
+    rsn: typeof a.rsn === 'string' ? a.rsn.slice(0, 12) : '',
     kc: a.kc && typeof a.kc === 'object' ? a.kc : {},
   };
 }

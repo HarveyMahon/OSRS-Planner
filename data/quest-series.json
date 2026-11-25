@@ -1,0 +1,158 @@
+{
+ "meta": {
+  "about": "Quest series in story order, from the Wiki's Quests/Series page (fetched 25 Nov 2026). The Account page lists quests by series; quests in no series come after, A-Z."
+ },
+ "series": {
+  "Camelot": [
+   "merlin_s_crystal",
+   "holy_grail",
+   "king_s_ransom"
+  ],
+  "Demon Slayer": [
+   "demon_slayer",
+   "shadow_of_the_storm"
+  ],
+  "Dorgeshuun": [
+   "the_lost_tribe",
+   "death_to_the_dorgeshuun",
+   "another_slice_of_h_a_m",
+   "land_of_the_goblins",
+   "the_chosen_commander"
+  ],
+  "Dragonkin": [
+   "dragon_slayer_i",
+   "a_tail_of_two_cats",
+   "dragon_slayer_ii"
+  ],
+  "Elemental Workshop": [
+   "elemental_workshop_i",
+   "elemental_workshop_ii"
+  ],
+  "Elf": [
+   "plague_city",
+   "biohazard",
+   "underground_pass",
+   "regicide",
+   "roving_elves",
+   "mourning_s_end_part_i",
+   "mourning_s_end_part_ii",
+   "song_of_the_elves"
+  ],
+  "Fairytale": [
+   "fairytale_i_growing_pains",
+   "fairytale_ii_cure_a_queen",
+   "fairytale_iii_nexus_of_power"
+  ],
+  "Fremennik": [
+   "the_fremennik_trials",
+   "the_fremennik_isles",
+   "lunar_diplomacy",
+   "the_fremennik_exiles",
+   "the_graveyard"
+  ],
+  "Gnome": [
+   "the_grand_tree",
+   "the_eyes_of_glouphrie",
+   "the_path_of_glouphrie",
+   "monkey_madness_i",
+   "monkey_madness_ii"
+  ],
+  "Kharidian": [
+   "prince_ali_rescue",
+   "icthlarin_s_little_helper",
+   "contact",
+   "beneath_cursed_sands",
+   "into_the_tombs",
+   "fool_s_gold"
+  ],
+  "Kourend": [
+   "x_marks_the_spot",
+   "client_of_kourend",
+   "the_queen_of_thieves",
+   "the_depths_of_despair",
+   "the_ascent_of_arceuus",
+   "the_forsaken_tower",
+   "tale_of_the_righteous",
+   "a_kingdom_divided"
+  ],
+  "Mahjarrat": [
+   "the_dig_site",
+   "hazeel_cult",
+   "fight_arena",
+   "enakhra_s_lament",
+   "temple_of_ikov",
+   "defender_of_varrock",
+   "desert_treasure_i",
+   "curse_of_the_empty_lord",
+   "the_general_s_shadow",
+   "the_curse_of_arrav",
+   "devious_minds",
+   "his_faithful_servants",
+   "secrets_of_the_north",
+   "desert_treasure_ii_the_fallen_empire",
+   "while_guthix_sleeps"
+  ],
+  "Miscellania": [
+   "throne_of_miscellania",
+   "royal_trouble"
+  ],
+  "Myreque": [
+   "in_search_of_the_myreque",
+   "in_aid_of_the_myreque",
+   "darkness_of_hallowvale",
+   "a_taste_of_hope",
+   "sins_of_the_father",
+   "the_blood_moon_rises"
+  ],
+  "Order of Wizards": [
+   "rune_mysteries",
+   "enter_the_abyss",
+   "temple_of_the_eye"
+  ],
+  "Penguin": [
+   "cold_war"
+  ],
+  "Pirate": [
+   "rum_deal",
+   "cabin_fever",
+   "the_great_brain_robbery"
+  ],
+  "Rag and Bone Man": [
+   "rag_and_bone_man_i",
+   "rag_and_bone_man_ii",
+   "rag_and_bone_man_iii"
+  ],
+  "Red Axe": [
+   "the_giant_dwarf",
+   "forgettable_tale"
+  ],
+  "Temple Knight": [
+   "recruitment_drive",
+   "wanted",
+   "sea_slug",
+   "the_slug_menace"
+  ],
+  "Tortugan": [
+   "troubled_tortugans",
+   "the_red_reef"
+  ],
+  "Troll": [
+   "death_plateau",
+   "troll_stronghold",
+   "eadgar_s_ruse",
+   "my_arm_s_big_adventure",
+   "making_friends_with_my_arm"
+  ],
+  "Twilight Emissaries": [
+   "children_of_the_sun",
+   "twilight_s_promise",
+   "the_heart_of_darkness",
+   "the_final_dawn"
+  ],
+  "Twisted Tales": [
+   "getting_ahead",
+   "the_garden_of_death",
+   "the_writing_s_on_the_wall"
+  ]
+ }
+}

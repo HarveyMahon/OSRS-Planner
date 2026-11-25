@@ -36,6 +36,11 @@
   .segs select { max-width: 420px; }
   .segs .meta { font-family: var(--mono); color: var(--muted); font-size: 13px; }
   .segs li.swapped select { border-color: var(--accent); }
+  button.reset { font: inherit; font-size: 0.8rem; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; margin-left: 6px; white-space: nowrap; }
+  button.reset:hover { background: var(--accent); color: var(--bg); }
+  .step.changed { border-left: 3px solid var(--accent); }
+  .step.changed select, .step.kc.changed select { border-color: var(--accent); }
+  #swaps-note { color: var(--accent); }
   .x, .linkbtn { background: transparent; border: 0; color: var(--accent); cursor: pointer; font: 12px var(--sans); text-decoration: underline; padding: 0; }
   .note { flex-basis: 100%; color: var(--faint); font-size: 12.5px; margin-left: 66px; }
   .step > .note { margin-left: 30px; }

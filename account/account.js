@@ -6,6 +6,7 @@ import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
 import { loadQuests, loadItems, loadBosses, loadFile } from '../core/data.js';
 import { requiredItems, prerequisiteQuests, questPoints } from '../core/requirements.js';
 import { parseBank, resolveBank } from '../core/bank.js';
+import { lookupPlayer } from '../core/hiscores.js';
 
 console.log('Account: starting');
 const $ = id => document.getElementById(id);
@@ -93,24 +94,39 @@ $('reset').addEventListener('click', () => {
 });
 
 // Quests: tick the ones you've completed. Ticking a quest also ticks the quests it requires.
-let QUESTS = {};
+// Listed by questline (data/quest-series.json, in story order), then the rest A-Z.
+let QUESTS = {}, SERIES = {};
 async function renderQuests() {
-  ({ quests: QUESTS } = await loadQuests());
+  [{ quests: QUESTS }, { series: SERIES }] = await Promise.all([loadQuests(), loadFile('quest-series.json').catch(() => ({ series: {} }))]);
   const f = ($('quest-search').value || '').trim().toLowerCase();
   const done = Object.keys(account.quests).filter(id => account.quests[id] === 'complete').length;
   $('quest-summary').textContent = `${done} of ${Object.keys(QUESTS).length} done · ${questPoints(account, QUESTS)} quest points`;
-  $('quests').innerHTML = Object.entries(QUESTS).filter(([, q]) => !f || q.name.toLowerCase().includes(f)).map(([id, q]) => `
-    <label class="quest"><input type="checkbox" data-quest="${id}"${account.quests[id] === 'complete' ? ' checked' : ''}> ${q.name}${q.miniquest ? ' <span class="mini">mini</span>' : ''}</label>`).join('');
+  const box = id => { const q = QUESTS[id];
+    return `<label class="quest"><input type="checkbox" data-quest="${id}"${account.quests[id] === 'complete' ? ' checked' : ''}> ${q.name}${q.miniquest ? ' <span class="mini">mini</span>' : ''}</label>`; };
+  const shown = id => QUESTS[id] && (!f || QUESTS[id].name.toLowerCase().includes(f));
+  const inSeries = new Set(Object.values(SERIES).flat());
+  const groups = Object.entries(SERIES).map(([name, ids]) => [name, ids.filter(shown), true])
+    .concat([[Object.keys(SERIES).length ? 'Other quests' : 'Quests', Object.keys(QUESTS).filter(id => !inSeries.has(id) && shown(id)).sort((a, b) => QUESTS[a].name.localeCompare(QUESTS[b].name)), false]])
+    .filter(([, ids]) => ids.length);
+  $('quests').innerHTML = groups.map(([name, ids, numbered]) => `<div class="series"><h3>${name}<button type="button" data-series-all="${ids.join(',')}">tick all</button></h3>
+    <div class="grid">${ids.map(id => numbered ? `<span class="quest"><span class="n">${(SERIES[name].indexOf(id) + 1)}.</span>${box(id)}</span>` : box(id)).join('')}</div></div>`).join('')
+    || '<p class="hint">No quests match.</p>';
 }
-$('quests').addEventListener('change', e => {
-  const id = e.target.dataset.quest;
-  if (!id) return;
-  if (e.target.checked) {
-    account.quests[id] = 'complete';
-    for (const p of prerequisiteQuests(id, QUESTS)) account.quests[p] = 'complete';
-  } else delete account.quests[id];
-  commit();
-  renderQuests();
+function tick(ids, on) {
+  for (const id of ids) {
+    if (on) { account.quests[id] = 'complete'; for (const p of prerequisiteQuests(id, QUESTS)) account.quests[p] = 'complete'; }
+    else delete account.quests[id];
+  }
+  commit(); renderQuests();
+}
+const visibleQuestIds = () => [...document.querySelectorAll('#quests input[data-quest]')].map(x => x.dataset.quest);
+$('quests').addEventListener('change', e => { const id = e.target.dataset.quest; if (id) tick([id], e.target.checked); });
+$('quests').addEventListener('click', e => { const ids = e.target.dataset?.seriesAll; if (ids) tick(ids.split(','), true); });
+$('quest-all').addEventListener('click', () => tick(visibleQuestIds(), true));
+$('quest-none').addEventListener('click', () => {
+  const ids = visibleQuestIds();
+  if (ids.length > 5 && !confirm(`Untick ${ids.length} quests?`)) return;
+  tick(ids, false);
 });
 $('quest-search').addEventListener('input', () => renderQuests());
 
@@ -150,6 +166,29 @@ $('bank-import').addEventListener('click', async () => {
 $('bank-clear').addEventListener('click', () => {
   account.bank = {}; account.bankImportedAt = null; commit(); renderUnlocks(); bankStatus();
 });
+
+// Hiscores: fill skills (and boss kill counts) from the OSRS hiscores via Wise Old Man
+$('rsn').value = account.rsn || '';
+async function lookup() {
+  const btn = $('lookup'); btn.disabled = true;
+  $('lookup-status').textContent = 'Looking up…';
+  try {
+    const { bosses } = await loadBosses();
+    const r = await lookupPlayer($('rsn').value, bosses.map(b => b.id));
+    account.xp = { ...account.xp, ...r.xp };
+    account.kc = { ...account.kc, ...r.kc };
+    account.rsn = r.name;
+    commit(); render();
+    const nKc = Object.keys(r.kc).length;
+    $('lookup-status').textContent = `Loaded ${r.name}: ${Object.keys(r.xp).length} skills${nKc ? ` and ${nKc} boss kill counts` : ''} from the hiscores`
+      + (r.refreshed ? '.' : ` (last saved ${new Date(r.updatedAt).toLocaleDateString('en-GB')}; a fresh lookup wasn't possible right now).`)
+      + ' Quests and items aren\'t on the hiscores, so tick those below.';
+  } catch (err) {
+    $('lookup-status').textContent = err.message || 'The lookup failed.';
+  } finally { btn.disabled = false; }
+}
+$('lookup').addEventListener('click', lookup);
+$('rsn').addEventListener('keydown', e => { if (e.key === 'Enter') lookup(); });
 
 render();
 bankStatus();
