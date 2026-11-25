@@ -30,13 +30,21 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 - **Pages**: *Best Setup* (`gear/`) and *DPS* (`dps/`), in the nav before Slayer. My Account has a Prayers
   section; the bank import now also keeps every item ID (`bankIds`) for the gear.
 
+- **Your kill rates** (`core/rates.js`): for each boss setup, your time per kill = the guide's time per kill
+  minus the guide's fight (guide gear + guide levels through the DPS engine) plus your fight (your best setup
+  from bank + cash). Money Makers scales kills/hr by it (a "1.17×" tag, explained in the row's details, with a
+  "Use my kill rates" switch), and with it on, the guides' recommended *combat* levels no longer lock a boss.
+  The planner uses the same rates for money makers and kill-count steps, and each kill step shows your kill
+  rate and the fastest gear you can afford ("budget gear rule"). All bosses take ~3s; cached per account, daily.
+- **Levels to wear gear**: parsed from each item page's lead text (1,124 items; e.g. Twisted bow 85 Ranged,
+  Masori (f) 80 Ranged + 80 Defence). The optimiser skips gear you can't wear; the DPS page outlines it.
+- Soulreaper axe (at 5 stacks), Confliction gauntlets, Tumeken's shadow x4 in ToA. Tests for the engine.
+
 ## Next
 
-1. Wire into Money Makers and the planner: scale each setup's kills/hr by the user's fight time vs the guide's
-   (overhead per kill stays the same), and filter on that instead of the Wiki's recommended combat levels.
-2. Budget gear rule: the planner's "gear to buy" from the best affordable setup.
-3. Requirements to wear gear (parse check, then filter candidates).
-4. Speed: cache results per account; a faster mode for scoring every boss.
+1. Planner: rates are worked out for your *current* stats, not the stats you'll have at that step.
+2. Spec weapons, overloads and smelling salts (v2).
+3. Refine whole-content targets with you (raids, Inferno waves, Colosseum waves).
 
 ## Decisions taken for review
 
@@ -52,5 +60,14 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Inferno = Zuk only (ranged); Fight Caves = Jad; Colosseum = Sol Heredit (melee). Each part lists the
   styles worth using on it. Gauntlets are skipped (gear is made inside).
 - **Kill time** is HP / DPS, no downtime; for comparisons only.
+- **Guide player** for the kill-rate comparison: the setup's recommended levels, 90 in any combat skill it
+  doesn't list, Piety/Rigour/Augury, imbued heart, no thrall. The guide's fight is capped at 80% of its time per
+  kill, and your rate at 20%-200% of the guide's, so a model mismatch can't produce silly numbers.
+- **Team content**: fight times are divided by the setup's team size (or the boss's default), so the same
+  share of the raid is compared.
+- **Combat levels no longer lock bosses** on Money Makers when your kill rate is known. Defence/Hitpoints for
+  survival aren't modelled, so a low-Defence account could see e.g. Nex if its DPS is good. Easy to add back
+  a minimum if you'd rather.
+- **Soulreaper axe** counted at 5 stacks all the time.
 - **Budget across styles**: the style used on most of the target's HP is optimised first with the full
   budget; later styles get what's left, and items already bought are free for them.
