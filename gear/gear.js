@@ -1,5 +1,6 @@
 // Best setup tab: the fastest gear for a boss from the account's bank and cash stack.
 import { loadAccount, hasAccount } from '../core/account.js';
+import { loadBosses } from '../core/data.js';
 import { loadGear, loadTargets, loadMonsters, availability, accountPlayer } from '../core/gear.js';
 import { bestSetup } from '../core/best-setup.js';
 import { SLOTS, PRAYERS } from '../core/dps.js';
@@ -12,7 +13,8 @@ const parseGp = s => { const m = String(s).trim().toLowerCase().replace(/,/g, ''
 const secs = s => !isFinite(s) ? '—' : s >= 3600 ? `${Math.floor(s / 3600)}h ${Math.round(s % 3600 / 60)}m` : s >= 60 ? `${Math.floor(s / 60)}m ${Math.round(s % 60)}s` : `${s.toFixed(1)}s`;
 
 const account = loadAccount();
-const [gear, targets, monsters, { avail: baseAvail }] = await Promise.all([loadGear(), loadTargets(), loadMonsters(), availability(account)]);
+const [gear, targets, monsters, { avail: baseAvail }, { bosses }] = await Promise.all([loadGear(), loadTargets(), loadMonsters(), availability(account), loadBosses()]);
+const taskOnly = new Set(bosses.filter(b => b.taskOnly).map(b => b.id));
 const saved = loadDps();
 
 $('acct-note').textContent = hasAccount()
@@ -22,10 +24,12 @@ const ids = Object.keys(targets).filter(id => targets[id].parts.length).sort((a,
 $('target').innerHTML = ids.map(id => `<option value="${id}">${esc(targets[id].name)}${targets[id].whole ? ' (whole raid / content)' : ''}</option>`).join('');
 $('target').value = saved.target && targets[saved.target] ? saved.target : 'vorkath';
 $('budget').value = gp(account.gp || 0);
+$('onTask').checked = taskOnly.has($('target').value);
 
 let timer = null;
 function schedule() { clearTimeout(timer); $('working').textContent = 'Working…'; timer = setTimeout(run, 30); }
-for (const id of ['target', 'ownOnly', 'onTask']) $(id).addEventListener('change', schedule);
+$('target').addEventListener('change', () => { $('onTask').checked = taskOnly.has($('target').value); schedule(); });   // task-only bosses are fought on task
+for (const id of ['ownOnly', 'onTask']) $(id).addEventListener('change', schedule);
 $('budget').addEventListener('change', schedule);
 
 function run() {

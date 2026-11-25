@@ -11,7 +11,7 @@ import { bestSetup } from './best-setup.js';
 import { levelForXp } from './xp.js';
 
 const KEY = 'osrsplanner:rates';
-const VERSION = 3;
+const VERSION = 4;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list
 const MAX_FIGHT_SHARE = 0.8;             // the guide's fight is at most this share of its time per kill
@@ -65,14 +65,15 @@ export async function accountRates(account, bosses, items, { onProgress, budget 
   for (const b of list) {
     await new Promise(r => setTimeout(r, 0));
     const t = targets[b.id];
-    const mine = bestSetup(player, gear, t, monsters, avail, { budget: gp, fast: true });
+    const pl = b.taskOnly ? { ...player, onTask: true } : player;      // task-only bosses are always on task
+    const mine = bestSetup(pl, gear, t, monsters, avail, { budget: gp, fast: true });
     const r = { fight: mine?.time ?? Infinity, cost: mine?.cost ?? 0, setups: {},
       buy: mine ? [...new Set(Object.values(mine.kinds).flatMap(k => Object.values(k.loadout)).filter(it => it && !avail(it).owned).map(it => it.name))] : [] };
     for (const s of b.setups) {
       if (!s.unitsPerHr) continue;
       const guideGear = guideItems(s, items, byId);
       if (!guideGear.size) continue;          // no gear list: can't tell how fast the guide kills
-      const g = bestSetup(guidePlayer(s), gear, t, monsters, it => guideGear.has(it) ? { owned: true, price: 0 } : { owned: false, price: null }, { budget: 0, fast: true });
+      const g = bestSetup({ ...guidePlayer(s), onTask: !!b.taskOnly }, gear, t, monsters, it => guideGear.has(it) ? { owned: true, price: 0 } : { owned: false, price: null }, { budget: 0, fast: true });
       if (!g || !isFinite(g.time)) continue;
       const per = 3600 / s.unitsPerHr, n = teamSize(s, b);
       const guideFight = Math.min(g.time / n, per * MAX_FIGHT_SHARE);
@@ -123,14 +124,14 @@ export async function rateContext(account, items, { budget } = {}) {
     let g = guide.get(`${b.id}:${s.id}`);
     if (g === undefined) {
       const set = guideItems(s, items, byId);
-      g = set.size ? bestSetup(guidePlayer(s), gear, t, monsters, it => set.has(it) ? { owned: true, price: 0 } : { owned: false, price: null }, { budget: 0, fast: true })?.time ?? null : null;
+      g = set.size ? bestSetup({ ...guidePlayer(s), onTask: !!b.taskOnly }, gear, t, monsters, it => set.has(it) ? { owned: true, price: 0 } : { owned: false, price: null }, { budget: 0, fast: true })?.time ?? null : null;
       guide.set(`${b.id}:${s.id}`, g);
     }
     if (!g || !isFinite(g)) return null;
     const acc = { ...account, xp };
     const lv = COMBAT.map(k => levelForXp(xp?.[k] || 0)).join(',');
     let f = mine.get(`${b.id}:${lv}`);
-    if (f === undefined) { f = bestSetup(accountPlayer(acc), gear, t, monsters, avail, { budget: gp, fast: true })?.time ?? Infinity; mine.set(`${b.id}:${lv}`, f); }
+    if (f === undefined) { f = bestSetup(accountPlayer(acc, { onTask: !!b.taskOnly }), gear, t, monsters, avail, { budget: gp, fast: true })?.time ?? Infinity; mine.set(`${b.id}:${lv}`, f); }
     const per = 3600 / s.unitsPerHr, n = teamSize(s, b);
     const guideFight = Math.min(g / n, per * MAX_FIGHT_SHARE), myFight = f / n;
     const raw = isFinite(myFight) ? 3600 / (per - guideFight + myFight) / s.unitsPerHr : 0;
