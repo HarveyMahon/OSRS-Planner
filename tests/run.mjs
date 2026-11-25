@@ -382,6 +382,12 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     const blood = { head: { name: 'Blood Moon helm', b: {} }, body: { name: 'Blood Moon chestplate', b: {} }, legs: { name: 'Blood Moon tassets', b: {} } };
     assert.ok(D.bestCalc(P, { weapon: dm, ...blood }, mon).speed < 4);
   });
+  t("dps: Dharok's hits harder at low HP", () => {
+    const axe = { name: "Dharok's greataxe", b: { aslash: 103, str: 105 }, speed: 7, category: 'Axe', two: true };
+    const set = { head: { name: "Dharok's helm", b: {} }, body: { name: "Dharok's platebody", b: {} }, legs: { name: "Dharok's platelegs", b: {} } };
+    const full = D.bestCalc(P, { weapon: axe, ...set }, mon).dps, low = D.bestCalc({ ...P, lowHp: 1 }, { weapon: axe, ...set }, mon).dps;
+    assert.ok(Math.abs(low / full - (1 + 98 * 99 / 10000)) < 1e-9);                  // 99 max HP at 1 HP: +97%
+  });
   t('dps: ammo rules', () => {
     assert.equal(D.ammoFits({ name: 'Twisted bow', category: 'Bow' }, { name: 'Dragon arrow' }), true);
     assert.equal(D.ammoFits({ name: 'Magic shortbow', category: 'Bow' }, { name: 'Dragon arrow' }), false);

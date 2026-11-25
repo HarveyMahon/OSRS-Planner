@@ -1,5 +1,5 @@
 // Best setup tab: the fastest gear for a boss from the account's bank and cash stack.
-import { loadAccount, hasAccount } from '../core/account.js';
+import { loadAccount, hasAccount, saveAccount } from '../core/account.js';
 import { loadBosses } from '../core/data.js';
 import { loadGear, loadTargets, loadMonsters, availability, accountPlayer } from '../core/gear.js';
 import { bestSetup } from '../core/best-setup.js';
@@ -51,6 +51,15 @@ function schedule() { clearTimeout(timer); $('working').textContent = 'Workingâ€
 $('target').addEventListener('change', () => { $('onTask').checked = taskOnly.has($('target').value); schedule(); });   // task-only bosses are fought on task
 for (const id of ['ownOnly', 'onTask']) $(id).addEventListener('change', schedule);
 $('budget').addEventListener('change', schedule);
+// Dharok's: the HP you'd fight on (saved with your account, so kill rates use it too)
+$('lowHp').value = account.dharokHp ?? '';
+$('lowHp').addEventListener('change', () => {
+  const v = Math.round(Number($('lowHp').value));
+  account.dharokHp = v >= 1 && v <= 99 ? v : null;
+  $('lowHp').value = account.dharokHp ?? '';
+  saveAccount({ ...loadAccount(), dharokHp: account.dharokHp });
+  schedule();
+});
 
 function specHow(parts) {
   const p = parts.find(x => x.spec);

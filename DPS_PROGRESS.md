@@ -41,7 +41,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 - **Armour sets** (13:50, from the Wiki): Inquisitor's 0.5% / 1% / 1% plus 1% for the full set with crush (the
   mace's boost was removed in July 2026); Virtus +3% magic damage per piece with Ancient spells; Verac's (25% of
   hits ignore Defence: always hit for 1 to max+1); Karil's and Ahrim's with the Amulet of the damned (25% chance
-  of a second hit at half damage / +30% damage); Dharok's not counted (needs you at low HP); Blood Moon with the
+  of a second hit at half damage / +30% damage); Dharok's (damage x(1 + missing HP x max HP / 10000), at the "Low HP
+  for Dharok's" you enter on Best Setup or the DPS page; it's saved with your account so kill rates use it too); Blood Moon with the
   dual macuahuitl (two hitsplats, the second only if the first hit; 33% / 55.11% chance the next attack is a tick
   sooner); Blue Moon with its spear (20% of Ice spell casts, 50% of Grasp casts, add a free melee hit); Obligator
   (best of 2-4 damage rolls, +20% / +40% on large monsters; Smash is 3 ticks with no passive); Twinflame staff (bolt,

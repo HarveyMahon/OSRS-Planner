@@ -200,6 +200,7 @@ const isFang = w => w && /^Osmumten's fang/.test(w.name);
 const isKeris = w => w && /^Keris( partisan)?/.test(w.name);
 const setOf = (lo, re) => ['head', 'body', 'legs'].every(sl => re.test(lo[sl]?.name || ''));
 const bloodMoon = lo => setOf(lo, /^Blood moon/i);
+const dharoks = lo => has(lo, 'head', /^Dharok's helm/) && has(lo, 'body', /^Dharok's platebody/) && has(lo, 'legs', /^Dharok's platelegs/) && has(lo, 'weapon', /^Dharok's greataxe/);
 const veracs = lo => has(lo, 'head', /^Verac's helm/) && has(lo, 'body', /^Verac's brassard/) && has(lo, 'legs', /^Verac's plateskirt/) && has(lo, 'weapon', /^Verac's flail/);
 const damned = (lo, who) => /^Amulet of the damned/i.test(lo.neck?.name || '') && ({
   Karil: () => has(lo, 'head', /^Karil's coif/) && has(lo, 'body', /^Karil's leathertop/) && has(lo, 'legs', /^Karil's leatherskirt/) && has(lo, 'weapon', /^Karil's crossbow/),
@@ -420,6 +421,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     per = p * acc;
     // Verac's set: 25% of attacks ignore Defence (always hit, 1 to max+1)
     if (kind === 'melee' && veracs(lo)) per = 0.75 * per + 0.25 * accurateMean(1, max + 1, flat);
+    // Dharok's set: more damage the lower your Hitpoints (x(1 + missing HP x max HP / 10000)), at the HP you fight on
+    if (kind === 'melee' && dharoks(lo)) { const mx = L.Hitpoints || 99, cur = Math.min(mx, Math.max(1, player.lowHp ?? mx)); per *= 1 + (mx - cur) * mx / 10000; }
     // with the Amulet of the damned: Karil's 25% chance of a second hit at half damage; Ahrim's 25% chance of +30%
     if (kind === 'ranged' && damned(lo, 'Karil')) per *= 1.125;
     if (kind === 'magic' && damned(lo, 'Ahrim')) per *= 1.075;
@@ -480,6 +483,6 @@ export function playerFromAccount(acc, levelOf, opts = {}) {
   const quests = new Set(Object.keys(acc.quests || {}));
   const prayers = new Set(acc.prayers || []);
   const thrallOk = quests.has('a_kingdom_divided') && levels.Magic >= 76;
-  return { levels, quests, prayers, diaries: new Set(acc.diaries || []), hearts: opts.hearts ?? null,
+  return { levels, quests, prayers, diaries: new Set(acc.diaries || []), hearts: opts.hearts ?? null, lowHp: opts.lowHp ?? acc.dharokHp ?? null,
     onTask: !!opts.onTask, thrall: opts.thrall ?? false, thrallOk };
 }

@@ -11,7 +11,7 @@ import { bestSetup } from './best-setup.js';
 import { levelForXp, xpForLevel } from './xp.js';
 
 const KEY = 'osrsplanner:rates';
-const VERSION = 20;
+const VERSION = 21;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list
 const MAX_FIGHT_SHARE = 0.8;             // the guide's fight is at most this share of its time per kill
@@ -42,7 +42,7 @@ export function guidePlayer(setup) {
     diaries: new Set(['kandarin:hard']), hearts: 'imbued', onTask: false, thrall: false, thrallOk: false };
 }
 
-const fingerprint = (account, gp) => JSON.stringify([VERSION, new Date().toISOString().slice(0, 10), COMBAT.map(s => levelForXp(account.xp?.[s] || 0)), account.prayers || [],
+const fingerprint = (account, gp) => JSON.stringify([VERSION, new Date().toISOString().slice(0, 10), COMBAT.map(s => levelForXp(account.xp?.[s] || 0)), account.prayers || [], account.dharokHp ?? null,
   Object.keys(account.quests || {}).sort(), account.diaries || [], account.bankImportedAt || '', Object.keys(account.owned || {}).length, gp]);
 
 const teamSize = (s, b) => s.team?.size || s.raid?.teamSize || b.raidOption?.defaultTeamSize || b.teamOption?.default || 1;

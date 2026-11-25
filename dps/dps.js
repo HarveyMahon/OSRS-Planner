@@ -21,6 +21,7 @@ state.prayers ||= [...base.prayers];
 state.loadouts = (state.loadouts || []).slice(0, MAX_COLS);
 if (!state.loadouts.length) state.loadouts = [{ name: 'Setup 1', slots: {} }, { name: 'Setup 2', slots: {} }];
 if (state.heart === undefined) state.heart = base.hearts || '';
+if (state.lowHp === undefined) state.lowHp = account.dharokHp ?? null;
 const save = () => saveDps(state);
 
 // item lookup by name, per slot (weapons include two-handed)
@@ -51,6 +52,7 @@ function parts() {
 parts();
 $('onTask').checked = !!state.onTask; $('thrall').checked = !!state.thrall; $('heart').value = state.heart || '';
 $('levels').innerHTML = LEVELS.map(s => `<label>${s} <input type="number" min="1" max="99" data-level="${s}" value="${state.levels[s] ?? 1}"></label>`).join('')
+  + `<label title="The Hitpoints you fight on with Dharok's: the lower, the harder it hits">Low HP (Dharok's) <input type="number" min="1" max="99" id="lowHp" value="${state.lowHp ?? ''}" placeholder="full"></label>`
   + `<button type="button" class="x" id="lv-reset">↺ From My Account</button>`;
 $('prayers').innerHTML = '<span class="muted" style="font-size:13px">Prayers unlocked:</span>' + UNLOCKABLE_PRAYERS.map(p =>
   `<label><input type="checkbox" data-prayer="${p.id}"${state.prayers.includes(p.id) ? ' checked' : ''} style="width:auto"> ${esc(p.label)}</label>`).join('');
@@ -59,7 +61,9 @@ $('target').addEventListener('change', () => { state.target = $('target').value;
 $('part').addEventListener('change', () => { state.part = Number($('part').value); save(); render(); });
 for (const id of ['onTask', 'thrall']) $(id).addEventListener('change', () => { state[id] = $(id).checked; save(); render(); });
 $('heart').addEventListener('change', () => { state.heart = $('heart').value; save(); render(); });
-$('levels').addEventListener('change', e => { const s = e.target.dataset.level; if (s) { state.levels[s] = Math.max(1, Math.min(99, Number(e.target.value) || 1)); save(); render(); } });
+$('levels').addEventListener('change', e => {
+  if (e.target.id === 'lowHp') { const v = Math.round(Number(e.target.value)); state.lowHp = v >= 1 && v <= 99 ? v : null; e.target.value = state.lowHp ?? ''; save(); render(); return; }
+  const s = e.target.dataset.level; if (s) { state.levels[s] = Math.max(1, Math.min(99, Number(e.target.value) || 1)); save(); render(); } });
 $('lv-reset').addEventListener('click', () => { state.levels = { ...base.levels }; state.prayers = [...base.prayers];
   document.querySelectorAll('[data-level]').forEach(i => { i.value = state.levels[i.dataset.level]; });
   document.querySelectorAll('[data-prayer]').forEach(i => { i.checked = state.prayers.includes(i.dataset.prayer); }); save(); render(); });
@@ -74,7 +78,7 @@ $('add').addEventListener('click', () => {
 
 function player() {
   return { ...base, levels: { ...state.levels }, prayers: new Set(state.prayers), hearts: state.heart || null,
-    onTask: !!state.onTask, thrall: !!state.thrall };
+    onTask: !!state.onTask, thrall: !!state.thrall, lowHp: state.lowHp ?? null };
 }
 
 // ---- grid ----

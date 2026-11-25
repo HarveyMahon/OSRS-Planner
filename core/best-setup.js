@@ -12,7 +12,7 @@ const KINDS = ['melee', 'ranged', 'magic'];
 const MAX_PER_SLOT = 12, TOP_WEAPONS = 3;
 const STAT_KEYS = { melee: ['astab', 'aslash', 'acrush', 'str'], ranged: ['arange', 'rstr'], magic: ['amagic', 'mdmg'] };
 // Items kept whatever their stats, for their effects
-const SPECIAL = /^(Eclipse [Mm]oon|Blood [Mm]oon|Blue [Mm]oon|Virtus|Verac's|Karil's|Ahrim's|Amulet of the [Dd]amned|Void|Elite void|Obsidian|Crystal (helm|body|legs)|Inquisitor's|Slayer helmet|Black mask|.* slayer helmet|Salve amulet|Berserker necklace|Dizana's|Blessed Dizana's|Tome of)/;
+const SPECIAL = /^(Eclipse [Mm]oon|Blood [Mm]oon|Blue [Mm]oon|Virtus|Verac's|Dharok's|Karil's|Ahrim's|Amulet of the [Dd]amned|Void|Elite void|Obsidian|Crystal (helm|body|legs)|Inquisitor's|Slayer helmet|Black mask|.* slayer helmet|Salve amulet|Berserker necklace|Dizana's|Blessed Dizana's|Tome of)/;
 
 const weaponKinds = w => [...new Set(attackStyles(w).map(s => styleKind(s.type)))];
 export const meetsReqs = (item, player, reqs) => {
@@ -194,6 +194,7 @@ const SETS = [
   { head: /^Blood moon helm/i, body: /^Blood moon chestplate/i, legs: /^Blood moon tassets/i, weapon: /^Dual macuahuitl/ },
   { head: /^Blue moon helm/i, body: /^Blue moon chestplate/i, legs: /^Blue moon tassets/i, weapon: /^Blue Moon spear/i },
   { head: /^Verac's helm/, body: /^Verac's brassard/, legs: /^Verac's plateskirt/, weapon: /^Verac's flail/ },
+  { head: /^Dharok's helm/, body: /^Dharok's platebody/, legs: /^Dharok's platelegs/, weapon: /^Dharok's greataxe/ },
   { head: /^Karil's coif/, body: /^Karil's leathertop/, legs: /^Karil's leatherskirt/, neck: /^Amulet of the [Dd]amned/, weapon: /^Karil's crossbow/ },
   { head: /^Ahrim's hood/, body: /^Ahrim's robetop/, legs: /^Ahrim's robeskirt/, neck: /^Amulet of the [Dd]amned/, weapon: /^Ahrim's staff/ },
   { head: /^Obsidian helmet/, body: /^Obsidian platebody/, legs: /^Obsidian platelegs/, weapon: /^(Toktz-xil-ak|Tzhaar-ket-em|Tzhaar-ket-om|Toktz-xil-ek)/ },
