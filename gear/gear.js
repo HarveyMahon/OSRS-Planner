@@ -35,7 +35,8 @@ $('budget').addEventListener('change', schedule);
 function specHow(parts) {
   const p = parts.find(x => x.spec);
   if (!p) return '';
-  return p.spec.plan === 'drain' ? `Used ${p.spec.specs} times at the start of a fight to lower Defence, then switch back.` : `Used whenever there's energy for it (${p.spec.specs} times a kill here).`;
+  return [p.spec.drains ? `${p.spec.drains} Defence drain${p.spec.drains > 1 ? 's' : ''} at the start (Defence to about ${p.spec.defence})` : '',
+    p.spec.specs ? `${p.spec.specs} damage spec${p.spec.specs > 1 ? 's' : ''} whenever there's energy` : ''].filter(Boolean).join(', then ') + ` (${esc(p.name)}).`;
 }
 
 function run() {
@@ -60,13 +61,13 @@ function run() {
       const a = avail(it);
       return `<tr><td class="slot">${s}</td><td>${esc(it.name)}</td><td class="num">${a.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(a.price || 0)}</span>`}</td></tr>`;
     }).join('')}</table><p style="margin:8px 0 0"><button type="button" class="btn small" data-open="${k}">Open in DPS calculator</button></p></div>`;
-  }).join('') + (r.spec ? `<div class="card"><h3>Special attack</h3><table><tr><td class="slot">weapon</td><td>${esc(r.spec.item.name)}</td>
-    <td class="num">${r.spec.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(r.spec.price)}</span>`}</td></tr></table>
+  }).join('') + (r.spec ? `<div class="card"><h3>Special attacks</h3><table>${[['Defence drain', r.spec.drain], ['Damage', r.spec.damage]].filter(([, x]) => x).map(([label, x]) =>
+    `<tr><td class="slot">${label}</td><td>${esc(x.item.name)}</td><td class="num">${x.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(x.price)}</span>`}</td></tr>`).join('')}</table>
     <p class="faint" style="margin:8px 0 0">Saves about ${secs(r.spec.saved)} a kill. ${specHow(r.perPart)}</p></div>` : '');
   $('parts').innerHTML = r.perPart.map(p => `<tr><td>${esc(p.name)}${p.monster.includes('#') ? ` <span class="faint">${esc(p.monster.split('#')[1])}</span>` : ''}${p.weight !== 1 ? ` <span class="faint">×${+p.weight.toFixed(2)}</span>` : ''}</td>
     <td>${p.kind || '—'}</td><td>${esc(p.calc?.style?.name || '')}${p.calc?.spell ? ` · ${esc(p.calc.spell.name)}` : ''}</td>
     <td class="num">${p.calc ? (p.calc.minHit ? `${p.calc.minHit}–` : '') + p.calc.maxHit + (p.calc.hits > 1 ? ` ×${p.calc.hits}` : '') : ''}</td>
-    <td class="num">${p.calc ? (p.calc.accuracy * 100).toFixed(1) + '%' : ''}</td><td class="num">${p.dps ? p.dps.toFixed(2) : '—'}</td><td class="num">${secs(p.seconds)}${p.spec ? ` <span class="tag" title="${p.spec.plan === 'drain' ? `${p.spec.specs} specs at the start, Defence down to about ${p.spec.defence}` : `${p.spec.specs} specs during the kill`}">spec</span>` : ''}</td></tr>`).join('');
+    <td class="num">${p.calc ? (p.calc.accuracy * 100).toFixed(1) + '%' : ''}</td><td class="num">${p.dps ? p.dps.toFixed(2) : '—'}</td><td class="num">${secs(p.seconds)}${p.spec ? ` <span class="tag" title="${[p.spec.drains ? `${p.spec.drains} drain(s), Defence to ~${p.spec.defence}` : '', p.spec.specs ? `${p.spec.specs} damage spec(s)` : ''].filter(Boolean).join(', ')}">spec</span>` : ''}</td></tr>`).join('');
   $('notes').innerHTML = [t.whole ? 'Whole content is a first estimate: the main monsters of each room, each killed with the best style allowed on it. Real runs depend on the team and mechanics.' : '',
     t.note || '', 'Untradeable items you don\'t own (e.g. Infernal cape, Avernic defender) can\'t be bought, so they only appear if they\'re in your bank.'].filter(Boolean).map(esc).join(' ');
   $('cards').onclick = e => {
@@ -74,7 +75,7 @@ function run() {
     if (!k) return;
     const lo = r.kinds[k].loadout;
     saveDps({ ...loadDps(), target: $('target').value, part: 0, onTask: $('onTask').checked, thrall: r.thrall,
-      loadouts: [{ name: `Best ${k}`, spec: r.spec?.item.name || '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
+      loadouts: [{ name: `Best ${k}`, spec: (r.spec?.drain || r.spec?.damage)?.item.name || '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
     location.href = '../dps/';
   };
   saveDps({ ...loadDps(), target: $('target').value });

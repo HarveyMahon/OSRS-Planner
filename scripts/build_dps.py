@@ -117,5 +117,9 @@ for w in sorted(wanted):
               "drange": n(m.get("range_defence_bonus")),
               "flatArmour": n(m.get("flat_armour")),
               "weakness": (m.get("elemental_weakness") or "").lower() or None, "weaknessPct": n(m.get("elemental_weakness_percent"))}
-json.dump({"meta": {"source": "OSRS Wiki (Infobox Monster)"}, "monsters": out}, open(os.path.join(ROOT, "data", "dps-monsters.json"), "w"), indent=1, ensure_ascii=False)
+floors = json.load(open(os.path.join(ROOT, "data", "defence-floors.json")))["floors"]
+for key, mon in out.items():
+    f = floors.get(key, floors.get(key.split("#")[0]))
+    if f is not None: mon["defFloor"] = mon["def"] if f == "base" else f
+json.dump({"meta": {"source": "OSRS Wiki (Infobox Monster); defFloor from data/defence-floors.json"}, "monsters": out}, open(os.path.join(ROOT, "data", "dps-monsters.json"), "w"), indent=1, ensure_ascii=False)
 print(f"  monsters: {len(out)} ({len(missing)} missing: {missing})")

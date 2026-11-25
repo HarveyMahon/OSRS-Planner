@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "note": "Lowest Defence level a monster can be drained to, by Wiki monster name (any version). \"base\" = can't be drained. Others can be drained to 0. Araxxor: 'His Defence level can be only drained by up to 45 levels' (Araxxor/Strategies). The Fractured Archive's bosses stop at 60% of their base (The Fractured Archive/Strategies).",
+    "source": "OSRS Wiki strategy pages and boss pages"
+  },
+  "floors": {
+    "Verzik Vitur": "base",
+    "Vardorvis": "base",
+    "Sotetseg": 100,
+    "The Nightmare": 120,
+    "Phosani's Nightmare": 120,
+    "Akkha": 70,
+    "Ba-Ba": 60,
+    "Kephri": 60,
+    "Zebak": 50,
+    "Tumeken's Warden#Enraged": 120,
+    "Nex": 250,
+    "Araxxor": 90,
+    "The Hueycoatl": 120,
+    "Yama": 145
+  }
+}

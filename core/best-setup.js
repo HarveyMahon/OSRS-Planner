@@ -6,7 +6,7 @@
 // each part is killed with the best style allowed on it, and every style has one loadout.
 
 import { SLOTS, bestCalc, styleKind, attackStyles, ammoFits, THRALL_DPS } from './dps.js';
-import { specOf, withSpec } from './specs.js';
+import { specOf, withSpecs } from './specs.js';
 
 const KINDS = ['melee', 'ranged', 'magic'];
 const MAX_PER_SLOT = 12, TOP_WEAPONS = 3;
@@ -220,37 +220,46 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
   return best;
 }
 
-// The special attack weapon that saves the most time over the whole target (one weapon, used in every part
-// where it helps, each part starting with full energy). Owned, or affordable with what's left of the budget.
-function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast }) {
+// Special attacks: the Defence-drain weapon and/or damage spec weapon that save the most time over the whole
+// target (used in every part where they help, each part starting with full energy). Owned, or bought from
+// what's left of the budget when that saves at least 5% of the time.
+function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget }) {
   const left = budget - res.cost;
+  const priceOf = w => avail(w).owned ? 0 : avail(w).price;
   const cands = [...(gear.weapon || []), ...(gear['2h'] || [])].filter(w => specOf(w) && !buy.has(w)
     && meetsReqs(w, player, reqs) && (avail(w).owned || (avail(w).price != null && avail(w).price <= left)));
-  // one version of each weapon (the cheapest)
-  const byName = new Map();
-  for (const w of cands) { const k = specOf(w); const cur = byName.get(k); if (!cur || (avail(w).owned ? 0 : avail(w).price) < (avail(cur).owned ? 0 : avail(cur).price)) byName.set(k, w); }
+  const byName = new Map();                       // one version of each weapon (the cheapest)
+  for (const w of cands) { const k = specOf(w); const cur = byName.get(k); if (!cur || priceOf(w) < priceOf(cur)) byName.set(k, w); }
+  const weapons = [...byName.values()];
+  const drains = [null, ...weapons.filter(w => specOf(w).drain)], damages = [null, ...weapons.filter(w => !specOf(w).drain)];
+  const kindOf = w => specOf(w).type === 'ranged' ? 'ranged' : 'melee';
   let best = null;
-  for (const w of byName.values()) {
-    const kind = specOf(w).type === 'ranged' ? 'ranged' : 'melee';
+  for (const dw of drains) for (const xw of damages) {
+    if (!dw && !xw) continue;
+    const cost = (dw ? priceOf(dw) : 0) + (xw ? priceOf(xw) : 0);
+    if (cost > left) continue;
     let total = 0;
     const parts = res.perPart.map(p => {
-      if (!p.kind || (p.styles && !p.styles.includes(kind))) { total += p.seconds; return { ...p }; }   // e.g. no melee spec on a ranged-only part
+      const ok = w => w && p.kind && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
+      const d = ok(dw) ? dw : null, x = ok(xw) ? xw : null;
+      if (!d && !x) { total += p.seconds; return { ...p }; }
       const main = res.kinds[p.kind].loadout;
-      const base = res.kinds[kind]?.loadout || main;
-      const specLo = { ...base, weapon: w, shield: w.two ? null : base.shield };
-      const r = withSpec(player, main, specLo, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost });
+      const loFor = w => { const b = res.kinds[kindOf(w)]?.loadout || main; return { ...b, weapon: w, shield: w.two ? null : b.shield }; };
+      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost });
       const secs = r ? p.weight * r.seconds : p.seconds;
       total += secs;
       return { ...p, seconds: secs, spec: r };
     });
-    // buying a spec weapon must save at least 5% of the time; one you own just has to help
-    const need = avail(w).owned ? 0.5 : Math.max(0.5, res.time * 0.05);
-    if (total < res.time - need && (!best || total < best.total)) best = { w, total, parts };
+    const need = cost ? Math.max(0.5, res.time * 0.05) : 0.5;
+    if (total < res.time - need && (!best || total < best.total - 1e-6 || (Math.abs(total - best.total) < 1e-6 && cost < best.cost))) best = { dw, xw, total, parts, cost };
   }
   if (!best) return;
-  const a = avail(best.w);
-  res.spec = { item: best.w, owned: a.owned, price: a.owned ? 0 : a.price, saved: res.time - best.total };
+  const info = w => w && { item: w, owned: avail(w).owned, price: priceOf(w) };
+  // drop a weapon that ended up unused
+  const usedD = best.parts.some(p => p.spec?.drains), usedX = best.parts.some(p => p.spec?.specs);
+  res.spec = { drain: usedD ? info(best.dw) : null, damage: usedX ? info(best.xw) : null, saved: res.time - best.total };
+  res.spec.item = (res.spec.drain || res.spec.damage).item;                     // the main one, for older callers
   res.time = best.total;
   res.perPart = best.parts;
-  if (!a.owned) res.cost += a.price;
+  res.cost += (usedD && best.dw ? priceOf(best.dw) : 0) + (usedX && best.xw ? priceOf(best.xw) : 0);
 }

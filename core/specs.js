@@ -63,44 +63,58 @@ function specHit(player, lo, monster, sp, opts) {
 }
 
 /**
- * Seconds to kill a monster with the main loadout and a spec weapon (specLo = the loadout with it in hand).
- * Returns { seconds, specs, plan: 'drain'|'damage', defence } or null when the spec doesn't help.
+ * Seconds to kill a monster with the main loadout plus a Defence-draining spec weapon and/or a damage spec
+ * weapon (drainLo / dmgLo = the loadout with that weapon in hand). Drains come first, as many as help
+ * (each costs its own energy, e.g. 50%), never below the monster's Defence floor; the energy left, plus what
+ * regenerates during the kill, goes on damage specs.
+ * Returns { seconds, drains, specs, defence } or null when no spec helps.
  */
-export function withSpec(player, mainLo, specLo, monster, opts = {}) {
-  const sp = specOf(specLo.weapon);
-  if (!sp) return null;
+export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, monster, opts = {}) {
   const thrall = player.thrall ? THRALL_DPS : 0;
-  const mainDps = m => { const r = bestCalc(player, mainLo, m, opts); return r.dps + thrall; };
+  const mainDps = m => bestCalc(player, mainLo, m, opts).dps + thrall;
   const base = mainDps(monster);
   if (base <= 0) return null;
   const plain = monster.hp / base;
   const light = /^Lightbearer/.test(mainLo.ring?.name || '') ? 2 : 1;
-
-  if (sp.drain) {
-    let m = { ...monster }, done = 0, t = 0;
-    const n = Math.floor(100 / sp.cost);
-    for (let i = 0; i < n; i++) {
-      const h = specHit(player, specLo, m, sp, opts);
-      if (!h) return null;
-      let cut = 0;
-      if (sp.drain.pct) cut = m.def * sp.drain.pct;
-      else if (sp.drain.damage) cut = h.avgOnHit;
-      else if (sp.drain.base) cut = monster.def * (m.attributes.includes('demon') ? sp.drain.demon : sp.drain.base);
-      m = { ...m, def: Math.max(0, m.def - h.p * cut) };
+  const floor = monster.defFloor ?? 0;
+  const dr = drainLo && specOf(drainLo.weapon), ds = dmgLo && specOf(dmgLo.weapon);
+  if ((dr && !dr.drain) || (ds && ds.drain)) return null;
+  let best = null;
+  const maxDrains = dr ? Math.floor(100 / dr.cost) : 0;
+  let m = { ...monster }, done = 0, t = 0;
+  for (let k = 0; k <= maxDrains; k++) {
+    if (k > 0) {                                   // one more drain spec
+      if (m.def <= floor) break;
+      const h = specHit(player, drainLo, m, dr, opts);
+      if (!h) break;
+      let cut = dr.drain.pct ? m.def * dr.drain.pct : dr.drain.damage ? h.avgOnHit
+        : monster.def * (m.attributes.includes('demon') ? dr.drain.demon : dr.drain.base);
+      m = { ...m, def: Math.max(floor, m.def - h.p * cut) };
       done += h.dmg; t += h.secs;
     }
     const d = mainDps(m);
-    const secs = t + Math.max(0, monster.hp - done - thrall * t) / d;
-    return secs < plain ? { seconds: secs, specs: n, plan: 'drain', defence: Math.round(m.def) } : null;
+    const hpLeft = Math.max(0, monster.hp - done - thrall * t);
+    let T = t + hpLeft / d, n = 0;
+    if (ds) {                                      // damage specs with the energy left and what regenerates
+      const h = specHit(player, dmgLo, m, ds, opts);
+      if (h && h.dmg > d * h.secs) {
+        const left = 100 - k * (dr?.cost || 0);
+        for (let i = 0; i < 6; i++) {
+          n = Math.floor((left + (T - t) * REGEN_PER_SEC * light) / ds.cost);
+          n = Math.max(0, Math.min(n, Math.ceil(hpLeft / Math.max(h.dmg, 1))));
+          T = t + n * h.secs + Math.max(0, hpLeft - n * h.dmg - thrall * n * h.secs) / d;
+        }
+      }
+    }
+    if (!best || T < best.seconds) best = { seconds: T, drains: k, specs: n, defence: Math.round(m.def) };
   }
+  return best && best.seconds < plain - 1e-6 && (best.drains || best.specs) ? best : null;
+}
 
-  const h = specHit(player, specLo, monster, sp, opts);
-  if (!h || h.dmg <= base * h.secs) return null;    // no better than a normal attack
-  let T = plain, n = 0;
-  for (let i = 0; i < 6; i++) {
-    n = Math.floor((100 + T * REGEN_PER_SEC * light) / sp.cost);
-    n = Math.min(n, Math.ceil(monster.hp / Math.max(h.dmg, 1)));
-    T = n * h.secs + Math.max(0, monster.hp - n * h.dmg - thrall * n * h.secs) / base;
-  }
-  return T < plain ? { seconds: T, specs: n, plan: 'damage' } : null;
+/** One spec weapon on its own (drain or damage). */
+export function withSpec(player, mainLo, specLo, monster, opts = {}) {
+  const sp = specOf(specLo.weapon);
+  if (!sp) return null;
+  const r = withSpecs(player, mainLo, sp.drain ? { drainLo: specLo } : { dmgLo: specLo }, monster, opts);
+  return r && { ...r, plan: r.drains ? 'drain' : 'damage', specs: r.drains || r.specs };
 }

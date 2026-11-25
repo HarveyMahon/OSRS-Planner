@@ -783,6 +783,7 @@
      "monster": "Xarpus#Normal mode",
      "weight": 1,
      "styles": [
+      "melee",
       "ranged"
      ]
     },

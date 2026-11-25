@@ -45,8 +45,12 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   then the main setup kills at the lowered Defence. Damage specs (Dragon claws by the Wiki's 4-2-1-1 cases,
   Armadyl godsword, Voidwaker, blowpipes, Zaryte crossbow with ruby/diamond/onyx bolts, Osmumten's fang, dragon
   and abyssal daggers, halberds) are used whenever there's energy (10% every 30s, twice with a Lightbearer).
-  Best Setup picks the one spec weapon that saves the most time (owned, or bought from what's left of the
-  budget if it saves at least 5%); the DPS page has a "Spec weapon" row per setup; kill rates include it.
+  Best Setup picks a Defence-drain weapon and/or a damage spec weapon (owned, or bought from what's left of the
+  budget if it saves at least 5%). Drains are used only as many times as help (each costs its own energy, e.g.
+  50%), never below the boss's **Defence floor** (`data/defence-floors.json`: Verzik and Vardorvis can't be
+  drained; Sotetseg 100, Nightmare/Phosani 120, Akkha 70, Ba-Ba 60, Kephri 60, Zebak 50, Wardens P3 120, Nex 250,
+  Araxxor 90, Hueycoatl 120, Yama 145); the energy left goes on damage specs. The DPS page has a "Spec weapon"
+  row per setup; kill rates include specs.
 
 ## Next
 
@@ -84,6 +88,7 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   a minimum if you'd rather.
 - **Soulreaper axe** counted at 5 stacks all the time.
 - **Spec energy in raids and multi-part content**: every room or part starts with full energy (the time
-  between rooms usually refills it). A melee spec isn't used on a part that only allows ranged (e.g. Xarpus).
+  between rooms usually refills it; true for every raid but CoX, kept for CoX too as it's hard to model). Xarpus
+  is now melee or ranged (melee is best). A melee spec isn't used on a part that only allows ranged.
 - **Budget across styles**: the style used on most of the target's HP is optimised first with the full
   budget; later styles get what's left, and items already bought are free for them.

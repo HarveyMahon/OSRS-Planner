@@ -372,6 +372,12 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     const tank = { ...mon, hp: 2000, def: 250, dcrush: 200 };
     const r = S.withSpec(P, { weapon: sword }, { weapon: dwh }, tank);
     assert.ok(r && r.plan === 'drain' && r.specs === 2 && r.defence < 250 && r.seconds < tank.hp / D.bestCalc(P, { weapon: sword }, tank).dps);
+    // a Defence floor stops the drains early (Araxxor-style: 135 Defence, floor 90 -> one Elder maul is enough)
+    const maul = { name: 'Elder maul', b: { acrush: 135, str: 147 }, speed: 6, category: 'Blunt', two: true };
+    const floored = S.withSpecs(P, { weapon: sword }, { drainLo: { weapon: maul } }, { ...tank, def: 135, defFloor: 90 });
+    assert.ok(floored && floored.defence >= 90);
+    const fixed = S.withSpecs(P, { weapon: sword }, { drainLo: { weapon: dwh } }, { ...tank, defFloor: 250 });
+    assert.equal(fixed, null);                                   // can't be drained at all
     const claws = { name: 'Dragon claws', b: { aslash: 57, str: 56 }, speed: 4, category: 'Claw' };
     const c = S.withSpec(P, { weapon: sword }, { weapon: claws }, mon);
     assert.ok(c && c.plan === 'damage' && c.specs >= 2);
