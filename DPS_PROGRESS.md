@@ -179,6 +179,13 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   the gear notes say defence isn't counted and the cheaper of equal pieces is kept. The DPS page has a second
   spec slot (a Defence drain plus a damage spec, worked out together as on Best Setup), and "Open in DPS
   calculator" carries both, so the two pages give the same time.
+- **Adversarial review, 15:20–16:30** (critic agents playing as demanding players, developer agents verifying and
+  fixing; three critic rounds, 55 complaints). Rounds 1 and 3 (Best Setup, DPS page, kill rates) and round 2
+  (planner, Money Makers, Training, Slayer, Pets, My Account) are in the git log from c86b51b to 41189fe; page-side
+  decisions are in TODO.md "Review round 2". The developer agents stopped at about 16:00 (usage limit), and I
+  finished their lists. Still open, for later: gear ignores Defence (noted on the page); the CoX Guardians'
+  pickaxe isn't costed; Nex is one part; the Ranged cannon stage has no cannonball cost (no price data for
+  cannonballs offline, and the Wiki gives no balls-per-hour figure); planner goal labels/order (critic 2 #24).
 
 ## Next
 
