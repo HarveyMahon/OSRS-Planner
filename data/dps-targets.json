@@ -1,0 +1,750 @@
+{
+ "meta": {
+  "note": "Which Wiki monster entries make up each boss or piece of content. weight = how many of that monster per kill (or the share of the boss's HP for multi-form bosses). styles = the combat styles worth using on it (all if absent). Raids, the Inferno, the Fight Caves and the Colosseum are a first stab, to refine."
+ },
+ "targets": {
+  "abyssal_sire": {
+   "name": "Abyssal Sire",
+   "parts": [
+    {
+     "monster": "Abyssal Sire#Phase 2",
+     "weight": 1
+    }
+   ]
+  },
+  "alchemical_hydra": {
+   "name": "Alchemical Hydra",
+   "parts": [
+    {
+     "monster": "Alchemical Hydra#Serpentine",
+     "weight": 1
+    }
+   ]
+  },
+  "amoxliatl": {
+   "name": "Amoxliatl",
+   "parts": [
+    {
+     "monster": "Amoxliatl#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "araxxor": {
+   "name": "Araxxor",
+   "parts": [
+    {
+     "monster": "Araxxor#In combat",
+     "weight": 1
+    }
+   ]
+  },
+  "artio": {
+   "name": "Artio",
+   "parts": [
+    {
+     "monster": "Artio",
+     "weight": 1
+    }
+   ]
+  },
+  "brutus": {
+   "name": "Brutus",
+   "parts": [
+    {
+     "monster": "Brutus#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "callisto": {
+   "name": "Callisto",
+   "parts": [
+    {
+     "monster": "Callisto",
+     "weight": 1
+    }
+   ]
+  },
+  "calvarion": {
+   "name": "Calvar'ion",
+   "parts": [
+    {
+     "monster": "Calvar'ion#Normal",
+     "weight": 1
+    }
+   ]
+  },
+  "cerberus": {
+   "name": "Cerberus",
+   "parts": [
+    {
+     "monster": "Cerberus",
+     "weight": 1
+    }
+   ]
+  },
+  "chaos_elemental": {
+   "name": "Chaos Elemental",
+   "parts": [
+    {
+     "monster": "Chaos Elemental",
+     "weight": 1
+    }
+   ]
+  },
+  "commander_zilyana": {
+   "name": "Commander Zilyana",
+   "parts": [
+    {
+     "monster": "Commander Zilyana",
+     "weight": 1
+    }
+   ]
+  },
+  "corporeal_beast": {
+   "name": "Corporeal Beast",
+   "parts": [
+    {
+     "monster": "Corporeal Beast",
+     "weight": 1
+    }
+   ]
+  },
+  "dagannoth_prime": {
+   "name": "Dagannoth Prime",
+   "parts": [
+    {
+     "monster": "Dagannoth Prime",
+     "weight": 1
+    }
+   ]
+  },
+  "dagannoth_rex": {
+   "name": "Dagannoth Rex",
+   "parts": [
+    {
+     "monster": "Dagannoth Rex",
+     "weight": 1
+    }
+   ]
+  },
+  "dagannoth_supreme": {
+   "name": "Dagannoth Supreme",
+   "parts": [
+    {
+     "monster": "Dagannoth Supreme",
+     "weight": 1
+    }
+   ]
+  },
+  "doom_of_mokhaiotl": {
+   "name": "Doom of Mokhaiotl",
+   "parts": [
+    {
+     "monster": "Doom of Mokhaiotl#Delve 8",
+     "weight": 1
+    }
+   ]
+  },
+  "duke_sucellus": {
+   "name": "Duke Sucellus",
+   "parts": [
+    {
+     "monster": "Duke Sucellus#Post-quest, Awake",
+     "weight": 1
+    }
+   ]
+  },
+  "graardor": {
+   "name": "General Graardor",
+   "parts": [
+    {
+     "monster": "General Graardor",
+     "weight": 1
+    }
+   ]
+  },
+  "giant_mole": {
+   "name": "Giant Mole",
+   "parts": [
+    {
+     "monster": "Giant Mole",
+     "weight": 1
+    }
+   ]
+  },
+  "grotesque_guardians": {
+   "name": "Grotesque Guardians",
+   "parts": [
+    {
+     "monster": "Dusk#Second form",
+     "weight": 1
+    },
+    {
+     "monster": "Dawn",
+     "weight": 1
+    }
+   ]
+  },
+  "the_hueycoatl": {
+   "name": "The Hueycoatl",
+   "parts": [
+    {
+     "monster": "The Hueycoatl#Normal",
+     "weight": 1
+    }
+   ]
+  },
+  "kalphite_queen": {
+   "name": "Kalphite Queen",
+   "parts": [
+    {
+     "monster": "Kalphite Queen#Crawling",
+     "weight": 1
+    },
+    {
+     "monster": "Kalphite Queen#Airborne",
+     "weight": 1
+    }
+   ]
+  },
+  "king_black_dragon": {
+   "name": "King Black Dragon",
+   "parts": [
+    {
+     "monster": "King Black Dragon",
+     "weight": 1
+    }
+   ]
+  },
+  "kraken": {
+   "name": "Kraken",
+   "parts": [
+    {
+     "monster": "Kraken#Kraken",
+     "weight": 1
+    }
+   ]
+  },
+  "kreearra": {
+   "name": "Kree'arra",
+   "parts": [
+    {
+     "monster": "Kree'arra",
+     "weight": 1
+    }
+   ]
+  },
+  "kril_tsutsaroth": {
+   "name": "K'ril Tsutsaroth",
+   "parts": [
+    {
+     "monster": "K'ril Tsutsaroth",
+     "weight": 1
+    }
+   ]
+  },
+  "the_leviathan": {
+   "name": "The Leviathan",
+   "parts": [
+    {
+     "monster": "The Leviathan#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "mad_angel": {
+   "name": "Mad Angel",
+   "parts": [
+    {
+     "monster": "Mad Angel#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "maggot_king": {
+   "name": "Maggot King",
+   "parts": [
+    {
+     "monster": "Maggot King#Nearby",
+     "weight": 1
+    }
+   ]
+  },
+  "nex": {
+   "name": "Nex",
+   "parts": [
+    {
+     "monster": "Nex",
+     "weight": 1
+    }
+   ]
+  },
+  "the_nightmare": {
+   "name": "The Nightmare",
+   "parts": [
+    {
+     "monster": "The Nightmare",
+     "weight": 1
+    }
+   ]
+  },
+  "phantom_muspah": {
+   "name": "Phantom Muspah",
+   "parts": [
+    {
+     "monster": "Phantom Muspah#Ranged",
+     "weight": 1
+    }
+   ]
+  },
+  "phosanis_nightmare": {
+   "name": "Phosani's Nightmare",
+   "parts": [
+    {
+     "monster": "Phosani's Nightmare",
+     "weight": 1
+    }
+   ]
+  },
+  "royal_titans": {
+   "name": "Royal Titans",
+   "parts": [
+    {
+     "monster": "Branda the Fire Queen",
+     "weight": 1
+    },
+    {
+     "monster": "Eldric the Ice King",
+     "weight": 1
+    }
+   ]
+  },
+  "sarachnis": {
+   "name": "Sarachnis",
+   "parts": [
+    {
+     "monster": "Sarachnis",
+     "weight": 1
+    }
+   ]
+  },
+  "scorpia": {
+   "name": "Scorpia",
+   "parts": [
+    {
+     "monster": "Scorpia",
+     "weight": 1
+    }
+   ]
+  },
+  "scurrius": {
+   "name": "Scurrius",
+   "parts": [
+    {
+     "monster": "Scurrius#Solo",
+     "weight": 1
+    }
+   ]
+  },
+  "skotizo": {
+   "name": "Skotizo",
+   "parts": [
+    {
+     "monster": "Skotizo",
+     "weight": 1
+    }
+   ]
+  },
+  "sol_heredit": {
+   "name": "Sol Heredit",
+   "parts": [
+    {
+     "monster": "Sol Heredit",
+     "weight": 1,
+     "styles": [
+      "melee"
+     ]
+    }
+   ]
+  },
+  "spindel": {
+   "name": "Spindel",
+   "parts": [
+    {
+     "monster": "Spindel",
+     "weight": 1
+    }
+   ]
+  },
+  "thermonuclear_smoke_devil": {
+   "name": "Thermonuclear smoke devil",
+   "parts": [
+    {
+     "monster": "Thermonuclear smoke devil",
+     "weight": 1
+    }
+   ]
+  },
+  "tzkal_zuk": {
+   "name": "TzKal-Zuk",
+   "parts": [
+    {
+     "monster": "TzKal-Zuk#Normal",
+     "weight": 1,
+     "styles": [
+      "ranged"
+     ]
+    }
+   ]
+  },
+  "tztok_jad": {
+   "name": "TzTok-Jad",
+   "parts": [
+    {
+     "monster": "TzTok-Jad",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    }
+   ]
+  },
+  "vardorvis": {
+   "name": "Vardorvis",
+   "parts": [
+    {
+     "monster": "Vardorvis#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "venenatis": {
+   "name": "Venenatis",
+   "parts": [
+    {
+     "monster": "Venenatis",
+     "weight": 1
+    }
+   ]
+  },
+  "vetion": {
+   "name": "Vet'ion",
+   "parts": [
+    {
+     "monster": "Vet'ion#Normal",
+     "weight": 1
+    }
+   ]
+  },
+  "vorkath": {
+   "name": "Vorkath",
+   "parts": [
+    {
+     "monster": "Vorkath#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "the_whisperer": {
+   "name": "The Whisperer",
+   "parts": [
+    {
+     "monster": "The Whisperer#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "yama": {
+   "name": "Yama",
+   "parts": [
+    {
+     "monster": "Yama#Normal",
+     "weight": 1
+    }
+   ]
+  },
+  "zalcano": {
+   "name": "Zalcano",
+   "parts": [
+    {
+     "monster": "Zalcano#Armoured",
+     "weight": 1
+    }
+   ]
+  },
+  "zulrah": {
+   "name": "Zulrah",
+   "parts": [
+    {
+     "monster": "Zulrah#Serpentine",
+     "weight": 0.3333333333333333,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Zulrah#Magma",
+     "weight": 0.3333333333333333,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Zulrah#Tanzanite",
+     "weight": 0.3333333333333333,
+     "styles": [
+      "ranged"
+     ]
+    }
+   ]
+  },
+  "shellbane_gryphon": {
+   "name": "Shellbane Gryphon",
+   "parts": [
+    {
+     "monster": "Shellbane gryphon#Post-quest",
+     "weight": 1
+    }
+   ]
+  },
+  "chambers_of_xeric": {
+   "name": "Chambers of Xeric",
+   "whole": true,
+   "parts": [
+    {
+     "monster": "Tekton#Normal",
+     "weight": 1,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Vasa Nistirio#Normal",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Vanguard#Melee",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Vanguard#Ranged",
+     "weight": 1,
+     "styles": [
+      "melee",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Vanguard#Magic",
+     "weight": 1,
+     "styles": [
+      "melee",
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Vespula#Normal",
+     "weight": 1,
+     "styles": [
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Muttadile#Small",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Muttadile#Large",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Ice demon#Normal",
+     "weight": 1,
+     "styles": [
+      "magic"
+     ]
+    },
+    {
+     "monster": "Skeletal Mystic#Normal",
+     "weight": 3,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Lizardman shaman (Chambers of Xeric)#Normal",
+     "weight": 4,
+     "styles": [
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Great Olm#Left claw (Normal)",
+     "weight": 2,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Great Olm#Right claw (Normal)",
+     "weight": 2,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Great Olm#Head (Normal)",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    }
+   ]
+  },
+  "theatre_of_blood": {
+   "name": "Theatre of Blood",
+   "whole": true,
+   "parts": [
+    {
+     "monster": "The Maiden of Sugadinti#Normal",
+     "weight": 1,
+     "styles": [
+      "magic",
+      "melee"
+     ]
+    },
+    {
+     "monster": "Pestilent Bloat#Normal",
+     "weight": 1,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Nylocas Vasilias#Normal",
+     "weight": 1
+    },
+    {
+     "monster": "Sotetseg#Normal",
+     "weight": 1,
+     "styles": [
+      "melee",
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Xarpus#Normal mode",
+     "weight": 1,
+     "styles": [
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Verzik Vitur#Normal mode, Phase 2",
+     "weight": 1,
+     "styles": [
+      "melee",
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Verzik Vitur#Normal mode, Phase 3",
+     "weight": 1,
+     "styles": [
+      "melee",
+      "ranged"
+     ]
+    }
+   ]
+  },
+  "tombs_of_amascut": {
+   "name": "Tombs of Amascut",
+   "whole": true,
+   "parts": [
+    {
+     "monster": "Ba-Ba",
+     "weight": 1,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Akkha",
+     "weight": 1
+    },
+    {
+     "monster": "Kephri#Shielded",
+     "weight": 1,
+     "styles": [
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Zebak#Normal",
+     "weight": 1,
+     "styles": [
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Tumeken's Warden#Damaged",
+     "weight": 1,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Tumeken's Warden#Enraged",
+     "weight": 1,
+     "styles": [
+      "melee"
+     ]
+    }
+   ]
+  },
+  "corrupted_gauntlet": {
+   "name": "Corrupted Gauntlet",
+   "whole": true,
+   "note": "Gear is made in the dungeon; DPS from your own gear does not apply.",
+   "parts": []
+  },
+  "the_gauntlet": {
+   "name": "The Gauntlet",
+   "whole": true,
+   "note": "Gear is made in the dungeon; DPS from your own gear does not apply.",
+   "parts": []
+  },
+  "the_fractured_archive": {
+   "name": "The Fractured Archive",
+   "parts": [
+    {
+     "monster": "Archive Guardian#Grounded",
+     "weight": 1
+    }
+   ]
+  }
+ }
+}
