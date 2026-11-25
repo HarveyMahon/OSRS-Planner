@@ -176,7 +176,9 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   style is used on; the DPS page's Monster list has readable names and no longer widens the page on phones;
   the Fight Caves target is named "TzHaar Fight Cave (all waves and Jad)"; Nex has a note that her phases
   aren't modelled; a page icon (no more favicon 404s); Money Makers says which cash stack its kill rates use;
-  the gear notes say defence isn't counted and the cheaper of equal pieces is kept.
+  the gear notes say defence isn't counted and the cheaper of equal pieces is kept. The DPS page has a second
+  spec slot (a Defence drain plus a damage spec, worked out together as on Best Setup), and "Open in DPS
+  calculator" carries both, so the two pages give the same time.
 
 ## Next
 

@@ -4,7 +4,7 @@ import { loadGear, loadTargets, loadMonsters, accountPlayer } from '../core/gear
 import { SLOTS, PRAYERS, UNLOCKABLE_PRAYERS, attackStyles, spellsFor, calc, bestCalc, styleKind, THRALL_DPS } from '../core/dps.js';
 import { loadDps, saveDps } from '../core/dps-store.js';
 import { meetsReqs } from '../core/best-setup.js';
-import { withSpec, SPECS } from '../core/specs.js';
+import { withSpec, withSpecs, SPECS } from '../core/specs.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -130,12 +130,19 @@ function render() {
   h += `<div class="h">DPS</div>` + results.map(x => { const d = x.r.total ?? x.r.dps; return `<div class="res${d === bestDps && d > 0 ? ' best' : ''}">${d.toFixed(3)}${P.thrall ? '<div class="faint">incl. thrall</div>' : ''}</div>`; }).join('');
   h += row('Kill time', r => m ? secs(m.hp / (r.total ?? r.dps)) : '—');
   h += '<div class="h">Spec weapon</div>' + state.loadouts.map((L, i) => `<input list="dl-spec" data-spec="${i}" value="${esc(L.spec || '')}" placeholder="none">`).join('');
+  h += '<div class="h">Second spec</div>' + state.loadouts.map((L, i) => `<input list="dl-spec" data-spec2="${i}" value="${esc(L.spec2 || '')}" placeholder="none" title="A Defence drain and a damage spec together (drains go first)">`).join('');
   h += '<div class="h">With spec</div>' + results.map((x, i) => {
-    const L = state.loadouts[i], w = L.spec && item('weapon', L.spec);
-    if (!L.spec) return '<div class="res faint">—</div>';
-    if (!w || !SPECS[w.name]) return '<div class="res faint">Not a spec weapon here yet</div>';
-    const r = m && withSpec(P, x.lo, { ...x.lo, weapon: w, shield: w.two ? null : x.lo.shield }, m, ctxOpts);
-    return `<div class="res">${r ? `${secs(r.seconds)}<div class="faint">${r.plan === 'drain' ? `${r.specs} specs first, Defence to ~${r.defence}` : `${r.specs} specs a kill`}</div>` : '<span class="faint">doesn\'t help</span>'}</div>`;
+    const L = state.loadouts[i];
+    const names = [L.spec, L.spec2].filter(Boolean);
+    if (!names.length) return '<div class="res faint">—</div>';
+    const ws = names.map(n => item('weapon', n));
+    if (ws.some(w => !w || !SPECS[w.name])) return '<div class="res faint">Not a spec weapon here yet</div>';
+    const lo = w => ({ ...x.lo, weapon: w, shield: w.two ? null : x.lo.shield });
+    const dw = ws.find(w => SPECS[w.name].drain), xw = ws.find(w => !SPECS[w.name].drain);
+    if (ws.length === 2 && (!dw || !xw)) return '<div class="res faint">Pick one Defence drain and one damage spec</div>';
+    const r = m && withSpecs(P, x.lo, { drainLo: dw && lo(dw), dmgLo: xw && lo(xw) }, m, ctxOpts);
+    const how = r && [r.drains ? `${r.drains} drain spec${r.drains > 1 ? 's' : ''} first, Defence to ~${r.defence}` : '', r.specs ? `${r.specs} damage spec${r.specs > 1 ? 's' : ''}` : ''].filter(Boolean).join(', then ');
+    return `<div class="res">${r ? `${secs(r.seconds)}<div class="faint">${how}</div>` : '<span class="faint">doesn\'t help</span>'}</div>`;
   }).join('');
   h += row('', r => (r.notes || []).map(esc).join('<br>'));
   g.innerHTML = h;
@@ -146,6 +153,7 @@ $('grid').addEventListener('change', e => {
   else if (d.style !== undefined) state.loadouts[Number(d.style)].style = e.target.value;
   else if (d.name !== undefined) state.loadouts[Number(d.name)].name = e.target.value;
   else if (d.spec !== undefined) state.loadouts[Number(d.spec)].spec = e.target.value.trim();
+  else if (d.spec2 !== undefined) state.loadouts[Number(d.spec2)].spec2 = e.target.value.trim();
   else return;
   save(); render();
 });

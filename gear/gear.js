@@ -123,7 +123,7 @@ function run() {
     const big = r.perPart.map((p, i) => ({ i, p })).filter(x => x.p.kind === k).sort((a, b) => b.p.seconds - a.p.seconds)[0];
     const partIdx = big ? (targets[$('target').value].parts || []).findIndex(q => q.monster === big.p.monster) : 0;
     saveDps({ ...loadDps(), target: $('target').value, part: Math.max(0, partIdx), onTask: $('onTask').checked, thrall: r.thrall,
-      loadouts: [{ name: `Best ${k}`, spec: (r.spec?.drain || r.spec?.damage)?.item.name || '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
+      loadouts: [{ name: `Best ${k}`, spec: (r.spec?.drain || r.spec?.damage)?.item.name || '', spec2: r.spec?.drain && r.spec?.damage ? r.spec.damage.item.name : '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
     location.href = '../dps/';
   };
   saveDps({ ...loadDps(), target: $('target').value });
