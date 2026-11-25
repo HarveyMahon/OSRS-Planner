@@ -21,6 +21,7 @@ import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
 import { isMet, describe, unmet } from './requirements.js';
 import { estimate, stageAt } from './training.js';
 import { bossMethod, guideMethod, setupOf, gearCost, gearEntry } from './money.js';
+import { withoutCombatLevels } from './rates.js';
 import { bestMaster, slayerSettings } from './slayer.js';
 
 const INTENSITY_ORDER = { fastest: ['fastest', 'balanced', 'afk'], balanced: ['balanced', 'fastest', 'afk'], afk: ['afk', 'balanced', 'fastest'] };
@@ -80,7 +81,10 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null, order: userOrder = null } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null, order: userOrder = null, rates = null } = d;
+  // Your kill rates (core/rates.js): a boss setup's kills/hr for you, standing in for its recommended combat levels
+  const rateOf = (b, s) => rates?.[b.id]?.setups?.[s.id] || null;
+  const methodOf = (b, setupId) => { const r = rateOf(b, setupOf(b, setupId)); return bossMethod(b, items, { setupId, override: r ? { unitsPerHr: r.kph } : undefined }); };
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
@@ -245,8 +249,9 @@ export function plan(goals, d) {
     for (const b of bosses) {
       if (b.category === 'misc' || b.moneyMaker === false || b.taskOnly || (hideWild && b.wilderness)) continue;
       for (const s of b.setups) {
-        if (!isMet(s.requires, sim, reqCtx)) continue;
-        const m = bossMethod(b, items, { setupId: s.id });
+        const r = rateOf(b, s);
+        if (r ? !(r.kph > 0 && isMet(withoutCombatLevels(s.requires), sim, reqCtx)) : !isMet(s.requires, sim, reqCtx)) continue;
+        const m = methodOf(b, s.id);
         if (m.gpPerHr > 0) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: m.gpPerHr, wilderness: !!b.wilderness });
       }
     }
@@ -442,7 +447,7 @@ export function plan(goals, d) {
       sim.quests[m.id] = 'complete';
     } else if (m.n > 0) {
       const b = bossById(m.id);
-      const bm = bossMethod(b, items, { setupId: m.setupId });
+      const bm = methodOf(b, m.setupId);
       for (const q of questsIn(bm.setup.requires)) doQuestNow(q, { pulledFor: b.name });
       trainNeeds(m.needs);
       const hours = bm.unitsPerHr ? m.n / bm.unitsPerHr : 0;
