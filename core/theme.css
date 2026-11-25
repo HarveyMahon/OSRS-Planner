@@ -48,3 +48,4 @@ textarea { width: 100%; max-width: 720px; box-sizing: border-box; font: inherit;
 
 .site-footer { max-width: 1100px; margin: 48px auto 24px; padding: 16px 20px 0; border-top: 1px solid var(--line); color: var(--faint); font-size: 12px; line-height: 1.6; }
 .site-footer a { color: var(--muted); }
+input.bad { border-color: #e57373 !important; outline: 1px solid #e57373; }

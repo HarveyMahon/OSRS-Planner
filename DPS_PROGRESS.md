@@ -169,6 +169,14 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   up used on no part (Kree'arra: the halberd melee set) no longer holds budget the used style could spend.
   Mid account (80s, 100M, no bank): Vardorvis 154s -> 128s, Duke 133s -> 102s, Zulrah 96s -> 90s, Graardor 77s
   -> 65s, Kree'arra 142s (1.4M spent) -> 120s. Kill-rate run with your bank ~18s (was ~14s); sweeps still monotonic.
+- **Round 1 smaller fixes**: Best Setup reads "10 mil" and "1e9", and flags an amount it can't read (red field and
+  a note) instead of silently using 0; the Special attacks card totals drains and specs over every part; ToA
+  rows say "with smelling salts" / "no salts yet"; the CoX Guardians row names the pickaxe (not in the cost);
+  DPS/Time headers say which is without and with specs; "Open in DPS calculator" opens the biggest part that
+  style is used on; the DPS page's Monster list has readable names and no longer widens the page on phones;
+  the Fight Caves target is named "TzHaar Fight Cave (all waves and Jad)"; Nex has a note that her phases
+  aren't modelled; a page icon (no more favicon 404s); Money Makers says which cash stack its kill rates use;
+  the gear notes say defence isn't counted and the cheaper of equal pieces is kept.
 
 ## Next
 

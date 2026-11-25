@@ -279,7 +279,8 @@
      "monster": "Nex",
      "weight": 1
     }
-   ]
+   ],
+   "note": "Nex is one set of stats here: her phases (blood siphon, ice prison, the Zaros phase) aren't modelled, and teams often range her, which this doesn't account for."
   },
   "the_nightmare": {
    "name": "The Nightmare",
@@ -504,7 +505,7 @@
    "note": "A full Inferno from the Wiki's wave list: 210 nibblers, 48 bats, 40 blobs (each splits into 3 small ones), 36 meleers, 34 rangers, 33 magers, 4 Jads, then Zuk with his Jad and 4 healers. The rangers and magers that keep spawning during Zuk, and the Jads' healers, are left out."
   },
   "tztok_jad": {
-   "name": "TzTok-Jad",
+   "name": "TzHaar Fight Cave (all waves and Jad)",
    "parts": [
     {
      "monster": "Tz-Kih",

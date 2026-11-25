@@ -243,7 +243,7 @@ async function init() {
   if (RAW_ACCOUNT) {
     $('rates-status').textContent = 'Working out your kill rates…';
     RATES = await accountRates(RAW_ACCOUNT, BOSSES, ITEMS.items, { onProgress: (d, n) => { $('rates-status').textContent = `Working out your kill rates… ${d}/${n}`; } });
-    $('rates-status').textContent = '';
+    $('rates-status').textContent = `Kill rates use your bank plus the cash stack on My Account (${gp(RAW_ACCOUNT.gp || 0)}), not the budget typed on Best Setup; each kill gets the spec energy that regenerates over one kill.`;
     render();
   }
 }

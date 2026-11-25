@@ -9,7 +9,15 @@ import { saveDps, loadDps } from '../core/dps-store.js';
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const gp = n => n >= 1e9 ? (n / 1e9).toFixed(2) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : Math.round(n).toString();
-const parseGp = s => { const m = String(s).trim().toLowerCase().replace(/,/g, '').match(/^([\d.]+)\s*([kmb]?)$/); return m ? Math.round(Number(m[1]) * ({ k: 1e3, m: 1e6, b: 1e9 }[m[2]] || 1)) : 0; };
+// "2.5b", "100m", "10 mil", "1e9", "100,000,000"; null when it can't be read
+const parseGp = s => {
+  if (!String(s).trim()) return 0;                    // empty: no budget
+  const m = String(s).trim().toLowerCase().replace(/[, _]/g, '').match(/^(\d+(?:\.\d+)?(?:e\d+)?)(k|m|b|mil|million|bil|billion|gp)?$/);
+  if (!m) return null;
+  const mult = { k: 1e3, m: 1e6, mil: 1e6, million: 1e6, b: 1e9, bil: 1e9, billion: 1e9 }[m[2]] || 1;
+  const v = Math.round(Number(m[1]) * mult);
+  return Number.isFinite(v) ? v : null;
+};
 const secs = s => !isFinite(s) ? '—' : s >= 3600 ? `${Math.floor(s / 3600)}h ${Math.round(s % 3600 / 60)}m` : s >= 60 ? `${Math.floor(s / 60)}m ${Math.round(s % 60)}s` : `${s.toFixed(1)}s`;
 
 const account = loadAccount();
@@ -74,7 +82,10 @@ function specHow(parts) {
 function run() {
   const base = targets[$('target').value], chosen = (loadDps().rooms || {})[$('target').value];
   const t = base.rooms && chosen?.length ? { ...base, chosenRooms: chosen } : base;
-  const budget = $('ownOnly').checked ? 0 : parseGp($('budget').value);
+  const typed = parseGp($('budget').value), badBudget = !$('ownOnly').checked && typed === null;
+  $('budget').classList.toggle('bad', badBudget);
+  $('budget').title = badBudget ? "Couldn't read that amount: try 100m, 2.5b or 100,000,000" : '';
+  const budget = $('ownOnly').checked || badBudget ? 0 : typed;
   const player = accountPlayer(account, { onTask: $('onTask').checked });
   const avail = $('ownOnly').checked ? it => { const a = baseAvail(it); return a.owned ? a : { owned: false, price: null }; } : baseAvail;
   const t0 = performance.now();
@@ -83,7 +94,7 @@ function run() {
   if (!r) { $('summary').innerHTML = ''; $('cards').innerHTML = '<p class="muted">No data for this target.</p>'; return; }
   const kills = isFinite(r.time) ? 3600 / r.time : 0;
   const stuck = r.perPart.filter(p => !p.dps).map(p => esc(p.name) + (p.monster.includes('#') ? ` (${esc(p.monster.split('#')[1])})` : ''));
-  const why = !isFinite(r.time) ? `<p class="muted" style="margin:0 0 12px">${Object.keys(r.kinds).length ? `Nothing you own or can afford can damage ${[...new Set(stuck)].join(', ')}` : 'No weapon you own or can afford is usable here'}${budget ? '' : ': with no budget only gear in your bank counts'}. Import your bank on My Account${$('ownOnly').checked ? ', untick "Only gear I own"' : ''} or raise the budget.</p>` : '';
+  const why = (badBudget ? `<p class="muted" style="margin:0 0 12px;color:var(--bad,#e57373)">Couldn't read the budget "${esc($('budget').value)}": try 100m, 2.5b or 100,000,000. Worked out with no budget for now.</p>` : '') + (!isFinite(r.time) ? `<p class="muted" style="margin:0 0 12px">${Object.keys(r.kinds).length ? `Nothing you own or can afford can damage ${[...new Set(stuck)].join(', ')}` : 'No weapon you own or can afford is usable here'}${budget ? '' : ': with no budget only gear in your bank counts'}. Import your bank on My Account${$('ownOnly').checked ? ', untick "Only gear I own"' : ''} or raise the budget.</p>` : '');
   $('summary').innerHTML = `<div><span>Time per kill (fighting only)</span><b>${secs(r.time)}</b></div>
     <div><span>Kills per hour, fighting only</span><b>${kills.toFixed(1)}</b></div>
     <div><span>Gear to buy</span><b>${gp(r.cost)}</b></div>
@@ -99,17 +110,19 @@ function run() {
   }).join('') + (r.spec ? `<div class="card"><h3>Special attacks</h3><table>${[['Defence drain', r.spec.drain], ['Damage', r.spec.damage]].filter(([, x]) => x).map(([label, x]) =>
     `<tr><td class="slot">${label}</td><td>${esc(x.item.name)}</td><td class="num">${x.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(x.price)}</span>`}</td></tr>`).join('')}</table>
     <p class="faint" style="margin:8px 0 0">Saves about ${secs(r.spec.saved)} ${t.whole ? 'a run' : 'on a kill started with a full bar'}. ${specHow(r.perPart)} One energy pool: a full bar plus 10% every 30 seconds over the ${t.whole ? 'whole run' : 'fight'}.</p></div>` : '');
-  $('parts').innerHTML = r.perPart.map(p => `<tr><td>${esc(p.name)}${p.monster.includes('#') ? ` <span class="faint">${esc(p.monster.split('#')[1])}</span>` : ''}${p.weight !== 1 ? ` <span class="faint">×${+p.weight.toFixed(2)}</span>` : ''}</td>
-    <td>${p.kind || '—'}</td><td>${esc(p.calc?.style?.name || '')}${p.calc?.spell ? ` · ${esc(p.calc.spell.name)}` : ''}</td>
+  $('parts').innerHTML = r.perPart.map(p => `<tr><td>${esc(p.name)}${p.monster.includes('#') ? ` <span class="faint">${esc(p.monster.split('#')[1])}</span>` : ''}${p.toa ? ` <span class="faint">${p.boost === 'salts' ? 'with smelling salts' : 'no salts yet'}</span>` : ''}${p.weight !== 1 ? ` <span class="faint">×${+p.weight.toFixed(2)}</span>` : ''}</td>
+    <td>${p.kind || '—'}</td><td>${esc(p.calc?.style?.name || '')}${p.calc?.spell ? ` · ${esc(p.calc.spell.name)}` : ''}${p.usesWeapon ? ` <span class="faint">with a ${esc(p.usesWeapon)} (needed here; not in the cost)</span>` : ''}</td>
     <td class="num">${p.calc ? (p.calc.minHit ? `${p.calc.minHit}–` : '') + p.calc.maxHit + (p.calc.hits > 1 ? ` ×${p.calc.hits}` : '') : ''}</td>
-    <td class="num">${p.calc ? (p.calc.accuracy * 100).toFixed(1) + '%' : ''}</td><td class="num">${p.dps ? p.dps.toFixed(2) : '—'}</td><td class="num">${secs(p.seconds)}${p.spec ? ` <span class="tag" title="${[p.spec.drains ? `${p.spec.drains} drain(s), Defence to ~${p.spec.defence}` : '', p.spec.specs ? `${p.spec.specs} damage spec(s)` : ''].filter(Boolean).join(', ')}">spec</span>` : ''}</td></tr>`).join('');
+    <td class="num">${p.calc ? (p.calc.accuracy * 100).toFixed(1) + '%' : ''}</td><td class="num">${p.dps ? p.dps.toFixed(2) : '—'}</td><td class="num">${secs(p.seconds)}${p.spec ? ` <span class="tag" title="${[p.spec.drains ? `${p.spec.drains} drain(s), Defence to ~${p.spec.defence}` : '', p.spec.specs ? `${p.spec.specs} damage spec(s)` : '', p.spec.of > 1 ? `on ${+p.spec.copies.toFixed(1)} of ${+p.spec.of.toFixed(2)}` : ''].filter(Boolean).join(', ')}">spec</span>` : ''}</td></tr>`).join('');
   $('notes').innerHTML = [t.whole ? 'Whole content is a first estimate: the main monsters of each room, each killed with the best style allowed on it. Real runs depend on the team and mechanics.' : '',
-    t.note || '', 'Untradeable items you don\'t own (e.g. Infernal cape, Avernic defender) can\'t be bought, so they only appear if they\'re in your bank.'].filter(Boolean).map(esc).join(' ');
+    t.note || '', 'Untradeable items you don\'t own (e.g. Infernal cape, Avernic defender) can\'t be bought, so they only appear if they\'re in your bank.', 'Gear is picked for damage only: defence and survival aren\'t counted, and of two pieces that give the same damage the cheaper is kept.'].filter(Boolean).map(esc).join(' ');
   $('cards').onclick = e => {
     const k = e.target.dataset?.open;
     if (!k) return;
     const lo = r.kinds[k].loadout;
-    saveDps({ ...loadDps(), target: $('target').value, part: 0, onTask: $('onTask').checked, thrall: r.thrall,
+    const big = r.perPart.map((p, i) => ({ i, p })).filter(x => x.p.kind === k).sort((a, b) => b.p.seconds - a.p.seconds)[0];
+    const partIdx = big ? (targets[$('target').value].parts || []).findIndex(q => q.monster === big.p.monster) : 0;
+    saveDps({ ...loadDps(), target: $('target').value, part: Math.max(0, partIdx), onTask: $('onTask').checked, thrall: r.thrall,
       loadouts: [{ name: `Best ${k}`, spec: (r.spec?.drain || r.spec?.damage)?.item.name || '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
     location.href = '../dps/';
   };

@@ -46,7 +46,8 @@ $('target').innerHTML = ids.map(id => `<option value="${id}">${esc(targets[id].n
 $('target').value = targets[state.target] ? state.target : 'vorkath';
 function parts() {
   const t = targets[$('target').value];
-  $('part').innerHTML = t.parts.map((p, i) => `<option value="${i}">${esc(p.monster)}</option>`).join('');
+  const label = p => p.monster.replace(/#(.*)$/, ' ($1)') + (p.toa ? (p.boost === 'salts' ? ', with salts' : ', no salts yet') : '') + (p.weapon ? `, with a ${p.weapon}` : '');
+  $('part').innerHTML = t.parts.map((p, i) => `<option value="${i}">${esc(label(p))}</option>`).join('');
   $('part').value = String(Math.min(state.part || 0, t.parts.length - 1));
 }
 parts();
