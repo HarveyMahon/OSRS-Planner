@@ -633,12 +633,13 @@
      "weight": 0.3333333333333333,
      "styles": [
       "ranged",
+      "magic",
       "melee"
      ],
      "meleeWeapon": "halberd"
     }
    ],
-   "note": "Zulrah can only be meleed with a halberd (for attacks and specs). Hits over 50 are rerolled to 45-50."
+   "note": "All three styles work on every form (melee only with a halberd, for attacks and specs); the Tanzanite form just has higher Magic Defence. Hits over 50 are rerolled to 45-50."
   },
   "shellbane_gryphon": {
    "name": "Shellbane Gryphon",
