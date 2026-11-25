@@ -107,6 +107,15 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   (at Zulrah magic only does two forms). Now each style is re-optimised for the parts it wins and its
   owned-only gear is tried too, keeping whatever makes the whole target faster within budget. Zulrah at 10M
   is now 63.7s (was 69.6). Costs ~4s more on the first kill-rate run (now ~14s with your bank, then cached).
+- **Kill-rate outliers** (14:50): with your bank, no boss hits the 0.2x/2x clamp; the budget setups at Vorkath
+  and Nex come closest (1.9x, expected for a high account). Zuk, Jad, Zalcano and the Fractured Archive have no
+  Wiki gear list, so they keep the guide's rate. Maggot King comes out 0.95x (guide gear you don't own).
+- **Awkward accounts** (14:55): Best Setup on all 56 targets and the DPS page with all 54 spec weapons on 3
+  targets, for no account, a fresh account, all 40s with 0 GP, all 99s with 10B and no prayers, all 70s with
+  50M: no script errors or broken numbers; slowest target 8s. A fresh or 0-GP account with no bank used to show
+  a blank "—" result; it now says nothing usable was found and what to do (import the bank, raise the budget).
+- **Phone width** (390px): the DPS page made the whole page scroll sideways (the long Monster list); fixed. The
+  setup columns and the parts tables scroll inside their own boxes, as intended.
 
 ## Next
 

@@ -79,11 +79,13 @@ function run() {
   $('working').textContent = `Worked out in ${((performance.now() - t0) / 1000).toFixed(1)}s`;
   if (!r) { $('summary').innerHTML = ''; $('cards').innerHTML = '<p class="muted">No data for this target.</p>'; return; }
   const kills = isFinite(r.time) ? 3600 / r.time : 0;
+  const stuck = r.perPart.filter(p => !p.dps).map(p => esc(p.name) + (p.monster.includes('#') ? ` (${esc(p.monster.split('#')[1])})` : ''));
+  const why = !isFinite(r.time) ? `<p class="muted" style="margin:0 0 12px">${Object.keys(r.kinds).length ? `Nothing you own or can afford can damage ${[...new Set(stuck)].join(', ')}` : 'No weapon you own or can afford is usable here'}${budget ? '' : ': with no budget only gear in your bank counts'}. Import your bank on My Account${$('ownOnly').checked ? ', untick "Only gear I own"' : ''} or raise the budget.</p>` : '';
   $('summary').innerHTML = `<div><span>Time per kill (fighting only)</span><b>${secs(r.time)}</b></div>
     <div><span>Kills per hour, fighting only</span><b>${kills.toFixed(1)}</b></div>
     <div><span>Gear to buy</span><b>${gp(r.cost)}</b></div>
     <div><span>Thrall</span><b>${r.thrall ? 'Yes' : 'No'}</b></div>`;
-  $('cards').innerHTML = Object.entries(r.kinds).map(([k, v]) => {
+  $('cards').innerHTML = why + Object.entries(r.kinds).map(([k, v]) => {
     const pray = r.perPart.find(p => p.kind === k)?.calc?.prayer;
     return `<div class="card"><h3>${k}${pray ? ` <span class="faint">· ${esc(PRAYERS[pray]?.label)}</span>` : ''}</h3><table>${SLOTS.map(s => {
       const it = v.loadout[s];
