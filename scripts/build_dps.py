@@ -76,7 +76,7 @@ for w in sorted(wanted):
     out[w] = {"name": m.get("name"), "hp": n(m.get("hitpoints")), "def": n(m.get("defence_level")), "magic": n(m.get("magic_level")),
               "size": n(m.get("size")) or 1, "attributes": [a.lower() for a in attrs if a],
               "dstab": n(m.get("stab_defence_bonus")), "dslash": n(m.get("slash_defence_bonus")), "dcrush": n(m.get("crush_defence_bonus")),
-              "dmagic": n(m.get("magic_defence_bonus")),
+              "dmagic": n(m.get("magic_defence_bonus")), "amagic": n(m.get("magic_attack_bonus")),
               "dlight": n(m.get("light_range_defence_bonus")), "dstandard": n(m.get("standard_range_defence_bonus")), "dheavy": n(m.get("heavy_range_defence_bonus")),
               "drange": n(m.get("range_defence_bonus")),
               "flatArmour": n(m.get("flat_armour")),

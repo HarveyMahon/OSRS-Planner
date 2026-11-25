@@ -1,4 +1,4 @@
-name: Probe Wiki buckets
+name: Fetch gear requirements
 
 on:
   workflow_dispatch:
@@ -14,10 +14,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python scripts/probe_wiki_buckets.py
+      - run: python scripts/fetch_gear_requirements.py
       - name: Commit the fetched sources
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f scripts/cache/dps
-          git diff --cached --quiet && echo "Nothing changed." || (git commit -m "Probe Wiki buckets" && git push)
+          git diff --cached --quiet && echo "Nothing changed." || (git commit -m "Fetch gear requirements" && git push)
