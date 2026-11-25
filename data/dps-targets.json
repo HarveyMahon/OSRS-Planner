@@ -932,6 +932,15 @@
      ]
     },
     {
+     "monster": "Akkha",
+     "weight": 0.2,
+     "styles": [
+      "melee"
+     ],
+     "boost": "salts",
+     "toa": true
+    },
+    {
      "monster": "Kephri#Shielded",
      "weight": 1,
      "toa": true
@@ -977,7 +986,7 @@
      "toa": true
     }
    ],
-   "note": "From the Wiki: Ba-Ba melee; Kephri mostly melee (anything); Zebak and Akkha ranged or magic; Wardens P2: ranged on the Warden (it protects from melee and magic), the core isn't modelled; P3 anything, the last 20% enraged (my estimate). The first two rooms have no smelling salts. Puzzle rooms and the P1 obelisk are left out."
+   "note": "From the Wiki: Ba-Ba melee; Kephri mostly melee (anything); Zebak ranged or magic; Akkha ranged or magic (he only protects from the style he's attacking with), then his final stand restores 20% of his HP with Protect from Magic and Missiles up, so melee; Wardens P2: ranged on the Warden (it protects from melee and magic), the core isn't modelled; P3 anything, the last 20% enraged (my estimate). The first two rooms have no smelling salts. Puzzle rooms and the P1 obelisk are left out."
   },
   "corrupted_gauntlet": {
    "name": "Corrupted Gauntlet",

@@ -85,7 +85,7 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   (Archive Guardian flying = ranged/magic, grounded = anything; Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai
   (magic) or Xarth, each half the time; Ocellus P1, P2, P3 = magic), with its Defence floors. **ToB**: Nylocas
   Vasilias is a third each melee/ranged/magic (it changes form). **ToA**: Ba-Ba melee, Kephri anything (mostly
-  melee), Zebak and Akkha ranged/magic, Wardens P2 ranged on the Warden (it prays melee and magic; the core
+  melee), Zebak and Akkha ranged/magic, Akkha's final stand (20% more HP, protecting from magic and ranged: melee), Wardens P2 ranged on the Warden (it prays melee and magic; the core
   isn't modelled), P3 anything with the last 20% enraged (my estimate; they share 880 HP, which was counted twice).
   **CoX** (12:55) is now the full layout: Tekton, Vasa, the 3 Vanguards, Vespula (her abyssal portal), both
   Muttadiles, 2 Guardians (with a Dragon pickaxe: they only take pickaxe damage), 3 Skeletal Mystics, 4 Lizardman
