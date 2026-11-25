@@ -368,6 +368,20 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     assert.ok(Math.abs(a.perAttack - b.perAttack - a.accuracy * 2) < 1e-9);          // 20% of hits burn for 10
     assert.equal(D.calc(P, { weapon: atl, ammo: dart, ...set }, { ...mon, burnImmune: 'normal' }, rapid).perAttack, b.perAttack);
   });
+  t('dps: armour sets (Verac, Inquisitor, Virtus, Blood Moon)', () => {
+    const flail = { name: "Verac's flail", b: { astab: 68, acrush: 82, str: 72 }, speed: 5, category: 'Spiked', two: true };
+    const verac = { head: { name: "Verac's helm", b: {} }, body: { name: "Verac's brassard", b: {} }, legs: { name: "Verac's plateskirt", b: {} } };
+    const tank = { ...mon, def: 300, dcrush: 300 };
+    assert.ok(D.bestCalc(P, { weapon: flail, ...verac }, tank).dps > D.bestCalc(P, { weapon: flail }, tank).dps * 1.2);
+    const mace = { name: "Inquisitor's mace", b: { acrush: 95, str: 89 }, speed: 4, category: 'Spiked' };
+    const inq = { head: { name: "Inquisitor's great helm", b: {} }, body: { name: "Inquisitor's hauberk", b: {} }, legs: { name: "Inquisitor's plateskirt", b: {} } };
+    const pound = D.attackStyles(mace).find(s => s.type === 'crush' && s.stance === 'aggressive');
+    const full = D.calc(P, { weapon: mace, ...inq }, mon, pound).maxHit, none = D.calc(P, { weapon: mace }, mon, pound).maxHit;
+    assert.equal(full, Math.floor(none * 207 / 200));                                // 0.5 + 1 + 1 + 1 (set) = 3.5%
+    const dm = { name: 'Dual macuahuitl', b: { acrush: 121, str: 81 }, speed: 4, category: 'Spiked', two: true };
+    const blood = { head: { name: 'Blood Moon helm', b: {} }, body: { name: 'Blood Moon chestplate', b: {} }, legs: { name: 'Blood Moon tassets', b: {} } };
+    assert.ok(D.bestCalc(P, { weapon: dm, ...blood }, mon).speed < 4);
+  });
   t('dps: ammo rules', () => {
     assert.equal(D.ammoFits({ name: 'Twisted bow', category: 'Bow' }, { name: 'Dragon arrow' }), true);
     assert.equal(D.ammoFits({ name: 'Magic shortbow', category: 'Bow' }, { name: 'Dragon arrow' }), false);

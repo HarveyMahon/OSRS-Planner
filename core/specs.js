@@ -52,7 +52,24 @@ export const SPECS = {
   'Magic shortbow': { cost: 55, type: 'ranged', acc: 10 / 7, hits: 2 },
   'Heavy ballista': { cost: 65, type: 'ranged', acc: 1.25, dmg: [1.25] },
   'Light ballista': { cost: 65, type: 'ranged', acc: 1.25, dmg: [1.25] },
+  // added 25 Nov (later afternoon)
+  'Saradomin sword': { cost: 100, type: 'slash', dmg: [1.1], onHit: 8.5 },                  // + 1-16 magic damage when it hits
+  'Barrelchest anchor': { cost: 50, type: 'crush', acc: 2, dmg: [1.1], drain: { rolled: 0.1 } }, // Defence -10% of the damage rolled
+  'Bone dagger': { cost: 75, type: 'stab', alwaysHit: true, once: true, drain: { damage: true } },   // can't miss a fresh target; Defence -damage, once
+  'Dorgeshuun crossbow': { cost: 75, type: 'ranged', alwaysHit: true, once: true, drain: { damage: true } },
+  'Sunspear': { cost: 50, type: 'stab', fixedPct: 0.7 },                                      // a hit always deals 70% of max
+  'Scorching bow': { cost: 25, type: 'ranged', demonBurn: 5 },                                 // binds and burns demons for 5
+  'Eclipse atlatl': { cost: 50, type: 'ranged', acc: 1.5, eclipse: true, needs: 'eclipse' },   // consumes burns: max +burn left (est. 5)
+  'Blue Moon spear': { cost: 50, type: 'stab', acc: 1.24, dmg: [1.24], needs: 'blue' },        // +1.5% per tick of bind removed (est. 16)
+  "Saradomin's blessed sword": { cost: 65, type: 'slash', dmg: [1.25] },
+  'Dual macuahuitl': { cost: 25, type: 'crush', dualmac: true, needs: 'blood' },
+  'Magic longbow': { cost: 35, type: 'ranged', alwaysHit: true },
+  'Magic comp bow': { cost: 35, type: 'ranged', alwaysHit: true },
+  'Seercull': { cost: 100, type: 'ranged', alwaysHit: true },
+  'Soulreaper axe': { cost: 0, type: 'slash', soulreaper: true },
 };
+const NEEDS = { eclipse: /^Eclipse moon/i, blue: /^Blue moon/i, blood: /^Blood moon/i };
+const hasSet = (lo, re) => ['head', 'body', 'legs'].every(s => re.test(lo[s]?.name || ''));
 const canonName = n => String(n || '').replace(/\s*\((or|l|cr|p\+\+|p\+|p|kp|a)\)$/i, '');
 const SPECS_LC = () => SPECS_LOWER || (SPECS_LOWER = Object.fromEntries(Object.entries(SPECS).map(([k, v]) => [k.toLowerCase(), v])));
 let SPECS_LOWER = null;
@@ -69,7 +86,8 @@ function specHit(player, lo, monster, sp, opts) {
   if (!styles.length) return null;
   const style = kindOf === 'melee' ? { name: 'Special attack', type: sp.type, stance: styles.find(s => s.stance === 'aggressive') ? 'aggressive' : styles[0].stance }
     : kindOf === 'magic' ? (styles.find(s => s.stance === 'accurate') || styles[0]) : styles.find(s => s.stance === 'rapid') || styles[0];
-  const r = calc(player, lo, monster, style, null, { ...opts, spec: { acc: sp.acc, dmg: sp.dmg, fang: sp.fang, voidwaker: sp.voidwaker, staffMax: sp.staffMax } });
+  if (sp.needs && !hasSet(lo, NEEDS[sp.needs])) return null;                  // the spec needs its armour set
+  const r = calc(player, lo, monster, style, null, { ...opts, spec: { acc: sp.acc, dmg: sp.dmg, fang: sp.fang, voidwaker: sp.voidwaker, staffMax: sp.staffMax, alwaysHit: sp.alwaysHit } });
   if (!r.maxHit && !sp.bolt) return null;
   const p = r.accuracy, M = r.maxHit;
   let dmg;
@@ -99,12 +117,22 @@ function specHit(player, lo, monster, sp, opts) {
     const m2 = { ...monster, def: Math.max(monster.defFloor ?? 0, monster.def - Math.trunc(monster.magic / 8)) };
     const r2 = calc(player, lo, m2, style, null, { ...opts, spec: { acc: sp.acc } });
     dmg = r.perAttack + p * r2.perAttack + (1 - p) * r.perAttack;
+  } else if (sp.fixedPct) {
+    dmg = p * Math.max(1, Math.floor(M * sp.fixedPct));
+  } else if (sp.eclipse) {
+    dmg = r.perAttack + p * 3.75;
+  } else if (sp.dualmac) {    // both hitsplats roll accuracy on their own, each +25%, max +25% before the split
+    const r2 = calc(player, lo, monster, style, null, { ...opts, spec: { acc: 1.25, dmg: [1.25] } });
+    const m1 = Math.floor(r2.maxHit / 2), m2 = r2.maxHit - m1;
+    dmg = r2.accuracy * (m1 / 2 + 0.5) + r2.accuracy * (m2 / 2 + 0.5);
   } else if (sp.hits) {
     if (sp.large && monster.size < 2) dmg = r.perAttack;
     else if (sp.second === 'onHit') dmg = r.perAttack + p * r.perAttack;
     else dmg = sp.hits * r.perAttack;
   } else dmg = r.perAttack;
   if (sp.flat) dmg += sp.flat;                  // Granite hammer: +5 to every hit
+  if (sp.onHit) dmg += p * sp.onHit;
+  if (sp.demonBurn && monster.attributes.includes('demon') && !burnImmune(monster)) dmg += sp.demonBurn;
   if (sp.bleed) dmg += p * sp.bleed;            // Ancient godsword: 25 more after a delay if it hits
   if (sp.burn && !burnImmune(monster)) dmg += p * sp.burn;   // Arkan blade: a 10 damage burn
   return { dmg, p, maxHit: M, secs, avgOnHit: p ? r.perAttack / p : 0 };
@@ -126,9 +154,24 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
   const light = /^Lightbearer/.test(mainLo.ring?.name || '') ? 2 : 1;
   const floor = monster.defFloor ?? 0;
   const dr = drainLo && specOf(drainLo.weapon), ds = dmgLo && specOf(dmgLo.weapon);
+  if (ds?.soulreaper) {        // Soulreaper axe: Behead uses up the 5 stacks (and their Strength); it costs no energy
+    if (!/^Soulreaper axe/.test(mainLo.weapon?.name || '')) return null;
+    const st = attackStyles(mainLo.weapon).filter(x => styleKind(x.type) === 'melee');
+    let cyc = 0, best = null;
+    for (const style of st) {
+      let dmg = 0;
+      for (let k = 0; k < 5; k++) dmg += calc(player, mainLo, monster, style, null, { ...opts, soulStacks: k }).perAttack;
+      const sp = calc(player, mainLo, monster, style, null, { ...opts, soulStacks: 0, spec: { acc: 1.6, dmg: [1.3], minPct: 0.3 } });
+      dmg += sp.perAttack;
+      const d = dmg / (6 * sp.speed * TICK);
+      if (!best || d > best) best = d;
+    }
+    cyc = best + thrall;
+    return cyc > base ? { seconds: monster.hp / cyc, drains: 0, specs: Math.round(monster.hp / cyc / (6 * (mainLo.weapon.speed || 5) * TICK)), defence: monster.def } : null;
+  }
   if ((dr && !dr.drain) || (ds && ds.drain)) return null;
   let best = null;
-  const maxDrains = dr ? Math.floor(100 / dr.cost) : 0;
+  const maxDrains = dr ? (dr.once ? 1 : Math.floor(100 / dr.cost)) : 0;
   let m = { ...monster }, done = 0, t = 0;
   for (let k = 0; k <= maxDrains; k++) {
     if (k > 0) {                                   // one more drain spec
@@ -137,6 +180,7 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
       if (!h) break;
       let cut = dr.drain.pct ? Math.trunc(m.def * dr.drain.pct) : dr.drain.damage ? h.avgOnHit
         : dr.drain.magicEighth ? Math.trunc(monster.magic / 8)
+        : dr.drain.rolled ? h.avgOnHit * dr.drain.rolled
         : Math.trunc(monster.def * (m.attributes.includes('demon') ? dr.drain.demon : dr.drain.base)) + 1;
       m = { ...m, def: Math.max(floor, m.def - h.p * cut) };
       done += h.dmg; t += h.secs;

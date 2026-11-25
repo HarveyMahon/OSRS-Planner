@@ -85,6 +85,7 @@ const MELEE = {
   'Staff': [ST('Bash', 'crush', 'accurate'), ST('Pound', 'crush', 'aggressive'), ST('Focus', 'crush', 'defensive')],
   'Polestaff': [ST('Bash', 'crush', 'accurate'), ST('Pound', 'crush', 'aggressive'), ST('Block', 'crush', 'defensive')],
   'Flail': [ST('Pound', 'crush', 'accurate'), ST('Pummel', 'crush', 'aggressive'), ST('Block', 'crush', 'defensive')],
+  'Extending Chain Mace': [ST('Thrust', 'crush', 'accurate'), ST('Thrust', 'crush', 'aggressive'), { ...ST('Smash', 'crush', 'aggressive'), speed: 3, noPassive: true }],
   'Banner': [ST('Lunge', 'stab', 'accurate'), ST('Swipe', 'slash', 'aggressive'), ST('Pound', 'crush', 'controlled'), ST('Block', 'stab', 'defensive')],
 };
 const RANGED_CATS = ['Bow', 'Crossbow', 'Thrown', 'Chinchompas'];
@@ -197,6 +198,24 @@ const salve = lo => { const n = lo.neck?.name || ''; return /^Salve amulet/.test
 const isScythe = w => w && /Scythe of vitur/i.test(w.name);
 const isFang = w => w && /^Osmumten's fang/.test(w.name);
 const isKeris = w => w && /^Keris( partisan)?/.test(w.name);
+const setOf = (lo, re) => ['head', 'body', 'legs'].every(sl => re.test(lo[sl]?.name || ''));
+const bloodMoon = lo => setOf(lo, /^Blood moon/i);
+const veracs = lo => has(lo, 'head', /^Verac's helm/) && has(lo, 'body', /^Verac's brassard/) && has(lo, 'legs', /^Verac's plateskirt/) && has(lo, 'weapon', /^Verac's flail/);
+const damned = (lo, who) => /^Amulet of the damned/i.test(lo.neck?.name || '') && ({
+  Karil: () => has(lo, 'head', /^Karil's coif/) && has(lo, 'body', /^Karil's leathertop/) && has(lo, 'legs', /^Karil's leatherskirt/) && has(lo, 'weapon', /^Karil's crossbow/),
+  Ahrim: () => has(lo, 'head', /^Ahrim's hood/) && has(lo, 'body', /^Ahrim's robetop/) && has(lo, 'legs', /^Ahrim's robeskirt/) && has(lo, 'weapon', /^Ahrim's staff/),
+})[who]();
+// Expected damage of the highest of k rolls in [0, max] (0s raised to 1), less flat armour
+function bestOfMean(max, k, flat = 0) {
+  if (max <= 0) return 0;
+  let s = 0;
+  for (let d = 0; d <= max; d++) {
+    const pr = ((d + 1) ** k - d ** k) / (max + 1) ** k;
+    let x = Math.max(1, d); if (flat) x = Math.max(1, x - flat);
+    s += pr * x;
+  }
+  return s;
+}
 const DEMON_VULN = { 'Duke Sucellus': 0.7, Yama: 1.2, 'Ice demon': 1.15 };
 const demonbane = (m, pct) => m.attributes.includes('demon') ? pct * (DEMON_VULN[m.name] ?? 1) : 0;
 
@@ -266,13 +285,13 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   const v = voidSet(lo);
   const undead = m.attributes.includes('undead'), dragon = m.attributes.includes('dragon'), kalphite = m.attributes.includes('kalphite');
   const sal = salve(lo), onTask = !!player.onTask;
-  let atk, max, min = 0, speed = (w?.speed || 4), hits = 1, shots = 1, notes = [];
+  let atk, max, min = 0, speed = style.speed || (w?.speed || 4), hits = 1, shots = 1, notes = [];
 
   if (kind === 'melee') {
     let effA = Math.floor((L.Attack + B.Attack) * pray.acc) + 8 + (style.stance === 'accurate' ? 3 : style.stance === 'controlled' ? 1 : 0);
     let effS = Math.floor((L.Strength + B.Strength) * pray.str) + 8 + (style.stance === 'aggressive' ? 3 : style.stance === 'controlled' ? 1 : 0);
     // Soulreaper axe: +6% of boosted Strength per stack; counted at its full 5 stacks (it holds them through a kill)
-    if (canon(w?.name) === 'Soulreaper axe') effS += Math.floor((L.Strength + B.Strength) * 30 / 100);
+    if (canon(w?.name) === 'Soulreaper axe') effS += Math.floor((L.Strength + B.Strength) * 6 * (opts.soulStacks ?? 5) / 100);
     if (v?.style === 'melee') { effA = Math.floor(effA * 1.1); effS = Math.floor(effS * 1.1); }
     const base = effA * (t['a' + style.type] + 64);
     atk = base;
@@ -290,7 +309,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
       max = Math.floor(max * (/amascut/.test(w.name) ? 1.15 : 1.33));
     }
     if (style.type === 'crush') {
-      const inq = (has(lo, 'head', /^Inquisitor's great helm/) ? 1 : 0) + (has(lo, 'body', /^Inquisitor's hauberk/) ? 2 : 0) + (has(lo, 'legs', /^Inquisitor's plateskirt/) ? 2 : 0);
+      let inq = (has(lo, 'head', /^Inquisitor's great helm/) ? 1 : 0) + (has(lo, 'body', /^Inquisitor's hauberk/) ? 2 : 0) + (has(lo, 'legs', /^Inquisitor's plateskirt/) ? 2 : 0);
+      if (inq === 5) inq = 7;      // the full set adds another 1% (Wiki, 22 July 2026); the mace no longer boosts it
       if (inq) { atk = Math.floor(atk * (200 + inq) / 200); max = Math.floor(max * (200 + inq) / 200); }
     }
     if (isFang(w)) { const shrink = Math.trunc(max * 3 / 20); min = shrink; max -= shrink; }
@@ -338,6 +358,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     else { base = poweredBase(w, lvl); if (!base) return { dps: 0, maxHit: 0, accuracy: 0, speed, style, spell, notes: ['Not a magic weapon'] }; }
     let mdmg = t.mdmg * 10 + (pray.mdmg || 0);
     if (spell?.book === 'standard' && /^(Smoke battlestaff|Mystic smoke staff|Twinflame staff)/.test(w?.name || '')) mdmg += 100;
+    // Virtus: each piece gives 3% more magic damage with Ancient Magicks (on top of its listed 2%)
+    if (spell?.book === 'ancient') mdmg += 30 * ['head', 'body', 'legs'].filter(sl => /^Virtus/.test(lo[sl]?.name || '')).length;
     let mask = false, add = 0;
     if (sal?.i && undead) { mdmg += sal.e ? 200 : 150; add = sal.e ? 20 : 15; }
     else if (slayerHelmImbued(lo) && onTask) mask = true;
@@ -367,11 +389,12 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (spec.acc) atk = Math.floor(atk * spec.acc);
     for (const f of spec.dmg || []) max = Math.floor(max * f);
     if (spec.voidwaker) { min = Math.floor(max / 2); max += min; }
+    if (spec.minPct) min = Math.floor(max * spec.minPct);
     hits = 1;
   }
   // ---- expected damage per attack ----
   const def = npcDefRoll(m, kind === 'melee' ? style.type : kind, w);
-  let p = spec?.voidwaker ? 1 : isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
+  let p = spec?.voidwaker || spec?.alwaysHit ? 1 : isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
   // Confliction gauntlets: after a missed magic attack with a one-handed weapon, the next rolls accuracy twice
   if (kind === 'magic' && /^Confliction gauntlets/.test(lo.hands?.name || '') && !w?.two) { const d = fangChance(atk, def); p = d / (1 + d - p); }
   const flat = m.flatArmour || 0;
@@ -379,9 +402,29 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   if (hits > 1) {
     const maxes = [max, Math.floor(max / 2), Math.floor(max / 4)].slice(0, hits);
     per = maxes.reduce((s, mx) => s + p * accurateMean(0, mx, flat), 0);
+  } else if (canon(w?.name) === 'Dual macuahuitl' && !spec) {
+    // two hitsplats splitting the max hit; the second only rolls if the first hit
+    const m1 = Math.floor(max / 2), m2 = max - m1;
+    per = p * accurateMean(0, m1, flat) + p * p * accurateMean(0, m2, flat);
+    // Blood Moon set: a hit has a 33% chance (55.11% if both land) to make the next attack a tick sooner
+    if (bloodMoon(lo)) speed -= p * (1 - p) * 0.33 + p * p * 0.5511;
   } else {
-    const acc = accurateMean(min, max, flat);
+    let acc = accurateMean(min, max, flat);
+    // Obligator (charged, Thrust): the best of 2 damage rolls, +1 for each of stab and slash Defence above crush;
+    // 20% / 40% more damage on monsters 2 / 3+ tiles wide
+    if (canon(w?.name) === 'Obligator' && !style.noPassive) {
+      const k = 2 + (m.dstab > m.dcrush ? 1 : 0) + (m.dslash > m.dcrush ? 1 : 0);
+      const big = m.size >= 3 ? 1.4 : m.size === 2 ? 1.2 : 1;
+      acc = bestOfMean(Math.floor(max * big), k, flat);
+    }
     per = p * acc;
+    // Verac's set: 25% of attacks ignore Defence (always hit, 1 to max+1)
+    if (kind === 'melee' && veracs(lo)) per = 0.75 * per + 0.25 * accurateMean(1, max + 1, flat);
+    // with the Amulet of the damned: Karil's 25% chance of a second hit at half damage; Ahrim's 25% chance of +30%
+    if (kind === 'ranged' && damned(lo, 'Karil')) per *= 1.125;
+    if (kind === 'magic' && damned(lo, 'Ahrim')) per *= 1.075;
+    // Twinflame staff: bolt, blast and wave spells hit again for 40%
+    if (spell && canon(w?.name) === 'Twinflame staff' && /(Bolt|Blast|Wave)$/.test(spell.name)) per *= 1.4;
     // enchanted bolts (Kandarin hard diary raises the chance by 10%)
     if (kind === 'ranged' && w?.category === 'Crossbow' && lo.ammo && !spec) {
       const k = (player.diaries?.has('kandarin:hard') ? 1.1 : 1) * (canon(w.name) === 'Ascension crossbows' ? 0.5 : 1), zcb = canon(w.name) === 'Zaryte crossbow', a = lo.ammo.name, r = L.Ranged + B.Ranged;
@@ -401,6 +444,11 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
       && has(lo, 'legs', /^Eclipse moon tassets/i) && !m.burnImmune) per += p * 0.2 * 10;
   }
   if (!spec) per *= shots;
+  // Blue Moon set with the Blue Moon spear: after an Ice spell 20% (a Grasp spell 50%) of casts add a free melee hit
+  if (!spec && spell && canon(w?.name) === 'Blue Moon spear' && setOf(lo, /^Blue moon/i)) {
+    const chance = /^Ice /.test(spell.name) ? 0.2 : / Grasp$/.test(spell.name) ? 0.5 : 0;
+    if (chance) per += chance * calc(player, lo, m, ST('Jab', 'stab', 'accurate'), null, opts).perAttack;
+  }
   if (m.name === 'Corporeal Beast' && !(style.type === 'stab' && ['Spear', 'Polearm'].includes(w?.category)) && !(kind === 'magic')) per /= 2;
   const dps = per / (speed * TICK);
   return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes, perAttack: per, acc: accurateMean(min, max, flat) };

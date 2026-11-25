@@ -38,6 +38,14 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   rate and the fastest gear you can afford ("budget gear rule"). All bosses take ~3s; cached per account, daily.
 - **Levels to wear gear**: parsed from each item page's lead text (1,124 items; e.g. Twisted bow 85 Ranged,
   Masori (f) 80 Ranged + 80 Defence). The optimiser skips gear you can't wear; the DPS page outlines it.
+- **Armour sets** (13:50, from the Wiki): Inquisitor's 0.5% / 1% / 1% plus 1% for the full set with crush (the
+  mace's boost was removed in July 2026); Virtus +3% magic damage per piece with Ancient spells; Verac's (25% of
+  hits ignore Defence: always hit for 1 to max+1); Karil's and Ahrim's with the Amulet of the damned (25% chance
+  of a second hit at half damage / +30% damage); Dharok's not counted (needs you at low HP); Blood Moon with the
+  dual macuahuitl (two hitsplats, the second only if the first hit; 33% / 55.11% chance the next attack is a tick
+  sooner); Blue Moon with its spear (20% of Ice spell casts, 50% of Grasp casts, add a free melee hit); Obligator
+  (best of 2-4 damage rolls, +20% / +40% on large monsters; Smash is 3 ticks with no passive); Twinflame staff (bolt,
+  blast, wave hit again for 40%). Best Setup tries each set with its weapon as one move.
 - Eclipse atlatl (13:20): max hit from your boosted Strength level and melee strength bonus with ranged prayers,
   plus melee Salve/Slayer helm bonuses (Wiki); with the full Eclipse Moon set, 20% of hits burn for 10 (unless
   the boss is immune to burns). Its spec (consumes burns) isn't modelled.
@@ -62,9 +70,13 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   depending on which roll hit, unless the boss is immune to burns), Crimson kisten (four accuracy rolls, 70-110%
   up to 130-170% of max hit by how many land; the Wiki lists no burn for it), Zamorak and Ancient godswords (bleed counted),
   Dragon longsword / mace / sword / scimitar, Granite hammer, Arkan blade, Dragon knife, Rosewood blowpipe, Magic
-  shortbows and ballistas. Fixed: Dark bow and Tonalztics fire two shots on every attack. Not done: Soulreaper axe
-  (its spec spends the stacks), Saradomin sword, Abyssal bludgeon, Barrelchest anchor, Sunspear,
-  Dual macuahuitl, Scorching bow.
+  shortbows and ballistas. Fixed: Dark bow and Tonalztics fire two shots on every attack.
+  Added 14:00: Saradomin sword (+1-16 magic on a hit), Barrelchest anchor (Defence -10% of damage), Bone dagger and
+  Dorgeshuun crossbow (can't miss a fresh target; one Defence drain by the damage), Sunspear (70% of max), Scorching
+  bow (5 burn on demons), Eclipse atlatl (+50% accuracy, burns consumed: est. +5 max), Blue Moon spear (est. 16 ticks of
+  bind removed: +24%), Saradomin's blessed sword, Dual macuahuitl (needs the Blood Moon set), Magic longbow / comp
+  bow / Seercull (always hit), Soulreaper axe (a cycle of 5 attacks building stacks then Behead, against holding 5
+  stacks). Not done: Abyssal bludgeon (depends on how much Prayer you've used), Dawnbringer (Verzik P1 isn't modelled).
 
 ## Next
 
