@@ -107,16 +107,16 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   (at Zulrah magic only does two forms). Now each style is re-optimised for the parts it wins and its
   owned-only gear is tried too, keeping whatever makes the whole target faster within budget. Zulrah at 10M
   is now 63.7s (was 69.6). Costs ~4s more on the first kill-rate run (now ~14s with your bank, then cached).
-- **Kill-rate outliers** (14:50): with your bank, no boss hits the 0.2x/2x clamp; the budget setups at Vorkath
+- **Kill-rate outliers** (14:30): with your bank, no boss hits the 0.2x/2x clamp; the budget setups at Vorkath
   and Nex come closest (1.9x, expected for a high account). Zuk, Jad, Zalcano and the Fractured Archive have no
   Wiki gear list, so they keep the guide's rate. Maggot King comes out 0.95x (guide gear you don't own).
-- **Awkward accounts** (14:55): Best Setup on all 56 targets and the DPS page with all 54 spec weapons on 3
+- **Awkward accounts** (14:35): Best Setup on all 56 targets and the DPS page with all 54 spec weapons on 3
   targets, for no account, a fresh account, all 40s with 0 GP, all 99s with 10B and no prayers, all 70s with
   50M: no script errors or broken numbers (all 56 targets worked out in under 25s in total per account). A fresh or 0-GP account with no bank used to show
   a blank "—" result; it now says nothing usable was found and what to do (import the bank, raise the budget).
 - **Phone width** (390px): the DPS page made the whole page scroll sideways (the long Monster list); fixed. The
   setup columns and the parts tables scroll inside their own boxes, as intended.
-- **Engine against the Wiki's own DPS calculator** (15:50): the Wiki calculator's code is open source
+- **Engine against the Wiki's own DPS calculator** (14:45): the Wiki calculator's code is open source
   (weirdgloop/osrs-dps-calc), so I ran it on 268 setups the optimiser picks (every boss, 10B, 50M and the
   Wiki's gear, max levels) with the same style, spell, prayer and potions, and compared. 252 now agree within 1%
   (was 168 at the first run, though most of that gap was my test harness). Fixed in ours:
@@ -135,6 +135,20 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Still different, on purpose or out of my hands: Vardorvis (we use his average Defence, 180, not 215, +8%);
   Silvthrill ballista (the calculator doesn't know it fires javelins yet); the full Inquisitor's set (+1% since
   the July change, not in the calculator yet); Doom (the calculator's phase setting).
+- **Special attacks against the Wiki calculator** (15:15): every spec weapon in a max loadout of its style on
+  Vorkath, Graardor, Cerberus and K'ril: 162 of 188 agree within 2% (was 39). Fixed:
+  - **Torva platebody, platelegs and full helm** were read from the Wiki's "(unobtainable item)" pages (no stats)
+    when looked up by name (the DPS page does that): those pages are now skipped.
+  - **Seeking dragon arrows** counted as the lowest arrow tier, so they "fitted" magic shortbows and longbows.
+  - **Abyssal dagger**: the second hit always lands when the first does (was rolled again).
+  - **Halberds**: the second hit on a big monster rolls at 3/4 accuracy (was the same as the first).
+  - **Saradomin's blessed sword** rolls against Magic Defence. **Webweaver bow**: each hit is max -60% (rounded
+    the game's way). **Sunspear**: 70% of max +1. **Zaryte crossbow**: the bolt effect needs enchanted bolts.
+  - **Magic shortbow/longbow, comp bow, Seercull**: the spec's max hit comes from Ranged + 10 and the arrow only.
+  - **Burning claws**: the Wiki's exact damage split and burn odds. **Scorching bow** burns non-demons for 1.
+  - **Keris partisan of amascut** has better stats inside ToA only (both versions were in the list as one item).
+  On purpose: Zorya's tome (ours counts the 3 buffed attacks after it), Ancient godsword (ours counts the 25
+  bleed), Bone dagger and Dorgeshuun crossbow (can't miss a fresh target), Soulreaper (worked out as a cycle).
 
 ## Next
 

@@ -21,7 +21,7 @@ def n(v):
         try: return float(v)
         except (TypeError, ValueError): return 0
 
-SKIP = re.compile(r"\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)|^Castle wars (bolts|arrow)|^Corrupted |\((basic|attuned|perfected)\)|^Echo |^Zaryte bow|^Crystal bow \d+/10|^Crystal bow full|^Training |^Signed oak", re.I)
+SKIP = re.compile(r"\(unobtainable|\(historical|\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)|^Castle wars (bolts|arrow)|^Corrupted |\((basic|attuned|perfected)\)|^Echo |^Zaryte bow|^Crystal bow \d+/10|^Crystal bow full|^Training |^Signed oak", re.I)
 # Items only usable in minigames, Leagues, Deadman or discontinued events (from the Wiki's categories)
 cat_path = os.path.join(SRC, "categories_raw.json")
 CATS = {k.lower(): v for k, v in json.load(open(cat_path)).items()} if os.path.exists(cat_path) else {}
@@ -30,6 +30,7 @@ dropped = []
 tables = {}
 seen = {}
 alt_ids = {}
+inside_toa = {}
 page_of = {}
 for r in raw:
     slot = r.get("infobox_bonuses.equipment_slot")
@@ -60,6 +61,8 @@ for r in raw:
         it["speed"] = n(r.get("infobox_bonuses.weapon_attack_speed")) or 4
         cat = (r.get("infobox_bonuses.combat_style") or "Unarmed").strip()
         it["category"] = cat[:1].upper() + cat[1:].lower() if cat.islower() else cat
+    if ver == "Inside ToA":       # Keris partisan of amascut: better stats inside the Tombs; kept on the normal item
+        inside_toa[name] = it["b"]; continue
     key = (slot, name, json.dumps(it["b"], sort_keys=True), it.get("speed"), it.get("category"))
     if key in seen:   # same item, another version or id (e.g. ornament kits, Soul Wars imbue): keep one, note the ids
         seen[key].setdefault("ids", []).extend([it["id"]] + it.get("ids", [])); continue
@@ -67,6 +70,9 @@ for r in raw:
     page_of[id(it)] = r.get("page_name")
     tables.setdefault(slot, []).append(it)
 
+for lst in tables.values():
+    for it in lst:
+        if it["name"] in inside_toa: it["toa"] = inside_toa[it["name"]]
 print(f"  left out (minigame, Leagues, Deadman, discontinued): {len(set(dropped))} items", flush=True)
 for items in tables.values():
     for it in items:

@@ -7,7 +7,7 @@
 //    energy as it comes (100% at the start, then 10% every 30 seconds, twice as fast with a Lightbearer).
 // Each spec takes the place of a normal attack for the spec weapon's attack time.
 
-import { calc, bestCalc, attackStyles, styleKind, TICK, THRALL_DPS, fl } from './dps.js';
+import { calc, bestCalc, attackStyles, styleKind, TICK, THRALL_DPS, fl, boosts } from './dps.js';
 
 // cost: energy %; type: the attack type used; acc / dmg: multipliers (dmg applied in order, each rounded down)
 export const SPECS = {
@@ -35,7 +35,7 @@ export const SPECS = {
   'Volatile nightmare staff': { cost: 55, type: 'magic', acc: 1.5, staffMax: 58 },
   'Eye of Ayak': { cost: 50, type: 'magic', acc: 2, dmg: [1.3], speed: 5 },
   "Zorya's tome": { cost: 50, type: 'magic', acc: 2.5, dmg: [1.6], zorya: true },   // a hit buffs the next 3 attacks the same, at 2 ticks
-  'Webweaver bow': { cost: 50, type: 'ranged', acc: 2, dmg: [0.4], hits: 4 },
+  'Webweaver bow': { cost: 50, type: 'ranged', acc: 2, cut: 0.6, hits: 4 },
   'Burning claws': { cost: 35, type: 'slash', burning: true },
   'Crimson kisten': { cost: 50, type: 'crush', kisten: true },
   'Zamorak godsword': { cost: 50, type: 'slash', acc: 2, dmg: [1.1] },
@@ -48,8 +48,8 @@ export const SPECS = {
   'Arkan blade': { cost: 30, type: 'slash', acc: 1.5, dmg: [1.5], burn: 10 },
   'Dragon knife': { cost: 25, type: 'ranged', hits: 2 },
   'Rosewood blowpipe': { cost: 25, type: 'ranged', hits: 2 },
-  'Magic shortbow (i)': { cost: 50, type: 'ranged', acc: 10 / 7, hits: 2 },
-  'Magic shortbow': { cost: 55, type: 'ranged', acc: 10 / 7, hits: 2 },
+  'Magic shortbow (i)': { cost: 50, type: 'ranged', acc: 10 / 7, hits: 2, ammoOnly: true },
+  'Magic shortbow': { cost: 55, type: 'ranged', acc: 10 / 7, hits: 2, ammoOnly: true },
   'Heavy ballista': { cost: 65, type: 'ranged', acc: 1.25, dmg: [1.25] },
   'Light ballista': { cost: 65, type: 'ranged', acc: 1.25, dmg: [1.25] },
   // added 25 Nov (later afternoon)
@@ -58,14 +58,14 @@ export const SPECS = {
   'Bone dagger': { cost: 75, type: 'stab', alwaysHit: true, once: true, drain: { damage: true } },   // can't miss a fresh target; Defence -damage, once
   'Dorgeshuun crossbow': { cost: 75, type: 'ranged', alwaysHit: true, once: true, drain: { damage: true } },
   'Sunspear': { cost: 50, type: 'stab', fixedPct: 0.7 },                                      // a hit always deals 70% of max
-  'Scorching bow': { cost: 25, type: 'ranged', demonBurn: 5 },                                 // binds and burns demons for 5
+  'Scorching bow': { cost: 25, type: 'ranged', demonBurn: 5 },                                 // burns demons for 5, anything else for 1
   'Eclipse atlatl': { cost: 50, type: 'ranged', acc: 1.5, eclipse: true, needs: 'eclipse' },   // consumes burns: max +burn left (est. 5)
   'Blue Moon spear': { cost: 50, type: 'stab', acc: 1.24, dmg: [1.24], needs: 'blue' },        // +1.5% per tick of bind removed (est. 16)
-  "Saradomin's blessed sword": { cost: 65, type: 'slash', dmg: [1.25] },
+  "Saradomin's blessed sword": { cost: 65, type: 'slash', dmg: [1.25], vsDef: 'magic' },   // rolls against Magic Defence
   'Dual macuahuitl': { cost: 25, type: 'crush', dualmac: true, needs: 'blood' },
-  'Magic longbow': { cost: 35, type: 'ranged', alwaysHit: true },
-  'Magic comp bow': { cost: 35, type: 'ranged', alwaysHit: true },
-  'Seercull': { cost: 100, type: 'ranged', alwaysHit: true },
+  'Magic longbow': { cost: 35, type: 'ranged', alwaysHit: true, ammoOnly: true },
+  'Magic comp bow': { cost: 35, type: 'ranged', alwaysHit: true, ammoOnly: true },
+  'Seercull': { cost: 100, type: 'ranged', alwaysHit: true, ammoOnly: true },
   'Soulreaper axe': { cost: 0, type: 'slash', soulreaper: true },
 };
 const NEEDS = { eclipse: /^Eclipse moon/i, blue: /^Blue moon/i, blood: /^Blood moon/i };
@@ -79,7 +79,7 @@ const REGEN_PER_SEC = 10 / 30;
 const burnImmune = m => m.burnImmune === 'normal' || m.burnImmune === 'strong';   // normal burns (claws, Arkan blade)
 
 /** Expected damage of one special attack (and the time it takes), or null if it can't be used. */
-function specHit(player, lo, monster, sp, opts) {
+export function specHit(player, lo, monster, sp, opts) {
   const w = lo.weapon;
   const kindOf = sp.type === 'ranged' ? 'ranged' : sp.type === 'magic' ? 'magic' : 'melee';
   const styles = attackStyles(w).filter(s => styleKind(s.type) === kindOf);
@@ -88,9 +88,13 @@ function specHit(player, lo, monster, sp, opts) {
     : kindOf === 'magic' ? (styles.find(s => s.stance === 'accurate') || styles[0]) : styles.find(s => s.stance === 'rapid') || styles[0];
   if (sp.needs && !hasSet(lo, NEEDS[sp.needs])) return null;
   if (opts.meleeWeapon && kindOf === 'melee' && !new RegExp(opts.meleeWeapon, 'i').test(w?.name || '')) return null;   // e.g. Zulrah: halberds only                  // the spec needs its armour set
-  const r = calc(player, lo, monster, style, null, { ...opts, spec: { acc: sp.acc, dmg: sp.dmg, fang: sp.fang, voidwaker: sp.voidwaker, staffMax: sp.staffMax, alwaysHit: sp.alwaysHit } });
+  const r = calc(player, lo, monster, style, null, { ...opts, spec: { acc: sp.acc, dmg: sp.dmg, fang: sp.fang, voidwaker: sp.voidwaker, staffMax: sp.staffMax, alwaysHit: sp.alwaysHit, cut: sp.cut, vsDef: sp.vsDef } });
   if (!r.maxHit && !sp.bolt) return null;
-  const p = r.accuracy, M = r.maxHit;
+  const p = r.accuracy;
+  let M = r.maxHit;
+  // Magic short/longbow, comp bow and Seercull specs: max hit from Ranged level + boost + 10 and the arrow alone (other gear ignored)
+  if (sp.ammoOnly) { const B = boosts(player); M = Math.trunc(((player.levels.Ranged + B.Ranged + 10) * ((lo.ammo?.b?.rstr || 0) + 64) + 320) / 640); }
+  const mean = (M * (M + 1) / 2 + 1) / (M + 1);        // a landed hit: 0 to max, 0 counted as 1
   let dmg;
   const secs = (sp.speed || r.speed) * TICK;
   if (sp.claws) {          // the four hits depend on which roll lands first (Wiki: 4-2-1-1, 0-4-2-2, 0-0-3-3, 0-0-0-5)
@@ -98,14 +102,19 @@ function specHit(player, lo, monster, sp, opts) {
     dmg = p * 1.5 * M + q * p * 1.25 * M + q * q * p * M + q ** 3 * p * 0.75 * M + q ** 4 * 4 / 3;
   } else if (sp.bolt) {    // Zaryte crossbow: a hit always triggers the bolt effect
     const a = lo.ammo?.name || '';
-    if (/^Ruby/.test(a)) dmg = p * Math.min(110, Math.trunc(monster.hp / 2 * 22 / 100));
-    else if (/^Diamond/.test(a)) dmg = p * (Math.trunc(M * 126 / 100) / 2);
-    else if (/^Onyx/.test(a)) dmg = p * (Math.trunc(M * 132 / 100) / 2);
+    if (/^Ruby.*\(e\)/.test(a)) dmg = p * Math.min(110, Math.trunc(monster.hp / 2 * 22 / 100));
+    else if (/^Diamond.*\(e\)/.test(a)) dmg = p * (Math.trunc(M * 126 / 100) / 2);
+    else if (/^Onyx.*\(e\)/.test(a)) dmg = p * (Math.trunc(M * 132 / 100) / 2);
     else dmg = r.perAttack;
-  } else if (sp.burning) {    // Burning claws: three rolls; each of the 3 hitsplats can burn for 10 (15/30/45% by which roll hit)
-    const q = 1 - p;
-    dmg = p * 1.25 * M + q * p * M + q * q * p * 0.75 * M;
-    if (!burnImmune(monster)) for (let k = 0; k < 3; k++) dmg += q ** k * p * 3 * 10 * 0.15 * (k + 1);
+  } else if (sp.burning) {    // Burning claws (as the Wiki calculator): roll k that lands sets the damage range; 3 hitsplats,
+    // each burns for 10 with a 15/30/45% chance by which roll landed (one point lost when the first two both burn)
+    const q = 1 - p; dmg = q ** 3 * 1.2;
+    for (let k = 0; k < 3; k++) {
+      const low = Math.trunc(M * (3 - k) / 4), high = M + low, ch = q ** k * p / (high - low + 1);
+      for (let d = low; d <= high; d++) dmg += ch * (k === 0 ? Math.trunc(d / 2) + 2 * Math.trunc(d / 4) : k === 1 ? 2 * Math.trunc(d / 2) : d);
+      const c = 0.15 * (k + 1);
+      if (!burnImmune(monster)) dmg += q ** k * p * (30 * c - c * c);
+    }
   } else if (sp.kisten) {     // Crimson kisten: four accuracy rolls in one hit; i successes = 50+20i% to 90+20i% of max
     let e = 0;
     for (let i = 1; i <= 4; i++) e += [1, 4, 6, 4, 1][i] * p ** i * (1 - p) ** (4 - i) * M * (70 + 20 * i) / 100;
@@ -121,8 +130,10 @@ function specHit(player, lo, monster, sp, opts) {
   } else if (sp.zorya) {      // Zorya's flow: if it hits, the next 3 tome attacks get +150% accuracy, +60% damage, 2 ticks each
     dmg = r.perAttack + p * 3 * r.perAttack;
     return { dmg, p, maxHit: M, secs: secs + p * 3 * 2 * TICK, avgOnHit: p ? r.perAttack / p : 0 };
-  } else if (sp.fixedPct) {
-    dmg = p * Math.max(1, fl(M * sp.fixedPct));
+  } else if (sp.ammoOnly) {
+    dmg = (sp.hits || 1) * (sp.alwaysHit ? 1 : p) * mean;
+  } else if (sp.fixedPct) {   // Sunspear: a hit deals 70% of max, +1
+    dmg = p * (Math.trunc(M * sp.fixedPct) + 1);
   } else if (sp.eclipse) {
     dmg = r.perAttack + p * 3.75;
   } else if (sp.dualmac) {    // both hitsplats roll accuracy on their own, each +25%, max +25% before the split
@@ -131,12 +142,16 @@ function specHit(player, lo, monster, sp, opts) {
     dmg = r2.accuracy * (m1 / 2 + 0.5) + r2.accuracy * (m2 / 2 + 0.5);
   } else if (sp.hits) {
     if (sp.large && monster.size < 2) dmg = r.perAttack;
-    else if (sp.second === 'onHit') dmg = r.perAttack + p * r.perAttack;
+    else if (sp.large) {      // halberds: the second hit on a big monster rolls at 3/4 of the attack roll
+      const r2 = calc(player, lo, monster, style, null, { ...opts, spec: { acc: (sp.acc || 1) * 0.75, dmg: sp.dmg } });
+      dmg = r.perAttack + r2.perAttack;
+    }
+    else if (sp.second === 'onHit') dmg = 2 * r.perAttack;   // Abyssal dagger: the second hit always lands when the first does
     else dmg = sp.hits * r.perAttack;
   } else dmg = r.perAttack;
   if (sp.flat) dmg += sp.flat;                  // Granite hammer: +5 to every hit
   if (sp.onHit) dmg += p * sp.onHit;
-  if (sp.demonBurn && monster.attributes.includes('demon') && !burnImmune(monster)) dmg += sp.demonBurn;
+  if (sp.demonBurn && !burnImmune(monster)) dmg += monster.attributes.includes('demon') ? sp.demonBurn : 1;
   if (sp.bleed) dmg += p * sp.bleed;            // Ancient godsword: 25 more after a delay if it hits
   if (sp.burn && !burnImmune(monster)) dmg += p * sp.burn;   // Arkan blade: a 10 damage burn
   return { dmg, p, maxHit: M, secs, avgOnHit: p ? r.perAttack / p : 0 };

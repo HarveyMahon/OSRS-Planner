@@ -151,7 +151,7 @@ const DRAGON_ARROW_BOWS = ['Twisted bow', 'Dark bow', '3rd Age bow', 'Scorching 
 const NO_AMMO_BOWS = /^(Crystal bow|New crystal bow|Bow of faerdhinen|Craw's bow|Webweaver bow|Venator bow|Nature's recurve|Starter bow|Cursed goblin bow)/i;
 const DRAGON_BOLT_XBOWS = ['Armadyl crossbow', 'Zaryte crossbow', 'Dragon crossbow', 'Dragon hunter crossbow'];
 const AMMO_TIER = [['Dragon', 6], ['Amethyst', 5], ['Rune', 4], ['Adamant', 3], ['Mithril', 2], ['Steel', 1], ['Iron', 0], ['Bronze', 0]];
-const arrowTier = n => (AMMO_TIER.find(([t]) => n.startsWith(t)) || [null, 0])[1];
+const arrowTier = n => (AMMO_TIER.find(([t]) => new RegExp('\\b' + t + '\\b', 'i').test(n)) || [null, 0])[1];   // 'Seeking dragon arrow' is dragon tier
 // Weapons that fire only their own ammo, and that ammo fires from nothing else
 const OWN_AMMO = [
   [/^Karil's crossbow/, /^Bolt rack/], [/^Dorgeshuun crossbow/, /^Bone bolts/], [/^Hunters' /, /antler bolts/i],
@@ -250,7 +250,7 @@ export function totals(lo, monster, opts = {}) {
     const ranged = s !== 'ammo' || ammoFits(w, it);
     for (const k of Object.keys(t)) {
       if (!ranged && (k === 'rstr' || k === 'arange')) continue;
-      t[k] += it.b?.[k] || 0;
+      t[k] += (opts.toa && it.toa ? it.toa : it.b)?.[k] || 0;   // Keris partisan of amascut: Tombs stats inside ToA
     }
   }
   if (isBlowpipe(w)) t.rstr += BLOWPIPE_DART.rstr;
@@ -418,12 +418,13 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (spec.fang) { max += min; }                          // the fang's spec keeps its full max hit (min stays)
     if (spec.acc) atk = fl(atk * spec.acc);
     for (const f of spec.dmg || []) max = fl(max * f);
+    if (spec.cut) max -= Math.trunc(max * spec.cut);           // Webweaver bow: max hit -60% for each of its 4 hits
     if (spec.voidwaker) { min = fl(max / 2); max += min; }
     if (spec.minPct) min = fl(max * spec.minPct);
     hits = 1;
   }
   // ---- expected damage per attack ----
-  const def = npcDefRoll(m, kind === 'melee' ? style.type : kind, w);
+  const def = npcDefRoll(m, opts.spec?.vsDef || (kind === 'melee' ? style.type : kind), w);   // (Saradomin's blessed sword's spec rolls against Magic Defence)
   let p = spec?.voidwaker || spec?.alwaysHit ? 1 : isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
   // Confliction gauntlets: after a missed magic attack with a one-handed weapon, the next rolls accuracy twice
   if (kind === 'magic' && /^Confliction gauntlets/.test(lo.hands?.name || '') && !w?.two) { const d = fangChance(atk, def); p = d / (1 + d - p); }
