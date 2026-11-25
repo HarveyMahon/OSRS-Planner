@@ -20,9 +20,11 @@ Ideas parked for later. Nothing here is being worked on right now.
 ## Review round 2 (pages) — decisions for review (25 Nov)
 
 - **Bosses on Money Makers / planner**: offered only when your kill rate is at least half the guide's. Your kill
-  rate replaces the Attack, Strength, Ranged and Magic requirements, but the setup's Defence, Hitpoints and
-  Prayer requirements still apply (survival and protection/offensive prayers aren't modelled). This stops a 70s
-  account being sent to Sol Heredit.
+  rate replaces the Attack, Strength, Ranged and Magic requirements, but the setup's Defence and Hitpoints
+  requirements still apply (survival isn't modelled). Prayer requirements count only up to 43 (protection
+  prayers): what higher Prayer adds (Piety, Rigour, Augury) is already in the kill rate. (17:45, Harvey: requiring
+  70-85 Prayer blocked every good boss while the plan was paying for Prayer training.) A boss with no kill rate
+  (no Wiki gear list) keeps all its requirements.
 - **Slayer kill speed**: the rate sheets assume strong gear and stats. Slayer task times are now scaled by your
   kill speed: the middle of your boss kill-rate factors against the Wiki's high-level setups, capped at 100%
   (a mid account comes out about 63%: Nieve 36K Slayer XP/hr instead of ~64K). The Slayer tab uses the kill

@@ -31,7 +31,10 @@ export function withoutCombatLevels(req) {
   if (!req) return req;
   if (req.all) return { all: req.all.map(withoutCombatLevels).filter(Boolean) };
   if (req.any) { const any = req.any.map(withoutCombatLevels); return any.some(r => r == null) ? null : { any }; }
-  if (req.skill && OFFENCE.includes(req.skill)) return null;      // your kill rate covers damage; Defence, HP and Prayer still guard survival
+  if (req.skill && OFFENCE.includes(req.skill)) return null;      // your kill rate covers damage; Defence and HP still guard survival
+  // Prayer: what it adds to damage (Piety, Rigour, Augury at 70+) is in your kill rate already (the best prayer
+  // your level allows); for survival only the protection prayers (43) are required
+  if (req.skill === 'Prayer' && req.level > 43) return { ...req, level: 43 };
   return req;
 }
 

@@ -266,8 +266,10 @@ export function plan(goals, d) {
         // so it stays a candidate and is judged at the plan's levels below
         if (r || rateAt ? !isMet(withoutCombatLevels(s.requires), sim, reqCtx) : !isMet(s.requires, sim, reqCtx)) continue;
         const m = methodOf(b, s.id), guide = bossMethod(b, items, { setupId: s.id }).gpPerHr;
-        const now = !r || viableRate(r) ? m.gpPerHr : 0;
-        if (now > 0 || (rateAt && guide > 0)) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: now, guide, wilderness: !!b.wilderness, b, s });
+        // without a kill rate (no Wiki gear list to compare with), the guide's full requirements apply
+        const fullOk = isMet(s.requires, sim, reqCtx);
+        const now = r ? (viableRate(r) ? m.gpPerHr : 0) : fullOk ? m.gpPerHr : 0;
+        if (now > 0 || (rateAt && guide > 0)) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: now, guide, fullOk, wilderness: !!b.wilderness, b, s });
       }
     }
     // the best bosses again at the levels the plan has reached by now: the best few by today's rate and the best
@@ -278,9 +280,10 @@ export function plan(goals, d) {
       for (const o of pick) {
         const r = rateAt(o.b, o.s, sim.xp, sim.gp);
         if (r) o.gpPerHr = r.kph > 0 && viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
+        else if (!rateOf(o.b, o.s)) o.gpPerHr = o.fullOk ? o.guide : 0;
       }
     }
-    for (const o of out) delete o.guide;
+    for (const o of out) { delete o.guide; delete o.fullOk; }
     for (let i = out.length - 1; i >= 0; i--) if (out[i].gpPerHr <= 0) out.splice(i, 1);
     for (const o of out) { delete o.b; delete o.s; }
     for (const m of methods) {
