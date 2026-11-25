@@ -229,8 +229,9 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   survival aren't modelled, so a low-Defence account could see e.g. Nex if its DPS is good. Easy to add back
   a minimum if you'd rather.
 - **Soulreaper axe** counted at 5 stacks all the time.
-- **Spec energy in raids and multi-part content**: every room or part starts with full energy (the time
-  between rooms usually refills it; true for every raid but CoX, kept for CoX too as it's hard to model). Xarpus
-  is now melee or ranged (melee is best). A melee spec isn't used on a part that only allows ranged.
+- **Spec energy in raids and multi-part content** (superseded 25 Nov, see the adversarial rounds above): ToB, ToA
+  and the Fractured Archive refill energy at the end of each room, so each room has its own pool (a full bar plus
+  regeneration in that room); CoX, the Fight Cave, Inferno and Colosseum have one pool for the whole run (Harvey).
+  Xarpus is melee or ranged (melee is best). A melee spec isn't used on a part that only allows ranged.
 - **Budget across styles**: the style used on most of the target's HP is optimised first with the full
   budget; later styles get what's left, and items already bought are free for them.

@@ -15,6 +15,11 @@
   .opts label { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 14px; }
   .opts input[type=checkbox] { width: auto; }
   .opts select, .opts input[type=number] { width: auto; }
+  .opts label { max-width: 100%; min-width: 0; flex-wrap: wrap; }
+  main.page > *, .panel, .panel > * { min-width: 0; }
+  .opts select { max-width: min(100%, calc(100vw - 80px)); min-width: 0; text-overflow: ellipsis; }
+  #rooms .faint { white-space: normal; }
+  .opts > * { min-width: 0; max-width: 100%; }
   .stats { display: flex; gap: 28px; flex-wrap: wrap; }
   .stats div span { display: block; color: var(--muted); font-size: 12px; }
   .stats div b { font: 500 22px var(--mono); }
