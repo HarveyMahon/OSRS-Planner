@@ -211,6 +211,17 @@ t('quest points and prerequisites', () => {
   assert.deepEqual([...prerequisiteQuests('c', quests)].sort(), ['a', 'b']);
 });
 
+const TR = await import('../core/training.js');
+t('training: a locked method falls back to another track instead of stretching', () => {
+  const afk = { id: 'a', kind: 'afk', intensity: 1, stages: [{ from: 1, name: 'Slow', xpPerHr: 10000 }, { from: 30, name: 'Locked', xpPerHr: 50000, requires: { quest: 'q' } }] };
+  const fast = { id: 'f', kind: 'fastest', intensity: 4, stages: [{ from: 1, name: 'Slow', xpPerHr: 10000 }, { from: 30, name: 'Open', xpPerHr: 40000 }] };
+  const acc = { xp: {}, quests: {} };
+  const e = TR.estimate(afk, 0, xpForLevel(50), {}, { account: acc, ctx: {}, others: [afk, fast] });
+  assert.equal(e.segments[1].stage.name, 'Open'); assert.equal(e.segments[1].instead.name, 'Locked');
+  const lone = TR.estimate(afk, 0, xpForLevel(50), {}, { account: acc, ctx: {} });
+  assert.ok(lone.hours > e.hours);
+});
+
 const { plan, stageOptions } = await import('../core/planner.js');
 t('planner', () => {
   const items = { bone: { price: 1000 }, loot: { price: 500000 } };

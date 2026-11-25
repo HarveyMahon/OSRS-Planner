@@ -328,7 +328,7 @@ export function plan(goals, d) {
     if (fromXp >= toXp) return;
     const track = (skill === 'Slayer' && slayerTrack(fromXp, toXp)) || applySwaps(trackFor(training, skill, intensity, { hideWild }), swaps, training, skill);
     if (!track) { warnings.push(`No training data for ${skill}.`); sim.xp[skill] = toXp; return; }
-    let e = estimate(track, fromXp, toXp, items, { account: sim, ctx: reqCtx });
+    let e = estimate(track, fromXp, toXp, items, { account: sim, ctx: reqCtx, others: training.skills[skill] || [] });
     let used = track;
     if (e.blocked) {
       // Blocked by a quest on the method: do it first if it's a small one (no unfinished quests
@@ -338,7 +338,7 @@ export function plan(goals, d) {
       const small = q => !doing.has(q) && quests[q] && (quests[q].requires?.all || []).every(r => !r.quest || sim.quests[r.quest] === 'complete');
       if (qs.length && qs.every(small)) {
         qs.forEach(q => doQuestNow(q));
-        e = estimate(track, fromXp, toXp, items, { account: sim, ctx: reqCtx });
+        e = estimate(track, fromXp, toXp, items, { account: sim, ctx: reqCtx, others: training.skills[skill] || [] });
       }
       if (e.blocked) {
         for (const alt of (training.skills[skill] || []).filter(t => t !== track && t.id !== track.id)) {

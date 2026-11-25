@@ -27,12 +27,13 @@ function render() {
   if (!tracks.length) { $('results').innerHTML = `<p class="muted">No training data for ${esc(skill)} yet.</p>`; return; }
   const ctx = { quests: QUESTS.quests };
   $('results').innerHTML = tracks.map(t => {
-    const e = estimate(t, fromXp, xpForLevel(toLvl), ITEMS.items, { account: ACCOUNT, ctx });
+    const e = estimate(t, fromXp, xpForLevel(toLvl), ITEMS.items, { account: ACCOUNT, ctx, others: tracks });
     const cost = e.gp > 0 ? `<span class="cost">${gpShort(e.gp)} cost</span>` : e.gp < 0 ? `<span class="gain">${gpShort(-e.gp)} profit</span>` : 'no item cost';
-    const time = e.blocked ? `<span class="cost">No stage you can use at level ${e.blocked}</span>`
+    const time = e.blocked ? `<span class="cost">No method you can use at level ${e.blocked}${e.blockedBy ? ` (needs ${esc(describe(e.blockedBy, ctx))})` : ''}</span>`
       : `${hrs(e.hours)}${e.realHours > e.hours * 1.5 ? ` <span class="muted">(${Math.ceil(e.realHours / 24)} days of growing)</span>` : ''}`;
     const segs = e.segments.map(s => `<li><b>${s.fromLevel}–${s.toLevel}</b> ${esc(s.stage.name)}
         <span class="muted">${Math.round(s.stage.xpPerHr / 1000)}K XP/hr${s.hours != null ? ` · ${hrs(s.hours)}` : ''}${s.stage.xpEach || s.stage.costPerHr ? ` · ${gpPerXp(s.stage, ITEMS.items).toFixed(1)} gp/XP` : ''}${s.stage.wilderness ? ' · <span class="wild">Wilderness</span>' : ''}${s.stage.requires ? ` · needs ${esc(describe(s.stage.requires, ctx))}` : ''}</span>
+        ${s.instead ? `<div class="note">Instead of ${esc(s.instead.name)}, which needs ${esc(describe(s.instead.requires, ctx))}.</div>` : ''}
         ${s.stage.note ? `<div class="note">${esc(s.stage.note)}</div>` : ''}</li>`).join('');
     return `<article class="card track ${t.kind}">
       <header><span class="kind">${KIND[t.kind]}</span><h2>${esc(t.label)}</h2><span class="dots" title="Intensity ${t.intensity} of 5">${DOTS(t.intensity)}</span></header>

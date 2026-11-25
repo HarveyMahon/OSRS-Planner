@@ -120,10 +120,14 @@ function run() {
     const k = e.target.dataset?.open;
     if (!k) return;
     const lo = r.kinds[k].loadout;
-    const big = r.perPart.map((p, i) => ({ i, p })).filter(x => x.p.kind === k).sort((a, b) => b.p.seconds - a.p.seconds)[0];
+    // the part with the toughest single monster this style fights (Jad in the Fight Cave, Olm's head in CoX)
+    const big = r.perPart.map((p, i) => ({ i, p })).filter(x => x.p.kind === k).sort((a, b) => (monsters[b.p.monster]?.hp || 0) - (monsters[a.p.monster]?.hp || 0) || b.p.seconds - a.p.seconds)[0];
+    // only the spec weapons this style uses (the DPS page swaps them into this card's armour)
+    const kindOfSpec = w => { const t = specOf(w)?.type; return t === 'ranged' ? 'ranged' : t === 'magic' ? 'magic' : 'melee'; };
+    const mine = [r.spec?.drain, r.spec?.damage].filter(x => x && kindOfSpec(x.item) === k).map(x => x.item.name);
     const partIdx = big ? (targets[$('target').value].parts || []).findIndex(q => q.monster === big.p.monster) : 0;
     saveDps({ ...loadDps(), target: $('target').value, part: Math.max(0, partIdx), onTask: $('onTask').checked, thrall: r.thrall,
-      loadouts: [{ name: `Best ${k}`, spec: (r.spec?.drain || r.spec?.damage)?.item.name || '', spec2: r.spec?.drain && r.spec?.damage ? r.spec.damage.item.name : '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
+      loadouts: [{ name: `Best ${k}`, spec: mine[0] || '', spec2: mine[1] || '', slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
     location.href = '../dps/';
   };
   saveDps({ ...loadDps(), target: $('target').value });

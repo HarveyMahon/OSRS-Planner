@@ -32,19 +32,34 @@ export function stageAt(track, level, account, ctx) {
 
 /**
  * Estimate training from `fromXp` to `toXp` on `track`.
- * Returns { hours, gp, realHours, segments: [{ stage, fromLevel, toLevel, xp, hours, gp }], blocked }
+ * Returns { hours, gp, realHours, segments: [{ stage, instead, fromLevel, toLevel, xp, hours, gp }], blocked, blockedBy }
+ *   instead: this track's own stage there, when it's locked and another track's method stands in (opts.others)
  *   hours: hours of play; realHours: wall-clock hours (only differs for recurring stages like tree runs)
- *   blocked: a level with no stage you can use (track starts higher, or requirements unmet)
+ *   blocked: a level with no stage you can use (track starts higher, or requirements unmet); blockedBy: what it needs
  */
-export function estimate(track, fromXp, toXp, items, { account, ctx } = {}) {
-  const res = { hours: 0, gp: 0, realHours: 0, segments: [], blocked: null };
+export function estimate(track, fromXp, toXp, items, { account, ctx, others = [] } = {}) {
+  const res = { hours: 0, gp: 0, realHours: 0, segments: [], blocked: null, blockedBy: null };
+  const usable = s => !account || !s.requires || isMet(s.requires, account, ctx);
+  // other tracks for the skill, no more intense than this one: where this track's method at a level needs a quest
+  // or unlock you don't have, the best of theirs stands in (instead of stretching an earlier method to 99)
+  const anyAlts = others.filter(t => t !== track && t.id !== track.id);
+  const alts = anyAlts.filter(t => (t.intensity ?? 9) <= (track.intensity ?? 9));
   let xp = fromXp;
   while (xp < toXp) {
     const level = levelForXp(xp, { virtual: true });
-    const stage = stageAt(track, level, account, ctx);
-    if (!stage) { res.blocked = level; break; }
-    // this stage lasts until the next stage starts (that you can use) or the target
-    const next = track.stages.find(s => s.from > level && (!account || !s.requires || isMet(s.requires, account, ctx)));
+    let stage = stageAt(track, level, account, ctx), instead = null;
+    const latest = [...track.stages].filter(s => s.from <= level).pop();
+    if (latest && latest !== stage && account) {           // this track's method here is locked
+      const best = ts => ts.map(t => stageAt(t, level, account, ctx)).filter(Boolean).sort((a, b) => b.xpPerHr - a.xpPerHr)[0];
+      const calm = best(alts), any = best(anyAlts);         // a calmer track's method, unless another track's is faster
+      const alt = calm && (!any || calm.xpPerHr >= any.xpPerHr) ? calm : any;
+      if (alt && (!stage || alt.xpPerHr > stage.xpPerHr)) { stage = alt; instead = latest; }
+    }
+    if (!stage) { res.blocked = level; res.blockedBy = latest?.requires || track.stages.find(s => s.requires)?.requires || null; break; }
+    // this stage lasts until the next stage starts (that you can use, here or on a stand-in track) or the target
+    const nexts = [track, ...(instead ? anyAlts : [])].map(t => t.stages.find(s => s.from > level && usable(s))).filter(Boolean)
+      .concat(track.stages.filter(s => s.from > level && !usable(s)).slice(0, 1));     // a locked stage: re-check stand-ins there
+    const next = nexts.sort((a, b) => a.from - b.from)[0];
     const end = Math.min(toXp, next ? xpForLevel(next.from) : Infinity);
     const gain = end - xp;
     const hours = gain / stage.xpPerHr;
@@ -60,7 +75,7 @@ export function estimate(track, fromXp, toXp, items, { account, ctx } = {}) {
     }
     res.realHours += real;
     res.gp += gp;
-    res.segments.push({ stage, fromLevel: level, toLevel: levelForXp(end, { virtual: true }), xp: gain, hours: stage.recurring ? null : hours, gp });
+    res.segments.push({ stage, instead, fromLevel: level, toLevel: levelForXp(end, { virtual: true }), xp: gain, hours: stage.recurring ? null : hours, gp });
     xp = end;
   }
   return res;

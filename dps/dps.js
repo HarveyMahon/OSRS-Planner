@@ -4,7 +4,7 @@ import { loadGear, loadTargets, loadMonsters, accountPlayer } from '../core/gear
 import { SLOTS, PRAYERS, UNLOCKABLE_PRAYERS, attackStyles, spellsFor, calc, bestCalc, styleKind, THRALL_DPS } from '../core/dps.js';
 import { loadDps, saveDps } from '../core/dps-store.js';
 import { meetsReqs } from '../core/best-setup.js';
-import { withSpec, withSpecs, SPECS } from '../core/specs.js';
+import { withSpec, withSpecs, SPECS, specOf } from '../core/specs.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -31,7 +31,7 @@ for (const s of SLOTS) {
   bySlot[s] = new Map();
   for (const it of list) if (!bySlot[s].has(it.name.toLowerCase())) bySlot[s].set(it.name.toLowerCase(), it);
 }
-document.body.insertAdjacentHTML('beforeend', `<datalist id="dl-spec">${Object.keys(SPECS).map(n => `<option value="${esc(n)}">`).join('')}</datalist>` + SLOTS.map(s => `<datalist id="dl-${s}">${[...bySlot[s].values()].map(it => `<option value="${esc(it.name)}">`).join('')}</datalist>`).join(''));
+document.body.insertAdjacentHTML('beforeend', `<datalist id="dl-spec">${[...new Set([...bySlot.weapon.values(), ...(bySlot['2h']?.values() || [])].filter(w => specOf(w)).map(w => w.name))].sort().map(n => `<option value="${esc(n)}">`).join('')}</datalist>` + SLOTS.map(s => `<datalist id="dl-${s}">${[...bySlot[s].values()].map(it => `<option value="${esc(it.name)}">`).join('')}</datalist>`).join(''));
 const item = (s, name) => name ? bySlot[s].get(String(name).toLowerCase()) || null : null;
 function loadoutOf(L) {
   const lo = {};
@@ -136,9 +136,9 @@ function render() {
     const names = [L.spec, L.spec2].filter(Boolean);
     if (!names.length) return '<div class="res faint">—</div>';
     const ws = names.map(n => item('weapon', n));
-    if (ws.some(w => !w || !SPECS[w.name])) return '<div class="res faint">Not a spec weapon here yet</div>';
+    if (ws.some(w => !w || !specOf(w))) return '<div class="res faint">Not a spec weapon here yet</div>';
     const lo = w => ({ ...x.lo, weapon: w, shield: w.two ? null : x.lo.shield });
-    const dw = ws.find(w => SPECS[w.name].drain), xw = ws.find(w => !SPECS[w.name].drain);
+    const dw = ws.find(w => specOf(w).drain), xw = ws.find(w => !specOf(w).drain);
     if (ws.length === 2 && (!dw || !xw)) return '<div class="res faint">Pick one Defence drain and one damage spec</div>';
     const r = m && withSpecs(P, x.lo, { drainLo: dw && lo(dw), dmgLo: xw && lo(xw) }, m, ctxOpts);
     const how = r && [r.drains ? `${r.drains} drain spec${r.drains > 1 ? 's' : ''} first, Defence to ~${r.defence}` : '', r.specs ? `${r.specs} damage spec${r.specs > 1 ? 's' : ''}` : ''].filter(Boolean).join(', then ');
