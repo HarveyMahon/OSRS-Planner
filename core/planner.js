@@ -388,13 +388,14 @@ export function plan(goals, d) {
       targets.push({ skill: k, level: levelForXp((sim.xp[k] || 0) + give), filled: give >= n });
     }
     if (left > 0) { add('Strength', left); if (!targets.some(t => t.skill === 'Strength')) targets.push({ skill: 'Strength', rest: true }); }
-    // Ranged: defensive (longrange) splits it evenly with Defence; use that while the plan needs Defence
-    if (ranged > 0) {
-      const d = Math.min(ranged / 2, needXp('Defence') - (out.Defence || 0));
-      if (d > 0) { add('Ranged', ranged - d); add('Defence', d); targets.push({ skill: 'Ranged', defensive: true }); }
-      else { add('Ranged', ranged); if (melee < ranged) targets.push({ skill: 'Ranged' }); }
+    // Magic: defensive autocast splits it evenly with Defence; use that while the plan needs Defence.
+    // Ranged all goes to Ranged.
+    if (magic > 0) {
+      const d = Math.min(magic / 2, needXp('Defence') - (out.Defence || 0));
+      if (d > 0) { add('Magic', magic - d); add('Defence', d); targets.push({ skill: 'Magic', defensive: true }); }
+      else { add('Magic', magic); if (melee < magic) targets.push({ skill: 'Magic' }); }
     }
-    add('Magic', magic); add('Hitpoints', hp);
+    add('Ranged', ranged); add('Hitpoints', hp);
     const last = e.segments.filter(s => s.stage.slayerMaster).pop()?.stage;
     return { combatXp: out, targets, master: last?.name, pointsPerHr: last?.pointsPerHr, intensity: track.intensity };
   }
