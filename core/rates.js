@@ -42,7 +42,7 @@ export function guidePlayer(setup) {
     diaries: new Set(['kandarin:hard']), hearts: 'imbued', onTask: false, thrall: false, thrallOk: false };
 }
 
-const fingerprint = (account, gp) => JSON.stringify([VERSION, COMBAT.map(s => levelForXp(account.xp?.[s] || 0)), account.prayers || [],
+const fingerprint = (account, gp) => JSON.stringify([VERSION, new Date().toISOString().slice(0, 10), COMBAT.map(s => levelForXp(account.xp?.[s] || 0)), account.prayers || [],
   Object.keys(account.quests || {}).sort(), account.diaries || [], account.bankImportedAt || '', Object.keys(account.owned || {}).length, gp]);
 
 const teamSize = (s, b) => s.team?.size || s.raid?.teamSize || b.raidOption?.defaultTeamSize || b.teamOption?.default || 1;
