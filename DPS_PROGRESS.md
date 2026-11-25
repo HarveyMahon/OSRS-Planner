@@ -57,7 +57,10 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 - **Raids and multi-part content** (first stab): CoX = Tekton, Vasa, the three Vanguards, Vespula, both
   Muttadiles, Ice demon, 3 Skeletal mystics, 4 Lizardman shamans, Olm's claws and head; ToB = Maiden, Bloat,
   Nylocas Vasilias, Sotetseg, Xarpus, Verzik P2 and P3; ToA = Ba-Ba, Akkha, Kephri, Zebak, Wardens P2 and P3;
-  Inferno = Zuk only (ranged); Fight Caves = Jad; Colosseum = Sol Heredit (melee). Each part lists the
+  Inferno, Fight Caves and Colosseum (check-in 1): rough counts of each wave monster across a full run plus the
+  final boss (Inferno: 30 bats, 25 blobs, 20 meleers, 15 rangers, 10 magers, 4 Jads, Zuk; Fight Caves: 30 each of
+  Tz-Kih / Tz-Kek / Tok-Xil, 20 Yt-MejKot, 15 Ket-Zek, Jad; Colosseum: 3 of each Fremennik, 8 shamans, 8 javelin
+  colossi, 6 jaguars, 6 manticores, 4 minotaurs, 4 shockwave colossi, Sol). Estimates to refine together. Each part lists the
   styles worth using on it. Gauntlets are skipped (gear is made inside).
 - **Kill time** is HP / DPS, no downtime; for comparisons only.
 - **Guide player** for the kill-rate comparison: the setup's recommended levels, 90 in any combat skill it

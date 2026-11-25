@@ -361,13 +361,51 @@
    "name": "Sol Heredit",
    "parts": [
     {
+     "monster": "Fremennik warband archer",
+     "weight": 3
+    },
+    {
+     "monster": "Fremennik warband berserker",
+     "weight": 3
+    },
+    {
+     "monster": "Fremennik warband seer",
+     "weight": 3
+    },
+    {
+     "monster": "Serpent shaman",
+     "weight": 8
+    },
+    {
+     "monster": "Javelin Colossus",
+     "weight": 8
+    },
+    {
+     "monster": "Jaguar warrior",
+     "weight": 6
+    },
+    {
+     "monster": "Manticore",
+     "weight": 6
+    },
+    {
+     "monster": "Minotaur (Fortis Colosseum)",
+     "weight": 4
+    },
+    {
+     "monster": "Shockwave Colossus",
+     "weight": 4
+    },
+    {
      "monster": "Sol Heredit",
      "weight": 1,
      "styles": [
       "melee"
      ]
     }
-   ]
+   ],
+   "whole": true,
+   "note": "A first estimate of a full Fortis Colosseum run: roughly how many of each monster the 11 waves hold, then Sol Heredit. To refine."
   },
   "spindel": {
    "name": "Spindel",
@@ -391,17 +429,87 @@
    "name": "TzKal-Zuk",
    "parts": [
     {
+     "monster": "Jal-MejRah",
+     "weight": 30,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Jal-Ak",
+     "weight": 25,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Jal-ImKot",
+     "weight": 20,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Jal-Xil",
+     "weight": 15,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Jal-Zek",
+     "weight": 10,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "JalTok-Jad",
+     "weight": 4,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
      "monster": "TzKal-Zuk#Normal",
      "weight": 1,
      "styles": [
       "ranged"
      ]
     }
-   ]
+   ],
+   "whole": true,
+   "note": "A first estimate of a full Inferno: roughly how many of each monster the 69 waves hold (nibblers left out), then Zuk. To refine."
   },
   "tztok_jad": {
    "name": "TzTok-Jad",
    "parts": [
+    {
+     "monster": "Tz-Kih",
+     "weight": 30
+    },
+    {
+     "monster": "Tz-Kek#Level 45",
+     "weight": 30
+    },
+    {
+     "monster": "Tok-Xil#Standard",
+     "weight": 30
+    },
+    {
+     "monster": "Yt-MejKot#Standard",
+     "weight": 20
+    },
+    {
+     "monster": "Ket-Zek#Standard",
+     "weight": 15
+    },
     {
      "monster": "TzTok-Jad",
      "weight": 1,
@@ -410,7 +518,9 @@
       "magic"
      ]
     }
-   ]
+   ],
+   "whole": true,
+   "note": "A first estimate of a full Fight Caves run: roughly how many of each monster the 63 waves hold, then Jad. To refine."
   },
   "vardorvis": {
    "name": "Vardorvis",
