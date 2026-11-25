@@ -61,7 +61,7 @@ function run() {
     const k = e.target.dataset?.open;
     if (!k) return;
     const lo = r.kinds[k].loadout;
-    saveDps({ target: $('target').value, onTask: $('onTask').checked,
+    saveDps({ ...loadDps(), target: $('target').value, part: 0, onTask: $('onTask').checked, thrall: r.thrall,
       loadouts: [{ name: `Best ${k}`, slots: Object.fromEntries(SLOTS.filter(s => lo[s]).map(s => [s, lo[s].name])) }, ...(loadDps().loadouts || []).slice(0, 3)] });
     location.href = '../dps/';
   };
