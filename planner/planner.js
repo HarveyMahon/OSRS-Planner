@@ -80,7 +80,7 @@ function segmentHtml(step, seg) {
 function stepHtml(s, i) {
   if (s.kind === 'train') {
     const cost = s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : '';
-    return `<li class="step train${s.estimate.segments.some(g => g.stage.swapped) ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b> ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}${s.towardsHp ? ` <span class="muted">(towards ${s.towardsHp} Hitpoints)</span>` : ''}`}
+    return `<li class="step train${s.estimate.segments.some(g => g.stage.swapped) ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b>${s.slayer?.targets?.length ? ` <span class="muted">${esc(slayerTarget(s.slayer.targets))}</span>` : ''} ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}${s.towardsHp ? ` <span class="muted">(towards ${s.towardsHp} Hitpoints)</span>` : ''}`}
       <span class="right">${hrs(s.hours)}${s.realHours > s.hours * 1.5 ? ` · ${Math.ceil(s.realHours / 24)} days of growing` : ''} ${cost}</span></div>
       ${s.slayer ? slayerHtml(s) : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;
   }
@@ -114,6 +114,11 @@ function gearNote(s) {
 
 // A Slayer step: the master for each range (from the Slayer tab's settings), its own training style,
 // expected points and the combat XP the tasks give along the way
+// "on Defence until 75, then Strength": the attack style to use for the combat XP the tasks give
+function slayerTarget(ts) {
+  const parts = ts.map(t => t.defensive ? `${t.skill} on a defensive style` : t.rest ? t.skill : t.filled ? `${t.skill} until ${t.level}` : t.skill);
+  return '· train ' + parts.join(', then ');
+}
 function slayerHtml(s) {
   const inten = s.slayer.intensity;
   const segs = s.estimate.segments.map(g => `<li class="seg"><span class="lv">${g.fromLevel}–${g.toLevel}</span>
@@ -125,7 +130,7 @@ function slayerHtml(s) {
       ${state.slayerIntensity ? '<button type="button" class="reset" data-unslayer title="Back to the plan\'s training style">↺ Back to suggested</button>' : ''}
       <a href="../slayer/">Blocks, skips and methods on the Slayer tab</a></div>
     <ul class="segs">${segs}</ul>
-    ${xp ? `<div class="note">The tasks also give about ${xp} XP (counted in the rest of the plan).</div>` : ''}`;
+    ${xp ? `<div class="note">The tasks also give about ${xp} XP, with your attack style set as in the heading. The rest of the plan counts it.</div>` : ''}`;
 }
 
 function render() {

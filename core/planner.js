@@ -364,19 +364,39 @@ export function plan(goals, d) {
     return { id: 'slayer-model', kind: inten, label: 'Slayer tasks', stages: merged, slayer: true, intensity: inten };
   }
   // Combat XP from Slayer: about 4 XP per damage in the style used (2.5 for magic, counting spell XP), and
-  // 1.33 Hitpoints XP, against 1 Slayer XP per hitpoint. Melee is split evenly over Attack, Strength and Defence.
+  // 1.33 Hitpoints XP, against 1 Slayer XP per hitpoint. Melee XP goes to the skills the plan still needs.
   function slayerCredit(track, e) {
-    const out = {};
+    let melee = 0, ranged = 0, magic = 0, hp = 0;
     for (const seg of e.segments) {
       const st = seg.stage.styles; if (!st) continue;
-      for (const m of ['Attack', 'Strength', 'Defence']) out[m] = (out[m] || 0) + seg.xp * st.melee * 4 / 3;
-      out.Ranged = (out.Ranged || 0) + seg.xp * st.ranged * 4;
-      out.Magic = (out.Magic || 0) + seg.xp * st.magic * 2.5;
-      out.Hitpoints = (out.Hitpoints || 0) + seg.xp * 1.33;
+      melee += seg.xp * st.melee * 4; ranged += seg.xp * st.ranged * 4; magic += seg.xp * st.magic * 2.5; hp += seg.xp * 1.33;
     }
-    for (const k of Object.keys(out)) if (out[k] < 1) delete out[k]; else out[k] = Math.round(out[k]);
+    // XP the plan still needs in a skill: the highest level any goal or milestone asks for, minus what's there
+    const needXp = skill => {
+      let lv = finalLevels[skill] || 0;
+      for (const m of milestones) lv = Math.max(lv, m.needs?.[skill] || 0);
+      return Math.max(0, xpForLevel(lv) - (sim.xp[skill] || 0));
+    };
+    const out = {}, targets = [];
+    const add = (k, v) => { if (v >= 1) out[k] = Math.round((out[k] || 0) + v); };
+    // Melee: put it where the plan needs it most (the biggest shortfall first), the rest into Strength
+    let left = melee;
+    const short = ['Defence', 'Attack', 'Strength'].map(k => [k, needXp(k)]).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+    for (const [k, n] of short) {
+      if (left <= 0) break;
+      const give = Math.min(left, n); add(k, give); left -= give;
+      targets.push({ skill: k, level: levelForXp((sim.xp[k] || 0) + give), filled: give >= n });
+    }
+    if (left > 0) { add('Strength', left); if (!targets.some(t => t.skill === 'Strength')) targets.push({ skill: 'Strength', rest: true }); }
+    // Ranged: defensive (longrange) splits it evenly with Defence; use that while the plan needs Defence
+    if (ranged > 0) {
+      const d = Math.min(ranged / 2, needXp('Defence') - (out.Defence || 0));
+      if (d > 0) { add('Ranged', ranged - d); add('Defence', d); targets.push({ skill: 'Ranged', defensive: true }); }
+      else { add('Ranged', ranged); if (melee < ranged) targets.push({ skill: 'Ranged' }); }
+    }
+    add('Magic', magic); add('Hitpoints', hp);
     const last = e.segments.filter(s => s.stage.slayerMaster).pop()?.stage;
-    return { combatXp: out, master: last?.name, pointsPerHr: last?.pointsPerHr, intensity: track.intensity };
+    return { combatXp: out, targets, master: last?.name, pointsPerHr: last?.pointsPerHr, intensity: track.intensity };
   }
 
   // Do a quest straight away (prerequisite quests and levels first), e.g. when a training
@@ -426,7 +446,9 @@ export function plan(goals, d) {
   }
 
   // ---- 3. level goals, then GP goals ----
-  for (const s of SKILLS) if (finalLevels[s] && s !== 'Hitpoints') train(s, finalLevels[s]);
+  // Slayer first: its tasks give combat XP, which can cover combat level goals
+  const order = finalLevels.Slayer ? ['Slayer', ...SKILLS.filter(s => s !== 'Slayer')] : SKILLS;
+  for (const s of order) if (finalLevels[s] && s !== 'Hitpoints') train(s, finalLevels[s]);
   if (finalLevels.Hitpoints) trainHitpoints(finalLevels.Hitpoints);     // after combat, which gives Hitpoints XP
   for (const amount of gpGoals) makeGp(amount, `your goal of ${amount.toLocaleString('en-GB')} GP`, `goal:${amount}`);
 
