@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Best Setup · OSRS Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../core/theme.css">
+<style>
+  .panel { border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; background: var(--surface); display: grid; gap: 14px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+  .opts label { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 14px; }
+  .opts input[type=checkbox] { width: auto; }
+  .opts select, .opts input[type=number] { width: auto; }
+  .stats { display: flex; gap: 28px; flex-wrap: wrap; }
+  .stats div span { display: block; color: var(--muted); font-size: 12px; }
+  .stats div b { font: 500 22px var(--mono); }
+  .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 14px; }
+  thead th { font: 500 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
+  td.num, th.num { text-align: right; font-family: var(--mono); }
+  .tag { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 99px; padding: 1px 6px; color: var(--faint); }
+  .tag.own { color: var(--gp-high); border-color: var(--gp-high); }
+  .tag.buy { color: var(--accent); border-color: var(--accent); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); font-size: 13px; }
+  .note { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; color: var(--muted); font-size: 14px; max-width: 900px; }
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--surface); }
+  .card h3 { margin: 0 0 8px; font: 600 15px var(--sans); text-transform: capitalize; }
+  .card table td { padding: 4px 6px; font-size: 13px; }
+  .card td.slot { color: var(--faint); text-transform: capitalize; width: 60px; }
+  #working { color: var(--accent); }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Best setup</h1>
+  <p>The fastest-killing gear for a boss from what you own and what your cash stack can buy, using the DPS formulas from the OSRS Wiki.
+    Gear you own comes from your bank import on My Account; prayers, quests and levels come from there too.</p>
+  <p id="acct-note" class="faint"></p>
+  <section class="panel">
+    <div class="opts">
+      <label>Boss <select id="target"></select></label>
+      <label>Budget (GP) <input type="text" inputmode="numeric" id="budget" style="width:140px"></label>
+      <label><input type="checkbox" id="ownOnly"> Only gear I own</label>
+      <label><input type="checkbox" id="onTask"> On a Slayer task</label>
+      <span id="working" role="status"></span>
+    </div>
+  </section>
+  <div id="summary" class="stats"></div>
+  <div id="cards" class="cards"></div>
+  <div class="scroller"><table>
+    <thead><tr><th>Part</th><th>Style</th><th>Attack</th><th class="num">Max hit</th><th class="num">Accuracy</th><th class="num">DPS</th><th class="num">Time</th></tr></thead>
+    <tbody id="parts"></tbody>
+  </table></div>
+  <p id="notes" class="note"></p>
+  <p class="faint">Kill time is HP ÷ DPS with every attack landing on time: no walking, phases or downtime, so it's for comparing setups, not a real kill time.
+    Potions are assumed (super combat, ranging, and your imbued or saturated heart if your bank has one, else a magic potion), with your best unlocked prayer.
+    Special attacks aren't used yet. A thrall is added (+0.625 DPS) when you've done A Kingdom Divided and it helps, which means the Arceuus spellbook.</p>
+</main>
+<script type="module" src="gear.js"></script>
+<script type="module" src="../core/nav.js" data-active="gear"></script>
+</body>
+</html>

@@ -202,7 +202,9 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
     });
     const used = new Set(perPart.map(p => p.kind).filter(Boolean));
     for (const k of Object.keys(kinds)) if (!used.has(k)) delete kinds[k];
-    const res = { kinds, time: total, cost: budget - left, thrall, perPart };
+    const buy = new Set();
+    for (const r of Object.values(kinds)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) buy.add(it); }
+    const res = { kinds, time: total, cost: [...buy].reduce((c, it) => c + (avail(it).price || 0), 0), thrall, perPart };
     if (!best || res.time < best.time) best = res;
   }
   return best;

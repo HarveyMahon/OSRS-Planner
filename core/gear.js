@@ -6,12 +6,13 @@ import { levelForXp } from './xp.js';
 import { playerFromAccount } from './dps.js';
 
 export const TABLES = ['head', 'cape', 'neck', 'ammo', 'weapon', '2h', 'body', 'shield', 'legs', 'hands', 'feet', 'ring'];
+export const AMMO_QTY = 200;
 const IMBUED_HEART = '20724', SATURATED_HEART = '27641';
 
 let gearPromise = null;
 /** { slot: [items] } for every table; two-handed weapons have two: true. */
 export function loadGear() {
-  if (!gearPromise) gearPromise = Promise.all(TABLES.map(t => loadFile(`gear/${t}.json`).then(d => [t, d.items.map(x => t === '2h' ? { ...x, two: true } : x)])))
+  if (!gearPromise) gearPromise = Promise.all(TABLES.map(t => loadFile(`gear/${t}.json`).then(d => [t, d.items.map(x => ({ ...x, slot: t, ...(t === '2h' ? { two: true } : {}) }))])))
     .then(Object.fromEntries);
   return gearPromise;
 }
@@ -39,7 +40,8 @@ export async function availability(account) {
     if (!r) {
       const ids = idsOf(it);
       const ps = ids.map(i => prices[i]).filter(p => typeof p === 'number');
-      r = { owned: ids.some(i => owned.has(i)), price: ps.length ? Math.min(...ps) : null };
+      // ammo is bought in a stack (200, as the planner's setups count it)
+      r = { owned: ids.some(i => owned.has(i)), price: ps.length ? Math.min(...ps) * (it.slot === 'ammo' ? AMMO_QTY : 1) : null };
       memo.set(it, r);
     }
     return r;

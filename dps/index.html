@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPS · OSRS Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../core/theme.css">
+<style>
+  .panel { border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; background: var(--surface); display: grid; gap: 14px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+  .opts label { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 14px; }
+  .opts input[type=checkbox] { width: auto; }
+  .opts select, .opts input[type=number] { width: auto; }
+  .stats { display: flex; gap: 28px; flex-wrap: wrap; }
+  .stats div span { display: block; color: var(--muted); font-size: 12px; }
+  .stats div b { font: 500 22px var(--mono); }
+  .scroller { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 14px; }
+  thead th { font: 500 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
+  td.num, th.num { text-align: right; font-family: var(--mono); }
+  .tag { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 99px; padding: 1px 6px; color: var(--faint); }
+  .tag.own { color: var(--gp-high); border-color: var(--gp-high); }
+  .tag.buy { color: var(--accent); border-color: var(--accent); }
+  .muted { color: var(--muted); } .faint { color: var(--faint); font-size: 13px; }
+  .note { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; color: var(--muted); font-size: 14px; max-width: 900px; }
+  .grid { display: grid; gap: 12px; grid-template-columns: 90px repeat(var(--cols, 2), minmax(200px, 1fr)); align-items: center; overflow-x: auto; }
+  .grid .h { font: 500 11px var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .grid input, .grid select { width: 100%; font-size: 13px; padding: 4px 6px; }
+  .grid .res { font: 500 15px var(--mono); }
+  .grid .res.best { color: var(--gp-high); }
+  .colhead { display: flex; gap: 6px; align-items: center; }
+  .colhead input { font-weight: 600; }
+  .levels { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .levels label { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: 13px; }
+  .levels input { width: 56px; }
+  button.x { font: inherit; font-size: 12px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>DPS calculator</h1>
+  <p>Compare setups against a boss and tweak them slot by slot. Formulas from the OSRS Wiki's Damage per second pages. Levels, prayers and quests start from My Account; change them here to try "what if".</p>
+  <section class="panel">
+    <div class="opts">
+      <label>Boss <select id="target"></select></label>
+      <label>Monster <select id="part"></select></label>
+      <label><input type="checkbox" id="onTask"> On a Slayer task</label>
+      <label><input type="checkbox" id="thrall"> Thrall (Arceuus spellbook)</label>
+      <label>Heart <select id="heart"><option value="">Magic potion</option><option value="imbued">Imbued heart</option><option value="saturated">Saturated heart</option></select></label>
+    </div>
+    <div class="levels" id="levels"></div>
+    <div class="levels" id="prayers"></div>
+    <p id="monster" class="faint" style="margin:0"></p>
+  </section>
+  <div class="opts"><button type="button" class="btn" id="add">Add a setup</button><span class="faint">Type an item name in a slot (suggestions appear as you type). Leave it empty for nothing.</span></div>
+  <div class="panel"><div class="grid" id="grid"></div></div>
+  <p class="faint">DPS uses the best attack style (and autocast spell) for the setup unless you pick one. Kill time is HP ÷ DPS with no downtime.
+    Potions are assumed: super combat, ranging, and the heart chosen above. Special attacks aren't included yet.</p>
+</main>
+<script type="module" src="dps.js"></script>
+<script type="module" src="../core/nav.js" data-active="dps"></script>
+</body>
+</html>

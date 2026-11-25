@@ -8,7 +8,9 @@ const PAGES = [
   { id: 'money', label: 'Money Makers', path: 'money/' },
   { id: 'training', label: 'Training', path: 'training/' },
   { id: 'pets', label: 'Pet Hunting', path: 'pets/', side: true },
-  { id: 'slayer', label: 'Slayer', path: 'slayer/', right: true },
+  { id: 'gear', label: 'Best Setup', path: 'gear/', right: true },
+  { id: 'dps', label: 'DPS', path: 'dps/' },
+  { id: 'slayer', label: 'Slayer', path: 'slayer/' },
   { id: 'account', label: 'My Account', path: 'account/' },
 ];
 

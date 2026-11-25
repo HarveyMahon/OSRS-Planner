@@ -1,0 +1,141 @@
+// DPS tab: compare up to four setups against a monster and tweak them.
+import { loadAccount } from '../core/account.js';
+import { loadGear, loadTargets, loadMonsters, accountPlayer } from '../core/gear.js';
+import { SLOTS, PRAYERS, UNLOCKABLE_PRAYERS, attackStyles, spellsFor, calc, bestCalc, styleKind, THRALL_DPS } from '../core/dps.js';
+import { loadDps, saveDps } from '../core/dps-store.js';
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const secs = s => !isFinite(s) ? '—' : s >= 60 ? `${Math.floor(s / 60)}m ${Math.round(s % 60)}s` : `${s.toFixed(1)}s`;
+const LEVELS = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Prayer', 'Hitpoints'];
+const MAX_COLS = 4;
+
+const account = loadAccount();
+const [gear, targets, monsters] = await Promise.all([loadGear(), loadTargets(), loadMonsters()]);
+const base = accountPlayer(account);
+let state = loadDps();
+state.levels ||= { ...base.levels };
+state.prayers ||= [...base.prayers];
+state.loadouts = (state.loadouts || []).slice(0, MAX_COLS);
+if (!state.loadouts.length) state.loadouts = [{ name: 'Setup 1', slots: {} }, { name: 'Setup 2', slots: {} }];
+if (state.heart === undefined) state.heart = base.hearts || '';
+const save = () => saveDps(state);
+
+// item lookup by name, per slot (weapons include two-handed)
+const bySlot = {};
+for (const s of SLOTS) {
+  const list = s === 'weapon' ? [...gear.weapon, ...gear['2h']] : gear[s];
+  bySlot[s] = new Map();
+  for (const it of list) if (!bySlot[s].has(it.name.toLowerCase())) bySlot[s].set(it.name.toLowerCase(), it);
+}
+document.body.insertAdjacentHTML('beforeend', SLOTS.map(s => `<datalist id="dl-${s}">${[...bySlot[s].values()].map(it => `<option value="${esc(it.name)}">`).join('')}</datalist>`).join(''));
+const item = (s, name) => name ? bySlot[s].get(String(name).toLowerCase()) || null : null;
+function loadoutOf(L) {
+  const lo = {};
+  for (const s of SLOTS) lo[s] = item(s, L.slots[s]);
+  if (lo.weapon?.two) lo.shield = null;
+  return lo;
+}
+
+// ---- controls ----
+const ids = Object.keys(targets).filter(id => targets[id].parts.length).sort((a, b) => targets[a].name.localeCompare(targets[b].name));
+$('target').innerHTML = ids.map(id => `<option value="${id}">${esc(targets[id].name)}</option>`).join('');
+$('target').value = targets[state.target] ? state.target : 'vorkath';
+function parts() {
+  const t = targets[$('target').value];
+  $('part').innerHTML = t.parts.map((p, i) => `<option value="${i}">${esc(p.monster)}</option>`).join('');
+  $('part').value = String(Math.min(state.part || 0, t.parts.length - 1));
+}
+parts();
+$('onTask').checked = !!state.onTask; $('thrall').checked = !!state.thrall; $('heart').value = state.heart || '';
+$('levels').innerHTML = LEVELS.map(s => `<label>${s} <input type="number" min="1" max="99" data-level="${s}" value="${state.levels[s] ?? 1}"></label>`).join('')
+  + `<button type="button" class="x" id="lv-reset">↺ From My Account</button>`;
+$('prayers').innerHTML = '<span class="muted" style="font-size:13px">Prayers unlocked:</span>' + UNLOCKABLE_PRAYERS.map(p =>
+  `<label><input type="checkbox" data-prayer="${p.id}"${state.prayers.includes(p.id) ? ' checked' : ''} style="width:auto"> ${esc(p.label)}</label>`).join('');
+
+$('target').addEventListener('change', () => { state.target = $('target').value; state.part = 0; parts(); save(); render(); });
+$('part').addEventListener('change', () => { state.part = Number($('part').value); save(); render(); });
+for (const id of ['onTask', 'thrall']) $(id).addEventListener('change', () => { state[id] = $(id).checked; save(); render(); });
+$('heart').addEventListener('change', () => { state.heart = $('heart').value; save(); render(); });
+$('levels').addEventListener('change', e => { const s = e.target.dataset.level; if (s) { state.levels[s] = Math.max(1, Math.min(99, Number(e.target.value) || 1)); save(); render(); } });
+$('lv-reset').addEventListener('click', () => { state.levels = { ...base.levels }; state.prayers = [...base.prayers];
+  document.querySelectorAll('[data-level]').forEach(i => { i.value = state.levels[i.dataset.level]; });
+  document.querySelectorAll('[data-prayer]').forEach(i => { i.checked = state.prayers.includes(i.dataset.prayer); }); save(); render(); });
+$('prayers').addEventListener('change', e => { const p = e.target.dataset.prayer; if (!p) return;
+  const set = new Set(state.prayers); if (e.target.checked) set.add(p); else set.delete(p); state.prayers = [...set]; save(); render(); });
+$('add').addEventListener('click', () => {
+  if (state.loadouts.length >= MAX_COLS) return;
+  const last = state.loadouts[state.loadouts.length - 1];
+  state.loadouts.push({ name: `Setup ${state.loadouts.length + 1}`, slots: { ...(last?.slots || {}) } });
+  save(); render();
+});
+
+function player() {
+  return { ...base, levels: { ...state.levels }, prayers: new Set(state.prayers), hearts: state.heart || null,
+    onTask: !!state.onTask, thrall: !!state.thrall };
+}
+
+// ---- grid ----
+function render() {
+  const t = targets[$('target').value], part = t.parts[Number($('part').value)] || t.parts[0];
+  const m = monsters[part.monster];
+  $('monster').textContent = m ? `${m.name}: ${m.hp} HP, Defence ${m.def}, Magic ${m.magic}, defence bonuses stab ${m.dstab} / slash ${m.dslash} / crush ${m.dcrush} / magic ${m.dmagic} / ranged ${m.dstandard || m.drange}`
+    + `${m.flatArmour ? `, flat armour ${m.flatArmour}` : ''}${m.weakness ? `, ${m.weaknessPct}% weak to ${m.weakness}` : ''}${m.attributes.length ? ` · ${m.attributes.join(', ')}` : ''}` : '';
+  const P = player(), cols = state.loadouts.length;
+  const results = state.loadouts.map(L => {
+    const lo = loadoutOf(L);
+    let r;
+    if (L.style) {
+      const [si, spell] = L.style.split('|');
+      const st = attackStyles(lo.weapon)[Number(si)];
+      const sp = spell ? spellsFor(P, lo.weapon).find(x => x.name === spell) : null;
+      r = st ? calc(P, lo, m, st, sp) : bestCalc(P, lo, m);
+      r.total = r.dps + (P.thrall ? THRALL_DPS : 0);
+    } else r = bestCalc(P, lo, m);
+    return { lo, r };
+  });
+  const bestDps = Math.max(...results.map(x => x.r.total ?? x.r.dps));
+  const g = $('grid');
+  g.style.setProperty('--cols', cols);
+  let h = '<div></div>' + state.loadouts.map((L, i) => `<div class="colhead"><input value="${esc(L.name)}" data-name="${i}" aria-label="Setup name">
+    <button type="button" class="x" data-copy="${i}" title="Copy this setup"${cols >= MAX_COLS ? ' disabled' : ''}>⧉</button>
+    <button type="button" class="x" data-del="${i}" title="Remove this setup">✕</button></div>`).join('');
+  for (const s of SLOTS) {
+    h += `<div class="h">${s}</div>` + state.loadouts.map((L, i) => {
+      const off = s === 'shield' && results[i].lo.weapon?.two;
+      const bad = L.slots[s] && !item(s, L.slots[s]);
+      return `<input list="dl-${s}" data-slot="${s}" data-i="${i}" value="${esc(L.slots[s] || '')}"${off ? ' disabled placeholder="(two-handed)"' : ''}${bad ? ' style="border-color:var(--cost)" title="Not found"' : ''}>`;
+    }).join('');
+  }
+  h += '<div class="h">Style</div>' + state.loadouts.map((L, i) => {
+    const w = results[i].lo.weapon;
+    const opts = attackStyles(w).flatMap((st, si) => st.stance === 'autocast'
+      ? spellsFor(P, w).map(sp => [`${si}|${sp.name}`, `Autocast ${sp.name}`]) : [[`${si}|`, `${st.name} (${st.type}, ${st.stance})`]]);
+    return `<select data-style="${i}"><option value="">Best</option>${opts.map(([v, l]) => `<option value="${esc(v)}"${L.style === v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select>`;
+  }).join('');
+  const row = (label, f) => `<div class="h">${label}</div>` + results.map(x => `<div class="res">${f(x.r)}</div>`).join('');
+  h += row('Using', r => r.style ? esc(`${r.style.name}${r.spell ? ' · ' + r.spell.name : ''}`) + (r.prayer ? `<div class="faint">${esc(PRAYERS[r.prayer].label)}</div>` : '') : '—');
+  h += row('Max hit', r => r.maxHit ? `${r.minHit ? r.minHit + '–' : ''}${r.maxHit}${r.hits > 1 ? ` ×${r.hits}` : ''}` : '—');
+  h += row('Accuracy', r => r.accuracy ? (r.accuracy * 100).toFixed(1) + '%' : '—');
+  h += row('Speed', r => `${r.speed} ticks`);
+  h += `<div class="h">DPS</div>` + results.map(x => { const d = x.r.total ?? x.r.dps; return `<div class="res${d === bestDps && d > 0 ? ' best' : ''}">${d.toFixed(3)}${P.thrall ? '<div class="faint">incl. thrall</div>' : ''}</div>`; }).join('');
+  h += row('Kill time', r => m ? secs(m.hp / (r.total ?? r.dps)) : '—');
+  h += row('', r => (r.notes || []).map(esc).join('<br>'));
+  g.innerHTML = h;
+}
+$('grid').addEventListener('change', e => {
+  const d = e.target.dataset;
+  if (d.slot) { const L = state.loadouts[Number(d.i)]; const v = e.target.value.trim(); if (v) L.slots[d.slot] = v; else delete L.slots[d.slot]; if (d.slot === 'weapon') L.style = ''; }
+  else if (d.style !== undefined) state.loadouts[Number(d.style)].style = e.target.value;
+  else if (d.name !== undefined) state.loadouts[Number(d.name)].name = e.target.value;
+  else return;
+  save(); render();
+});
+$('grid').addEventListener('click', e => {
+  const d = e.target.dataset;
+  if (d.copy !== undefined && state.loadouts.length < MAX_COLS) { const L = state.loadouts[Number(d.copy)]; state.loadouts.splice(Number(d.copy) + 1, 0, { ...L, name: L.name + ' (copy)', slots: { ...L.slots } }); }
+  else if (d.del !== undefined) { state.loadouts.splice(Number(d.del), 1); if (!state.loadouts.length) state.loadouts.push({ name: 'Setup 1', slots: {} }); }
+  else return;
+  save(); render();
+});
+render();
