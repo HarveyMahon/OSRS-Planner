@@ -79,7 +79,7 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoice = null, hideWild = false } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false } = d;
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
@@ -229,21 +229,23 @@ export function plan(goals, d) {
     return out.sort((a, b) => b.gpPerHr - a.gpPerHr);
   }
 
-  // The user's chosen money maker when the account can do it at this point, otherwise the best one
-  function makeGp(amount, reason) {
+  // The money maker the user chose for this step (keyed by what it pays for) when the account can do it
+  // at this point, otherwise the best one
+  function makeGp(amount, reason, key = reason) {
     const amt = Math.ceil(amount / 100000) * 100000;
     const all = moneyMakers();
+    const gpChoice = gpChoices[key];
     const chosen = gpChoice && all.find(m => m.id === gpChoice);
     const mm = chosen || all[0];
-    if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += amt; steps.push({ kind: 'gp', amount: amt, method: null, hours: 0, reason }); return; }
-    steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason, chosen: !!chosen,
+    if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += amt; steps.push({ kind: 'gp', amount: amt, method: null, hours: 0, reason, key }); return; }
+    steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason, key, chosen: !!chosen,
                  choiceUnavailable: !!gpChoice && !chosen, options: all.slice(0, 25) });
     sim.gp += amt;
   }
 
   // pay for a step, making money first if needed
-  function pay(cost, reason) {
-    if (cost > 0 && sim.gp < cost) makeGp(cost - sim.gp, reason);
+  function pay(cost, reason, key) {
+    if (cost > 0 && sim.gp < cost) makeGp(cost - sim.gp, reason, key);
     sim.gp -= cost;
   }
 
@@ -295,7 +297,7 @@ export function plan(goals, d) {
     }
     const step = { kind: 'train', skill, fromXp, toXp, fromLevel: levelForXp(fromXp, { virtual: true }), toLevel: level,
                    track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp, towardsHp };
-    pay(e.gp, `${skill} ${step.fromLevel}–${level}`);
+    pay(e.gp, `${skill} ${step.fromLevel}–${level}`, `train:${skill}:${level}`);
     steps.push(step);
     sim.xp[skill] = toXp;
     // melee and Ranged training also give a third as much Hitpoints XP
@@ -337,7 +339,7 @@ export function plan(goals, d) {
       const bm = bossMethod(b, items, { setupId: m.setupId });
       const hours = bm.unitsPerHr ? m.n / bm.unitsPerHr : 0;
       const gp = -bm.profitPerUnit * m.n;
-      pay(Math.max(0, bm.costPerUnit * m.n), `${b.name} kills`);
+      pay(Math.max(0, bm.costPerUnit * m.n), `${b.name} kills`, `kc:${b.id}`);
       sim.gp += bm.lootPerUnit * m.n;
       steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, setupId: bm.setup.id, why: m.why,
                    setups: b.setups.map(s => ({ id: s.id, label: s.label, gearToBuy: gearToBuy(s) })), hours, gp,
@@ -351,7 +353,7 @@ export function plan(goals, d) {
   // ---- 3. level goals, then GP goals ----
   for (const s of SKILLS) if (finalLevels[s] && s !== 'Hitpoints') train(s, finalLevels[s]);
   if (finalLevels.Hitpoints) trainHitpoints(finalLevels.Hitpoints);     // after combat, which gives Hitpoints XP
-  for (const amount of gpGoals) makeGp(amount, `your goal of ${amount.toLocaleString('en-GB')} GP`);
+  for (const amount of gpGoals) makeGp(amount, `your goal of ${amount.toLocaleString('en-GB')} GP`, `goal:${amount}`);
 
 
   const totals = steps.reduce((t, s) => {

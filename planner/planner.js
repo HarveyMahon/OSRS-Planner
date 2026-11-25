@@ -19,7 +19,7 @@ const wiki = t => `https://oldschool.runescape.wiki/w/${encodeURI(t.replace(/ /g
 let D = null, ACCOUNT = null;
 let state = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch { return null; } })() || { goals: [], intensity: 'balanced', swaps: [] };
 state.setups ||= {};
-state.gpChoice ??= null;
+state.gpChoices ||= {}; delete state.gpChoice;
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
 const hideWild = () => { try { return localStorage.getItem('osrsplanner:hide-wild') === '1'; } catch { return false; } };
 
@@ -99,8 +99,8 @@ function stepHtml(s, i) {
     return `<li class="step kc${s.why === 'chosen' ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Kill ${esc(s.name)}</b> × ${s.n} ${pick}
       <span class="right">${hrs(s.hours)} ${s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : ''}</span></div>${why ? `<div class="note">${why}</div>` : ''}${gearNote(s)}</li>`;
   }
-  const pick = s.options?.length ? `<select data-gpmm aria-label="Money maker">${s.options.map(o => `<option value="${esc(o.id)}"${o.id === s.method?.id ? ' selected' : ''}>${esc(o.name)} · ${gpShort(o.gpPerHr)}/hr${o.wilderness ? ' (Wilderness)' : ''}</option>`).join('')}</select>`
-    + (state.gpChoice ? ' <button type="button" class="reset" data-ungp title="Back to the best money maker">↺ Back to suggested</button>' : '') : '';
+  const pick = s.options?.length ? `<select data-gpmm="${esc(s.key)}" aria-label="Money maker">${s.options.map(o => `<option value="${esc(o.id)}"${o.id === s.method?.id ? ' selected' : ''}>${esc(o.name)} · ${gpShort(o.gpPerHr)}/hr${o.wilderness ? ' (Wilderness)' : ''}</option>`).join('')}</select>`
+    + (state.gpChoices[s.key] ? ` <button type="button" class="reset" data-ungp="${esc(s.key)}" title="Back to the best money maker">↺ Back to suggested</button>` : '') : '';
   return `<li class="step gp${s.chosen ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Make ${gpShort(s.amount)} GP</b> ${s.method ? `at ${pick || esc(s.method.name)}${s.method.wilderness ? ' <span class="wild">Wilderness</span>' : ''}` : '<span class="cost">no money maker available</span>'}
       <span class="right">${hrs(s.hours)}</span></div><div class="note">For ${esc(s.reason)}${s.method ? ` · ${gpShort(s.method.gpPerHr)}/hr` : ''}${s.choiceUnavailable ? ' · your chosen money maker isn\'t available yet here, so this uses the best one' : ''}</div></li>`;
 }
@@ -117,11 +117,11 @@ function render() {
   $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
     : '<span class="muted">No goals yet: add one above.</span>';
   const nSetups = Object.keys(state.setups).length;
-  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, state.gpChoice && 'a money maker choice'].filter(Boolean);
+  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, Object.keys(state.gpChoices).length && `${Object.keys(state.gpChoices).length} money maker choice${Object.keys(state.gpChoices).length > 1 ? 's' : ''}`].filter(Boolean);
   $('swaps-note').innerHTML = changes.length ? `Your changes: ${changes.join(', ')}. <button type="button" class="reset" id="clear-swaps">↺ Reset all changes</button>` : '';
   if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
   const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
-                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, setupChoices: state.setups, gpChoice: state.gpChoice, hideWild: hideWild() });
+                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild() });
   const t = r.totals;
   $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
     <div><span class="lbl">Money to make</span>${gpShort(t.gpMade)}</div>
@@ -146,16 +146,16 @@ async function init() {
   $('goals').addEventListener('click', e => { if (e.target.dataset.remove != null) { state.goals.splice(+e.target.dataset.remove, 1); save(); render(); } });
   $('intensity').addEventListener('click', e => { if (e.target.dataset.i) { state.intensity = e.target.dataset.i; save(); render(); } });
   $('steps').addEventListener('change', e => {
-    if (e.target.dataset?.gpmm !== undefined) { state.gpChoice = e.target.value; save(); render(); return; }
+    if (e.target.dataset?.gpmm !== undefined) { state.gpChoices[e.target.dataset.gpmm] = e.target.value; save(); render(); return; }
     const b = e.target.dataset?.setup; if (!b) return;
     state.setups[b] = e.target.value; save(); render();
   });
   $('steps').addEventListener('click', e => {
-    if (e.target.dataset?.ungp !== undefined) { state.gpChoice = null; save(); render(); return; }
+    if (e.target.dataset?.ungp !== undefined) { delete state.gpChoices[e.target.dataset.ungp]; save(); render(); return; }
     const b = e.target.dataset?.unsetup; if (!b) return;
     delete state.setups[b]; save(); render();
   });
-  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; state.gpChoice = null; save(); render(); } });
+  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; state.gpChoices = {}; save(); render(); } });
   $('steps').addEventListener('change', e => {
     const k = e.target.dataset.swap;
     if (!k) return;
