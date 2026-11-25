@@ -1,0 +1,430 @@
+{{otheruses|maximum magic hit|other uses|Maximum hit}}
+'''Maximum magic hit''' is the maximum damage a player can deal in a single [[magic]] attack. It is affected by the player's [[Magic]] level, equipment, and other special bonuses.
+
+In most cases, the [[Tumeken's shadow]] provides the highest maximum magic hit possible. The exceptions to this are the [[Volatile Nightmare staff|Volatile Nightmare staff's]] [[Special attacks|special attack]], the [[Accursed sceptre|accursed sceptre's]] special attack while in the [[wilderness]], the accursed sceptre's special attack against [[Revenants]] in the wilderness while wearing an [[amulet of avarice]] and having [[Forinthry surge|Forinthry Surge]], and [[barrage spells]] when hitting up to nine targets.
+
+== Calculating maximum magic hit ==
+All [[Magic]] damage starts with a magic attack in the form of a [[spellbook]] [[Combat spells|combat spell]], a charged [[powered staff]], or as a [[special attack]] from a magic weapon. These attacks all feature a ''base max damage'' (also known as ''base max hit''), which then undergoes several mathematical operations before arriving at the applied damage seen in-game.
+
+'''Note:''' Many conditional modifiers affect magic damage which are defined in each step's section. If their associated conditions are not met, then their values simply become 0 for additive modifiers and 1.00 for multiplicative modifiers. The only exception to this is the value of the ElementalWeakness multiplier which becomes 0.00 if not applicable.
+
+===Step one: Calculate the ''effective base damage''===
+----
+<math>\text{EffectiveBaseDamage} = \left\lfloor \text{BaseMaxDamage} + \text{ChaosGauntlets} + \text{ElementalAmulet} + \text{ElementalFragment} + \text{Charge}\right\rfloor</math>
+----
+<u>'''Base Max Damage:'''</u>
+
+The player's Magic level does not affect the max damage for [[combat spells]] except for [[Magic Dart|Magic dart]] and the standard spellbook's [[Combat_spells#Standard_spellbook|elemental spells]]. The base max damage for all [[Powered staff|powered staves]] and [[special attacks]], however, does depend on the player's Magic level.
+
+The table below displays the base max damage for combat spells:
+{| class="wikitable mw-collapsible mw-collapsed" style="text-align:center; white-space:nowrap;"
+|-
+! colspan="9" |Base Max Damage - [[Spellbook]] spells
+|-
+! colspan="3" |[[File:Standard spellbook.png]] [[Standard spellbook]] 
+! colspan="3" |[[File:Ancient spellbook.png]] [[Ancient Magicks]]
+! colspan="3" |[[File:Arceuus spellbook.png]] [[Arceuus spellbook]]
+|-
+! colspan="2" |Spell
+!Base<ref>The maximum hit for air, water, and earth spells increases to match the maximum hit of the highest unlocked elemental spell for that tier.</ref>
+! colspan="2" |Spell
+!Base
+! colspan="2" |Spell
+!Base
+|-
+| colspan="1" rowspan="1" |<span class="plinkt-template">[[File:Wind_Strike.png|link=Wind_Strike|alt=Wind Strike icon]]</span>|| colspan="1" rowspan="1" |[[Wind Strike]]|| 8|| colspan="1" rowspan="1" |[[File:Smoke Rush.png]]|| colspan="1" rowspan="1" |[[Smoke Rush]]||13|| colspan="1" rowspan="1" |[[File:Ghostly Grasp.png]]
+|[[Ghostly Grasp]]
+|12
+|-
+|<span class="plinkt-template">[[File:Water_Strike.png|link=Water_Strike|alt=Water Strike icon]]</span>||[[Water Strike]]||8||[[File:Shadow Rush.png]]||[[Shadow Rush]] ||14|| [[File:Skeletal Grasp.png]]
+|[[Skeletal Grasp]]
+| 17
+|-
+|<span class="plinkt-template">[[File:Earth_Strike.png|link=Earth_Strike|alt=Earth Strike icon]]</span>||[[Earth Strike]]||8||[[File:Blood Rush.png]]||[[Blood Rush]]|| 15||[[File:Undead Grasp.png]] 
+|[[Undead Grasp]]
+|24
+|-
+|<span class="plinkt-template">[[File:Fire_Strike.png|link=Fire_Strike|alt=Fire Strike icon]]</span>
+|[[Fire Strike]]
+|8
+|[[File:Ice Rush.png]]
+|[[Ice Rush]]
+|16
+| colspan="1" rowspan="1" |[[File:Inferior Demonbane.png]]
+| colspan="1" rowspan="1" |[[Inferior Demonbane]]
+|16
+|-
+|<span class="plinkt-template">[[File:Wind_Bolt.png|link=Wind_Bolt|alt=Wind Bolt icon]]</span>
+|[[Wind Bolt]]
+|12
+|[[File:Smoke Burst.png]]
+|[[Smoke Burst]]
+|17
+|[[File:Superior Demonbane.png]]
+|[[Superior Demonbane]]
+|23
+|-
+|<span class="plinkt-template">[[File:Water_Bolt.png|link=Water_Bolt|alt=Water Bolt icon]]</span>
+|[[Water Bolt]]
+|12
+|[[File:Shadow Burst.png]]
+|[[Shadow Burst]]
+|18
+|[[File:Dark Demonbane.png]]
+|[[Dark Demonbane]]
+|30
+|-
+|<span class="plinkt-template">[[File:Earth_Bolt.png|link=Earth_Bolt|alt=Earth Bolt icon]]</span>
+|[[Earth Bolt]]
+|12
+|[[File:Blood Burst.png]]
+|[[Blood Burst]]
+|21
+| colspan="3" rowspan="21" |
+|-
+|<span class="plinkt-template">[[File:Fire_Bolt.png|link=Fire_Bolt|alt=Fire Bolt icon]]</span>
+|[[Fire Bolt]]
+|12
+|[[File:Ice Burst.png]]
+|[[Ice Burst]]
+|22
+|-
+|<span class="plinkt-template">[[File:Crumble_Undead.png|link=Crumble_Undead|alt=Crumble Undead icon]]</span>
+|[[Crumble Undead]]
+|15
+|[[File:Smoke Blitz.png]]
+|[[Smoke Blitz]]
+|23
+|-
+|<span class="plinkt-template">[[File:Wind_Blast.png|link=Wind_Blast|alt=Wind Blast icon]]</span>
+|[[Wind Blast]]
+|16
+|[[File:Shadow Blitz.png]]
+|[[Shadow Blitz]]
+|24
+|-
+|<span class="plinkt-template">[[File:Water_Blast.png|link=Water_Blast|alt=Water Blast icon]]</span>
+|[[Water Blast]]
+|16
+|[[File:Blood Blitz.png]]
+|[[Blood Blitz]]
+|25
+|-
+|<span class="plinkt-template">[[File:Iban_Blast.png|link=Iban_Blast|alt=Iban Blast icon]]</span>
+|[[Iban Blast]]
+|25
+|[[File:Ice Blitz.png]]
+|[[Ice Blitz]]
+|26
+|-
+|<span class="plinkt-template">[[File:Snare.png|link=Snare|alt=Snare icon]]</span>
+|[[Snare]]
+|2
+|[[File:Smoke Barrage.png]]
+|[[Smoke Barrage]]
+|27
+|-
+|<span class="plinkt-template">[[File:Earth_Blast.png|link=Earth_Blast|alt=Earth Blast icon]]</span>||[[Earth Blast]]||16|| [[File:Shadow Barrage.png]]||[[Shadow Barrage]] ||28
+|-
+|<span class="plinkt-template">[[File:Fire Blast.png|link=Fire Blast|alt=Fire Blast icon]]</span>|| [[Fire Blast]]||16||[[File:Blood Barrage.png]]||[[Blood Barrage]] ||29
+|-
+|<span class="plinkt-template">[[File:Saradomin Strike.png|link=Saradomin Strike|alt=Saradomin Strike icon]]</span>||[[Saradomin Strike]]||20||[[File:Ice Barrage.png]]||[[Ice Barrage]]||30
+|-
+|<span class="plinkt-template">[[File:Claws of Guthix.png|link=Claws of Guthix|alt=Claws of Guthix icon]]</span>||[[Claws of Guthix]]||20|| colspan="3" rowspan="11" |
+|-
+|<span class="plinkt-template">[[File:Flames of Zamorak.png|link=Flames of Zamorak|alt=Flames of Zamorak icon]]</span>||[[Flames of Zamorak]]||20
+|-
+|<span class="plinkt-template">[[File:Wind_Wave.png|link=Wind_Wave|alt=Wind Wave icon]]</span>||[[Wind Wave]]||20
+|-
+|<span class="plinkt-template">[[File:Water_Wave.png|link=Water_Wave|alt=Water Wave icon]]</span>||[[Water Wave]]||20
+|-
+|<span class="plinkt-template">[[File:Earth_Wave.png|link=Earth_Wave|alt=Earth Wave icon]]</span>||[[Earth Wave]]||20
+|-
+|<span class="plinkt-template">[[File:Fire_Wave.png|link=Fire_Wave|alt=Fire Wave icon]]</span>||[[Fire Wave]]||20
+|-
+|<span class="plinkt-template">[[File:Entangle.png|link=Entangle|alt=Entangle icon]]</span>||[[Entangle]]||5
+|-
+|<span class="plinkt-template">[[File:Wind_Surge.png|link=Wind_Surge|alt=Wind Surge icon]]</span>||[[Wind Surge]]||24
+|-
+|<span class="plinkt-template">[[File:Water_Surge.png|link=Water_Surge|alt=Water Surge icon]]</span>||[[Water Surge]]||24
+|-
+| <span class="plinkt-template">[[File:Earth_Surge.png|link=Earth_Surge|alt=Earth Surge icon]]</span>|| [[Earth Surge]]||24
+|-
+|<span class="plinkt-template">[[File:Fire_Surge.png|link=Fire_Surge|alt=Fire Surge icon]]</span>||[[Fire Surge]]||24
+|-
+|}
+<references/>
+
+The table below displays the formulas used for the base max damage of magic attack sources that scale with Magic level:
+{| class="wikitable sortable mw-collapsible mw-collapsed" style="text-align:center; white-space:nowrap;"
+|-
+! colspan="4" |Base Max Damage - Magic-scaling sources
+|-
+! colspan="2" |Source
+! class="unsortable" |Formula
+! Base at<br>{{SCP|Magic}} 99{{efn|Magic level can still be boosted beyond 99 to achieve even higher base max damage values (except for the special attacks from the two Nightmare staves)}}
+|-
+|<span class="plinkt-template">[[File:Magic Dart.png|link=Magic Dart]]</span>
+|[[Magic Dart]]
+|<math>\lfloor \frac{MagicLevel}{10} \rfloor + 10</math>
+|19
+|-
+|<span class="plinkt-template">[[File:Magic Dart.png|link=Magic Dart]]</span>
+|[[Magic Dart]]{{efn|When casted from a [[Slayer's staff (e)]] onto a Slayer task target}}
+|<math>\lfloor \frac{MagicLevel}{6} \rfloor + 13</math>
+|29
+|-
+|{{plinkt|Bone staff}}{{efn|Can only be used against [[Rat (attribute)|rat]] monsters}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor + 5</math>||38
+|-
+|{{plinkt|Warped sceptre}}||<math>\left\lfloor \frac{8 \times Magic Level + 96}{37} \right\rfloor</math>||24
+|-
+|{{plinkt|Thammaron's sceptre}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor - 8</math>||25
+|-
+|{{plinkt|Trident of the Seas}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor - 5</math>||28
+|-
+|{{plinkt|Accursed sceptre}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor - 6</math>||27
+|-
+|{{plinkt|Sanguinesti staff}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor</math>||33
+|-
+|{{plinkt|Trident of the Swamp}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor - 2</math>||31
+|-
+|{{plinkt|Eye of Ayak}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor - 6</math>||27
+|-
+|{{plinkt|Tumeken's shadow}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor + 1</math>||34
+|-
+|{{plinkt|Zorya's tome}}||<math>\lfloor \frac{MagicLevel}{3} \rfloor - 10</math>||23
+|-
+|<span class="plinkt-template">[[File:Eldritch Nightmare staff.png|link=Eldritch Nightmare staff]]</span>
+|[[Eldritch Nightmare staff]]<br>(special attack)
+|<math>min\left\{ \left\lfloor \frac{44 \times Magic Level}{99} \right\rfloor + 1, 44 \right\}</math>
+|44
+|-
+|<span class="plinkt-template">[[File:Volatile Nightmare staff.png|link=Volatile Nightmare staff]]</span>
+|[[Volatile Nightmare staff]]<br>(special attack)
+|<math>min\left\{ \left\lfloor \frac{58 \times Magic Level}{99} \right\rfloor + 1, 58 \right\}</math>
+|58
+|-
+|{{plinkt|Swamp lizard}}||<math>\left\lfloor \frac{1}{2} + \frac{120 \times Magic Level}{640} \right\rfloor</math>||19
+|-
+|{{plinkt|Orange salamander}}||<math>\left\lfloor \frac{1}{2} + \frac{123 \times Magic Level}{640} \right\rfloor</math>||19
+|-
+|{{plinkt|Red salamander}}||<math>\left\lfloor \frac{1}{2} + \frac{141 \times Magic Level}{640} \right\rfloor</math>||22
+|-
+|{{plinkt|Black salamander}}||<math>\left\lfloor \frac{1}{2} + \frac{156 \times Magic Level}{640} \right\rfloor</math>||24
+|-
+|{{plinkt|Tecu salamander}}||<math>\left\lfloor \frac{1}{2} + \frac{172 \times Magic Level}{640} \right\rfloor</math>||27
+|-
+|}
+{{Notelist}}
+
+<u>'''Effective Base Damage Modifiers:'''</u>
+
+The table below shows the various bonus values that are added to <math>\text{BaseMaxDamage}</math> in the formula above:
+{|class="wikitable align-center-2" style="width: 900px; max-width: 100%"
+!Modifier
+!Value
+!Condition
+|-
+|ChaosGauntlets||3||When wearing [[chaos gauntlets]] while casting [[bolt spells]].
+|-
+|ElementalAmulet||2||When wearing an [[elemental amulets|elemental amulet]] while casting the corresponding [[Standard_spellbook#Offensive_spells|elemental spell]].
+|-
+|ElementalFragment||2||After an [[elemental fragments|elemental fragment]] has been consumed and one is casting the corresponding elemental spell.
+|-
+|Charge||10||When wearing a [[god cape]] while casting the associated [[God spells|god spell]] under the effect from the [[Charge]] spell.
+|-
+|}
+
+===Step two: Calculate the ''primary magic damage''===
+----
+<math>
+\text{PrimaryMagicDamage} = \left\lfloor \text{EffectiveBaseDamage} \times (1 + min(1,(\text{MagicDamageBonus} - \text{VoidBonus}) \times \text{ShadowBonus}) + \text{VoidBonus} + \text{SalveBonus} + \text{AvariceBonus} + \text{UniqueStaffBonus} + \text{VirtusRobesBonus} + \text{PrayerBonus}) \right\rfloor
+</math>
+
+----
+<u>'''Primary Damage Modifiers:'''</u>
+
+The table below shows the various bonus values that are added or multiplied in the formula above:
+{|class="wikitable align-center-2" style="width: 900px; max-width: 100%"
+|-
+!Modifier
+!Value
+!Condition
+|-
+|MagicDamageBonus||Varies||The total [[magic damage]] bonus '''in decimal form''' which is displayed in the player's [[Equipment Stats]] as a percentage (e.g. "Magic DMG: 13%" would have a value of 0.13).
+|-
+|VoidBonus||0.05||When wearing the [[Elite Void Knight equipment|Elite void set]] and [[Void mage helm]].
+|-
+|ShadowBonus||Varies||When using the built-in spell from [[Tumeken's shadow]], the value is 3 when used outside of [[Tombs of Amascut]], or 4 when used within the raid. If Tumeken's shadow is equipped but the built-in spell is not being used, the value is 1.
+|-
+|SalveBonus||0.15<br>(0.20)||When wearing a [[salve amulet(i)]] or [[salve amulet(ei)]] while attacking an [[undead]] monster, with values 0.15 or 0.20, respectively.
+|-
+|AvariceBonus||0.20<br>(0.35)||When wearing an [[amulet of avarice]] while attacking a [[Revenants|revenant]]. The normal value is 0.20, but if [[Revenant maledictus#Forinthry Surge|Forinthry Surge]] is active, the value is increased to 0.35.
+|-
+|UniqueStaffBonus||0.10||When wielding a [[smoke battlestaff]], [[mystic smoke staff]], or a [[Twinflame staff]] while casting a combat spell from the [[standard spellbook]].
+|-
+|VirtusRobesBonus|| ''v'' * ''n''||When wearing any piece of of the [[Virtus robes]] set, where ''v'' is normally 0.02, or 0.05 when casting [[Ancient Magicks]], and ''n'' is the number of Virtus robe pieces worn (e.g. wearing a [[Virtus robe top]] and [[Virtus robe bottom]] while casting an Ancient Magicks spell would have a value of 0.05 * 2 = 0.10).
+|-
+|PrayerBonus||Varies||When using one of the four [[prayers]] that increase Magic damage. (See "Prayer Bonus" table below)
+|-
+|}
+
+The <math>\text{PrayerBonus}</math> value depends on which prayer is being used:
+{|class="wikitable align-center-2" style="text-align:center"
+|-
+! colspan="4" |Prayer Bonus
+|-
+!{{SCP|Prayer}} Level
+! colspan="2" |Prayer
+!Value
+|-
+|27||{{Plinkp|Mystic Lore}}||[[Mystic Lore]]||0.01
+|-
+|45||{{plinkp|Mystic Might}}||[[Mystic Might]]||0.02
+|-
+|63||{{plinkp|Mystic Vigour}}||[[Mystic Vigour]]{{efn|Only accessible after reading a [[mystic vigour prayer scroll]]}}||0.03
+|-
+|77{{efn|Also requires 70 [[Defence]]}}||{{plinkp|Augury}}||[[Augury]]||0.04
+|-
+|}
+{{Notelist}}
+
+===Step three: Calculate the ''pre-roll maximum hit''===
+----
+<math>\begin{align}
+&\text{PreRollMaxHitBeforeTome} &&= \Bigg\lfloor\bigg\lfloor\Big\lfloor\big\lfloor\lfloor \text{PrimaryMagicDamage} \times \text{SlayerBonus}\rfloor \times \text{DragonbaneBonus}\big\rfloor \times \text{SceptreWilderness}\Big\rfloor \times \text{SpecialAttackBonus}\bigg\rfloor + \lfloor \text{EffectiveBaseDamage} \times \text{ElementalWeakness} \rfloor \Bigg\rfloor \\
+
+&\text{PreRollMaxHit} &&= \left\lfloor \text{PreRollMaxHitBeforeTome} \times \text{TomeBonus} \right\rfloor
+\end{align}
+</math>
+----
+
+As shown above, the pre-roll maximum hit gets calculated in two steps: 
+# <math>\text{PreRollMaxHitBeforeTome, }</math>which calculates max hit using all pre-roll max hit modifiers ''except'' for <math>\text{TomeBonus}</math>
+# <math>\text{PreRollMaxHit, }</math>which calculates max hit ''with'' <math>\text{TomeBonus}</math>
+
+This is done because when casting [[fire spells]] with [[sunfire runes]] or [[searing pages]], the minimum hit becomes 10% of the pre-roll max hit ''before'' the damage bonus from using a [[Tome of Fire]] gets applied, rounded down. 
+
+<u>'''Pre-Roll Max Hit Modifiers:'''</u>
+
+The table below shows the various bonus values used in the formulas above:
+{|class="wikitable align-center-2" style="width: 900px; max-width: 100%"
+|-
+!Modifier
+!Value
+!Condition
+|-
+|SlayerBonus||1.15<br>(1.00)||When wearing a [[black mask (i)]] or a [[slayer helmet (i)]] while attacking a monster that's part of the player's current [[slayer task]]. If wearing an [[amulet of avarice]] or any variant of the imbued [[salve amulets]] while attacking a [[revenant]] or [[undead]] monster, respectively, this value becomes 1.00 (the bonuses from these items are prioritised over the imbued black mask and slayer helmet).
+|-
+|DragonbaneBonus||Varies||When wielding a [[dragonbane weapons|dragonbane weapon]] and casting a spell on a [[Dragon (attribute)|draconic]] monster. For magic damage, this is not restricted to the [[dragon hunter wand]] as manually cast spells with other dragonbane weapons equipped (such as the [[dragon hunter crossbow]] or the [[dragon hunter lance]]) still benefit from their dragonbane effects. Thus, this value is 1.40 for the wand, 1.25 for the crossbow, or 1.20 for the lance.
+|-
+|SceptreWilderness||1.50||When using a charged [[Thammaron's sceptre]] or [[accursed sceptre]] (or their autocast mode variants) within the [[Wilderness]].
+|-
+|SpecialAttackBonus||Varies||When using the [[special attack]] of certain magic weapons.{{efn|This does not include the special attacks from the [[eldritch Nightmare staff]] or the [[volatile Nightmare staff]] as their max hits are already calculated in as a base max hit that scales with Magic level rather than a damage multiplier.}} (See "Special Attack Bonus" table below)
+|-
+|ElementalWeakness||Varies||When casting [[Standard_spellbook#Offensive_spells|elemental spells]] on a target that has a corresponding [[elemental weakness]] (e.g. using an [[air spell]] on a [[skeleton]] that has 35% Air Weakness would have the value 0.35). If a target does not have an elemental weakness, this value becomes 0.00. '''Note that this multiplier is applied to EffectiveBaseDamage from step one, NOT PrimaryMagicDamage.'''
+|-
+|TomeBonus||1.10<br>(Varies in PvP)||When wielding a charged [[Tome of Water]], [[Tome of Earth|Earth]], or [[Tome of Fire|Fire]] while casting a corresponding elemental spell from the [[standard spellbook]]. In PvP, this value becomes 1.20, 1.00, or 1.50, respectively.
+|-
+|}
+{{Notelist}} 
+
+The <math>\text{SpecialAttackBonus}</math> value depends on which special attack or special attack buff is being used:
+{|class="wikitable align-center-2"
+|-
+! colspan="4" |Special Attack Bonus
+|-
+! colspan="2" |Source
+!Value
+|-
+|{{plinkt|Accursed sceptre}}{{efn|When using the [[accursed sceptre (a)]], the special attack will still use the sceptre's built-in spell; this means the special attack in either mode will be calculated the same.}}||1.50
+|-
+|{{plinkt|Eye of Ayak}}||1.30
+|-
+|{{plinkt|Zorya's tome}}||1.60
+|-
+|{{plinkp|Zorya's tome}}||Zorya's tome<br>(follow-up special attack){{efn|Zorya's tome's special attack, ''Zorya's flow'', deals 60% increased damage (1.60) with 150% increased accuracy, and if it lands it buffs the next three attacks from the tome by the same amount. If any of those three buffed attacks are an additional cast of ''Zorya's flow'', that attack then deals 120% increased damage (2.20) instead.}}||2.20
+|-
+|}
+{{Notelist}}
+
+It is at this point where the game then rolls for damage ''before'' any post-roll modifiers. This is a random roll between 0 (or <math>\left\lfloor\tfrac{\text{PreHitRollBeforeTome}}{10}\right\rfloor</math> when using sunfire runes or searing pages with fire spells) and <math>\text{PreRollMaxHit}</math>. If a zero is rolled, it becomes a 1. This rolled damage calculation is explained just for informational purposes regarding how sunfire runes and searing pages are calculated from the <math>\text{PreRollMaxHitBeforeTome}</math> value, and how the later damage modifiers depend on the ''rolled hit'' rather than the ''pre-rolled maximum hit''. However, for the sake of calculating maximum magic hit, we can just use the value of <math>\text{PreRollMaxHit}</math> for the <math>\text{PostRollMaxHit}</math> instead:
+----
+<math>
+\text{PostRollMaxHit = PreRollMaxHit}
+</math>
+----
+===Step four: Calculate the final ''maximum hit''===
+----
+<math>
+\text{MaxHit} = \bigg\lfloor\Big\lfloor\big\lfloor \big(\text{PostRollMaxHit} + \big\lfloor\lfloor \text{PostRollMaxHit} \times \text{MarkOfDarkness}\rfloor \times \text{DemonbaneVulnerability}\big\rfloor\big) \times \text{AhrimsDamned}\big\rfloor \times \text{CastleWarsBracelet}\Big\rfloor \times \text{DamageReduction}\bigg\rfloor
+</math>
+----
+
+Before the damage from the rolled hit is applied and seen in-game, it undergoes a final damage calculation based on some post-roll modifiers. After these modifiers are calculated, the resulting damage of <math>\text{MaxHit}</math> is then finally applied in-game and displayed in a [[hitsplat]] icon.
+
+<u>'''Post-Roll Max Hit Modifiers:'''</u>
+
+The table below shows the various bonus values used in the formula above:
+{|class="wikitable align-center-2" style="width: 900px; max-width: 100%"
+|-
+!Modifier
+!Value
+!Condition
+|-
+|MarkOfDarkness||0.25<br>(0.50)||When under the effects of [[Mark of Darkness]] while casting any [[demonbane spells]] from the [[Arceuus spellbook]] on [[Demon (attribute)|demonic]] monsters. When a [[purging staff]] is equipped while meeting the aforementioned conditions, the value is increased to 0.50.
+|-
+|DemonbaneVulnerability||Varies||When under the effects of Mark of Darkness while casting any demonbane spells on demonic targets. The normal value is 1.00, but some demonic targets have a [[demonbane vulnerability]] that is different from this value, making demonbane sources either more or less effective than usual to them. (See "Demonbane Vulnerability" table below)
+|-
+|AhrimsDamned||1.30||When equipped with [[Ahrim the Blighted's equipment|Ahrim's full set]] and an [[amulet of the damned]], there's a 25% chance for any magic attack to deal 30% extra damage. Note that a player will see two different max [[hitsplat]]s in-game depending on if this effect triggered or not. This effect will never be triggered on a [[combat dummy]].
+|-
+|CastleWarsBracelet||1.20||When a [[Castle wars bracelet|Castle Wars bracelet]] had been equipped at the start of a [[Castle Wars]] game and the player is attacking the flag bearer.
+|-
+|DamageReduction||Varies||When attacking certain monsters that take reduced damage from magic attacks. For example, [[zogre]]s and [[skogre]]s reduce damage by 75% (except for [[brutal arrows]]), or by 50% when using [[Crumble Undead]], therefore this multiplier becomes 0.25 or 0.50, respectively.
+|-
+|}
+
+The <math>\text{DemonbaneVulnerability}</math> value depends on which demonic target with a distinct demonbane vulnerability is being attacked:
+{|class="wikitable sortable" style="text-align:center"
+|-
+! colspan="3" |Demonbane Vulnerability
+|-
+! colspan="2" |Target
+!Value
+|-
+|{{Ilinkt|Dreadnoth the Jellied|pic=Dreadnoth the Jellied|size=50}}||0.25
+|-
+|{{Ilinkt|Duke Sucellus|pic=Duke Sucellus|size=45}}||0.70
+|-
+|{{Ilinkt|Xarth|pic=Xarth|size=35}}||0.80
+|-
+|{{Ilinkt|Ocellus|pic=Ocellus|size=50}}||0.80
+|-
+|{{Ilinkt|Ice demon|pic=Ice demon|size=38}}||1.15
+|-
+|{{Ilinkt|Yama|pic=Yama|size=75}}||1.20
+|-
+|{{Ilinkt|Void Flare|pic=Void Flare (fire)|size=40}}||2.00
+|-
+|}
+
+===Twinflame staff total damage===
+----
+<math>
+\text{TwinflameTotalDamage} = \text{MaxHit} + \bigg\lfloor \frac{2}{5} \times \text{MaxHit} \bigg\rfloor
+</math>
+----
+
+If a [[twinflame staff]] was equipped while casting a [[Bolt spells|bolt]], [[Blast spells|blast]], or [[Wave spells|wave]] spell, then an ''additional'' hit is applied, dealing damage equal to 40% of the final <math>\text{MaxHit}</math>, rounded down.
+
+==Trivia==
+* The only Magic attacks that don't cost [[runes]], tar, or charges are the [[special attacks]] for the [[eldritch Nightmare staff]] and [[volatile Nightmare staff]].
+* There are only six Magic-based special attacks. They are from the [[eldritch Nightmare staff]], [[volatile Nightmare staff]], [[accursed sceptre]] (and its [[accursed sceptre (a)|autocast version]]), the [[purging staff]], the [[Eye of Ayak]], and [[Zorya's tome]].
+** This is increased to eight when including melee weapons with Magic-based special attacks, those being the [[Voidwaker]] and [[Saradomin's blessed sword]] (the normal [[Saradomin sword]]'s special attack does have a Magic component, however, it rolls against the opponent's slash defence).
+* The most magic damage that can be applied to the passive effect of [[Tumeken's shadow]] is 27%. This is because certain gear, such as the [[Salve amulet]] and [[slayer helmet (i)]], aren't multiplied by the effect. Thus, a player within [[Tombs of Amascut]] can reach the 100% magic damage cap of the effect, while outside of the raid the most magic damage they can reach from the effect is 81%.
+* The maximum Magic damage possible in a single attack is 594. This is by using [[Ice Barrage]] against nine targets with [[Accursed sceptre (a)]] in the Wilderness, on a Slayer task, while wearing the best [[Magic damage]] gear, and using [[Augury]]. The chance of this happening is 1/67^9 or 1/27,206,534,396,294,900 not including the attack roll. 
+
+[[Category:Magic]]
+[[Category:Mechanics]]
+
+{{Combat Mechanics}}

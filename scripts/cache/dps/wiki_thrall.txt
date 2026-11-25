@@ -1,0 +1,264 @@
+{{Redirect3|Summoning monster(s)|Reanimation spells}}
+[[File:Superior ghostly thrall.png|right|130px]]
+'''Thralls''' are undead beings which can be summoned to attack enemies.
+
+==Overview==
+Thralls are summoned with [[resurrection spells]] in the [[Arceuus spellbook]], which requires completion of [[A Kingdom Divided]]. In addition to the required [[Magic]] level and runes, the player must have the [[Book of the Dead]] either wielded or in their inventory, along with 2-6 prayer points in order to summon a thrall.
+
+The [[impish whistle]] can be used to unlock a cosmetic override for thralls, giving them the appearances of imps.
+
+Casting these spells does not interrupt combat. The player will keep attacking their current target and will not have their attacks delayed or otherwise affected.
+
+{|class="wikitable sortable" style="text-align:center; width:800px;"
+!class="unsortable"|Icon
+! class="unsortable" |[[Mobile]]<br/>icon
+!Spell
+!Level
+!class="unsortable"|[[Runes]]
+!XP
+!Prayer<br>points cost
+!Thrall<br>attack style
+!Thrall<br>max hit
+!Thrall DPS
+|-
+|[[File:Resurrect Lesser Ghost.png]]
+|[[File:Resurrect Lesser Ghost icon (mobile).png]]
+|[[Resurrect Lesser Ghost]]
+|38
+|{{RuneReq|Air=10|Mind=5|Cosmic=1}}
+|55
+|2
+|Magic
+|1
+|0.208
+|-
+|[[File:Resurrect Lesser Skeleton.png]]
+|[[File:Resurrect Lesser Skeleton icon (mobile).png]]
+|[[Resurrect Lesser Skeleton]]
+|38
+|{{RuneReq|Air=10|Mind=5|Cosmic=1}}
+|55
+|2
+|Ranged
+|1
+|0.208
+|-
+|[[File:Resurrect Lesser Zombie.png]]
+|[[File:Resurrect Lesser Zombie icon (mobile).png]]
+|[[Resurrect Lesser Zombie]]
+|38
+|{{RuneReq|Air=10|Mind=5|Cosmic=1}}
+|55
+|2
+|Melee
+|1
+|0.208
+|-
+|[[File:Resurrect Superior Ghost.png]]
+|[[File:Resurrect Superior Ghost icon (mobile).png]]
+|[[Resurrect Superior Ghost]]
+|57
+|{{RuneReq|Earth=10|Death=5|Cosmic=1}}
+|70
+|4
+|Magic
+|2
+|0.416
+|-
+|[[File:Resurrect Superior Skeleton.png]]
+|[[File:Resurrect Superior Skeleton icon (mobile).png]]
+|[[Resurrect Superior Skeleton]]
+|57
+|{{RuneReq|Earth=10|Death=5|Cosmic=1}}
+|70
+|4
+|Ranged
+|2
+|0.416
+|-
+|[[File:Resurrect Superior Zombie.png]]
+|[[File:Resurrect Superior Zombie icon (mobile).png]]
+|[[Resurrect Superior Zombie]]
+|57
+|{{RuneReq|Earth=10|Death=5|Cosmic=1}}
+|70
+|4
+|Melee
+|2
+|0.416
+|-
+|[[File:Resurrect Greater Ghost.png]]
+|[[File:Resurrect Greater Ghost icon (mobile).png]]
+|[[Resurrect Greater Ghost]]
+|76
+|{{RuneReq|Fire=10|Blood=5|Cosmic=1}}
+|88
+|6
+|Magic
+|3
+|0.625
+|-
+|[[File:Resurrect Greater Skeleton.png]]
+|[[File:Resurrect Greater Skeleton icon (mobile).png]]
+|[[Resurrect Greater Skeleton]]
+|76
+|{{RuneReq|Fire=10|Blood=5|Cosmic=1}}
+|88
+|6
+|Ranged
+|3
+|0.625
+|-
+|[[File:Resurrect Greater Zombie.png]]
+|[[File:Resurrect Greater Zombie icon (mobile).png]]
+|[[Resurrect Greater Zombie]]
+|76
+|{{RuneReq|Fire=10|Blood=5|Cosmic=1}}
+|88
+|6
+|Melee
+|3
+|0.625
+|}
+
+Thralls notably always deal [[successful hit]]s, with the damage roll ranging from 0-3 depending on the tier of spell used, as well as ignoring the [[flat armour]] stat. This makes them fairly powerful allies for prolonged encounters, speed-based [[Combat Achievements]], and places where magic spells (not including powered staves) are not needed. 
+
+Thralls have an [[attack speed]] of 4, or once every 2.4 seconds. Skeletal and Ghostly thralls have an [[attack range]] of 6, with the distance reduced by 1 when attacking from the defending NPC's south or west side. It may be inferred that the attack range is calculated using the distance from the south-west corner of the thrall, to the north-east corner of the defending NPC, repeated for every tile occupied by the defending NPC. 
+
+Thralls cannot attack other players. Damage dealt by the thrall counts as damage dealt by the player that summoned it. 
+
+The magic thralls' projectiles will hit enemies 1-2 ticks earlier (depending on distance) than the ranged thralls. Therefore, magic thralls are preferred whenever there are no special type resistances. Some bosses, however, such as [[The Hueycoatl]], have blue-coloured attacks to dodge, so the ranged thrall can be preferable as to not be confused with or masking away a dangerous tile, as he is yellow.
+
+Thralls will remain for a set amount of time (<math>0.6 * CurrentMagicLevel</math> seconds (i.e. 1 [[tick]] per level)), or twice as long after claiming the [[Master Combat Achievements]] rewards. There is a ten second cooldown before the player can cast another resurrection spell, although the current thrall will despawn in the process.
+
+As the thrall's duration is dependent on the player's Magic level, boosting it will subsequently increase the thrall's duration:
+{{Tooltip text|name = 38|content = Required for Resurrect Lesser spells}}
+{{Tooltip text|name = 57|content = Required for Resurrect Superior spells}}
+{{Tooltip text|name = 76|content = Required for Resurrect Greater spells}}
+{{Tooltip text|name = 99|content = Maximum magic level}}
+{{Tooltip text|name = 109|content = Maximum magic level with [[imbued heart]] boost}}
+{{Tooltip text|name = 112|content = Maximum magic level with [[saturated heart]] boost}}
+{{Tooltip text|name = 120|content = Maximum magic level with [[Overload (+)]] in [[Chambers of Xeric]]}}
+{{Tooltip text|name = 125|content = Maximum magic level with [[Smelling salts]] in [[Tombs of Amascut]]}}
+{| class="wikitable" style="text-align:center; width:800px;"
+|+
+!Magic level
+!Normal
+!With [[Master Combat Achievements|Master CA]]
+!Total expected damage (max){{efn|When using the best available Trall, based on magic level/4 hits.}}
+!With [[Master Combat Achievements|Master CA]]
+|-
+|{{Tooltip|38|38}}||22.8 seconds||45.6 seconds||4,5 (9)||9,5 (19)
+|-
+|{{Tooltip|57|57}}||34.2 seconds||68.4 seconds||14 (28)||28 (56)
+|-
+|{{Tooltip|76|76}}||45.6 seconds||91.2 seconds||28,5 (57)||57 (114)
+|-
+|{{Tooltip|99|99}}||59.4 seconds||118.8 seconds||36 (72)||73,5 (147)
+|-
+|{{Tooltip|109|109}}||65.4 seconds||130.8 seconds||40,5 (81)||81 (162)
+|-
+|{{Tooltip|112|112}}||67.2 seconds||134.4 seconds||42 (84)||84 (168)
+|-
+|{{Tooltip|120|120}}||72 seconds||144 seconds||45 (90)||90 (180)
+|-
+|{{Tooltip|125|125}}||75 seconds||150 seconds||46,5 (93)||93 (186)
+|}
+{{notelist}}
+
+Thralls cannot pass between rooms (for example, a thrall summoned in the [[Corporeal Beast]] lobby will remain there even when the player enters the Beast's arena and attacks it)
+
+===Restrictions===
+Thralls cannot be resurrected at the following locations:
+
+* [[Castle Wars]]
+* [[Chasm of Fire]] (with the exception of Yama's Domain)
+* [[Clan Wars]]
+* Certain [[Temple Trekking]] encounters
+* During the fight against [[Galvek]]
+* During the fight against [[Robert the Strong]]
+* During the fight against [[Vanstrom Klause]]
+* During the fight against [[Fragment of Seren]] 
+* During the fight against [[Lowerniel Drakan]]
+* [[Farming Guild]] (with the exception of [[Hespori]]'s cave)
+* [[Grand Exchange]]
+* [[Jormungand's Prison]]
+* [[Nightmare Zone]]
+* [[Player-owned house]]
+* [[Soul Wars]]
+* [[Ungael]] crater
+* [[Tombs of Amascut]] lobby
+* [[Theatre of Blood]] bank area
+* On a sailing boat
+* [[Guardians of the Rift]]
+
+==Types of thralls==
+*[[Ghostly thrall]]s, who attack with [[Magic]]
+**[[Lesser ghostly thrall]]
+**[[Superior ghostly thrall]]
+**[[Greater ghostly thrall]]
+*[[Skeletal thrall]]s, who attack with [[Ranged]]
+**[[Lesser skeletal thrall]]
+**[[Superior skeletal thrall]]
+**[[Greater skeletal thrall]]
+*[[Zombified thrall]]s, who attack with [[Melee]]
+**[[Lesser zombified thrall]]
+**[[Superior zombified thrall]]
+**[[Greater zombified thrall]]
+
+== Combat Achievements==
+
+There is a medium [[combat achievement]] (worth 2 points) called [[Sit Back and Relax]] which requires the player to deal 100 damage to creatures using undead thralls. This can be accomplished accumulatively across multiple undead thrall casts and multiple enemies.
+
+==Changes==
+{{Subject changes header}}
+{{Subject changes
+|date = 3 November 2026
+|update = Quest Month Kick Off, TFA Tweaks & More
+|change = 
+* Attenuation radius for thralls [[sound effect]]s has been reduced from 12 tiles to 1 tile.
+* 1x1 NPCs [[Choose Option|minimenu]] options now always take priority over thralls.
+}}
+{{Subject changes
+|date = 25 June 2025
+|update = Summer Sweep Up: Combat
+|change = Thralls' 100% extension is now unlocked upon reaching the Master tier of Combat Achievements, rather than Grandmaster. The 50% extension, which the tier originally held, was removed.
+}}
+{{Subject changes
+|date = 11 June 2025
+|update = Misc Galore & Yama Tweaks
+|change = Thralls will no longer deal damage to [[kurask]]s and [[turoth]]s.
+}}
+{{Subject changes
+|date = 5 June 2024
+|update = Pride 2024
+|change = A bug where ghostly thralls had their combat style set to melee has been fixed, and they should function as they did prior to the previous update.
+}}
+{{Subject changes
+|date = 29 May 2024
+|type = hotfix
+|change = Adjusted ghostly thrall attack range due to their combat style being set to melee.
+}}
+{{Subject changes
+|date = 31 January 2024
+|update = Scurrius & DT2 Combat Achievements
+|change = Thralls now have a better pathfinding method, allowing them to move towards a target from further away.
+}}
+{{Subject changes
+|date = 9 March 2023
+|update = Even More Poll 78 Changes
+|change = The Thrall duration bar has been adjusted to be in line with the player’s [[Combat Achievement]] rewards.
+}}
+{{Subject changes
+|date = 24 August 2022
+|update = Tombs of Amascut
+|change = Thralls can no longer be directly interacted with.
+}}
+{{Subject changes
+|date = 13 July 2022
+|update = Emir's Arena: Full Launch
+|change = Thralls now pathfind around obstacles.
+}}
+{{Subject changes footer}}
+
+{{Arceuus spellbook}}
