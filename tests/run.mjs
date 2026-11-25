@@ -436,6 +436,10 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     const claws = { name: 'Dragon claws', b: { aslash: 57, str: 56 }, speed: 4, category: 'Claw' };
     const c = S.withSpec(P, { weapon: sword }, { weapon: claws }, mon);
     assert.ok(c && c.plan === 'damage' && c.specs >= 2);
+    // an energy budget (shared pools, kill cycles) limits the specs, and reports what was used
+    const half = S.withSpecs(P, { weapon: sword }, { dmgLo: { weapon: claws } }, mon, { energy: 50, noRegen: true });
+    assert.ok(half && half.specs === 1 && half.used === 50);
+    assert.equal(S.withSpecs(P, { weapon: sword }, { dmgLo: { weapon: claws } }, mon, { energy: 20, noRegen: true }), null);
   });
   t('dps: in-content potions', () => {
     assert.deepEqual(D.boosts(P, 'overload'), { Attack: 21, Strength: 21, Ranged: 21, Magic: 21 });   // 6 + 16% of 99

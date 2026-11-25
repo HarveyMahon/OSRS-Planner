@@ -6,7 +6,7 @@
 // each part is killed with the best style allowed on it, and every style has one loadout.
 
 import { SLOTS, bestCalc, styleKind, attackStyles, ammoFits, THRALL_DPS, immuneTo } from './dps.js';
-import { specOf, withSpecs } from './specs.js';
+import { specOf, withSpecs, REGEN_PER_SEC } from './specs.js';
 
 const KINDS = ['melee', 'ranged', 'magic'];
 const MAX_PER_SLOT = 12, TOP_WEAPONS = 3;
@@ -214,7 +214,10 @@ const SETS = [
  * target they're allowed on; each later style gets the budget the earlier ones left.
  * Returns { kinds: {melee|ranged|magic: {loadout, time, cost}}, time, cost, thrall, perPart: [...] }.
  */
-export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0, fast = false } = {}) {
+// opts.cycle: seconds per kill including downtime (kill rates). Spec energy then comes from what regenerates over
+// one kill cycle (a bar can't be full at the start of every kill); without it, a fight starts with a full bar.
+// Raids and other whole content always start with a full bar, shared across the whole run.
+export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0, fast = false, cycle = null } = {}) {
   WEAPONS = new Map([...(gear.weapon || []), ...(gear['2h'] || [])].map(w => [w.name, w]));
   target = layoutTarget(target, target.chosenRooms || null);
   const parts = target.parts.filter(p => monsters[p.monster]);
@@ -302,7 +305,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       const buy = new Set();
       for (const r of Object.values(ks)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) buy.add(it); }
       const res = { kinds: ks, time: total, cost: [...buy].reduce((c, it) => c + (avail(it).price || 0), 0), thrall, perPart };
-      addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast });
+      addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast, cycle: target.whole ? null : cycle });
       return res;
     };
     const kindsList = Object.keys(allKinds);
@@ -318,7 +321,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
 // Special attacks: the Defence-drain weapon and/or damage spec weapon that save the most time over the whole
 // target (used in every part where they help, each part starting with full energy). Owned, or bought from
 // what's left of the budget when that saves at least 5% of the time.
-function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast }) {
+function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast, cycle }) {
   const left = budget - res.cost;
   const priceOf = w => avail(w).owned ? 0 : avail(w).price;
   const cands = [...(gear.weapon || []), ...(gear['2h'] || [])].filter(w => specOf(w) && !buy.has(w)
@@ -328,21 +331,43 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast }
   const weapons = [...byName.values()];
   const drains = [null, ...weapons.filter(w => specOf(w).drain)], damages = [null, ...weapons.filter(w => !specOf(w).drain)];
   const kindOf = w => specOf(w).type === 'ranged' ? 'ranged' : 'melee';
+  // One energy pool for the whole fight or run: a full bar plus 10% per 30s (x2 with a Lightbearer) over it,
+  // or for repeated kills (cycle) what regenerates over one kill cycle. Many copies of a monster share it.
+  const light = Object.values(res.kinds).some(k => /^Lightbearer/.test(k.loadout.ring?.name || '')) ? 2 : 1;
+  const pool0 = cycle ? Math.min(100, cycle * REGEN_PER_SEC * light) : 100 + res.time * REGEN_PER_SEC * light;
   let best = null;
   const evalPair = (dw, xw) => {
     const cost = (dw ? priceOf(dw) : 0) + (xw ? priceOf(xw) : 0);
     if (cost > left) return null;
-    let total = 0;
-    const parts = res.perPart.map(p => {
+    // each part's saving per copy with as much energy as one copy can use, then the pool goes to the parts
+    // that save the most time per energy point
+    const opts = res.perPart.map(p => {
       const ok = w => w && p.kind && !p.weapon && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
       const d = ok(dw) ? dw : null, x = ok(xw) ? xw : null;
-      if (!d && !x) { total += p.seconds; return { ...p }; }
+      if (!d && !x) return null;
       const main = res.kinds[p.kind].loadout;
       const loFor = w => { const b = res.kinds[kindOf(w)]?.loadout || main; return { ...b, weapon: w, shield: w.two ? null : b.shield }; };
-      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon });
-      const secs = r ? p.weight * r.seconds : p.seconds;
+      const energy = Math.min(pool0, 100 + p.seconds / p.weight * REGEN_PER_SEC * light);   // one copy can't use more than a bar plus its own regen
+      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon, energy, noRegen: true });
+      if (!r) return null;
+      const per = p.seconds / p.weight, save = per - r.seconds;
+      return save > 0 ? { r, save, rate: r.used ? save / r.used : Infinity } : null;
+    });
+    const order = opts.map((o, i) => o ? i : -1).filter(i => i >= 0).sort((a, b) => opts[b].rate - opts[a].rate);
+    let pool = pool0;
+    const copies = new Array(res.perPart.length).fill(0);
+    for (const i of order) {
+      const o = opts[i], w = res.perPart[i].weight;
+      const c = o.r.used ? Math.max(0, Math.min(w, pool / o.r.used)) : w;
+      copies[i] = c; pool -= c * o.r.used;
+    }
+    let total = 0;
+    const parts = res.perPart.map((p, i) => {
+      const o = opts[i], c = copies[i];
+      if (!o || c <= 0) { total += p.seconds; return { ...p }; }
+      const secs = p.seconds - c * o.save;
       total += secs;
-      return { ...p, seconds: secs, spec: r };
+      return { ...p, seconds: secs, spec: { ...o.r, copies: c, of: p.weight } };
     });
     return { dw, xw, total, parts, cost };
   };

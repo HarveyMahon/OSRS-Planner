@@ -62,10 +62,13 @@ $('lowHp').addEventListener('change', () => {
 });
 
 function specHow(parts) {
-  const p = parts.find(x => x.spec);
-  if (!p) return '';
-  return [p.spec.drains ? `${p.spec.drains} Defence drain${p.spec.drains > 1 ? 's' : ''} at the start (Defence to about ${p.spec.defence})` : '',
-    p.spec.specs ? `${p.spec.specs} damage spec${p.spec.specs > 1 ? 's' : ''} whenever there's energy` : ''].filter(Boolean).join(', then ') + ` (${esc(p.name)}).`;
+  // totals over the whole target: every part with specs, each counted for the copies the energy reached
+  const used = parts.filter(x => x.spec);
+  if (!used.length) return '';
+  const sum = k => used.reduce((n, x) => n + (x.spec[k] || 0) * (x.spec.copies ?? 1), 0);
+  const d = Math.round(sum('drains') * 10) / 10, n = Math.round(sum('specs') * 10) / 10;
+  const where = [...new Set(used.map(x => esc(x.name)))].join(', ');
+  return [d ? `${d} Defence drain${d === 1 ? '' : 's'}` : '', n ? `${n} damage spec${n === 1 ? '' : 's'}` : ''].filter(Boolean).join(' and ') + ` in all, on ${where}.`;
 }
 
 function run() {
@@ -95,7 +98,7 @@ function run() {
     }).join('')}</table><p style="margin:8px 0 0"><button type="button" class="btn small" data-open="${k}">Open in DPS calculator</button></p></div>`;
   }).join('') + (r.spec ? `<div class="card"><h3>Special attacks</h3><table>${[['Defence drain', r.spec.drain], ['Damage', r.spec.damage]].filter(([, x]) => x).map(([label, x]) =>
     `<tr><td class="slot">${label}</td><td>${esc(x.item.name)}</td><td class="num">${x.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(x.price)}</span>`}</td></tr>`).join('')}</table>
-    <p class="faint" style="margin:8px 0 0">Saves about ${secs(r.spec.saved)} a kill. ${specHow(r.perPart)}</p></div>` : '');
+    <p class="faint" style="margin:8px 0 0">Saves about ${secs(r.spec.saved)} ${t.whole ? 'a run' : 'on a kill started with a full bar'}. ${specHow(r.perPart)} One energy pool: a full bar plus 10% every 30 seconds over the ${t.whole ? 'whole run' : 'fight'}.</p></div>` : '');
   $('parts').innerHTML = r.perPart.map(p => `<tr><td>${esc(p.name)}${p.monster.includes('#') ? ` <span class="faint">${esc(p.monster.split('#')[1])}</span>` : ''}${p.weight !== 1 ? ` <span class="faint">×${+p.weight.toFixed(2)}</span>` : ''}</td>
     <td>${p.kind || '—'}</td><td>${esc(p.calc?.style?.name || '')}${p.calc?.spell ? ` · ${esc(p.calc.spell.name)}` : ''}</td>
     <td class="num">${p.calc ? (p.calc.minHit ? `${p.calc.minHit}–` : '') + p.calc.maxHit + (p.calc.hits > 1 ? ` ×${p.calc.hits}` : '') : ''}</td>

@@ -75,7 +75,7 @@ const SPECS_LC = () => SPECS_LOWER || (SPECS_LOWER = Object.fromEntries(Object.e
 let SPECS_LOWER = null;
 export const specOf = w => w ? SPECS_LC()[canonName(w.name).toLowerCase()] || null : null;
 
-const REGEN_PER_SEC = 10 / 30;
+export const REGEN_PER_SEC = 10 / 30;
 const burnImmune = m => m.burnImmune === 'normal' || m.burnImmune === 'strong';   // normal burns (claws, Arkan blade)
 
 /** Expected damage of one special attack (and the time it takes), or null if it can't be used. */
@@ -186,11 +186,14 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
       if (!best || d > best) best = d;
     }
     cyc = best + thrall;
-    return cyc > base ? { seconds: monster.hp / cyc, drains: 0, specs: Math.round(monster.hp / cyc / (6 * (mainLo.weapon.speed || 5) * TICK)), defence: monster.def } : null;
+    return cyc > base ? { used: 0, seconds: monster.hp / cyc, drains: 0, specs: Math.round(monster.hp / cyc / (6 * (mainLo.weapon.speed || 5) * TICK)), defence: monster.def } : null;
   }
   if ((dr && !dr.drain) || (ds && ds.drain)) return null;
   let best = null;
-  const maxDrains = dr ? (dr.once ? 1 : fl(100 / dr.cost)) : 0;
+  // opts.energy: the energy this fight gets (default a full bar, plus what regenerates during it); with
+  // opts.noRegen the caller has already counted regeneration in opts.energy (shared pools, kill cycles)
+  const energy = opts.energy ?? 100, regen = opts.noRegen ? 0 : REGEN_PER_SEC * light;
+  const maxDrains = dr ? (dr.once ? 1 : fl(energy / dr.cost)) : 0;
   let m = { ...monster }, done = 0, t = 0;
   for (let k = 0; k <= maxDrains; k++) {
     if (k > 0) {                                   // one more drain spec
@@ -210,15 +213,15 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
     if (ds) {                                      // damage specs with the energy left and what regenerates
       const h = specHit(player, dmgLo, m, ds, opts);
       if (h && h.dmg > d * h.secs) {
-        const left = 100 - k * (dr?.cost || 0);
+        const left = energy - k * (dr?.cost || 0);
         for (let i = 0; i < 6; i++) {
-          n = fl((left + (T - t) * REGEN_PER_SEC * light) / ds.cost);
+          n = fl((left + (T - t) * regen) / ds.cost);
           n = Math.max(0, Math.min(n, Math.ceil(hpLeft / Math.max(h.dmg, 1))));
           T = t + n * h.secs + Math.max(0, hpLeft - n * h.dmg - thrall * n * h.secs) / d;
         }
       }
     }
-    if (!best || T < best.seconds) best = { seconds: T, drains: k, specs: n, defence: Math.round(m.def) };
+    if (!best || T < best.seconds - 1e-9) best = { seconds: T, drains: k, specs: n, defence: Math.round(m.def), used: k * (dr?.cost || 0) + n * (ds?.cost || 0) };
   }
   return best && best.seconds < plain - 1e-6 && (best.drains || best.specs) ? best : null;
 }

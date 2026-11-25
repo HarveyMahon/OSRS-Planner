@@ -154,6 +154,15 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   (1 - miss chance squared), as the Wiki calculator does; outside it keeps the higher of two attack rolls.
   Already in: Tumeken's shadow x4 magic accuracy and damage inside ToA (x3 outside), the Twisted bow's 350 magic
   cap in CoX (every CoX part is marked Xerician).
+- **Spec energy (adversarial round 1, 15:45)**: specs were getting a full bar for every copy of a monster (each
+  Ket-Zek in the Fight Caves, every CoX shaman) and at the start of every kill. Now one energy pool per fight or
+  run: a full bar plus 10% per 30s (x2 with a Lightbearer) over the fight, spent on the parts that save the most
+  time per energy point, and one copy can't use more than a bar plus its own regeneration. Fight Caves (Harvey's
+  bank): specs now save 8s of a 15-minute run, not 4m25s. **Decision for review:** kill rates (Money Makers,
+  planner) give each kill only the energy that regenerates over one kill cycle (3600 / the guide's best kills
+  per hour, which includes downtime), with no top-ups from a pool between kills. Whole raids and wave runs
+  start each run with a full bar. Best Setup's single-boss number is still "a kill started with a full bar"
+  and says so on the card.
 
 ## Next
 
