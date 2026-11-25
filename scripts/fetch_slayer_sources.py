@@ -4,7 +4,7 @@
   * The OSRS Wiki pages of each Slayer master (wikitext), for task weights, amounts and requirements.
 
 Run by hand or by the "Fetch Slayer sources" workflow: python scripts/fetch_slayer_sources.py
-About 20 requests in total, one at a time.
+About 30 requests in total, one at a time.
 """
 import json, os, time, urllib.parse, urllib.request
 
@@ -16,6 +16,7 @@ UA = "OSRS Planner - slayer import (github.com/HarveyMahon/OSRS-Planner; Discord
 SHEET = "1KR92OY-sK6I8wAAuFLt2TgLq-xadG7yA6Bzgb5YnVQM"
 TABS = ["Configurations", "Mob Data", "Task Lengths", "Duradel", "Nieve", "Konar", "Krystilia", "Chaeldar", "Vannaka", "Mazchna", "Turael/Spria"]
 MASTERS = ["Duradel", "Nieve", "Konar quo Maten", "Krystilia", "Chaeldar", "Vannaka", "Mazchna", "Turael", "Spria", "Mortimer", "Slayer task", "Slayer Master"]
+MASTERS += [m + "/Slayer assignments" for m in ["Duradel", "Nieve", "Konar quo Maten", "Krystilia", "Chaeldar", "Vannaka", "Mazchna", "Turael", "Spria", "Mortimer"]]
 
 def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
