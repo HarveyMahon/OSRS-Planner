@@ -111,7 +111,7 @@ function run() {
       const it = v.loadout[s];
       if (!it) return '';
       const a = avail(it);
-      return `<tr><td class="slot">${s}</td><td>${esc(it.name)}</td><td class="num">${a.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(a.price || 0)}</span>`}</td></tr>`;
+      return `<tr><td class="slot">${s}</td><td>${esc(it.name)}</td><td class="num">${a.owned ? '<span class="tag own">owned</span>' : a.earn ? `<span class="tag own" title="Untradeable: get it from ${esc(a.earn)}">${esc(a.earn)}</span>` : `<span class="tag buy">${gp(a.price || 0)}</span>`}</td></tr>`;
     }).join('')}</table><p style="margin:8px 0 0"><button type="button" class="btn small" data-open="${k}">Open in DPS calculator</button></p></div>`;
   }).join('') + (r.spec ? `<div class="card"><h3>Special attacks</h3><table>${[['Defence drain', r.spec.drain], ['Damage', r.spec.damage]].filter(([, x]) => x).map(([label, x]) =>
     `<tr><td class="slot">${label}</td><td>${esc(x.item.name)}</td><td class="num">${x.owned ? '<span class="tag own">owned</span>' : `<span class="tag buy">${gp(x.price)}</span>`}</td></tr>`).join('')}</table>

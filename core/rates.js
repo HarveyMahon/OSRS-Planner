@@ -11,7 +11,7 @@ import { bestSetup } from './best-setup.js';
 import { levelForXp, xpForLevel } from './xp.js';
 
 const KEY = 'osrsplanner:rates';
-const VERSION = 35;
+const VERSION = 36;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
 const OFFENCE = ['Attack', 'Strength', 'Ranged', 'Magic'];   // what your kill rate already measures
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list

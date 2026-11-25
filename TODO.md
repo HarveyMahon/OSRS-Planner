@@ -42,3 +42,9 @@ Ideas parked for later. Nothing here is being worked on right now.
   are worked out again with the gear that cash buys (kill rates and boss kill steps use the plan's cash at that
   point, not today's). Consecutive stages at the same money maker show as one step at its average rate. Gear
   bought keeps its value, so it isn't taken off the total. More cash never makes a kill rate slower.
+- **Mage Arena II capes (18:00, Harvey)**: the imbued Saradomin, Guthix and Zamorak capes are untradeable, so they
+  were only used if they were in your bank. They're now counted as free to get once you have 75 Magic (Wiki:
+  first imbue in Mage Arena II, then 250K from Perdu), shown with a "Mage Arena II" tag instead of a price. The
+  Imbued ancient cape (needs Pete Kayer's ancient fabric) and the imbued max capes still need to be owned.
+  Other untradeables you earn (Fire/Infernal cape, Barrows gloves, Avernic defender, Void...) still need to be
+  owned; the same list in core/gear.js can take them, with their requirements.
