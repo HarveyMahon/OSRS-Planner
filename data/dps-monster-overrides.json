@@ -72,6 +72,30 @@
     "Vet'ion#Normal": {
       "wild": true,
       "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Vet'ion#Enraged": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Skeleton Hellhound (Vet'ion)": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Greater Skeleton Hellhound (Vet'ion)": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Calvar'ion#Enraged": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Skeleton Hellhound (Calvar'ion)": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Greater Skeleton Hellhound (Calvar'ion)": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
     }
   }
 }

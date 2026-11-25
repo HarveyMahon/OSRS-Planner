@@ -317,6 +317,30 @@
    "weaknessPct": 30,
    "wild": true
   },
+  "Calvar'ion#Enraged": {
+   "name": "Calvar'ion",
+   "hp": 150,
+   "def": 225,
+   "magic": 178,
+   "size": 3,
+   "attributes": [
+    "undead"
+   ],
+   "dstab": 130,
+   "dslash": 128,
+   "dcrush": -10,
+   "dmagic": 198,
+   "amagic": 0,
+   "dlight": 211,
+   "dstandard": 211,
+   "dheavy": 211,
+   "drange": 0,
+   "flatArmour": 0,
+   "burnImmune": null,
+   "weakness": null,
+   "weaknessPct": 0,
+   "wild": true
+  },
   "Calvar'ion#Normal": {
    "name": "Calvar'ion",
    "hp": 150,
@@ -889,6 +913,54 @@
    "burnImmune": null,
    "weakness": "earth",
    "weaknessPct": 50
+  },
+  "Greater Skeleton Hellhound (Calvar'ion)": {
+   "name": "Greater Skeleton Hellhound",
+   "hp": 30,
+   "def": 110,
+   "magic": 1,
+   "size": 2,
+   "attributes": [
+    "undead"
+   ],
+   "dstab": 95,
+   "dslash": 101,
+   "dcrush": 15,
+   "dmagic": 156,
+   "amagic": 0,
+   "dlight": 184,
+   "dstandard": 184,
+   "dheavy": 184,
+   "drange": 0,
+   "flatArmour": 0,
+   "burnImmune": null,
+   "weakness": "earth",
+   "weaknessPct": 40,
+   "wild": true
+  },
+  "Greater Skeleton Hellhound (Vet'ion)": {
+   "name": "Greater Skeleton Hellhound",
+   "hp": 30,
+   "def": 180,
+   "magic": 1,
+   "size": 2,
+   "attributes": [
+    "undead"
+   ],
+   "dstab": 150,
+   "dslash": 163,
+   "dcrush": 20,
+   "dmagic": 210,
+   "amagic": 0,
+   "dlight": 275,
+   "dstandard": 275,
+   "dheavy": 275,
+   "drange": 0,
+   "flatArmour": 0,
+   "burnImmune": null,
+   "weakness": "earth",
+   "weaknessPct": 40,
+   "wild": true
   },
   "Guardian (Chambers of Xeric)#Normal": {
    "name": "Guardian",
@@ -1860,6 +1932,54 @@
    "weakness": null,
    "weaknessPct": 0
   },
+  "Skeleton Hellhound (Calvar'ion)": {
+   "name": "Skeleton Hellhound",
+   "hp": 30,
+   "def": 95,
+   "magic": 1,
+   "size": 2,
+   "attributes": [
+    "undead"
+   ],
+   "dstab": 76,
+   "dslash": 73,
+   "dcrush": 10,
+   "dmagic": 126,
+   "amagic": 0,
+   "dlight": 155,
+   "dstandard": 155,
+   "dheavy": 155,
+   "drange": 0,
+   "flatArmour": 0,
+   "burnImmune": null,
+   "weakness": "earth",
+   "weaknessPct": 30,
+   "wild": true
+  },
+  "Skeleton Hellhound (Vet'ion)": {
+   "name": "Skeleton Hellhound",
+   "hp": 30,
+   "def": 150,
+   "magic": 1,
+   "size": 2,
+   "attributes": [
+    "undead"
+   ],
+   "dstab": 101,
+   "dslash": 103,
+   "dcrush": 10,
+   "dmagic": 180,
+   "amagic": 0,
+   "dlight": 266,
+   "dstandard": 266,
+   "dheavy": 266,
+   "drange": 0,
+   "flatArmour": 0,
+   "burnImmune": null,
+   "weakness": "earth",
+   "weaknessPct": 30,
+   "wild": true
+  },
   "Skotizo": {
    "name": "Skotizo",
    "hp": 450,
@@ -2493,6 +2613,30 @@
    "weaknessPct": 50,
    "defFloor": 150
   },
+  "Vet'ion#Enraged": {
+   "name": "Vet'ion",
+   "hp": 255,
+   "def": 395,
+   "magic": 300,
+   "size": 3,
+   "attributes": [
+    "undead"
+   ],
+   "dstab": 201,
+   "dslash": 200,
+   "dcrush": -10,
+   "dmagic": 250,
+   "amagic": 0,
+   "dlight": 270,
+   "dstandard": 270,
+   "dheavy": 270,
+   "drange": 0,
+   "flatArmour": 0,
+   "burnImmune": null,
+   "weakness": null,
+   "weaknessPct": 0,
+   "wild": true
+  },
   "Vet'ion#Normal": {
    "name": "Vet'ion",
    "hp": 255,
@@ -2631,27 +2775,6 @@
    "burnImmune": "weak",
    "weakness": "water",
    "weaknessPct": 40
-  },
-  "Zalcano#Armoured": {
-   "name": "Zalcano",
-   "hp": 300,
-   "def": 1,
-   "magic": 1,
-   "size": 5,
-   "attributes": [],
-   "dstab": 0,
-   "dslash": 0,
-   "dcrush": 0,
-   "dmagic": 0,
-   "amagic": 0,
-   "dlight": 0,
-   "dstandard": 0,
-   "dheavy": 0,
-   "drange": 0,
-   "flatArmour": 0,
-   "burnImmune": null,
-   "weakness": null,
-   "weaknessPct": 0
   },
   "Zebak#Normal": {
    "name": "Zebak",

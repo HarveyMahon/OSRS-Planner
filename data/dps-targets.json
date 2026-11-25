@@ -71,9 +71,22 @@
    "parts": [
     {
      "monster": "Calvar'ion#Normal",
-     "weight": 1
+     "weight": 0.5
+    },
+    {
+     "monster": "Skeleton Hellhound (Calvar'ion)",
+     "weight": 2
+    },
+    {
+     "monster": "Calvar'ion#Enraged",
+     "weight": 0.5
+    },
+    {
+     "monster": "Greater Skeleton Hellhound (Calvar'ion)",
+     "weight": 2
     }
-   ]
+   ],
+   "note": "Half his HP in each form, with two hellhounds to kill at each half (he's immune while they live); his Defence comes back when he enrages (Wiki)."
   },
   "cerberus": {
    "name": "Cerberus",
@@ -566,9 +579,22 @@
    "parts": [
     {
      "monster": "Vet'ion#Normal",
-     "weight": 1
+     "weight": 0.5
+    },
+    {
+     "monster": "Skeleton Hellhound (Vet'ion)",
+     "weight": 2
+    },
+    {
+     "monster": "Vet'ion#Enraged",
+     "weight": 0.5
+    },
+    {
+     "monster": "Greater Skeleton Hellhound (Vet'ion)",
+     "weight": 2
     }
-   ]
+   ],
+   "note": "Half his HP in each form, with two hellhounds to kill at each half (he's immune while they live); his Defence comes back when he enrages (Wiki)."
   },
   "vorkath": {
    "name": "Vorkath",
@@ -593,15 +619,6 @@
    "parts": [
     {
      "monster": "Yama#Normal",
-     "weight": 1
-    }
-   ]
-  },
-  "zalcano": {
-   "name": "Zalcano",
-   "parts": [
-    {
-     "monster": "Zalcano#Armoured",
      "weight": 1
     }
    ]
