@@ -10,6 +10,9 @@
 // monster = an entry of data/dps-monsters.json (hp, def, magic, dstab..., dlight/dstandard/dheavy, flatArmour,
 //            weakness, weaknessPct, attributes, size, amagic).
 
+// floor that ignores float error: 45 * 1.4 is 62.99999999999999 in JavaScript but 63 in game maths
+export const fl = x => Math.floor(x + 1e-9);
+
 export const SLOTS = ['head', 'cape', 'neck', 'ammo', 'weapon', 'body', 'shield', 'legs', 'hands', 'feet', 'ring'];
 export const TICK = 0.6;
 export const THRALL_DPS = 0.625;          // a greater thrall: 0-3 every 4 ticks, always hits, ignores armour
@@ -48,13 +51,13 @@ const CONTENT_BOOSTS = { overload: [6, 16], salts: [11, 16] };
 export function boosts(player, content = null) {
   const L = player.levels;
   if (CONTENT_BOOSTS[content]) {
-    const [flat, pct] = CONTENT_BOOSTS[content], f = l => Math.floor(l * pct / 100) + flat;
+    const [flat, pct] = CONTENT_BOOSTS[content], f = l => fl(l * pct / 100) + flat;
     return { Attack: f(L.Attack), Strength: f(L.Strength), Ranged: f(L.Ranged), Magic: f(L.Magic) };
   }
-  const melee = l => Math.floor(l * 0.15) + 5;                   // super combat
-  const magic = player.hearts === 'saturated' ? Math.floor(L.Magic * 0.1) + 4
-    : player.hearts === 'imbued' ? Math.floor(L.Magic * 0.1) + 1 : 0;
-  return { Attack: melee(L.Attack), Strength: melee(L.Strength), Ranged: Math.floor(L.Ranged * 0.1) + 4,
+  const melee = l => fl(l * 0.15) + 5;                   // super combat
+  const magic = player.hearts === 'saturated' ? fl(L.Magic * 0.1) + 4
+    : player.hearts === 'imbued' ? fl(L.Magic * 0.1) + 1 : 0;
+  return { Attack: melee(L.Attack), Strength: melee(L.Strength), Ranged: fl(L.Ranged * 0.1) + 4,
     Magic: Math.max(magic, 4) };                                  // magic potion +4 when there's no heart
 }
 
@@ -132,13 +135,13 @@ export function spellsFor(player, weapon, opts = {}) {
 
 // ---------- powered staves (base max from the boosted Magic level) ----------
 const POWERED = {
-  'Trident of the seas': m => Math.floor(m / 3) - 5, 'Trident of the seas (e)': m => Math.floor(m / 3) - 5,
-  'Trident of the swamp': m => Math.floor(m / 3) - 2, 'Trident of the swamp (e)': m => Math.floor(m / 3) - 2,
-  'Sanguinesti staff': m => Math.floor(m / 3), 'Holy sanguinesti staff': m => Math.floor(m / 3),
-  "Tumeken's shadow": m => Math.floor(m / 3) + 1, 'Eye of Ayak': m => Math.floor(m / 3) - 6,
-  'Warped sceptre': m => Math.floor((8 * m + 96) / 37), 'Accursed sceptre': m => Math.floor(m / 3) - 6,
-  "Thammaron's sceptre": m => Math.floor(m / 3) - 8, "Zorya's tome": m => Math.floor(m / 3) - 10,
-  'Starter staff': () => 8, 'Dawnbringer': m => Math.floor(m / 3) - 2,
+  'Trident of the seas': m => fl(m / 3) - 5, 'Trident of the seas (e)': m => fl(m / 3) - 5,
+  'Trident of the swamp': m => fl(m / 3) - 2, 'Trident of the swamp (e)': m => fl(m / 3) - 2,
+  'Sanguinesti staff': m => fl(m / 3), 'Holy sanguinesti staff': m => fl(m / 3),
+  "Tumeken's shadow": m => fl(m / 3) + 1, 'Eye of Ayak': m => fl(m / 3) - 6,
+  'Warped sceptre': m => fl((8 * m + 96) / 37), 'Accursed sceptre': m => fl(m / 3) - 6,
+  "Thammaron's sceptre": m => fl(m / 3) - 8, "Zorya's tome": m => fl(m / 3) - 10,
+  'Starter staff': () => 8, 'Dawnbringer': m => fl(m / 3) - 2,
 };
 const POWERED_LC = Object.fromEntries(Object.entries(POWERED).map(([k, f]) => [k.toLowerCase(), f]));
 const poweredBase = (w, m) => { const f = POWERED_LC[canon(w.name).replace(/ \((o|full)\)/g, '').toLowerCase()]; return f ? Math.max(1, f(m)) : 0; };
@@ -197,6 +200,22 @@ const slayerHelmImbued = lo => has(lo, 'head', /(slayer helmet|black mask).*\(i\
 const salve = lo => { const n = lo.neck?.name || ''; return /^Salve amulet/.test(n) ? { e: /\(e\)|\(ei\)/.test(n), i: /\(i\)|\(ei\)/.test(n) } : null; };
 const isScythe = w => w && /Scythe of vitur/i.test(w.name);
 const isFang = w => w && /^Osmumten's fang/.test(w.name);
+// Style immunities (as the Wiki DPS calculator has them): flying monsters can only be meleed with a halberd or
+// salamander; Vespula, the Kraken, Zuk, Jal-MejJak, the Leviathan and Zulrah (halberds aside) can't be meleed;
+// Tekton and Dusk can't be hit with ranged, Dusk not with magic either.
+export function immuneTo(m, kind, w) {
+  const name = m.name || '';
+  if (kind === 'melee') {
+    const reach = ['Polearm', 'Salamander'].includes(w?.category);
+    if (/^(Vespula|Abyssal portal|Kraken|TzKal-Zuk|Jal-MejJak|The Leviathan)$/.test(name)) return `${name} can't be meleed`;
+    if (name === 'Zulrah' && !reach) return 'Zulrah can only be meleed with a halberd';
+    if (m.attributes.includes('flying') && !reach) return `${name} flies: melee only with a halberd`;
+  }
+  if (kind === 'ranged' && /^(Tekton|Dusk)$/.test(name)) return `${name} can't be hit with ranged`;
+  if (kind === 'magic' && name === 'Dusk') return "Dusk can't be hit with magic";
+  return null;
+}
+const ALWAYS_MAX = { 'Fremennik warband archer': 'melee', 'Fremennik warband seer': 'ranged', 'Fremennik warband berserker': 'magic' };
 const WILD_WEAPON = /^(Ursine chainmace|Viggora's chainmace|Webweaver bow|Craw's bow|Accursed sceptre|Thammaron's sceptre)/;
 const isKeris = w => w && /^Keris( partisan)?/.test(w.name);
 const setOf = (lo, re) => ['head', 'body', 'legs'].every(sl => re.test(lo[sl]?.name || ''));
@@ -218,7 +237,7 @@ function bestOfMean(max, k, flat = 0, cap = null) {
   }
   return s;
 }
-const DEMON_VULN = { 'Duke Sucellus': 0.7, Yama: 1.2, 'Ice demon': 1.15 };
+const DEMON_VULN = { 'Duke Sucellus': 0.7, Yama: 1.2, 'Ice demon': 1.15, Ocellus: 0.8, Xarth: 0.8, 'Dreadnoth the Jellied': 0.25 };   // as the Wiki DPS calculator has them
 const demonbane = (m, pct) => m.attributes.includes('demon') ? pct * (DEMON_VULN[m.name] ?? 1) : 0;
 
 // ---------- equipment totals ----------
@@ -291,69 +310,73 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   const sal = salve(lo), onTask = !!player.onTask;
   let atk, max, min = 0, speed = style.speed || (w?.speed || 4), hits = 1, shots = 1, notes = [];
 
+  const immune = immuneTo(m, kind, w);
+  if (immune) return { dps: 0, maxHit: 0, accuracy: 0, speed, style, spell, notes: [immune] };
+
   if (kind === 'melee') {
-    let effA = Math.floor((L.Attack + B.Attack) * pray.acc) + 8 + (style.stance === 'accurate' ? 3 : style.stance === 'controlled' ? 1 : 0);
-    let effS = Math.floor((L.Strength + B.Strength) * pray.str) + 8 + (style.stance === 'aggressive' ? 3 : style.stance === 'controlled' ? 1 : 0);
+    let effA = fl((L.Attack + B.Attack) * pray.acc) + 8 + (style.stance === 'accurate' ? 3 : style.stance === 'controlled' ? 1 : 0);
+    let effS = fl((L.Strength + B.Strength) * pray.str) + 8 + (style.stance === 'aggressive' ? 3 : style.stance === 'controlled' ? 1 : 0);
     // Soulreaper axe: +6% of boosted Strength per stack; counted at its full 5 stacks (it holds them through a kill)
-    if (canon(w?.name) === 'Soulreaper axe') effS += Math.floor((L.Strength + B.Strength) * 6 * (opts.soulStacks ?? 5) / 100);
-    if (v?.style === 'melee') { effA = Math.floor(effA * 1.1); effS = Math.floor(effS * 1.1); }
+    if (canon(w?.name) === 'Soulreaper axe') effS += fl((L.Strength + B.Strength) * 6 * (opts.soulStacks ?? 5) / 100);
+    if (v?.style === 'melee') { effA = fl(effA * 1.1); effS = fl(effS * 1.1); }
     const base = effA * (t['a' + style.type] + 64);
     atk = base;
-    const baseMax = Math.floor((effS * (t.str + 64) + 320) / 640);
+    const baseMax = fl((effS * (t.str + 64) + 320) / 640);
     max = baseMax;
-    if (sal && undead) { atk = Math.floor(atk * (sal.e ? 6 / 5 : 7 / 6)); max = Math.floor(max * (sal.e ? 6 / 5 : 7 / 6)); }
-    else if (slayerHelm(lo) && onTask) { atk = Math.floor(atk * 7 / 6); max = Math.floor(max * 7 / 6); }
-    if (isTzhaar(w) && obsidianArmour(lo)) { atk += Math.floor(base / 10); max += Math.floor(baseMax / 10); }
-    if (isTzhaar(w) && /^Berserker necklace/.test(lo.neck?.name || '')) max = Math.floor(max * 6 / 5);
+    if (sal && undead) { atk = fl(atk * (sal.e ? 6 / 5 : 7 / 6)); max = fl(max * (sal.e ? 6 / 5 : 7 / 6)); }
+    else if (slayerHelm(lo) && onTask) { atk = fl(atk * 7 / 6); max = fl(max * 7 / 6); }
+    if (isTzhaar(w) && obsidianArmour(lo)) { atk += fl(base / 10); max += fl(baseMax / 10); }
+    if (isTzhaar(w) && /^Berserker necklace/.test(lo.neck?.name || '')) max = fl(max * 6 / 5);
     const db = /^(Arclight|Emberlight)/.test(w?.name || '') ? 0.7 : /^(Silverlight|Darklight)/.test(w?.name || '') ? 0.6 : 0;
-    if (db) { const f = demonbane(m, db); atk += Math.floor(atk * f); max += Math.floor(max * f); }
-    if (dragon && canon(w?.name) === 'Dragon hunter lance') { atk = Math.floor(atk * 6 / 5); max = Math.floor(max * 6 / 5); }
+    if (db) { const f = demonbane(m, db); atk += fl(atk * f); max += fl(max * f); }
+    if (dragon && canon(w?.name) === 'Dragon hunter lance') { atk = fl(atk * 6 / 5); max = fl(max * 6 / 5); }
     if (kalphite && isKeris(w)) {
-      if (/breaching/.test(w.name)) atk = Math.floor(atk * 1.33);
-      max = Math.floor(max * (/amascut/.test(w.name) ? 1.15 : 1.33));
+      if (/breaching/.test(w.name)) atk = fl(atk * 1.33);
+      max = fl(max * (/amascut/.test(w.name) ? 1.15 : 1.33));
     }
+    if (m.wild && WILD_WEAPON.test(canon(w?.name) || '')) { atk = fl(atk * 3 / 2); max = fl(max * 3 / 2); }   // Wilderness weapons, before Inquisitor's (as the Wiki calculator)
     if (style.type === 'crush') {
       let inq = (has(lo, 'head', /^Inquisitor's great helm/) ? 1 : 0) + (has(lo, 'body', /^Inquisitor's hauberk/) ? 2 : 0) + (has(lo, 'legs', /^Inquisitor's plateskirt/) ? 2 : 0);
       if (inq === 5) inq = 7;      // the full set adds another 1% (Wiki, 22 July 2026); the mace no longer boosts it
-      if (inq) { atk = Math.floor(atk * (200 + inq) / 200); max = Math.floor(max * (200 + inq) / 200); }
+      if (inq) { atk = fl(atk * (200 + inq) / 200); max = fl(max * (200 + inq) / 200); }
     }
     if (isFang(w)) { const shrink = Math.trunc(max * 3 / 20); min = shrink; max -= shrink; }
     if (isScythe(w)) hits = m.size >= 3 ? 3 : m.size === 2 ? 2 : 1;
   } else if (kind === 'ranged') {
     if (style.stance === 'rapid') speed -= 1;
     const lvl = L.Ranged + B.Ranged, accBonus = style.stance === 'accurate' ? 3 : 0;
-    let effA = Math.floor(lvl * pray.acc) + accBonus + 8;
+    let effA = fl(lvl * pray.acc) + accBonus + 8;
     // Eclipse atlatl: damage from your (boosted) Strength level and melee strength bonus, with ranged prayers
     const atlatl = canon(w?.name) === 'Eclipse atlatl';
-    let effS = Math.floor((atlatl ? L.Strength + B.Strength : lvl) * pray.str) + accBonus + 8;
-    if (v?.style === 'ranged') { effA = Math.floor(effA * 1.1); effS = Math.floor(effS * (v.elite ? 1.125 : 1.1)); }
+    let effS = fl((atlatl ? L.Strength + B.Strength : lvl) * pray.str) + accBonus + 8;
+    if (v?.style === 'ranged') { effA = fl(effA * 1.1); effS = fl(effS * (v.elite ? 1.125 : 1.1)); }
     atk = effA * (t.arange + 64);
-    max = Math.floor((effS * ((atlatl ? t.str : t.rstr) + 64) + 320) / 640);
+    max = fl((effS * ((atlatl ? t.str : t.rstr) + 64) + 320) / 640);
     if (atlatl) {        // and the melee Salve / Slayer helm bonuses
-      if (sal && undead) max = Math.floor(max * (sal.e ? 6 / 5 : 7 / 6));
-      else if (slayerHelm(lo) && onTask) max = Math.floor(max * 7 / 6);
+      if (sal && undead) max = fl(max * (sal.e ? 6 / 5 : 7 / 6));
+      else if (slayerHelm(lo) && onTask) max = fl(max * 7 / 6);
     }
     if (firesAmmo(w) && !ammoFits(w, lo.ammo)) return { dps: 0, maxHit: 0, accuracy: 0, speed, style, spell, notes: ['No ammo for this weapon'] };
     if (isCrystalBow(w)) { const n = crystalPieces(lo); atk = Math.trunc(atk * (20 + n) / 20); max = Math.trunc(max * (40 + n) / 40); }
     let dhcb = dragon && canon(w?.name) === 'Dragon hunter crossbow', scorch = canon(w?.name) === 'Scorching bow' && m.attributes.includes('demon');
-    if (sal && undead && sal.i) { atk = Math.floor(atk * (sal.e ? 6 / 5 : 7 / 6)); max = Math.floor(max * (sal.e ? 6 / 5 : 7 / 6)); }
+    if (sal && undead && sal.i) { atk = fl(atk * (sal.e ? 6 / 5 : 7 / 6)); max = fl(max * (sal.e ? 6 / 5 : 7 / 6)); }
     else if (slayerHelmImbued(lo) && onTask) {
-      atk = Math.floor(atk * 23 / 20);
+      atk = fl(atk * 23 / 20);
       let num = 23; if (dhcb) { num += 5; dhcb = false; }
-      max = Math.floor(max * num / 20);
+      max = fl(max * num / 20);
     }
     if (canon(w?.name) === 'Twisted bow') {
       const mag = Math.min(m.attributes.includes('xerician') ? 350 : 250, Math.max(m.magic, m.amagic || 0));
       atk = tbow(atk, mag, true); max = tbow(max, mag, false);
     }
-    if (dragon && canon(w?.name) === 'Dragon hunter crossbow') { atk = Math.floor(atk * 13 / 10); if (dhcb) max = Math.floor(max * 5 / 4); }
-    if (scorch) { const f = demonbane(m, 0.3); atk += Math.floor(atk * f); max += Math.floor(max * f); }
+    if (dragon && canon(w?.name) === 'Dragon hunter crossbow') { atk = fl(atk * 13 / 10); if (dhcb) max = fl(max * 5 / 4); }
+    if (scorch) { const f = demonbane(m, 0.3); atk += fl(atk * f); max += fl(max * f); }
     if (canon(w?.name) === 'Tonalztics of Ralos') max -= Math.trunc(max / 4);
     if (/^(Tonalztics of Ralos|Dark bow)$/.test(canon(w?.name))) shots = 2;      // two shots an attack, each rolled separately
   } else {
     const lvl = L.Magic + B.Magic;
-    let eff = Math.floor(lvl * pray.acc) + (style.stance === 'accurate' ? 2 : 0) + 9;
-    if (v?.style === 'magic') eff = Math.floor(eff * 29 / 20);
+    let eff = fl(lvl * pray.acc) + (style.stance === 'accurate' ? 2 : 0) + 9;
+    if (v?.style === 'magic') eff = fl(eff * 29 / 20);
     const baseRoll = eff * (t.amagic + 64);
     atk = baseRoll;
     let base;
@@ -367,36 +390,36 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     let mask = false, add = 0;
     if (sal?.i && undead) { mdmg += sal.e ? 200 : 150; add = sal.e ? 20 : 15; }
     else if (slayerHelmImbued(lo) && onTask) mask = true;
-    if (add) atk = Math.floor(atk * (100 + add) / 100);
-    max = base + Math.floor(base * mdmg / 1000);
-    if (mask) { max = Math.floor(max * 23 / 20); atk = Math.floor(atk * 23 / 20); }
+    if (add) atk = fl(atk * (100 + add) / 100);
+    max = base + fl(base * mdmg / 1000);
+    if (mask) { max = fl(max * 23 / 20); atk = fl(atk * 23 / 20); }
     if (dragon) {
       const dh = canon(w?.name);
-      if (dh === 'Dragon hunter lance') { atk = Math.floor(atk * 6 / 5); max = Math.floor(max * 6 / 5); }
-      else if (dh === 'Dragon hunter wand') { atk = Math.floor(atk * 7 / 4); max = Math.floor(max * 7 / 5); }
-      else if (dh === 'Dragon hunter crossbow') { atk = Math.floor(atk * 13 / 10); max = Math.floor(max * 5 / 4); }
+      if (dh === 'Dragon hunter lance') { atk = fl(atk * 6 / 5); max = fl(max * 6 / 5); }
+      else if (dh === 'Dragon hunter wand') { atk = fl(atk * 7 / 4); max = fl(max * 7 / 5); }
+      else if (dh === 'Dragon hunter crossbow') { atk = fl(atk * 13 / 10); max = fl(max * 5 / 4); }
     }
     if (spell?.demonbane) {
       if (!m.attributes.includes('demon')) return { dps: 0, maxHit: 0, accuracy: 0, speed, style, spell, notes: ['Demonbane spells only hit demons'] };
       const purging = canon(w?.name) === 'Purging staff';
-      atk += Math.floor(atk * demonbane(m, purging ? 0.8 : 0.4));      // with Mark of Darkness
+      atk += fl(atk * demonbane(m, purging ? 0.8 : 0.4));      // with Mark of Darkness
     }
-    if (spell?.element && spell.element === m.weakness) { atk += Math.floor(baseRoll * m.weaknessPct / 100); max += Math.floor(base * m.weaknessPct / 100); }
-    if (spell?.element && /^Tome of (fire|water|earth)/i.test(lo.shield?.name || '') && lo.shield.name.toLowerCase().includes(spell.element)) max = Math.floor(max * 11 / 10);
-    if (spell?.demonbane) { const purging = canon(w?.name) === 'Purging staff'; max += Math.floor(Math.floor(max * (purging ? 0.5 : 0.25)) * (DEMON_VULN[m.name] ?? 1)); }
+    if (spell?.element && spell.element === m.weakness) { atk += fl(baseRoll * m.weaknessPct / 100); max += fl(base * m.weaknessPct / 100); }
+    if (spell?.element && /^Tome of (fire|water|earth)/i.test(lo.shield?.name || '') && lo.shield.name.toLowerCase().includes(spell.element)) max = fl(max * 11 / 10);
+    if (spell?.demonbane) { const purging = canon(w?.name) === 'Purging staff'; max += fl(fl(max * (purging ? 0.5 : 0.25)) * (DEMON_VULN[m.name] ?? 1)); }
   }
 
   // Wilderness weapons (charged with revenant ether): +50% accuracy and damage against NPCs in the Wilderness
-  if (m.wild && WILD_WEAPON.test(canon(w?.name) || '')) { atk = Math.floor(atk * 3 / 2); max = Math.floor(max * 3 / 2); }
+  if (m.wild && kind !== 'melee' && WILD_WEAPON.test(canon(w?.name) || '')) { atk = fl(atk * 3 / 2); max = fl(max * 3 / 2); }
 
   // ---- special attack modifiers (core/specs.js) ----
   const spec = opts.spec;
   if (spec) {
     if (spec.fang) { max += min; }                          // the fang's spec keeps its full max hit (min stays)
-    if (spec.acc) atk = Math.floor(atk * spec.acc);
-    for (const f of spec.dmg || []) max = Math.floor(max * f);
-    if (spec.voidwaker) { min = Math.floor(max / 2); max += min; }
-    if (spec.minPct) min = Math.floor(max * spec.minPct);
+    if (spec.acc) atk = fl(atk * spec.acc);
+    for (const f of spec.dmg || []) max = fl(max * f);
+    if (spec.voidwaker) { min = fl(max / 2); max += min; }
+    if (spec.minPct) min = fl(max * spec.minPct);
     hits = 1;
   }
   // ---- expected damage per attack ----
@@ -407,11 +430,11 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   const flat = m.flatArmour || 0, cap = m.damageCap || null;
   let per = 0;
   if (hits > 1) {
-    const maxes = [max, Math.floor(max / 2), Math.floor(max / 4)].slice(0, hits);
+    const maxes = [max, fl(max / 2), fl(max / 4)].slice(0, hits);
     per = maxes.reduce((s, mx) => s + p * accurateMean(0, mx, flat, cap), 0);
   } else if (canon(w?.name) === 'Dual macuahuitl' && !spec) {
     // two hitsplats splitting the max hit; the second only rolls if the first hit
-    const m1 = Math.floor(max / 2), m2 = max - m1;
+    const m1 = fl(max / 2), m2 = max - m1;
     per = p * accurateMean(0, m1, flat, cap) + p * p * accurateMean(0, m2, flat, cap);
     // Blood Moon set: a hit has a 33% chance (55.11% if both land) to make the next attack a tick sooner
     if (bloodMoon(lo)) speed -= p * (1 - p) * 0.33 + p * p * 0.5511;
@@ -421,10 +444,12 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     // 20% / 40% more damage on monsters 2 / 3+ tiles wide
     if (canon(w?.name) === 'Obligator' && !style.noPassive) {
       const k = 2 + (m.dstab > m.dcrush ? 1 : 0) + (m.dslash > m.dcrush ? 1 : 0);
-      const big = m.size >= 3 ? 1.4 : m.size === 2 ? 1.2 : 1;
-      acc = bestOfMean(Math.floor(max * big), k, flat, cap);
+      const big = m.size >= 3 ? 140 : m.size === 2 ? 120 : 100;          // integer maths: 45 * 1.4 is 62.999...
+      acc = bestOfMean(fl(max * big / 100), k, flat, cap);
     }
     per = p * acc;
+    // Sanguinesti staff: 1 in 5 hits deal 8 extra damage
+    if (/^(Holy )?sanguinesti staff/i.test(w?.name || '') && kind === 'magic' && !spell) per += p * 0.2 * 8;
     // Verac's set: 25% of attacks ignore Defence (always hit, 1 to max+1)
     if (kind === 'melee' && veracs(lo)) per = 0.75 * per + 0.25 * accurateMean(1, max + 1, flat, cap);
     // Dharok's set: more damage the lower your Hitpoints (x(1 + missing HP x max HP / 10000)), at the HP you fight on
@@ -452,13 +477,19 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (canon(w?.name) === 'Eclipse atlatl' && has(lo, 'head', /^Eclipse moon helm/i) && has(lo, 'body', /^Eclipse moon chestplate/i)
       && has(lo, 'legs', /^Eclipse moon tassets/i) && !m.burnImmune) per += p * 0.2 * 10;
   }
+  // Some monsters always take a max hit from the right style (the Colosseum's Fremennik warband: archer to melee,
+  // seer to ranged, berserker to magic)
+  if (ALWAYS_MAX[m.name] === kind && p > 0) { const mean = accurateMean(min, max, flat, cap); if (mean > 0) per *= capped(max, cap) / mean / p; p = 1; }
   if (!spec) per *= shots;
   // Blue Moon set with the Blue Moon spear: after an Ice spell 20% (a Grasp spell 50%) of casts add a free melee hit
   if (!spec && spell && canon(w?.name) === 'Blue Moon spear' && setOf(lo, /^Blue moon/i)) {
     const chance = /^Ice /.test(spell.name) ? 0.2 : / Grasp$/.test(spell.name) ? 0.5 : 0;
     if (chance) per += chance * calc(player, lo, m, ST('Jab', 'stab', 'accurate'), null, opts).perAttack;
   }
-  if (m.name === 'Corporeal Beast' && !(style.type === 'stab' && ['Spear', 'Polearm'].includes(w?.category)) && !(kind === 'magic')) per /= 2;
+  // Corporeal Beast: half damage except stab with a corpbane weapon (spears, halberds, Osmumten's fang, King's barrage,
+  // Thunder khopesh; not hastae or the Blue Moon spear) and magic
+  const corpbane = style.type === 'stab' && /(spear|halberd|warspear|^Osmumten's fang|^King's barrage|^Thunder khopesh)/i.test(w?.name || '') && !/^Blue moon spear/i.test(w?.name || '');
+  if (m.name === 'Corporeal Beast' && !corpbane && kind !== 'magic') per /= 2;
   const dps = per / (speed * TICK);
   return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes, perAttack: per, acc: accurateMean(min, max, flat, cap) };
 }

@@ -15,6 +15,7 @@ SRC = os.path.join(HERE, "cache", "dps")
 raw = json.load(open(os.path.join(SRC, "equipment_raw.json")))
 
 def n(v):
+    if isinstance(v, float) and v % 1: return v          # half-percent magic damage (Seers ring (i) etc.)
     try: return int(v)
     except (TypeError, ValueError):
         try: return float(v)

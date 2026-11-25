@@ -5,7 +5,7 @@
 // Crystal, Inquisitor) as one move. A target is one monster or several parts (raids, multi-form bosses):
 // each part is killed with the best style allowed on it, and every style has one loadout.
 
-import { SLOTS, bestCalc, styleKind, attackStyles, ammoFits, THRALL_DPS } from './dps.js';
+import { SLOTS, bestCalc, styleKind, attackStyles, ammoFits, THRALL_DPS, immuneTo } from './dps.js';
 import { specOf, withSpecs } from './specs.js';
 
 const KINDS = ['melee', 'ranged', 'magic'];
@@ -219,7 +219,9 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
   target = layoutTarget(target, target.chosenRooms || null);
   const parts = target.parts.filter(p => monsters[p.monster]);
   if (!parts.length) return null;
-  const order = KINDS.map(k => ({ k, hp: parts.filter(p => !p.styles || p.styles.includes(k)).reduce((s, p) => s + p.weight * monsters[p.monster].hp, 0) }))
+  // a style only works on the parts it can damage at all (Dusk: melee only; Dawn: no melee bar a halberd)
+  const canHit = (p, k) => (!p.styles || p.styles.includes(k)) && !immuneTo(monsters[p.monster], k, k === 'melee' ? { category: 'Polearm' } : null);
+  const order = KINDS.map(k => ({ k, hp: parts.filter(p => canHit(p, k)).reduce((s, p) => s + p.weight * monsters[p.monster].hp, 0) }))
     .filter(x => x.hp > 0).sort((a, b) => b.hp - a.hp);
   // A thrall adds the same DPS to every setup, so it doesn't change the best melee or ranged gear; it only
   // changes magic (Arceuus spells instead of standard and Ancient ones). Optimise magic both ways.
@@ -232,7 +234,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
     let left = budget;
     const bought = new Set();
     for (const { k } of order) {
-      const kParts = parts.filter(p => !p.styles || p.styles.includes(k));
+      const kParts = parts.filter(p => canHit(p, k));
       const av = it => bought.has(it) ? { owned: true, price: 0 } : avail(it);
       const key = k === 'magic' ? `${k}:${thrall}:${left}` : `${k}:${left}`;
       let r = memo.get(key);
@@ -257,7 +259,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
         let changed = false;
         for (const k of Object.keys(kinds)) {
           const plk = { ...pl, thrall: k === 'magic' ? thrall : false };
-          const kParts = parts.filter(p => !p.styles || p.styles.includes(k));
+          const kParts = parts.filter(p => canHit(p, k));
           const others = Object.fromEntries(Object.entries(kinds).filter(([x]) => x !== k));
           const room = budget - buyCost(others);
           const alts = [];

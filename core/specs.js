@@ -7,7 +7,7 @@
 //    energy as it comes (100% at the start, then 10% every 30 seconds, twice as fast with a Lightbearer).
 // Each spec takes the place of a normal attack for the spec weapon's attack time.
 
-import { calc, bestCalc, attackStyles, styleKind, TICK, THRALL_DPS } from './dps.js';
+import { calc, bestCalc, attackStyles, styleKind, TICK, THRALL_DPS, fl } from './dps.js';
 
 // cost: energy %; type: the attack type used; acc / dmg: multipliers (dmg applied in order, each rounded down)
 export const SPECS = {
@@ -112,7 +112,7 @@ function specHit(player, lo, monster, sp, opts) {
     dmg = e;
   } else if (sp.darkbow) {    // two arrows, x1.5 with dragon arrows (x1.3 otherwise), min 8 (5), each at most 48
     const dragon = /^Dragon arrow/.test(lo.ammo?.name || '');
-    const lo2 = Math.min(48, dragon ? 8 : 5), hi = Math.min(48, Math.floor(M * (dragon ? 1.5 : 1.3)));
+    const lo2 = Math.min(48, dragon ? 8 : 5), hi = Math.min(48, fl(M * (dragon ? 1.5 : 1.3)));
     dmg = 2 * (p * (lo2 + hi) / 2 + (1 - p) * lo2);
   } else if (sp.tonal) {      // two shots; the second at the lowered Defence when the first hits
     const m2 = { ...monster, def: Math.max(monster.defFloor ?? 0, monster.def - Math.trunc(monster.magic / 8)) };
@@ -122,12 +122,12 @@ function specHit(player, lo, monster, sp, opts) {
     dmg = r.perAttack + p * 3 * r.perAttack;
     return { dmg, p, maxHit: M, secs: secs + p * 3 * 2 * TICK, avgOnHit: p ? r.perAttack / p : 0 };
   } else if (sp.fixedPct) {
-    dmg = p * Math.max(1, Math.floor(M * sp.fixedPct));
+    dmg = p * Math.max(1, fl(M * sp.fixedPct));
   } else if (sp.eclipse) {
     dmg = r.perAttack + p * 3.75;
   } else if (sp.dualmac) {    // both hitsplats roll accuracy on their own, each +25%, max +25% before the split
     const r2 = calc(player, lo, monster, style, null, { ...opts, spec: { acc: 1.25, dmg: [1.25] } });
-    const m1 = Math.floor(r2.maxHit / 2), m2 = r2.maxHit - m1;
+    const m1 = fl(r2.maxHit / 2), m2 = r2.maxHit - m1;
     dmg = r2.accuracy * (m1 / 2 + 0.5) + r2.accuracy * (m2 / 2 + 0.5);
   } else if (sp.hits) {
     if (sp.large && monster.size < 2) dmg = r.perAttack;
@@ -175,7 +175,7 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
   }
   if ((dr && !dr.drain) || (ds && ds.drain)) return null;
   let best = null;
-  const maxDrains = dr ? (dr.once ? 1 : Math.floor(100 / dr.cost)) : 0;
+  const maxDrains = dr ? (dr.once ? 1 : fl(100 / dr.cost)) : 0;
   let m = { ...monster }, done = 0, t = 0;
   for (let k = 0; k <= maxDrains; k++) {
     if (k > 0) {                                   // one more drain spec
@@ -197,7 +197,7 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
       if (h && h.dmg > d * h.secs) {
         const left = 100 - k * (dr?.cost || 0);
         for (let i = 0; i < 6; i++) {
-          n = Math.floor((left + (T - t) * REGEN_PER_SEC * light) / ds.cost);
+          n = fl((left + (T - t) * REGEN_PER_SEC * light) / ds.cost);
           n = Math.max(0, Math.min(n, Math.ceil(hpLeft / Math.max(h.dmg, 1))));
           T = t + n * h.secs + Math.max(0, hpLeft - n * h.dmg - thrall * n * h.secs) / d;
         }

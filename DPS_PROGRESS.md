@@ -112,10 +112,29 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Wiki gear list, so they keep the guide's rate. Maggot King comes out 0.95x (guide gear you don't own).
 - **Awkward accounts** (14:55): Best Setup on all 56 targets and the DPS page with all 54 spec weapons on 3
   targets, for no account, a fresh account, all 40s with 0 GP, all 99s with 10B and no prayers, all 70s with
-  50M: no script errors or broken numbers; slowest target 8s. A fresh or 0-GP account with no bank used to show
+  50M: no script errors or broken numbers (all 56 targets worked out in under 25s in total per account). A fresh or 0-GP account with no bank used to show
   a blank "—" result; it now says nothing usable was found and what to do (import the bank, raise the budget).
 - **Phone width** (390px): the DPS page made the whole page scroll sideways (the long Monster list); fixed. The
   setup columns and the parts tables scroll inside their own boxes, as intended.
+- **Engine against the Wiki's own DPS calculator** (15:50): the Wiki calculator's code is open source
+  (weirdgloop/osrs-dps-calc), so I ran it on 268 setups the optimiser picks (every boss, 10B, 50M and the
+  Wiki's gear, max levels) with the same style, spell, prayer and potions, and compared. 252 now agree within 1%
+  (was 168 at the first run, though most of that gap was my test harness). Fixed in ours:
+  - **Style immunities**: flying monsters (Kree'arra, Dawn, the flying Archive Guardian) can only be meleed with a
+    halberd; Vespula, the Kraken, Zuk, Jal-MejJak and the Leviathan can't be meleed; Tekton and Dusk can't be hit
+    with ranged, Dusk not with magic. (Best Setup had a scythe on Kree'arra and Dawn.) GGs now use ranged on Dawn.
+  - **Corporeal Beast**: only corpbane weapons skip the halving (spears, halberds, Osmumten's fang, King's barrage,
+    Thunder khopesh, Wiki's list); the Zamorakian hasta isn't one. Corp at 10B is now fang + specs, 213s.
+  - **Sanguinesti staff**: 1 in 5 hits deal 8 extra damage (was missing).
+  - **Seers ring (i)** and other half-percent magic damage items were read as 0%.
+  - **Demonbane**: Ocellus and Xarth take 80%, Dreadnoth 25% (as the calculator has them).
+  - **Float rounding**: 45 x 1.4 is 62.999... in JavaScript, so some max hits came out 1 low (Obligator at
+    Cerberus 62 not 63). All the floors in the engine now ignore that error.
+  - **Wilderness weapons** boost before Inquisitor's, as the calculator does; Fremennik warband members always take
+    a max hit from the right style (the calculator's rule).
+  Still different, on purpose or out of my hands: Vardorvis (we use his average Defence, 180, not 215, +8%);
+  Silvthrill ballista (the calculator doesn't know it fires javelins yet); the full Inquisitor's set (+1% since
+  the July change, not in the calculator yet); Doom (the calculator's phase setting).
 
 ## Next
 
