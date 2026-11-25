@@ -3,18 +3,24 @@ import { loadAccount, hasAccount, saveAccount } from '../core/account.js';
 import { loadBosses } from '../core/data.js';
 import { loadGear, loadTargets, loadMonsters, availability, accountPlayer } from '../core/gear.js';
 import { bestSetup } from '../core/best-setup.js';
+import { specOf } from '../core/specs.js';
 import { SLOTS, PRAYERS } from '../core/dps.js';
 import { saveDps, loadDps } from '../core/dps-store.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const gp = n => n >= 1e9 ? (n / 1e9).toFixed(2) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : Math.round(n).toString();
-// "2.5b", "100m", "10 mil", "1e9", "100,000,000"; null when it can't be read
-const parseGp = s => {
-  if (!String(s).trim()) return 0;                    // empty: no budget
-  const m = String(s).trim().toLowerCase().replace(/[, _]/g, '').match(/^(\d+(?:\.\d+)?(?:e\d+)?)(k|m|b|mil|million|bil|billion|gp)?$/);
+// "2.5b", "100m", "10 mil", "5kk", "1.5bn", "10m gp", "1e9", "100,000,000", "1,5m"; null when it can't be read
+// (a comma is a thousands separator only in groups of three; "1,5m" is a decimal comma; "100,00" is refused)
+export const parseGp = s => {
+  let t = String(s).trim().toLowerCase().replace(/\s+/g, '').replace(/gp$/, '');
+  if (!t) return 0;                                   // empty: no budget
+  if (/^\d{1,3}(,\d{3})+(\.\d+)?[a-z]*$/.test(t)) t = t.replace(/,/g, '');
+  else if (/^\d+,\d{1,2}[a-z]+$/.test(t)) t = t.replace(',', '.');
+  else if (t.includes(',')) return null;
+  const m = t.replace(/_/g, '').match(/^(\d+(?:\.\d+)?(?:e\d+)?)(k|kk|m|b|bn|mil|million|bil|billion)?$/);
   if (!m) return null;
-  const mult = { k: 1e3, m: 1e6, mil: 1e6, million: 1e6, b: 1e9, bil: 1e9, billion: 1e9 }[m[2]] || 1;
+  const mult = { k: 1e3, kk: 1e6, m: 1e6, mil: 1e6, million: 1e6, b: 1e9, bn: 1e9, bil: 1e9, billion: 1e9 }[m[2]] || 1;
   const v = Math.round(Number(m[1]) * mult);
   return Number.isFinite(v) ? v : null;
 };
