@@ -862,35 +862,40 @@
      "styles": [
       "magic",
       "melee"
-     ]
+     ],
+     "room": "maiden"
     },
     {
      "monster": "Pestilent Bloat#Normal",
      "weight": 1,
      "styles": [
       "melee"
-     ]
+     ],
+     "room": "bloat"
     },
     {
      "monster": "Nylocas Vasilias#Normal",
      "weight": 0.3333333333333333,
      "styles": [
       "melee"
-     ]
+     ],
+     "room": "nylocas"
     },
     {
      "monster": "Nylocas Vasilias#Normal",
      "weight": 0.3333333333333333,
      "styles": [
       "ranged"
-     ]
+     ],
+     "room": "nylocas"
     },
     {
      "monster": "Nylocas Vasilias#Normal",
      "weight": 0.3333333333333333,
      "styles": [
       "magic"
-     ]
+     ],
+     "room": "nylocas"
     },
     {
      "monster": "Sotetseg#Normal",
@@ -898,7 +903,8 @@
      "styles": [
       "melee",
       "ranged"
-     ]
+     ],
+     "room": "sotetseg"
     },
     {
      "monster": "Xarpus#Normal mode",
@@ -906,7 +912,8 @@
      "styles": [
       "melee",
       "ranged"
-     ]
+     ],
+     "room": "xarpus"
     },
     {
      "monster": "Verzik Vitur#Normal mode, Phase 2",
@@ -914,7 +921,8 @@
      "styles": [
       "melee",
       "ranged"
-     ]
+     ],
+     "room": "verzik"
     },
     {
      "monster": "Verzik Vitur#Normal mode, Phase 3",
@@ -922,9 +930,19 @@
      "styles": [
       "melee",
       "ranged"
-     ]
+     ],
+     "room": "verzik"
     }
-   ]
+   ],
+   "specRooms": {
+    "bloat": 1,
+    "maiden": 1,
+    "nylocas": 1,
+    "sotetseg": 1,
+    "verzik": 1,
+    "xarpus": 1
+   },
+   "specRoomsNote": "Spec energy is restored to full at the end of each room (Harvey, 25 Nov)."
   },
   "tombs_of_amascut": {
    "name": "Tombs of Amascut",
@@ -936,7 +954,8 @@
      "styles": [
       "melee"
      ],
-     "toa": true
+     "toa": true,
+     "room": "baba"
     },
     {
      "monster": "Ba-Ba",
@@ -945,7 +964,8 @@
       "melee"
      ],
      "toa": true,
-     "boost": "salts"
+     "boost": "salts",
+     "room": "baba"
     },
     {
      "monster": "Akkha",
@@ -955,7 +975,8 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "room": "akkha"
     },
     {
      "monster": "Akkha",
@@ -964,21 +985,14 @@
       "melee"
      ],
      "boost": "salts",
-     "toa": true
+     "toa": true,
+     "room": "akkha"
     },
     {
      "monster": "Kephri#Shielded",
      "weight": 1,
-     "toa": true
-    },
-    {
-     "monster": "Zebak#Normal",
-     "weight": 0.5,
-     "styles": [
-      "ranged",
-      "magic"
-     ],
-     "toa": true
+     "toa": true,
+     "room": "kephri"
     },
     {
      "monster": "Zebak#Normal",
@@ -988,7 +1002,18 @@
       "magic"
      ],
      "toa": true,
-     "boost": "salts"
+     "room": "zebak"
+    },
+    {
+     "monster": "Zebak#Normal",
+     "weight": 0.5,
+     "styles": [
+      "ranged",
+      "magic"
+     ],
+     "toa": true,
+     "boost": "salts",
+     "room": "zebak"
     },
     {
      "monster": "Tumeken's Warden#Active",
@@ -997,22 +1022,33 @@
       "ranged"
      ],
      "boost": "salts",
-     "toa": true
+     "toa": true,
+     "room": "wardens"
     },
     {
      "monster": "Tumeken's Warden#Damaged",
      "weight": 0.8,
      "boost": "salts",
-     "toa": true
+     "toa": true,
+     "room": "wardens"
     },
     {
      "monster": "Tumeken's Warden#Enraged",
      "weight": 0.2,
      "boost": "salts",
-     "toa": true
+     "toa": true,
+     "room": "wardens"
     }
    ],
-   "note": "From the Wiki: Ba-Ba melee; Kephri mostly melee (anything); Zebak ranged or magic; Akkha ranged or magic (he only protects from the style he's attacking with), then his final stand restores 20% of his HP with Protect from Magic and Missiles up, so melee; Wardens P2: ranged on the Warden (it protects from melee and magic), the core isn't modelled; P3 anything, the last 20% enraged (my estimate). The first two rooms have no smelling salts. Puzzle rooms and the P1 obelisk are left out."
+   "note": "From the Wiki: Ba-Ba melee; Kephri mostly melee (anything); Zebak ranged or magic; Akkha ranged or magic (he only protects from the style he's attacking with), then his final stand restores 20% of his HP with Protect from Magic and Missiles up, so melee; Wardens P2: ranged on the Warden (it protects from melee and magic), the core isn't modelled; P3 anything, the last 20% enraged (my estimate). The first two rooms have no smelling salts. Puzzle rooms and the P1 obelisk are left out.",
+   "specRooms": {
+    "akkha": 1,
+    "baba": 1,
+    "kephri": 1,
+    "wardens": 1,
+    "zebak": 1
+   },
+   "specRoomsNote": "Spec energy is restored to full at the end of each room (Harvey, 25 Nov)."
   },
   "corrupted_gauntlet": {
    "name": "Corrupted Gauntlet",
@@ -1038,74 +1074,99 @@
       "ranged",
       "magic"
      ],
-     "noAncients": true
+     "noAncients": true,
+     "room": "guardian"
     },
     {
      "monster": "Archive Guardian#Grounded",
      "weight": 1,
-     "noAncients": true
+     "noAncients": true,
+     "room": "guardian"
     },
     {
      "monster": "Ezekiel",
-     "weight": 0.5
+     "weight": 0.5,
+     "room": "ezekiel"
     },
     {
      "monster": "Bork",
-     "weight": 0.5
+     "weight": 0.5,
+     "room": "bork"
     },
     {
      "monster": "The Smorks",
-     "weight": 0.5
+     "weight": 0.5,
+     "room": "bork"
     },
     {
      "monster": "Moia",
-     "weight": 0.5
+     "weight": 0.5,
+     "room": "moia"
     },
     {
      "monster": "Dreadnoth the Jellied",
-     "weight": 0.5
+     "weight": 0.5,
+     "room": "dreadnoth"
     },
     {
      "monster": "Dagon'hai Elder",
      "weight": 0.5,
      "styles": [
       "magic"
-     ]
+     ],
+     "room": "dagonhai"
     },
     {
      "monster": "Dagon'hai Monk#Book",
      "weight": 0.5,
      "styles": [
       "magic"
-     ]
+     ],
+     "room": "dagonhai"
     },
     {
      "monster": "Dagon'hai Monk#Staff",
      "weight": 0.5,
      "styles": [
       "magic"
-     ]
+     ],
+     "room": "dagonhai"
     },
     {
      "monster": "Xarth",
-     "weight": 0.5
+     "weight": 0.5,
+     "room": "xarth"
     },
     {
      "monster": "Ocellus#Phase 1",
-     "weight": 1
+     "weight": 1,
+     "room": "ocellus"
     },
     {
      "monster": "Ocellus#Phase 2",
-     "weight": 1
+     "weight": 1,
+     "room": "ocellus"
     },
     {
      "monster": "Ocellus#Phase 3",
      "weight": 1,
      "styles": [
       "magic"
-     ]
+     ],
+     "room": "ocellus"
     }
-   ]
+   ],
+   "specRooms": {
+    "bork": 0.5,
+    "dagonhai": 0.5,
+    "dreadnoth": 0.5,
+    "ezekiel": 0.5,
+    "guardian": 1,
+    "moia": 0.5,
+    "ocellus": 1,
+    "xarth": 0.5
+   },
+   "specRoomsNote": "Spec energy is restored to full at the end of each room (Harvey, 25 Nov); the paired rooms happen half the time each."
   }
  }
 }

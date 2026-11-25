@@ -33,9 +33,19 @@ body { color: var(--text); font: 15px/1.5 var(--sans); }
 .site-nav a.link[aria-current="page"] { color: var(--accent-ink); background: var(--accent); }
 .site-nav li.side { margin-left: 10px; padding-left: 14px; border-left: 1px solid var(--line); }
 .site-nav li.side a.link { font-size: 13.5px; }
+/* Phones: brand on its own line, the links in one row that scrolls sideways (instead of five wrapped rows) */
+@media (max-width: 640px) {
+  .site-nav-inner { gap: 6px; padding: 8px 12px; }
+  .site-nav ul { flex-wrap: nowrap; overflow-x: auto; flex-basis: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .site-nav ul::-webkit-scrollbar { display: none; }
+  .site-nav li.right { margin-left: 0; }
+  .site-nav li.side { margin-left: 4px; padding-left: 8px; }
+  .site-nav a.link { white-space: nowrap; padding: 6px 10px; }
+}
 
 /* Simple page layout for the app's own pages */
 .page { max-width: 1120px; margin: 0 auto; padding: 28px 16px 56px; display: grid; gap: 24px; }
+.page > * { min-width: 0; }   /* a wide child scrolls on its own instead of widening the whole page on phones */
 .page h1 { font: 700 30px/1.1 var(--display); margin: 0; }
 .page h2 { font: 700 20px/1.2 var(--display); margin: 0; }
 .page p { margin: 0; color: var(--muted); max-width: 70ch; }

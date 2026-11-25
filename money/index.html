@@ -17,6 +17,9 @@
   th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
   thead th { font: 500 12px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
   td.num, th.num { text-align: right; font-family: var(--mono); }
+  /* long method names and rate units wrap, so GP/hr (the column the table is ranked by) stays on screen */
+  #table tbody td:nth-child(2) { white-space: normal; min-width: 200px; max-width: 380px; }
+  #table tbody td:nth-child(4) { white-space: normal; max-width: 190px; }
   td.strong { font-weight: 500; }
   td.rank { color: var(--faint); font-family: var(--mono); width: 1%; }
   tbody tr:hover td { background: var(--surface); }

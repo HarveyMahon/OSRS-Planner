@@ -252,10 +252,12 @@ const SETS = [
  * target they're allowed on; each later style gets the budget the earlier ones left.
  * Returns { kinds: {melee|ranged|magic: {loadout, time, cost}}, time, cost, thrall, perPart: [...] }.
  */
-// opts.cycle: seconds per kill including downtime (kill rates). Spec energy then comes from what regenerates over
-// one kill cycle (a bar can't be full at the start of every kill); without it, a fight starts with a full bar.
-// Raids and other whole content always start with a full bar, shared across the whole run.
-export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0, fast = false, cycle = null } = {}) {
+// Repeated kills (kill rates): spec energy is what regenerates per kill, carried over from kill to kill (the bar
+// isn't full at the start of every kill). opts.downtime: seconds between kills (bank, walking, waiting), so a kill
+// earns 10% per 30s over downtime + your fight; opts.cycle: the whole kill cycle when it's fixed (the guide's own
+// rate). Without either, a fight starts with a full bar. Raids and other whole content always start with a full
+// bar, shared across the whole run.
+export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0, fast = false, cycle = null, downtime = null, team = 1 } = {}) {
   WEAPONS = new Map([...(gear.weapon || []), ...(gear['2h'] || [])].map(w => [w.name, w]));
   target = layoutTarget(target, target.chosenRooms || null);
   const parts = target.parts.filter(p => monsters[p.monster]);
@@ -348,7 +350,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       const buy = new Set();
       for (const r of Object.values(ks)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) buy.add(it); }
       const res = { kinds: ks, time: total, cost: [...buy].reduce((c, it) => c + (avail(it).price || 0), 0), thrall, perPart };
-      addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast, cycle: target.whole ? null : cycle });
+      addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast, cycle: target.whole ? null : cycle, downtime: target.whole ? null : downtime, team, specRooms: target.specRooms || null });
       return res;
     };
     const kindsList = Object.keys(allKinds);
@@ -362,9 +364,11 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
 }
 
 // Special attacks: the Defence-drain weapon and/or damage spec weapon that save the most time over the whole
-// target (used in every part where they help, each part starting with full energy). Owned, or bought from
-// what's left of the budget when that saves at least 5% of the time.
-function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast, cycle }) {
+// target. A single fight or run has one energy pool (a full bar plus regeneration over the fight) shared by every
+// part and copy; repeated kills (cycle/downtime) get the energy one kill cycle regenerates, carried over between
+// kills, so specs per kill can be fractional (a 50% drain on 4 kills in 5). Owned, or bought from what's left of
+// the budget when that saves at least 5% of the time.
+function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast, cycle, downtime, team = 1, specRooms = null }) {
   const left = budget - res.cost;
   const priceOf = w => avail(w).owned ? 0 : avail(w).price;
   const cands = [...(gear.weapon || []), ...(gear['2h'] || [])].filter(w => specOf(w) && !buy.has(w)
@@ -380,11 +384,67 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast, 
   const light = Object.values(res.kinds).some(k => /^Lightbearer/.test(k.loadout.ring?.name || '')) ? 2 : 1;
   const regen = REGEN_PER_SEC * light;
   let best = null;
+  const steady = cycle != null || downtime != null;
+  const perKill = fight => Math.max(0, regen * (downtime != null ? downtime + fight / team : cycle));   // (team kills: the fight is shared)
+  // Repeated kills: for each part, the plans a fight can use with e energy (no regen inside: it's in the per-kill
+  // energy), as a lower convex hull of (energy, seconds); energy carried over lets kills mix plans, so any point on
+  // the hull is reachable on average. Energy goes to the steepest hull segments across parts first.
+  const steadyPair = (dw, xw, cost) => {
+    const dc = dw ? specOf(dw).cost : 0, xc = xw ? specOf(xw).cost : 0;
+    const levels = new Set();
+    for (let k = 0; k * dc <= 100; k++) { for (let n = 0; k * dc + n * xc <= 100; n++) { levels.add(k * dc + n * xc); if (!xc) break; } if (!dc) break; }
+    levels.delete(0);
+    const hulls = res.perPart.map(p => {
+      const ok = w => w && p.kind && !p.weapon && (!p.styles || p.styles.includes(kindOf(w)));
+      const d = ok(dw) ? dw : null, x = ok(xw) ? xw : null;
+      if (!d && !x) return null;
+      const main = res.kinds[p.kind].loadout;
+      const loFor = w => { const b = res.kinds[kindOf(w)]?.loadout || main; return { ...b, weapon: w, shield: w.two ? null : b.shield }; };
+      const plain = p.seconds / p.weight;
+      const pts = [{ e: 0, t: plain, r: null }];
+      for (const e of [...levels].sort((a, b) => a - b)) {
+        const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon, energy: e, noRegen: true });
+        if (r && r.seconds < pts[pts.length - 1].t - 1e-9) pts.push({ e: r.used, t: r.seconds, r });
+      }
+      if (pts.length < 2) return null;
+      const hull = [pts[0]];                         // lower convex hull: savings per energy falling
+      for (const q of pts.slice(1)) {
+        while (hull.length >= 2) { const a = hull[hull.length - 2], b = hull[hull.length - 1];
+          if ((a.t - b.t) / (b.e - a.e) <= (b.t - q.t) / (q.e - b.e) + 1e-12) hull.pop(); else break; }
+        hull.push(q);
+      }
+      return hull;
+    });
+    const segs = [];
+    hulls.forEach((h, i) => { if (h) for (let j = 1; j < h.length; j++) segs.push({ i, de: (h[j].e - h[j - 1].e) * res.perPart[i].weight, dt: (h[j - 1].t - h[j].t) * res.perPart[i].weight, to: h[j] }); });
+    segs.sort((a, b) => b.dt / b.de - a.dt / a.de);
+    let total = res.time, alloc = [];
+    for (let round = 0; round < 3; round++) {        // the per-kill energy depends on the (shorter) fight
+      let pool = perKill(total);
+      alloc = res.perPart.map(() => ({ saved: 0, used: 0, top: null }));
+      for (const g of segs) {
+        if (pool <= 1e-9) break;
+        const f = Math.min(1, pool / g.de);
+        alloc[g.i].saved += f * g.dt; alloc[g.i].used += f * g.de; pool -= f * g.de;
+        if (f > 0) alloc[g.i].top = g.to;
+      }
+      total = res.time - alloc.reduce((s2, a) => s2 + a.saved, 0);
+    }
+    const parts = res.perPart.map((p, i) => {
+      const a = alloc[i];
+      if (!a.top || a.saved <= 0) return { ...p };
+      // shown as the busiest plan used, on the share of kills (copies) that the energy allows
+      const share = Math.min(p.weight, a.used / Math.max(a.top.e, 1e-9));
+      return { ...p, seconds: p.seconds - a.saved, spec: { ...a.top.r, copies: share, of: p.weight, perKill: true } };
+    });
+    return { dw, xw, total, parts, cost };
+  };
   const evalPair = (dw, xw) => {
     const cost = (dw ? priceOf(dw) : 0) + (xw ? priceOf(xw) : 0);
     if (cost > left) return null;
+    if (steady) return steadyPair(dw, xw, cost);
     // each copy of a part on its own: starting with a bar (or the cycle's energy), with its own regeneration
-    const start = cycle ? Math.min(100, Math.max(0, cycle - res.time) * regen) : 100;
+    const start = 100;
     const opts = res.perPart.map(p => {
       const ok = w => w && p.kind && !p.weapon && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
       const d = ok(dw) ? dw : null, x = ok(xw) ? xw : null;
@@ -398,17 +458,27 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast, 
     });
     const order = opts.map((o, i) => o ? i : -1).filter(i => i >= 0).sort((a, b) => opts[b].rate - opts[a].rate);
     // the pool is the starting energy plus regeneration over the whole (spec-shortened) fight: a few rounds
-    let total = res.time, copies = [];
-    for (let round = 0; round < 3; round++) {
-      let pool = start + total * regen;
-      copies = new Array(res.perPart.length).fill(0);
-      for (const i of order) {
-        const o = opts[i], w = res.perPart[i].weight;
-        const c = o.r.used ? Math.max(0, Math.min(w, pool / o.r.used)) : w;
-        copies[i] = c; pool -= c * o.r.used;
+    // ToB, ToA and the Fractured Archive refill spec energy at the end of each room: one pool per room there
+    // (a full bar, times the room's chance of coming up, plus regeneration over that room); elsewhere one pool
+    const poolOf = i => specRooms ? (res.perPart[i].room ?? '') : '';
+    const keys = [...new Set(res.perPart.map((_, i) => poolOf(i)))];
+    let copies = new Array(res.perPart.length).fill(0), total = res.time;
+    for (const key of keys) {
+      const idx = res.perPart.map((_, i) => i).filter(i => poolOf(i) === key);
+      const bar = start * (specRooms ? (specRooms[key] ?? 1) : 1);
+      let span = idx.reduce((s2, i) => s2 + res.perPart[i].seconds, 0);
+      for (let round = 0; round < 3; round++) {
+        let pool = bar + span * regen;
+        for (const i of order) {
+          if (poolOf(i) !== key) continue;
+          const o = opts[i], w = res.perPart[i].weight;
+          const c = o.r.used ? Math.max(0, Math.min(w, pool / o.r.used)) : w;
+          copies[i] = c; pool -= c * o.r.used;
+        }
+        span = idx.reduce((s2, i) => s2 + res.perPart[i].seconds - (opts[i] ? copies[i] * opts[i].save : 0), 0);
       }
-      total = res.perPart.reduce((sum, p, i) => sum + p.seconds - (opts[i] ? copies[i] * opts[i].save : 0), 0);
     }
+    total = res.perPart.reduce((sum, p, i) => sum + p.seconds - (opts[i] ? copies[i] * opts[i].save : 0), 0);
     const parts = res.perPart.map((p, i) => {
       const o = opts[i], c = copies[i];
       if (!o || c <= 0) return { ...p };
