@@ -368,6 +368,24 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     assert.ok(Math.abs(a.perAttack - b.perAttack - a.accuracy * 2) < 1e-9);          // 20% of hits burn for 10
     assert.equal(D.calc(P, { weapon: atl, ammo: dart, ...set }, { ...mon, burnImmune: 'normal' }, rapid).perAttack, b.perAttack);
   });
+  t('dps: checks against the Wiki calculator (25 Nov)', () => {
+    const scy = { name: 'Scythe of Vitur', b: { aslash: 125, str: 75 }, speed: 5, category: 'Scythe', two: true };
+    const hal = { name: 'Noxious halberd', b: { aslash: 160, str: 150 }, speed: 5, category: 'Polearm', two: true };
+    const fly = { ...mon, name: "Kree'arra", attributes: ['flying'] };
+    assert.equal(D.bestCalc(P, { weapon: scy }, fly).dps, 0);                         // flying: melee only with a halberd
+    assert.ok(D.bestCalc(P, { weapon: hal }, fly).dps > 0);
+    assert.equal(D.immuneTo({ ...mon, name: 'Dusk' }, 'ranged', null) !== null, true);
+    const corp = { ...mon, name: 'Corporeal Beast' };
+    const hasta = { name: 'Zamorakian hasta', b: { astab: 85, str: 75 }, speed: 4, category: 'Spear' };
+    const spear = { name: 'Zamorakian spear', b: { astab: 85, str: 75 }, speed: 4, category: 'Spear' };
+    const lunge = D.attackStyles(spear).find(s => s.type === 'stab');
+    assert.ok(Math.abs(D.calc(P, { weapon: hasta }, corp, lunge).perAttack * 2 - D.calc(P, { weapon: spear }, corp, lunge).perAttack) < 1e-9);   // hastae aren't corpbane
+    assert.equal(D.fl(45 * 1.4), 63);                                                 // float-safe floor
+    const sang = { name: 'Sanguinesti staff', b: { amagic: 25 }, speed: 4, category: 'Powered Staff' };
+    const r = D.bestCalc(P, { weapon: sang }, mon);
+    assert.ok(r.perAttack > r.accuracy * (r.maxHit / 2) + r.accuracy * 1.5);          // 1 in 5 hits +8
+    assert.equal(D.ammoFits({ name: 'Magic shortbow (i)', category: 'Bow' }, { name: 'Seeking dragon arrow' }), false);
+  });
   t('dps: armour sets (Verac, Inquisitor, Virtus, Blood Moon)', () => {
     const flail = { name: "Verac's flail", b: { astab: 68, acrush: 82, str: 72 }, speed: 5, category: 'Spiked', two: true };
     const verac = { head: { name: "Verac's helm", b: {} }, body: { name: "Verac's brassard", b: {} }, legs: { name: "Verac's plateskirt", b: {} } };
