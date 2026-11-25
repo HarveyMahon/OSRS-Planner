@@ -161,6 +161,30 @@ $('prayers').addEventListener('change', e => {
   commit();
 });
 
+// Achievement diaries, stored as 'region:tier'; a tier counts the ones below it too
+const DIARY_REGIONS = [['ardougne', 'Ardougne'], ['desert', 'Desert'], ['falador', 'Falador'], ['fremennik', 'Fremennik'],
+  ['kandarin', 'Kandarin'], ['karamja', 'Karamja'], ['kourend', 'Kourend & Kebos'], ['lumbridge', 'Lumbridge & Draynor'],
+  ['morytania', 'Morytania'], ['varrock', 'Varrock'], ['western', 'Western Provinces'], ['wilderness', 'Wilderness']];
+const DIARY_TIERS = ['easy', 'medium', 'hard', 'elite'];
+function renderDiaries() {
+  const have = new Set(account.diaries || []);
+  $('diaries').innerHTML = `<thead><tr><th>Region</th>${DIARY_TIERS.map(t => `<th>${t[0].toUpperCase() + t.slice(1)}</th>`).join('')}</tr></thead><tbody>`
+    + DIARY_REGIONS.map(([id, label]) => `<tr><td>${label}</td>${DIARY_TIERS.map(t =>
+      `<td><input type="checkbox" style="width:auto" data-diary="${id}:${t}" aria-label="${label} ${t}"${have.has(`${id}:${t}`) ? ' checked' : ''}></td>`).join('')}</tr>`).join('') + '</tbody>';
+}
+renderDiaries();
+$('diaries').addEventListener('change', e => {
+  const key = e.target.dataset.diary;
+  if (!key) return;
+  const [region, tier] = key.split(':'), i = DIARY_TIERS.indexOf(tier);
+  const have = new Set(account.diaries || []);
+  // ticking a tier ticks the ones below; unticking one unticks the ones above
+  DIARY_TIERS.forEach((t, j) => { if (e.target.checked && j <= i) have.add(`${region}:${t}`); if (!e.target.checked && j >= i) have.delete(`${region}:${t}`); });
+  account.diaries = [...have];
+  commit();
+  renderDiaries();
+});
+
 // Bank: a pasted Bank Memory export, matched to known items; replaces the previous import
 function bankStatus(extra = '') {
   const n = Object.keys(account.bank).length;

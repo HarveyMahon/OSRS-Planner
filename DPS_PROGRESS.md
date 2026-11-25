@@ -51,7 +51,7 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 - **Ascension crossbows** fire only ascension bolts; other crossbows can't fire those. Their 2-tick rapid makes
   them score very well (13 DPS on Vorkath with a Salve (ei) for your bank).
 - **Ruby bolts** use 20% of the monster's *average* HP over the kill (HP/2), capped at 100.
-- **Kandarin hard diary** is read from My Account's diaries; without it bolt specs are 10% rarer.
+- **Kandarin hard diary**: ticked under Achievement diaries on My Account (added 25 Nov; until then there was no way to set it, so bolt effects were always counted at the base rate). With it, enchanted bolt effects are 10% more likely.
 - **Thrall** needs A Kingdom Divided and 76 Magic (greater ghost); when it's on, only Arceuus spells or powered
   staves are used for magic.
 - **Raids and multi-part content** (first stab): CoX = Tekton, Vasa, the three Vanguards, Vespula, both
