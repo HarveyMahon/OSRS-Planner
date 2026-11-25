@@ -266,7 +266,7 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   const v = voidSet(lo);
   const undead = m.attributes.includes('undead'), dragon = m.attributes.includes('dragon'), kalphite = m.attributes.includes('kalphite');
   const sal = salve(lo), onTask = !!player.onTask;
-  let atk, max, min = 0, speed = (w?.speed || 4), hits = 1, notes = [];
+  let atk, max, min = 0, speed = (w?.speed || 4), hits = 1, shots = 1, notes = [];
 
   if (kind === 'melee') {
     let effA = Math.floor((L.Attack + B.Attack) * pray.acc) + 8 + (style.stance === 'accurate' ? 3 : style.stance === 'controlled' ? 1 : 0);
@@ -319,6 +319,7 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (dragon && canon(w?.name) === 'Dragon hunter crossbow') { atk = Math.floor(atk * 13 / 10); if (dhcb) max = Math.floor(max * 5 / 4); }
     if (scorch) { const f = demonbane(m, 0.3); atk += Math.floor(atk * f); max += Math.floor(max * f); }
     if (canon(w?.name) === 'Tonalztics of Ralos') max -= Math.trunc(max / 4);
+    if (/^(Tonalztics of Ralos|Dark bow)$/.test(canon(w?.name))) shots = 2;      // two shots an attack, each rolled separately
   } else {
     const lvl = L.Magic + B.Magic;
     let eff = Math.floor(lvl * pray.acc) + (style.stance === 'accurate' ? 2 : 0) + 9;
@@ -326,7 +327,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     const baseRoll = eff * (t.amagic + 64);
     atk = baseRoll;
     let base;
-    if (spell) { base = spell.base; speed = canon(w?.name) === 'Harmonised nightmare staff' && spell.book === 'standard' ? 4 : 5; }
+    if (opts.spec?.staffMax) { const c = opts.spec.staffMax; base = Math.max(1, Math.min(c, Math.trunc((99 + c * lvl) / 99))); speed = 5; }   // nightmare staff specs
+    else if (spell) { base = spell.base; speed = canon(w?.name) === 'Harmonised nightmare staff' && spell.book === 'standard' ? 4 : 5; }
     else { base = poweredBase(w, lvl); if (!base) return { dps: 0, maxHit: 0, accuracy: 0, speed, style, spell, notes: ['Not a magic weapon'] }; }
     let mdmg = t.mdmg * 10 + (pray.mdmg || 0);
     if (spell?.book === 'standard' && /^(Smoke battlestaff|Mystic smoke staff|Twinflame staff)/.test(w?.name || '')) mdmg += 100;
@@ -389,6 +391,7 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     }
     if (kalphite && isKeris(w)) per *= 1 + 2 / 51;   // 1 in 51 hits deal triple damage
   }
+  if (!spec) per *= shots;
   if (m.name === 'Corporeal Beast' && !(style.type === 'stab' && ['Spear', 'Polearm'].includes(w?.category)) && !(kind === 'magic')) per /= 2;
   const dps = per / (speed * TICK);
   return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes, perAttack: per, acc: accurateMean(min, max, flat) };

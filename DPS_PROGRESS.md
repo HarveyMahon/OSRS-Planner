@@ -51,6 +51,13 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   drained; Sotetseg 100, Nightmare/Phosani 120, Akkha 70, Ba-Ba 60, Kephri 60, Zebak 50, Wardens P3 120, Nex 250,
   Araxxor 90, Hueycoatl 120, Yama 145); the energy left goes on damage specs. The DPS page has a "Spec weapon"
   row per setup; kill rates include specs.
+  Added 13:15: Tonalztics of Ralos (Defence -1/8 of the boss's Magic per hit, second shot at the lowered
+  Defence), Accursed sceptre (-15% Defence), Dark bow, Eldritch and Volatile nightmare staffs, Eye of Ayak,
+  Zorya's tome, Webweaver bow, Burning claws (burn not counted), Zamorak and Ancient godswords (bleed counted),
+  Dragon longsword / mace / sword / scimitar, Granite hammer, Arkan blade, Dragon knife, Rosewood blowpipe, Magic
+  shortbows and ballistas. Fixed: Dark bow and Tonalztics fire two shots on every attack. Not done: Soulreaper axe
+  (its spec spends the stacks), Saradomin sword, Abyssal bludgeon, Barrelchest anchor, Crimson kisten, Sunspear,
+  Dual macuahuitl, Scorching bow.
 
 ## Next
 
