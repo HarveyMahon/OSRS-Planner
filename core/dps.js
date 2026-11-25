@@ -18,15 +18,15 @@ export const THRALL_DPS = 0.625;          // a greater thrall: 0-3 every 4 ticks
 // acc/str multipliers; mdmg in tenths of a percent. Unlock = needs ticking on My Account (scrolls, Knight Waves...).
 export const PRAYERS = {
   incredible: { style: 'melee', level: 34, acc: 1.15, str: 1.15, label: 'Incredible Reflexes + Ultimate Strength' },
-  chivalry: { style: 'melee', level: 60, acc: 1.15, str: 1.18, unlock: true, label: 'Chivalry' },
-  piety: { style: 'melee', level: 70, acc: 1.20, str: 1.23, unlock: true, label: 'Piety' },
-  zeal: { style: 'melee', level: 84, acc: 1.25, str: 1.28, unlock: true, label: 'Zeal' },
+  chivalry: { style: 'melee', level: 60, acc: 1.15, str: 1.18, unlock: true, needs: { Defence: 65 }, label: 'Chivalry' },
+  piety: { style: 'melee', level: 70, acc: 1.20, str: 1.23, unlock: true, needs: { Defence: 70 }, label: 'Piety' },
+  zeal: { style: 'melee', level: 84, acc: 1.25, str: 1.28, unlock: true, needs: { Attack: 75, Strength: 75 }, label: 'Zeal (Horn of Bran)' },
   eagle_eye: { style: 'ranged', level: 44, acc: 1.15, str: 1.15, label: 'Eagle Eye' },
   deadeye: { style: 'ranged', level: 62, acc: 1.18, str: 1.18, unlock: true, label: 'Deadeye' },
-  rigour: { style: 'ranged', level: 74, acc: 1.20, str: 1.23, unlock: true, label: 'Rigour' },
+  rigour: { style: 'ranged', level: 74, acc: 1.20, str: 1.23, unlock: true, needs: { Defence: 70 }, label: 'Rigour' },
   mystic_might: { style: 'magic', level: 45, acc: 1.15, mdmg: 20, label: 'Mystic Might' },
   mystic_vigour: { style: 'magic', level: 63, acc: 1.18, mdmg: 30, unlock: true, label: 'Mystic Vigour' },
-  augury: { style: 'magic', level: 77, acc: 1.25, mdmg: 40, unlock: true, label: 'Augury' },
+  augury: { style: 'magic', level: 77, acc: 1.25, mdmg: 40, unlock: true, needs: { Defence: 70 }, label: 'Augury' },
 };
 export const UNLOCKABLE_PRAYERS = Object.entries(PRAYERS).filter(([, p]) => p.unlock).map(([id, p]) => ({ id, label: p.label }));
 
@@ -36,6 +36,7 @@ export function bestPrayer(player, style) {
   let best = null;
   for (const [id, p] of Object.entries(PRAYERS)) {
     if (p.style !== style || lvl < p.level || (p.unlock && !player.prayers?.has(id))) continue;
+    if (p.needs && Object.entries(p.needs).some(([s, l]) => (player.levels[s] ?? 99) < l)) continue;
     if (!best || (p.str || p.mdmg || 0) * 10 + p.acc > (best.str || best.mdmg || 0) * 10 + best.acc) best = { id, ...p };
   }
   return best;

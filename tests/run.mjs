@@ -368,6 +368,8 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
   });
   t('dps: prayers by unlock and level', () => {
     assert.equal(D.bestPrayer(P, 'melee').id, 'piety');
+    assert.equal(D.bestPrayer({ ...P, prayers: new Set(['piety', 'zeal']) }, 'melee').id, 'zeal');
+    assert.equal(D.bestPrayer({ ...P, prayers: new Set(['piety', 'zeal']), levels: { ...P.levels, Attack: 74 } }, 'melee').id, 'piety');
     assert.equal(D.bestPrayer({ ...P, prayers: new Set() }, 'melee').id, 'incredible');
     assert.equal(D.bestPrayer({ ...P, levels: { ...P.levels, Prayer: 1 } }, 'ranged'), null);
   });
