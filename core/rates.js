@@ -13,6 +13,7 @@ import { levelForXp, xpForLevel } from './xp.js';
 const KEY = 'osrsplanner:rates';
 const VERSION = 35;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
+const OFFENCE = ['Attack', 'Strength', 'Ranged', 'Magic'];   // what your kill rate already measures
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list
 const MAX_FIGHT_SHARE = 0.8;             // the guide's fight is at most this share of its time per kill
 const MAX_FACTOR = 2, MIN_FACTOR = 0.2;  // how far your kill rate can move from the guide's
@@ -30,7 +31,7 @@ export function withoutCombatLevels(req) {
   if (!req) return req;
   if (req.all) return { all: req.all.map(withoutCombatLevels).filter(Boolean) };
   if (req.any) { const any = req.any.map(withoutCombatLevels); return any.some(r => r == null) ? null : { any }; }
-  if (req.skill && COMBAT.includes(req.skill)) return null;
+  if (req.skill && OFFENCE.includes(req.skill)) return null;      // your kill rate covers damage; Defence, HP and Prayer still guard survival
   return req;
 }
 

@@ -23,7 +23,7 @@ import { estimate, stageAt } from './training.js';
 import { bossMethod, guideMethod, setupOf, gearCost, gearEntry, viableRate } from './money.js';
 import { withoutCombatLevels } from './rates.js';
 const RATE_AT_TOP = 8;
-import { bestMaster, slayerSettings, blockSlotsFor } from './slayer.js';
+import { bestMaster, slayerSettings, blockSlotsFor, slayerSpeed } from './slayer.js';
 
 const INTENSITY_ORDER = { fastest: ['fastest', 'balanced', 'afk'], balanced: ['balanced', 'fastest', 'afk'], afk: ['afk', 'balanced', 'fastest'] };
 const COMBAT_HP = new Set(['Attack', 'Strength', 'Defence', 'Ranged']);
@@ -369,7 +369,7 @@ export function plan(goals, d) {
   const slayerCache = new Map();
   function slayerTrack(fromXp, toXp) {
     if (!slayer?.data) return null;
-    const settings = slayerSettings(slayer.settings);
+    const settings = { ...slayerSettings(slayer.settings), speed: slayerSpeed(rates) ?? 1 };   // scaled by your boss kill rates
     const inten = slayer.intensity || settings.intensity || intensity;
     const fallback = trackFor(training, 'Slayer', intensity, { hideWild });
     const stages = [];

@@ -16,3 +16,17 @@ Ideas parked for later. Nothing here is being worked on right now.
 
 ## Site
 - Optional redirect from the old Pet Hunt Profit Calculator site to this one.
+
+## Review round 2 (pages) — decisions for review (25 Nov)
+
+- **Bosses on Money Makers / planner**: offered only when your kill rate is at least half the guide's. Your kill
+  rate replaces the Attack, Strength, Ranged and Magic requirements, but the setup's Defence, Hitpoints and
+  Prayer requirements still apply (survival and protection/offensive prayers aren't modelled). This stops a 70s
+  account being sent to Sol Heredit.
+- **Slayer kill speed**: the rate sheets assume strong gear and stats. Slayer task times are now scaled by your
+  kill speed: the middle of your boss kill-rate factors against the Wiki's high-level setups, capped at 100%
+  (a mid account comes out about 63%: Nieve 36K Slayer XP/hr instead of ~64K). The Slayer tab uses the kill
+  rates saved by Money Makers or the planner, and says so; without them it shows the sheets' speed and says how
+  to scale it. Combat XP per task is unchanged (it's 4 per damage, so it's right in total; only the hours grow).
+- Hand corrections to Wiki data live in data/corrections.json (LMS, Wintertodt, Zalcano requirements;
+  Barrows/Bryophyta not Wilderness; flower seed input cost).

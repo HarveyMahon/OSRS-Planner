@@ -18,6 +18,15 @@ const quest = (acc, q) => acc.quests?.[q] === 'complete';
 export const blockSlotsFor = (qp, diaries) => Math.floor((qp || 0) / 50) + (diaries?.has?.('lumbridge:elite') ? 1 : 0);
 
 /** Settings with defaults. */
+// How fast you kill compared with the rate sheets (which assume strong gear and stats): the middle of your
+// boss kill-rate factors against the Wiki's high-level setups, capped at 1 (the sheets are already fast).
+// Bosses are scaled by your own DPS; this carries the same scaling over to Slayer tasks.
+export function slayerSpeed(rates) {
+  const f = Object.values(rates || {}).map(r => r?.setups?.high?.factor).filter(x => x > 0).sort((a, b) => a - b);
+  if (f.length < 5) return null;
+  return Math.max(0.25, Math.min(1, f[Math.floor(f.length / 2)]));
+}
+
 export function slayerSettings(s = {}) {
   // blockSlots null = what the account has: one per 50 quest points (+1 for the elite Lumbridge diary), from acc.blockSlots
   return { master: 'auto', goal: 'xp', intensity: null, bracelet: 'none', blockSlots: null,
@@ -65,13 +74,13 @@ export function methodsFor(t, data, acc, settings, intensity, master, { withBoss
 const avg = r => r ? (r[0] + r[1]) / 2 : 0;
 
 /** One task done with method v: kills, hours, XP and GP. */
-export function taskRun(t, v, m, data, { extend, bracelet }) {
+export function taskRun(t, v, m, data, { extend, bracelet, speed = 1 }) {
   // kills you actually make: Expeditious (25% chance a kill counts twice) shortens a task, Slaughter
   // (25% chance a kill doesn't count) lengthens it; XP comes from every kill made
   const factor = bracelet === 'expeditious' ? 0.8 : bracelet === 'slaughter' ? 4 / 3 : 1;
   const killsDone = (avg(extend && t.extended ? t.extended : t.amount) || 0) * factor;
   const trips = v.killsPerTrip ? Math.ceil(killsDone / v.killsPerTrip) : 1;
-  const hours = killsDone / v.killsPerHr + trips * ((v.travel || 0) + data.meta.resupplySeconds) / 3600 + data.meta.secondsBetweenTasks / 3600;
+  const hours = killsDone / (v.killsPerHr * speed) + trips * ((v.travel || 0) + data.meta.resupplySeconds) / 3600 + data.meta.secondsBetweenTasks / 3600;
   const gpk = m.gpColumn === 'konar' ? (v.gpPerKillKonar ?? v.gpPerKill) : m.gpColumn === 'krystilia' ? (v.gpPerKillKrystilia ?? v.gpPerKill) : v.gpPerKill;
   return { kills: killsDone, hours, xp: killsDone * v.xpPerKill, gp: killsDone * (gpk || 0), style: v.style };
 }
@@ -106,7 +115,7 @@ export function masterRates(m, data, acc, settings, plan, intensity) {
     const methods = locked ? [] : methodsFor(t, data, acc, settings, intensity, m, { withBosses: true });
     const method = methods.find(v => v.name === plan.methods[t.key + (t.location ? '@' + t.location : '')])
       || methods.find(v => !v.boss || settings.bossVariants) || null;
-    const run = method ? taskRun(t, method, m, data, { extend: !!plan.extends[t.task], bracelet: settings.bracelet }) : null;
+    const run = method ? taskRun(t, method, m, data, { extend: !!plan.extends[t.task], bracelet: settings.bracelet, speed: settings.speed ?? 1 }) : null;
     rows.push({ task: t.task, location: t.location, weight: t.weight, locked, action, methods, method, run, extended: !!plan.extends[t.task], canExtend: !!t.extended });
     if (locked || action === 'block') continue;
     wSum += t.weight;
@@ -152,9 +161,9 @@ export function suggestPlan(m, data, acc, settings, intensity) {
     const ms = methodsFor(t, data, acc, settings, intensity, m);
     const val = r => (goal === 'gp' ? r.gp : r.xp) / r.hours;
     let best = null, bestRun = null;
-    for (const v of ms) { const r = taskRun(t, v, m, data, { extend: false, bracelet: settings.bracelet }); if (!best || val(r) > val(bestRun)) { best = v; bestRun = r; } }
+    for (const v of ms) { const r = taskRun(t, v, m, data, { extend: false, bracelet: settings.bracelet, speed: settings.speed ?? 1 }); if (!best || val(r) > val(bestRun)) { best = v; bestRun = r; } }
     if (best) plan.methods[t.key + (t.location ? '@' + t.location : '')] = best.name;
-    const ext = best && t.extended ? taskRun(t, best, m, data, { extend: true, bracelet: settings.bracelet }) : null;
+    const ext = best && t.extended ? taskRun(t, best, m, data, { extend: true, bracelet: settings.bracelet, speed: settings.speed ?? 1 }) : null;
     rows.push({ task: t.task, w: t.weight, run: bestRun, ext, val: bestRun ? val(bestRun) : 0 });
   }
   // fast rate for a set of actions (no recomputing runs)

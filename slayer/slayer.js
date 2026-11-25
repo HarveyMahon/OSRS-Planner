@@ -1,7 +1,7 @@
 // Slayer tab: choose a master and customise the task list. Settings are saved for the Goal Planner.
 import { loadFile, loadQuests } from '../core/data.js';
 import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
-import { slayerSettings, masterLocked, masterRates, planFor, bestMaster, blockSlotsFor } from '../core/slayer.js';
+import { slayerSettings, masterLocked, masterRates, planFor, bestMaster, blockSlotsFor, slayerSpeed } from '../core/slayer.js';
 import { questPoints } from '../core/requirements.js';
 import { loadSlayer, saveSlayer } from '../core/slayer-store.js';
 
@@ -12,7 +12,9 @@ const hm = h => h >= 1 ? `${Math.floor(h)}h ${Math.round((h % 1) * 60)}m` : `${M
 
 let DATA, raw = loadSlayer();
 const ACCOUNT = forRequirements(loadAccount());
-const S = () => slayerSettings(raw);
+// your kill speed from the boss kill rates worked out on Money Makers or the planner (saved in this browser)
+const SPEED = (() => { try { return slayerSpeed(JSON.parse(localStorage.getItem('osrsplanner:rates'))?.rates); } catch { return null; } })();
+const S = () => ({ ...slayerSettings(raw), speed: SPEED ?? 1 });
 const save = () => { saveSlayer(raw); render(); };
 
 function current() {
@@ -84,7 +86,9 @@ async function init() {
   const [d, q] = await Promise.all([loadFile('slayer.json'), loadQuests().catch(() => null)]);
   DATA = d;
   ACCOUNT.blockSlots = blockSlotsFor(q ? questPoints(ACCOUNT, q.quests) : 0, ACCOUNT.diaries);
-  $('acct-note').innerHTML = hasAccount() ? 'Using your stats and quests from <a href="../account/">My Account</a>.' : 'Using a brand-new account. <a href="../account/">Enter your stats</a> to see what you can do.';
+  $('acct-note').innerHTML = hasAccount() ? 'Using your stats and quests from <a href="../account/">My Account</a>.' : 'Using a brand-new account. <a href="../account/">Enter your stats</a> to see what you can do.'
+  $('acct-note').innerHTML += SPEED != null ? ` Kill times are scaled to ${Math.round(SPEED * 100)}% of the rate sheets' speed, from your boss kill rates.`
+    : ' Kill times are the rate sheets\' (strong gear and stats); open <a href="../money/">Money Makers</a> once to scale them to your own damage.';
   $('master').addEventListener('change', e => { raw.master = e.target.value; save(); });
   for (const id of ['goal', 'intensity']) $(id).addEventListener('click', e => { if (e.target.dataset.v) { raw[id] = e.target.dataset.v; save(); } });
   $('bracelet').addEventListener('change', e => { raw.bracelet = e.target.value; save(); });
