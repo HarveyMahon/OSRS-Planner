@@ -132,7 +132,8 @@ const POWERED = {
   "Thammaron's sceptre": m => Math.floor(m / 3) - 8, "Zorya's tome": m => Math.floor(m / 3) - 10,
   'Starter staff': () => 8, 'Dawnbringer': m => Math.floor(m / 3) - 2,
 };
-const poweredBase = (w, m) => { const f = POWERED[canon(w.name)] || POWERED[w.name]; return f ? Math.max(1, f(m)) : 0; };
+const POWERED_LC = Object.fromEntries(Object.entries(POWERED).map(([k, f]) => [k.toLowerCase(), f]));
+const poweredBase = (w, m) => { const f = POWERED_LC[canon(w.name).replace(/ \((o|full)\)/g, '').toLowerCase()]; return f ? Math.max(1, f(m)) : 0; };
 
 // ---------- ammo ----------
 const DRAGON_ARROW_BOWS = ['Twisted bow', 'Dark bow', '3rd Age bow', 'Scorching bow'];
