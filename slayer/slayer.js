@@ -61,7 +61,7 @@ function render() {
     const act = `<select data-action="${esc(row.task)}">${['do', 'skip', 'block'].map(a => `<option value="${a}"${a === row.action ? ' selected' : ''}>${{ do: 'Do', skip: 'Skip', block: 'Block' }[a]}${a === sa ? ' (suggested)' : ''}</option>`).join('')}</select>`;
     const ext = row.canExtend ? `<input type="checkbox" data-extend="${esc(row.task)}"${row.extended ? ' checked' : ''}>` : '<span class="faint">–</span>';
     const noData = row.noData ? ' <span class="tag" title="No rate data: counted as skipped">no data</span>' : '';
-    const meth = row.methods.length ? `<select data-method="${esc(mkey)}">${row.methods.map(v => `<option${v === row.method ? ' selected' : ''}>${esc(v.name)}</option>`).join('')}</select>` : '<span class="faint">no rate data yet</span>';
+    const meth = row.methods.length ? `<select data-method="${esc(mkey)}">${(row.method ? '' : '<option selected disabled>Choose a method</option>') + row.methods.map(v => `<option value="${esc(v.name)}"${v === row.method ? ' selected' : ''}>${esc(v.name)}${v.boss ? ' (boss)' : ''}</option>`).join('')}</select>` : '<span class="faint">no rate data yet</span>';
     const run = row.run;
     return `<tr class="${row.action}${changed ? ' changed' : ''}"><td>${esc(key)}</td><td class="num">${row.chance ? (row.chance * 100).toFixed(1) + '%' : '–'}</td>
       <td>${act}${noData}</td><td>${ext}</td><td>${meth}</td>

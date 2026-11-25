@@ -42,14 +42,14 @@ export function taskLocked(t, acc, settings) {
 }
 
 /** Methods (variants) for a task the account can use at this intensity. */
-export function methodsFor(t, data, acc, settings, intensity, master) {
+export function methodsFor(t, data, acc, settings, intensity, master, { withBosses = false } = {}) {
   const loc = t.location ? t.location.toLowerCase().split(/[ (]/)[0] : null;     // Konar: the variant at her location
   const all = data.variants[t.key] || [];
   const atLoc = loc ? all.filter(v => v.name.toLowerCase().includes(loc)) : all;
   return (atLoc.length ? atLoc : all).filter(v => {
     if (v.wilderness && !master?.wilderness && !settings.wildernessMethods) return false;   // Wilderness Slayer Cave etc. only if allowed
     if (!v.wilderness && master?.wilderness) return false;                                   // Krystilia's tasks are all in the Wilderness
-    if (v.boss && !settings.bossVariants) return false;     // killing the boss for the task (e.g. Abyssal Sire): off by default
+    if (v.boss && !settings.bossVariants && !withBosses) return false;   // killing the boss for the task (e.g. Abyssal Sire): not suggested unless turned on
     if (intensity === 'afk' && (v.style === 'magic' || v.cannon)) return false;
     if (v.cannon && (!settings.cannon || !quest(acc, 'dwarf_cannon'))) return false;
     for (const [s, l] of Object.entries(v.needs?.skills || {})) if (lvl(acc, s) < l) return false;
@@ -97,8 +97,11 @@ export function masterRates(m, data, acc, settings, plan, intensity) {
   for (const t of m.tasks) {
     const locked = taskLocked(t, acc, settings);
     const action = locked ? 'locked' : (plan.actions[t.task] || 'do');
-    const methods = locked ? [] : methodsFor(t, data, acc, settings, intensity, m);
-    const method = methods.find(v => v.name === plan.methods[t.key + (t.location ? '@' + t.location : '')]) || methods[0];
+    // every method is listed (bosses too, so you can pick e.g. the Alchemical Hydra for hydras);
+    // without a choice it's the suggested one, which leaves bosses out unless that's turned on
+    const methods = locked ? [] : methodsFor(t, data, acc, settings, intensity, m, { withBosses: true });
+    const method = methods.find(v => v.name === plan.methods[t.key + (t.location ? '@' + t.location : '')])
+      || methods.find(v => !v.boss || settings.bossVariants) || null;
     const run = method ? taskRun(t, method, m, data, { extend: !!plan.extends[t.task], bracelet: settings.bracelet }) : null;
     rows.push({ task: t.task, location: t.location, weight: t.weight, locked, action, methods, method, run, extended: !!plan.extends[t.task], canExtend: !!t.extended });
     if (locked || action === 'block') continue;
