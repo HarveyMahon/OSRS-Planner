@@ -465,6 +465,7 @@ export function bestCalc(player, lo, monster, opts = {}) {
   let best = null;
   for (const st of attackStyles(w)) {
     if (opts.styles && !opts.styles.includes(styleKind(st.type))) continue;
+    if (opts.meleeWeapon && styleKind(st.type) === 'melee' && !new RegExp(opts.meleeWeapon, 'i').test(w?.name || '')) continue;   // e.g. Zulrah: halberds only
     const spells = st.stance === 'autocast' ? spellsFor(player, w, opts) : [null];
     for (const sp of spells) {
       const r = calc(player, lo, monster, st, sp, opts);

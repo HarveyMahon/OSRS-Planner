@@ -75,7 +75,7 @@ function partsTime(player, lo, parts, monsters) {
   let t = 0;
   for (const p of parts) {
     const m = monsters[p.monster];
-    const r = bestCalc(player, forPart(lo, p), m, { styles: p.styles, toa: p.toa, boost: p.boost, noAncients: p.noAncients });
+    const r = bestCalc(player, forPart(lo, p), m, { styles: p.styles, toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon });
     const d = r.dps + (player.thrall ? THRALL_DPS : 0);
     if (d <= 0) return Infinity;
     t += p.weight * m.hp / d;
@@ -251,7 +251,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
         let pick = null;
         for (const [k, r] of Object.entries(allKinds)) {
           if (p.styles && !p.styles.includes(k)) continue;
-          const c = bestCalc(pl, forPart(r.loadout, p), m, { styles: [k], toa: p.toa, boost: p.boost, noAncients: p.noAncients });
+          const c = bestCalc(pl, forPart(r.loadout, p), m, { styles: [k], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon });
           const d = c.dps + (thrall ? THRALL_DPS : 0);
           if (d <= 0) continue;
           const better = !pick || (prefer ? (k === prefer && pick.kind !== prefer) || ((k === prefer) === (pick.kind === prefer) && d > pick.dps) : d > pick.dps);
@@ -303,7 +303,7 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast }
       if (!d && !x) { total += p.seconds; return { ...p }; }
       const main = res.kinds[p.kind].loadout;
       const loFor = w => { const b = res.kinds[kindOf(w)]?.loadout || main; return { ...b, weapon: w, shield: w.two ? null : b.shield }; };
-      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients });
+      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon });
       const secs = r ? p.weight * r.seconds : p.seconds;
       total += secs;
       return { ...p, seconds: secs, spec: r };

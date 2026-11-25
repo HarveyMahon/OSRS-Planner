@@ -88,7 +88,7 @@ function render() {
   $('monster').textContent = m ? `${m.name}: ${m.hp} HP, Defence ${m.def}, Magic ${m.magic}, defence bonuses stab ${m.dstab} / slash ${m.dslash} / crush ${m.dcrush} / magic ${m.dmagic} / ranged ${m.dstandard || m.drange}`
     + `${part.boost === 'overload' ? ' · with an overload (+)' : part.boost === 'salts' ? ' · with smelling salts' : ''}${m.flatArmour ? `, flat armour ${m.flatArmour}` : ''}${m.weakness ? `, ${m.weaknessPct}% weak to ${m.weakness}` : ''}${m.attributes.length ? ` · ${m.attributes.join(', ')}` : ''}` : '';
   const P = player(), cols = state.loadouts.length;
-  const ctxOpts = { toa: part.toa, boost: part.boost, noAncients: part.noAncients };    // ToA: Tumeken's shadow x4; CoX overloads / ToA smelling salts
+  const ctxOpts = { toa: part.toa, boost: part.boost, noAncients: part.noAncients, meleeWeapon: part.meleeWeapon };    // ToA: Tumeken's shadow x4; CoX overloads / ToA smelling salts
   const results = state.loadouts.map(L => {
     const lo = loadoutOf(L);
     let r;

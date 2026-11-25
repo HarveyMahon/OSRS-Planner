@@ -85,7 +85,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   events are now left out (305 items, using the Wiki's categories; they were winning every slot); a style that's
   slower alone but faster with its specs is now tried too (Corp went magic at 10B, 274s, instead of melee with
   Elder maul + kisten, 242s). Nex can be meleed (Harvey: Obligator and Inquisitor's should be best there).
-  Zulrah: hits over 50 are rerolled to 45-50 (her mechanic), so big max hits count as 47.5 on average.
+  Zulrah: hits over 50 are rerolled to 45-50 (her mechanic), so big max hits count as 47.5 on average; she can
+  only be meleed with a halberd, for attacks and specs (so a Crystal halberd spec, not Dragon claws).
 
 ## Next
 

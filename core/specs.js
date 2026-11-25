@@ -86,7 +86,8 @@ function specHit(player, lo, monster, sp, opts) {
   if (!styles.length) return null;
   const style = kindOf === 'melee' ? { name: 'Special attack', type: sp.type, stance: styles.find(s => s.stance === 'aggressive') ? 'aggressive' : styles[0].stance }
     : kindOf === 'magic' ? (styles.find(s => s.stance === 'accurate') || styles[0]) : styles.find(s => s.stance === 'rapid') || styles[0];
-  if (sp.needs && !hasSet(lo, NEEDS[sp.needs])) return null;                  // the spec needs its armour set
+  if (sp.needs && !hasSet(lo, NEEDS[sp.needs])) return null;
+  if (opts.meleeWeapon && kindOf === 'melee' && !new RegExp(opts.meleeWeapon, 'i').test(w?.name || '')) return null;   // e.g. Zulrah: halberds only                  // the spec needs its armour set
   const r = calc(player, lo, monster, style, null, { ...opts, spec: { acc: sp.acc, dmg: sp.dmg, fang: sp.fang, voidwaker: sp.voidwaker, staffMax: sp.staffMax, alwaysHit: sp.alwaysHit } });
   if (!r.maxHit && !sp.bolt) return null;
   const p = r.accuracy, M = r.maxHit;

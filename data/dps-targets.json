@@ -613,25 +613,32 @@
      "weight": 0.3333333333333333,
      "styles": [
       "ranged",
-      "magic"
-     ]
+      "magic",
+      "melee"
+     ],
+     "meleeWeapon": "halberd"
     },
     {
      "monster": "Zulrah#Magma",
      "weight": 0.3333333333333333,
      "styles": [
       "ranged",
-      "magic"
-     ]
+      "magic",
+      "melee"
+     ],
+     "meleeWeapon": "halberd"
     },
     {
      "monster": "Zulrah#Tanzanite",
      "weight": 0.3333333333333333,
      "styles": [
-      "ranged"
-     ]
+      "ranged",
+      "melee"
+     ],
+     "meleeWeapon": "halberd"
     }
-   ]
+   ],
+   "note": "Zulrah can only be meleed with a halberd (for attacks and specs). Hits over 50 are rerolled to 45-50."
   },
   "shellbane_gryphon": {
    "name": "Shellbane Gryphon",
