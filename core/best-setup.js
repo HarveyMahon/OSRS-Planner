@@ -14,8 +14,8 @@ const STAT_KEYS = { melee: ['astab', 'aslash', 'acrush', 'str'], ranged: ['arang
 const SPECIAL = /^(Void|Elite void|Obsidian|Crystal (helm|body|legs)|Inquisitor's|Slayer helmet|Black mask|.* slayer helmet|Salve amulet|Berserker necklace|Dizana's|Blessed Dizana's|Tome of)/;
 
 const weaponKinds = w => [...new Set(attackStyles(w).map(s => styleKind(s.type)))];
-const meetsReqs = (item, player, reqs) => {
-  const r = reqs?.[item.name];
+export const meetsReqs = (item, player, reqs) => {
+  const r = item.req || reqs?.[item.name];
   return !r || Object.entries(r).every(([s, l]) => (player.levels[s] ?? 99) >= l);
 };
 

@@ -3,6 +3,7 @@ import { loadAccount } from '../core/account.js';
 import { loadGear, loadTargets, loadMonsters, accountPlayer } from '../core/gear.js';
 import { SLOTS, PRAYERS, UNLOCKABLE_PRAYERS, attackStyles, spellsFor, calc, bestCalc, styleKind, THRALL_DPS } from '../core/dps.js';
 import { loadDps, saveDps } from '../core/dps-store.js';
+import { meetsReqs } from '../core/best-setup.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -103,8 +104,9 @@ function render() {
   for (const s of SLOTS) {
     h += `<div class="h">${s}</div>` + state.loadouts.map((L, i) => {
       const off = s === 'shield' && results[i].lo.weapon?.two;
-      const bad = L.slots[s] && !item(s, L.slots[s]);
-      return `<input list="dl-${s}" data-slot="${s}" data-i="${i}" value="${esc(L.slots[s] || '')}"${off ? ' disabled placeholder="(two-handed)"' : ''}${bad ? ' style="border-color:var(--cost)" title="Not found"' : ''}>`;
+      const it = item(s, L.slots[s]), bad = L.slots[s] && !it;
+      const low = it && !meetsReqs(it, P) ? `Needs ${Object.entries(it.req).map(([k, v]) => `${v} ${k}`).join(', ')}` : '';
+      return `<input list="dl-${s}" data-slot="${s}" data-i="${i}" value="${esc(L.slots[s] || '')}"${off ? ' disabled placeholder="(two-handed)"' : ''}${bad ? ' style="border-color:var(--cost)" title="Not found"' : low ? ` style="border-color:var(--gp-low)" title="${esc(low)}"` : ''}>`;
     }).join('');
   }
   h += '<div class="h">Style</div>' + state.loadouts.map((L, i) => {

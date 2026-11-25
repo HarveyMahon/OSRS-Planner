@@ -63,6 +63,33 @@ for items in tables.values():
     for it in items:
         alt = [i for i in alt_ids.get(page_of[id(it)], []) if i != it["id"] and i not in it.get("ids", [])]
         if alt: it["alt"] = sorted(set(alt))       # uncharged / empty versions: owned or bought, then charged
+# ---- levels needed to wear each item (parsed from the Wiki pages' lead text; see fetch_gear_requirements.py) ----
+SK = "Attack|Strength|Defence|Ranged|Magic|Prayer|Hitpoints|Slayer|Agility"
+REQ_PATS = [
+    (re.compile(r"(\d+) \[\[(" + SK + r")\]\] and \[\[(" + SK + r")\]\]", re.I), "pair"),
+    (re.compile(r"\{\{SCP\|(" + SK + r")\|(\d+)"), "sl"),
+    (re.compile(r"\[\[(" + SK + r")\]\] level of (\d+)", re.I), "sl"),
+    (re.compile(r"(\d+) (?:in )?\[\[(" + SK + r")\]\]", re.I), "ls"),
+    (re.compile(r"(\d+) (" + SK + r")\b"), "ls"),
+]
+def parse_reqs(text):
+    out = {}
+    for pat, kind in REQ_PATS:
+        for m in pat.finditer(text or ""):
+            g = m.groups()
+            pairs = [(g[0], g[1]), (g[0], g[2])] if kind == "pair" else [(g[1], g[0])] if kind == "sl" else [(g[0], g[1])]
+            for lvl, sk in pairs:
+                lvl = int(lvl); sk = sk[:1].upper() + sk[1:].lower()
+                if 1 < lvl <= 99: out[sk] = max(out.get(sk, 0), lvl)
+    return out
+req_path = os.path.join(SRC, "requirements_raw.json")
+reqs = {k.lower(): parse_reqs(v.get("text")) for k, v in json.load(open(req_path)).items()} if os.path.exists(req_path) else {}
+with_req = 0
+for items in tables.values():
+    for it in items:
+        r = reqs.get((page_of[id(it)] or "").lower())
+        if r: it["req"] = r; with_req += 1
+print(f"  levels to wear: {with_req} items", flush=True)
 os.makedirs(os.path.join(ROOT, "data", "gear"), exist_ok=True)
 for slot, items in tables.items():
     items.sort(key=lambda x: (x["name"], x.get("version", "")))
