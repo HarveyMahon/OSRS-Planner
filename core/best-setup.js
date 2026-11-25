@@ -138,27 +138,65 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
   scored.sort((a, b) => a.t - b.t);
   let best = null;
   for (const { lo: start } of scored.slice(0, fast ? 2 : TOP_WEAPONS)) {
-    const lo = improve(start, cand, time, costOf, budget, fast ? 2 : 3);
-    const t = time(lo);
-    if (!best || t < best.time) best = { loadout: lo, time: t, cost: cost(lo, costOf) };
+    const tries = [improve(start, cand, time, costOf, budget, fast ? 2 : 3)];
+    // with money to spend, also fill the slots by time saved per GP, then spend what's left the usual way
+    if (budget > 0) tries.push(improve(improve(start, cand, time, costOf, budget, fast ? 2 : 3, true), cand, time, costOf, budget, 2));
+    for (const lo of tries) {
+      const t = time(lo);
+      if (!best || t < best.time - 1e-9 || (Math.abs(t - best.time) < 1e-9 && cost(lo, costOf) < best.cost)) best = { loadout: lo, time: t, cost: cost(lo, costOf) };
+    }
   }
   return best;
 }
 
 // One slot at a time, then whole sets, until nothing improves.
-function improve(start, cand, time, costOf, budget, passes = 3) {
+// Best time saved per GP over every slot, one change at a time, until no change helps.
+function improveEff(start, cand, time, costOf, budget) {
   let lo = { ...start }, cur = time(lo);
-  for (let pass = 0; pass < passes; pass++) {
-    let changed = false;
+  for (let step = 0; step < 40; step++) {
+    let pick = null, pickScore = -Infinity, pickT = cur;
     for (const s of SLOTS) {
       if (s === 'weapon' || (s === 'shield' && lo.weapon?.two)) continue;
       for (const c of [{ it: null }, ...(s === 'ammo' ? cand.ammo.filter(c => ammoFits(lo.weapon, c.it)) : cand[s])]) {
         if (c.it === lo[s]) continue;
         const next = { ...lo, [s]: c.it };
         if (cost(next, costOf) > budget) continue;
-        const t = time(next);
-        if (t < cur - 1e-9 || (Math.abs(t - cur) < 1e-9 && costOf(c.it || {}) < costOf(lo[s] || {}))) { lo = next; cur = t; changed = true; }
+        const t = time(next), gain = cur - t, dc = costOf(c.it || {}) - costOf(lo[s] || {});
+        if (gain < 1e-9 && !(gain > -1e-9 && dc < 0)) continue;
+        const score = dc <= 0 ? 1e12 + gain : gain / Math.max(dc, 1e5);
+        if (score > pickScore) { pick = next; pickScore = score; pickT = t; }
       }
+    }
+    if (!pick) break;
+    lo = pick; cur = pickT;
+  }
+  return lo;
+}
+// eff: pick, in each slot, the change that saves the most time per GP (so one expensive slot doesn't eat the
+// budget a few cheaper upgrades would use better); otherwise the change that saves the most time.
+function improve(start, cand, time, costOf, budget, passes = 3, eff = false) {
+  if (eff) return improveEff(start, cand, time, costOf, budget);
+  let lo = { ...start }, cur = time(lo);
+  for (let pass = 0; pass < passes; pass++) {
+    let changed = false;
+    for (const s of SLOTS) {
+      if (s === 'weapon' || (s === 'shield' && lo.weapon?.two)) continue;
+      let pick = null, pickScore = -Infinity, pickT = cur;
+      for (const c of [{ it: null }, ...(s === 'ammo' ? cand.ammo.filter(c => ammoFits(lo.weapon, c.it)) : cand[s])]) {
+        if (c.it === lo[s]) continue;
+        const next = { ...lo, [s]: c.it };
+        if (cost(next, costOf) > budget) continue;
+        const t = time(next);
+        if (!eff) {
+          if (t < cur - 1e-9 || (Math.abs(t - cur) < 1e-9 && costOf(c.it || {}) < costOf(lo[s] || {}))) { lo = next; cur = t; changed = true; }
+          continue;
+        }
+        const gain = cur - t, dc = costOf(c.it || {}) - costOf(lo[s] || {});
+        if (gain < -1e-9 || (Math.abs(gain) < 1e-9 && dc >= 0)) continue;
+        const score = dc <= 0 ? 1e12 + gain : gain / Math.max(dc, 1e5);
+        if (score > pickScore) { pick = next; pickScore = score; pickT = t; }
+      }
+      if (eff && pick) { lo = pick; cur = pickT; changed = true; }
     }
     for (const set of SETS) {
       const pieces = {};
@@ -258,6 +296,10 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       tot += bd > 0 ? p.weight * m.hp / bd : Infinity; if (bk) (won[bk] ||= []).push(p); } return { tot, won }; };
     if (Object.keys(kinds).length) {
       let cur = quick(kinds);
+      // a style that wins no part (Kree'arra: the halberd melee set) mustn't keep the budget it would spend
+      let freed = false;
+      for (const k of Object.keys(kinds)) if (!cur.won[k] && Object.keys(kinds).length > 1) { delete kinds[k]; freed = true; }
+      if (freed) cur = quick(kinds);
       for (let round = 0; round < (fast ? 1 : 2); round++) {
         let changed = false;
         for (const k of Object.keys(kinds)) {
@@ -268,6 +310,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
           const alts = [];
           if (budget > 0 && kinds[k].cost > 0) { const key = `own:${k}:${thrall}`; let o = memo.get(key); if (o === undefined) { o = optimiseKind(k, plk, gear, kParts, monsters, avail, { reqs, budget: 0, fast }); memo.set(key, o); } if (o) alts.push(o); }
           const won = cur.won[k];
+          if (freed && room > kinds[k].cost + 1) { const o = optimiseKind(k, plk, gear, kParts, monsters, avail, { reqs, budget: room, fast }); if (o) alts.push(o); }
           if (won && won.length < kParts.length) { const o = optimiseKind(k, plk, gear, won, monsters, avail, { reqs, budget: Math.max(0, room), fast }); if (o) alts.push({ ...o, time: partsTime(plk, o.loadout, kParts.map(p => ({ ...p, styles: [k] })), monsters) }); }
           for (const o of alts) {
             if (o.loadout === kinds[k].loadout) continue;

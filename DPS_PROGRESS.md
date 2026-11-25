@@ -163,6 +163,12 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   per hour, which includes downtime), with no top-ups from a pool between kills. Whole raids and wave runs
   start each run with a full bar. Best Setup's single-boss number is still "a kill started with a full bar"
   and says so on the card.
+- **Budget search (adversarial round 1)**: the optimiser filled slots head first and bought the best head it
+  could (Oathplate helm, 67M of a 100M budget) before anything else. Now it also builds each setup by the best
+  time saved per GP across all slots, then spends what's left, and keeps whichever is faster. A style that ends
+  up used on no part (Kree'arra: the halberd melee set) no longer holds budget the used style could spend.
+  Mid account (80s, 100M, no bank): Vardorvis 154s -> 128s, Duke 133s -> 102s, Zulrah 96s -> 90s, Graardor 77s
+  -> 65s, Kree'arra 142s (1.4M spent) -> 120s. Kill-rate run with your bank ~18s (was ~14s); sweeps still monotonic.
 
 ## Next
 
