@@ -139,6 +139,7 @@ export function plan(goals, d) {
     }
     if (req.questPoints) { milestonesQP.push({ qp: req.questPoints, owner: currentQuest }); return; }
     if (req.combatLevel) { combatNeeds.push(req.combatLevel); return; }
+    if (req.totalLevel) { warnings.push(`Needs total level ${req.totalLevel}, which the planner doesn't plan for.`); return; }
     if (req.diary) warnings.push(`Needs the ${req.tier} ${req.diary} diary, which the planner doesn't plan yet.`);
   }
   const milestonesQP = [], combatNeeds = [];

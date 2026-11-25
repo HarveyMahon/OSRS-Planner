@@ -68,7 +68,7 @@ function rows() {
     return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, taskOnly: !!b.taskOnly, members: true };
   });
   const methodRows = METHODS.map(m => {
-    const r = guideMethod(m, ITEMS.items, { cash: ACCOUNT?.gp || 0 });
+    const r = guideMethod(m, ITEMS.items, { cash: ACCOUNT ? (ACCOUNT.gp || 0) : null });   // with an account, 0 GP means you can't buy supplies yet
     if (!meets(m)) r.locked = unmet(m.requires, ACCOUNT, ctx()).map(x => describe(x, names()));
     return { ...r, kind: 'method', id: 'm:' + m.id, cat: catOf(m), wilderness: m.wilderness, wildernessNote: m.wildernessNote, members: m.members };
   });

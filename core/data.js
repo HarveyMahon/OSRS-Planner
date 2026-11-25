@@ -46,10 +46,22 @@ export async function loadItems() {
   };
 }
 
+// Hand corrections (data/corrections.json) on top of the built data
+const corrections = () => loadJson('corrections.json').catch(() => ({}));
+export function applyCorrections(doc, fix, kind) {
+  for (const x of doc[kind] || []) {
+    const c = fix?.[kind]?.[x.id];
+    if (!c) continue;
+    if (kind === 'methods') Object.assign(x, c);
+    else for (const s of x.setups || []) s.requires = s.requires ? { all: [s.requires, c.requires] } : c.requires;
+  }
+  return doc;
+}
+
 export async function loadBosses() {
-  const [d, manual, items, tiers] = await Promise.all([loadJson('bosses.json'), loadJson('setup-gear.json').catch(() => null),
-    loadJson('items.json'), loadJson('gear-tiers.json').catch(() => null)]);
-  const out = applySetupGear(structuredClone(d), manual);
+  const [d, manual, items, tiers, fix] = await Promise.all([loadJson('bosses.json'), loadJson('setup-gear.json').catch(() => null),
+    loadJson('items.json'), loadJson('gear-tiers.json').catch(() => null), corrections()]);
+  const out = applyCorrections(applySetupGear(structuredClone(d), manual), fix, 'bosses');
   for (const b of out.bosses) for (const s of b.setups || []) if (!s.gearSource && s.gear) s.gear = cleanGuideGear(s.gear, items.items, tiers);
   return out;
 }
@@ -100,7 +112,8 @@ export function applySetupGear(d, manual) {
 }
 
 export async function loadMethods() {
-  return structuredClone(await loadJson('methods.json'));
+  const [d, fix] = await Promise.all([loadJson('methods.json'), corrections()]);
+  return applyCorrections(structuredClone(d), fix, 'methods');
 }
 
 export async function loadTraining() {

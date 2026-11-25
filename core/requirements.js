@@ -9,6 +9,7 @@
 //   | { combatLevel }
 //   | { kc: bossId, n }
 //   | { questPoints }                     total quest points from completed quests (ctx.quests)
+//   | { totalLevel }                      total of the 24 skill levels
 //
 // Account = { xp: {Skill: xp}, quests: {questId: milestoneId}, diaries: Set<'region:tier'>,
 //             owned: {itemKey: qty}, kc: {bossId: n}, gp }
@@ -50,7 +51,15 @@ export function isMet(req, account, ctx = {}) {
   if (req.combatLevel) return combatLevel(account.xp || {}) >= req.combatLevel;
   if (req.kc) return (account.kc?.[req.kc] || 0) >= req.n;
   if (req.questPoints) return questPoints(account, ctx.quests) >= req.questPoints;
+  if (req.totalLevel) return totalLevel(account.xp || {}) >= req.totalLevel;
   throw new Error(`Unknown requirement: ${JSON.stringify(req)}`);
+}
+
+/** Total level (every skill counted at least 1, Hitpoints at least 10). */
+export function totalLevel(xp) {
+  return ['Attack', 'Hitpoints', 'Mining', 'Strength', 'Agility', 'Smithing', 'Defence', 'Herblore', 'Fishing', 'Ranged', 'Thieving', 'Cooking',
+    'Prayer', 'Crafting', 'Firemaking', 'Magic', 'Fletching', 'Woodcutting', 'Runecraft', 'Slayer', 'Farming', 'Construction', 'Hunter', 'Sailing']
+    .reduce((t, s) => t + Math.max(s === 'Hitpoints' ? 10 : 1, levelForXp(xp[s] || 0)), 0);
 }
 
 /** Quest points from the quests marked complete. */
@@ -97,6 +106,7 @@ export function describe(req, names = {}) {
   if (req.item) return names.items?.[req.item]?.name ?? req.item;
   if (req.kc) return `${req.n} ${req.kc} kills`;
   if (req.questPoints) return `${req.questPoints} quest points`;
+  if (req.totalLevel) return `total level ${req.totalLevel}`;
   return JSON.stringify(req);
 }
 

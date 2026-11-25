@@ -102,7 +102,7 @@ export function listValue(list, items) {
  * A Wiki-guide method (data/methods.json): inputs and outputs are already per hour.
  *
  * Realistic cap: inputs you buy are limited by Grand Exchange buy limits (per 4 hours), and,
- * if `cash` is given (the cash stack on My Account), by what you can afford to buy in an hour.
+ * if `cash` is given (the cash stack on My Account; 0 means nothing to spend), by what you can afford to buy in an hour.
  * When either bites, the method runs at that fraction of the guide's rate for the hour.
  * Returns the capped figures plus { scale, cappedBy: 'buy limit' | 'cash' | null, capNote }.
  */
@@ -116,8 +116,8 @@ export function guideMethod(m, items, { cash } = {}) {
       if (s < scale) { scale = s; cappedBy = 'buy limit'; capNote = `${items[x.item].name}: buy limit ${lim.toLocaleString('en-GB')} per 4 hours, guide uses ${Math.round(x.qty).toLocaleString('en-GB')} an hour`; }
     }
   }
-  if (cash > 0 && inp.value * scale > cash) {
-    scale = cash / inp.value; cappedBy = 'cash';
+  if (cash != null && cash >= 0 && inp.value * scale > cash) {
+    scale = inp.value ? cash / inp.value : 0; cappedBy = 'cash';
     capNote = `Supplies cost ${Math.round(inp.value).toLocaleString('en-GB')} gp an hour; your cash stack is ${Math.round(cash).toLocaleString('en-GB')} gp`;
   }
   return { methodId: m.id, name: m.name, method: m,
