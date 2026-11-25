@@ -37,6 +37,7 @@ export const SPECS = {
   "Zorya's tome": { cost: 50, type: 'magic', acc: 2.5, dmg: [1.6] },
   'Webweaver bow': { cost: 50, type: 'ranged', acc: 2, dmg: [0.4], hits: 4 },
   'Burning claws': { cost: 35, type: 'slash', burning: true },
+  'Crimson kisten': { cost: 50, type: 'crush', kisten: true },
   'Zamorak godsword': { cost: 50, type: 'slash', acc: 2, dmg: [1.1] },
   'Ancient godsword': { cost: 50, type: 'slash', acc: 2, dmg: [1.1], bleed: 25 },
   'Dragon longsword': { cost: 25, type: 'slash', dmg: [1.25] },
@@ -58,6 +59,7 @@ let SPECS_LOWER = null;
 export const specOf = w => w ? SPECS_LC()[canonName(w.name).toLowerCase()] || null : null;
 
 const REGEN_PER_SEC = 10 / 30;
+const burnImmune = m => m.burnImmune === 'normal' || m.burnImmune === 'strong';   // normal burns (claws, Arkan blade)
 
 /** Expected damage of one special attack (and the time it takes), or null if it can't be used. */
 function specHit(player, lo, monster, sp, opts) {
@@ -81,9 +83,14 @@ function specHit(player, lo, monster, sp, opts) {
     else if (/^Diamond/.test(a)) dmg = p * (Math.trunc(M * 126 / 100) / 2);
     else if (/^Onyx/.test(a)) dmg = p * (Math.trunc(M * 132 / 100) / 2);
     else dmg = r.perAttack;
-  } else if (sp.burning) {    // Burning claws: three rolls (Wiki), burn damage not counted
+  } else if (sp.burning) {    // Burning claws: three rolls; each of the 3 hitsplats can burn for 10 (15/30/45% by which roll hit)
     const q = 1 - p;
     dmg = p * 1.25 * M + q * p * M + q * q * p * 0.75 * M;
+    if (!burnImmune(monster)) for (let k = 0; k < 3; k++) dmg += q ** k * p * 3 * 10 * 0.15 * (k + 1);
+  } else if (sp.kisten) {     // Crimson kisten: four accuracy rolls in one hit; i successes = 50+20i% to 90+20i% of max
+    let e = 0;
+    for (let i = 1; i <= 4; i++) e += [1, 4, 6, 4, 1][i] * p ** i * (1 - p) ** (4 - i) * M * (70 + 20 * i) / 100;
+    dmg = e;
   } else if (sp.darkbow) {    // two arrows, x1.5 with dragon arrows (x1.3 otherwise), min 8 (5), each at most 48
     const dragon = /^Dragon arrow/.test(lo.ammo?.name || '');
     const lo2 = Math.min(48, dragon ? 8 : 5), hi = Math.min(48, Math.floor(M * (dragon ? 1.5 : 1.3)));
@@ -99,7 +106,7 @@ function specHit(player, lo, monster, sp, opts) {
   } else dmg = r.perAttack;
   if (sp.flat) dmg += sp.flat;                  // Granite hammer: +5 to every hit
   if (sp.bleed) dmg += p * sp.bleed;            // Ancient godsword: 25 more after a delay if it hits
-  if (sp.burn) dmg += p * sp.burn;              // Arkan blade: burn
+  if (sp.burn && !burnImmune(monster)) dmg += p * sp.burn;   // Arkan blade: a 10 damage burn
   return { dmg, p, maxHit: M, secs, avgOnHit: p ? r.perAttack / p : 0 };
 }
 

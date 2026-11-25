@@ -55,10 +55,12 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   row per setup; kill rates include specs.
   Added 13:15: Tonalztics of Ralos (Defence -1/8 of the boss's Magic per hit, second shot at the lowered
   Defence), Accursed sceptre (-15% Defence), Dark bow, Eldritch and Volatile nightmare staffs, Eye of Ayak,
-  Zorya's tome, Webweaver bow, Burning claws (burn not counted), Zamorak and Ancient godswords (bleed counted),
+  Zorya's tome, Webweaver bow, Burning claws (with its burns: each of the 3 hitsplats can burn for 10, 15/30/45%
+  depending on which roll hit, unless the boss is immune to burns), Crimson kisten (four accuracy rolls, 70-110%
+  up to 130-170% of max hit by how many land; the Wiki lists no burn for it), Zamorak and Ancient godswords (bleed counted),
   Dragon longsword / mace / sword / scimitar, Granite hammer, Arkan blade, Dragon knife, Rosewood blowpipe, Magic
   shortbows and ballistas. Fixed: Dark bow and Tonalztics fire two shots on every attack. Not done: Soulreaper axe
-  (its spec spends the stacks), Saradomin sword, Abyssal bludgeon, Barrelchest anchor, Crimson kisten, Sunspear,
+  (its spec spends the stacks), Saradomin sword, Abyssal bludgeon, Barrelchest anchor, Sunspear,
   Dual macuahuitl, Scorching bow.
 
 ## Next

@@ -116,6 +116,7 @@ for w in sorted(wanted):
               "dlight": n(m.get("light_range_defence_bonus")), "dstandard": n(m.get("standard_range_defence_bonus")), "dheavy": n(m.get("heavy_range_defence_bonus")),
               "drange": n(m.get("range_defence_bonus")),
               "flatArmour": n(m.get("flat_armour")),
+              "burnImmune": {"Immune (weak)": "weak", "Immune (normal)": "normal", "Immune (strong)": "strong"}.get(m.get("burn_immune")),
               "weakness": (m.get("elemental_weakness") or "").lower() or None, "weaknessPct": n(m.get("elemental_weakness_percent"))}
 floors = json.load(open(os.path.join(ROOT, "data", "defence-floors.json")))["floors"]
 for key, mon in out.items():
