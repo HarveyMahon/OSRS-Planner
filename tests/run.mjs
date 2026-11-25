@@ -238,6 +238,10 @@ t('planner', () => {
   const z = plan([{ type: 'kc', bossId: 'zuk', n: 1 }], d);
   assert.deepEqual(z.steps.map(s => s.kind + ':' + (s.skill || s.bossId || '')), ['gp:', 'train:Prayer', 'kc:jad', 'kc:zuk']);
   const prayerCost = z.steps[1].gp;
+  // a milestone goal whose reward is already in the bank is done
+  const owned = plan([{ type: 'milestone', bossId: 'jad' }], { ...d, account: { ...account, bank: { cape: 1 } } });
+  assert.equal(owned.steps.filter(s => s.kind === 'kc').length, 0);
+  assert.ok(owned.warnings.some(w => /already have/.test(w)));
   assert.ok(z.steps[0].amount >= prayerCost && z.steps[0].method.name.startsWith('Farm'));
   // swapping Prayer to the cheaper altar halves the bones, so less money to make
   const opt = stageOptions(training, 'Prayer').find(o => o.stage.name === 'Cheap altar');

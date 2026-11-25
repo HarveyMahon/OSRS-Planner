@@ -131,7 +131,7 @@ export function plan(goals, d) {
     if (req.quest) return addQuest(req.quest, depth + 1);
     if (req.kc) return addKc(req.kc, req.n, depth + 1);
     if (req.item) {
-      if (sim.owned[req.item]) return;
+      if (ownsItem(req.item)) return;
       const giver = bosses.find(b => b.milestone?.reward === req.item);
       if (giver) return addKc(giver.id, giver.milestone.kc || 1, depth + 1);
       warnings.push(`Needs an item the planner can't plan for (${req.item}).`);
@@ -143,6 +143,9 @@ export function plan(goals, d) {
     if (req.diary) warnings.push(`Needs the ${req.tier} ${req.diary} diary, which the planner doesn't plan yet.`);
   }
   const milestonesQP = [], combatNeeds = [];
+  // owning an item, or one that can only be made from it (an Infernal cape means you had a Fire cape)
+  const UPGRADES = { 'x-fire-cape': ['x-infernal-cape'] };
+  const ownsItem = k => !!sim.owned[k] || (UPGRADES[k] || []).some(u => sim.owned[u]);
 
   let currentQuest = null;
   function addQuest(id, depth = 0) {
@@ -235,7 +238,11 @@ export function plan(goals, d) {
     else if (g.type === 'maxcape') SKILLS.forEach(s => { finalLevels[s] = Math.max(finalLevels[s] || 0, MAX_LEVEL); });
     else if (g.type === 'quest') { checkDoneQuest(g.id); addQuest(g.id); }
     else if (g.type === 'kc') addKc(g.bossId, g.n);
-    else if (g.type === 'milestone') { const b = bossById(g.bossId); if (b) addKc(b.id, b.milestone?.kc || 1); }
+    else if (g.type === 'milestone') {
+      const b = bossById(g.bossId);
+      if (b?.milestone?.reward && ownsItem(b.milestone.reward)) warnings.push(`You already have the ${items[b.milestone.reward]?.name || 'reward'} (it's in your bank or ticked on My Account), so that goal is done.`);
+      else if (b) addKc(b.id, b.milestone?.kc || 1);
+    }
     else if (g.type === 'gp') gpGoals.push(g.amount);
   }
 
