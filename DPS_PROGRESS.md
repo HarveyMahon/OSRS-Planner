@@ -83,7 +83,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Nylocas Vasilias, Sotetseg, Xarpus, Verzik P2 and P3; ToA = Ba-Ba, Akkha, Kephri, Zebak, Wardens P2 and P3;
   Refined from the Wiki strategy pages (25 Nov, 12:30): **The Fractured Archive** is now the whole raid
   (Archive Guardian flying = ranged/magic, grounded = anything; Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai
-  (magic) or Xarth, each half the time; Ocellus P1, P2, P3 = magic), with its Defence floors. **ToB**: Nylocas
+  (magic) or Xarth, each half the time; Ocellus P1, P2, P3 = magic), with its Defence floors. 13:50: the Archive
+  Guardian is immune to Ancient Magicks; the Smorks (650 HP, drainable to 0) count with Bork. **ToB**: Nylocas
   Vasilias is a third each melee/ranged/magic (it changes form). **ToA**: Ba-Ba melee, Kephri anything (mostly
   melee), Zebak and Akkha ranged/magic, Akkha's final stand (20% more HP, protecting from magic and ranged: melee), Wardens P2 ranged on the Warden (it prays melee and magic; the core
   isn't modelled), P3 anything with the last 20% enraged (my estimate; they share 880 HP, which was counted twice).

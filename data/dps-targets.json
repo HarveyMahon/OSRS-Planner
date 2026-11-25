@@ -1003,7 +1003,7 @@
   "the_fractured_archive": {
    "name": "The Fractured Archive",
    "whole": true,
-   "note": "The whole raid: Archive Guardian (flying: ranged or magic; grounded: anything), then one boss behind each of the next three doors (Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai or Xarth, each counted half the time), then Ocellus's three phases (magic in phase 3). From the Wiki's strategy page; the Smorks, binders and other adds are left out.",
+   "note": "The whole raid: Archive Guardian (flying: ranged or magic; grounded: anything), then one boss behind each of the next three doors (Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai or Xarth, each counted half the time), then Ocellus's three phases (magic in phase 3). From the Wiki's strategy page; the Archive Guardian is immune to Ancient Magicks; the Smorks count with Bork; binders and other adds are left out.",
    "parts": [
     {
      "monster": "Archive Guardian#Flying",
@@ -1011,11 +1011,13 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "noAncients": true
     },
     {
      "monster": "Archive Guardian#Grounded",
-     "weight": 1
+     "weight": 1,
+     "noAncients": true
     },
     {
      "monster": "Ezekiel",
@@ -1023,6 +1025,10 @@
     },
     {
      "monster": "Bork",
+     "weight": 0.5
+    },
+    {
+     "monster": "The Smorks",
      "weight": 0.5
     },
     {

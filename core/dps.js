@@ -122,10 +122,10 @@ const ANCIENT_STAVES = ['Kodai wand', 'Master wand', 'Nightmare staff', 'Harmoni
 function canCastAncients(w) { return /ancient/i.test(w.name) || ANCIENT_STAVES.some(n => canon(w.name).toLowerCase() === n.toLowerCase()); }
 
 /** The spells this weapon and player can autocast. */
-export function spellsFor(player, weapon) {
+export function spellsFor(player, weapon, opts = {}) {
   if (!weapon || !AUTOCAST_CATS.includes(weapon.category)) return [];
   const books = player.thrall ? ['arceuus'] : ['standard', 'arceuus'];
-  if (!player.thrall && player.quests?.has('desert_treasure_i') && canCastAncients(weapon)) books.push('ancient');
+  if (!player.thrall && !opts.noAncients && player.quests?.has('desert_treasure_i') && canCastAncients(weapon)) books.push('ancient');   // some bosses are immune to Ancients
   return SPELLS.filter(s => books.includes(s.book) && player.levels.Magic >= s.level);
 }
 
@@ -403,7 +403,7 @@ export function bestCalc(player, lo, monster, opts = {}) {
   let best = null;
   for (const st of attackStyles(w)) {
     if (opts.styles && !opts.styles.includes(styleKind(st.type))) continue;
-    const spells = st.stance === 'autocast' ? spellsFor(player, w) : [null];
+    const spells = st.stance === 'autocast' ? spellsFor(player, w, opts) : [null];
     for (const sp of spells) {
       const r = calc(player, lo, monster, st, sp, opts);
       if (!best || r.dps > best.dps) best = r;

@@ -1900,6 +1900,26 @@
    "weaknessPct": 0,
    "defFloor": 120
   },
+  "The Smorks": {
+   "name": "The Smorks",
+   "hp": 650,
+   "def": 220,
+   "magic": 185,
+   "size": 3,
+   "attributes": [],
+   "dstab": 220,
+   "dslash": 170,
+   "dcrush": 160,
+   "dmagic": 400,
+   "amagic": 185,
+   "dlight": 80,
+   "dstandard": 150,
+   "dheavy": 80,
+   "drange": 0,
+   "flatArmour": 2,
+   "weakness": "earth",
+   "weaknessPct": 85
+  },
   "The Whisperer#Post-quest": {
    "name": "The Whisperer",
    "hp": 900,
