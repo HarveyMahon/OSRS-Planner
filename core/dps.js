@@ -299,10 +299,16 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (style.stance === 'rapid') speed -= 1;
     const lvl = L.Ranged + B.Ranged, accBonus = style.stance === 'accurate' ? 3 : 0;
     let effA = Math.floor(lvl * pray.acc) + accBonus + 8;
-    let effS = Math.floor(lvl * pray.str) + accBonus + 8;
+    // Eclipse atlatl: damage from your (boosted) Strength level and melee strength bonus, with ranged prayers
+    const atlatl = canon(w?.name) === 'Eclipse atlatl';
+    let effS = Math.floor((atlatl ? L.Strength + B.Strength : lvl) * pray.str) + accBonus + 8;
     if (v?.style === 'ranged') { effA = Math.floor(effA * 1.1); effS = Math.floor(effS * (v.elite ? 1.125 : 1.1)); }
     atk = effA * (t.arange + 64);
-    max = Math.floor((effS * (t.rstr + 64) + 320) / 640);
+    max = Math.floor((effS * ((atlatl ? t.str : t.rstr) + 64) + 320) / 640);
+    if (atlatl) {        // and the melee Salve / Slayer helm bonuses
+      if (sal && undead) max = Math.floor(max * (sal.e ? 6 / 5 : 7 / 6));
+      else if (slayerHelm(lo) && onTask) max = Math.floor(max * 7 / 6);
+    }
     if (firesAmmo(w) && !ammoFits(w, lo.ammo)) return { dps: 0, maxHit: 0, accuracy: 0, speed, style, spell, notes: ['No ammo for this weapon'] };
     if (isCrystalBow(w)) { const n = crystalPieces(lo); atk = Math.trunc(atk * (20 + n) / 20); max = Math.trunc(max * (40 + n) / 40); }
     let dhcb = dragon && canon(w?.name) === 'Dragon hunter crossbow', scorch = canon(w?.name) === 'Scorching bow' && m.attributes.includes('demon');
@@ -390,6 +396,9 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
       }
     }
     if (kalphite && isKeris(w)) per *= 1 + 2 / 51;   // 1 in 51 hits deal triple damage
+    // Eclipse Moon set with the atlatl: a hit has a 20% chance to burn for 10 (over 24 seconds)
+    if (canon(w?.name) === 'Eclipse atlatl' && has(lo, 'head', /^Eclipse moon helm/i) && has(lo, 'body', /^Eclipse moon chestplate/i)
+      && has(lo, 'legs', /^Eclipse moon tassets/i) && !m.burnImmune) per += p * 0.2 * 10;
   }
   if (!spec) per *= shots;
   if (m.name === 'Corporeal Beast' && !(style.type === 'stab' && ['Spear', 'Polearm'].includes(w?.category)) && !(kind === 'magic')) per /= 2;

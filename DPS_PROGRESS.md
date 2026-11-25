@@ -38,6 +38,9 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   rate and the fastest gear you can afford ("budget gear rule"). All bosses take ~3s; cached per account, daily.
 - **Levels to wear gear**: parsed from each item page's lead text (1,124 items; e.g. Twisted bow 85 Ranged,
   Masori (f) 80 Ranged + 80 Defence). The optimiser skips gear you can't wear; the DPS page outlines it.
+- Eclipse atlatl (13:20): max hit from your boosted Strength level and melee strength bonus with ranged prayers,
+  plus melee Salve/Slayer helm bonuses (Wiki); with the full Eclipse Moon set, 20% of hits burn for 10 (unless
+  the boss is immune to burns). Its spec (consumes burns) isn't modelled.
 - Soulreaper axe (at 5 stacks), Confliction gauntlets, Tumeken's shadow x4 in ToA. Tests for the engine.
 
 - **Special attacks** (`core/specs.js`, check-in 2): Defence drains (Dragon warhammer 30%, Elder maul 35%,

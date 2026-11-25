@@ -12,7 +12,7 @@ const KINDS = ['melee', 'ranged', 'magic'];
 const MAX_PER_SLOT = 12, TOP_WEAPONS = 3;
 const STAT_KEYS = { melee: ['astab', 'aslash', 'acrush', 'str'], ranged: ['arange', 'rstr'], magic: ['amagic', 'mdmg'] };
 // Items kept whatever their stats, for their effects
-const SPECIAL = /^(Void|Elite void|Obsidian|Crystal (helm|body|legs)|Inquisitor's|Slayer helmet|Black mask|.* slayer helmet|Salve amulet|Berserker necklace|Dizana's|Blessed Dizana's|Tome of)/;
+const SPECIAL = /^(Eclipse [Mm]oon|Void|Elite void|Obsidian|Crystal (helm|body|legs)|Inquisitor's|Slayer helmet|Black mask|.* slayer helmet|Salve amulet|Berserker necklace|Dizana's|Blessed Dizana's|Tome of)/;
 
 const weaponKinds = w => [...new Set(attackStyles(w).map(s => styleKind(s.type)))];
 export const meetsReqs = (item, player, reqs) => {
@@ -181,6 +181,7 @@ const SETS = [
   { head: /^Obsidian helmet/, body: /^Obsidian platebody/, legs: /^Obsidian platelegs/ },
   { head: /^Crystal helm/, body: /^Crystal body/, legs: /^Crystal legs/ },
   { head: /^Inquisitor's great helm/, body: /^Inquisitor's hauberk/, legs: /^Inquisitor's plateskirt/ },
+  { head: /^Eclipse moon helm/i, body: /^Eclipse moon chestplate/i, legs: /^Eclipse moon tassets/i },
 ];
 
 /**

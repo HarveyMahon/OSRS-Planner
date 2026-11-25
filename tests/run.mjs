@@ -357,6 +357,17 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     const a = D.calc(P, { weapon: sword }, mon, D.attackStyles(sword)[1]).dps, b = D.calc(P, { weapon: sword }, { ...mon, flatArmour: 10 }, D.attackStyles(sword)[1]).dps;
     assert.ok(b < a);
   });
+  t('dps: Eclipse atlatl uses Strength, and the full Eclipse Moon set adds burns', () => {
+    const atl = { name: 'Eclipse atlatl', b: { arange: 87, str: 40 }, speed: 4, category: 'Bow', two: true };
+    const dart = { name: 'Atlatl dart', b: {} };
+    const weak = { ...P, levels: { ...P.levels, Strength: 1 } };
+    const rapid = D.attackStyles(atl).find(s => s.stance === 'rapid');
+    assert.ok(D.calc(weak, { weapon: atl, ammo: dart }, mon, rapid).maxHit < D.calc(P, { weapon: atl, ammo: dart }, mon, rapid).maxHit);
+    const set = { head: { name: 'Eclipse Moon helm', b: {} }, body: { name: 'Eclipse Moon chestplate', b: {} }, legs: { name: 'Eclipse Moon tassets', b: {} } };
+    const a = D.calc(P, { weapon: atl, ammo: dart, ...set }, mon, rapid), b = D.calc(P, { weapon: atl, ammo: dart }, mon, rapid);
+    assert.ok(Math.abs(a.perAttack - b.perAttack - a.accuracy * 2) < 1e-9);          // 20% of hits burn for 10
+    assert.equal(D.calc(P, { weapon: atl, ammo: dart, ...set }, { ...mon, burnImmune: 'normal' }, rapid).perAttack, b.perAttack);
+  });
   t('dps: ammo rules', () => {
     assert.equal(D.ammoFits({ name: 'Twisted bow', category: 'Bow' }, { name: 'Dragon arrow' }), true);
     assert.equal(D.ammoFits({ name: 'Magic shortbow', category: 'Bow' }, { name: 'Dragon arrow' }), false);
