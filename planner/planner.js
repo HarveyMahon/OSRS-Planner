@@ -85,7 +85,7 @@ function stepHtml(s, i) {
       ${s.slayer ? slayerHtml(s) : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;
   }
   if (s.kind === 'quest') return `<li class="step quest"><div class="head"><span class="n">${i + 1}</span><b>Quest:</b> <a href="${wiki(s.name)}" target="_blank" rel="noopener">${esc(s.name)}</a>
-      <span class="right">~${hrs(s.hours || 0)}${s.forTraining ? ' · unlocks a training method' : ''}</span></div></li>`;
+      <span class="right">~${hrs(s.hours || 0)}${s.forTraining ? ' · unlocks a training method' : ''}${s.pulledFor ? ` · moved earlier: ${esc(s.pulledFor)} needs it` : ''}</span></div></li>`;
   if (s.kind === 'kc') {
     const pick = s.setups.length > 1
       ? `<select data-setup="${esc(s.bossId)}" aria-label="Setup for ${esc(s.name)}">${s.setups.map(o => `<option value="${esc(o.id)}"${o.id === s.setupId ? ' selected' : ''}>${esc(o.label)} setup</option>`).join('')}</select>`
@@ -133,16 +133,40 @@ function slayerHtml(s) {
     ${xp ? `<div class="note">The tasks also give about ${xp} XP, with your attack style set as in the heading. The rest of the plan counts it.</div>` : ''}`;
 }
 
+// Each goal is a block of steps (the goal's own step and everything it needs first). A header row starts
+// each block, with up/down buttons that move the whole block.
+let LAST_ORDER = [];
+const keyOf = (g, i) => g.type === 'quest' ? 'q:' + g.id : g.type === 'kc' || g.type === 'milestone' ? 'k:' + g.bossId
+  : g.type === 'level' ? 'lvl:' + g.skill : g.type === 'maxcape' ? 'maxcape' : 'gp:' + i;
+function blockLabel(key) {
+  const i = state.goals.findIndex((g, j) => keyOf(g, j) === key);
+  if (i >= 0) return goalLabel(state.goals[i]);
+  if (key.startsWith('lvl:')) return 'Max cape (all 99s)';
+  return 'Other steps';
+}
+function stepsHtml(r) {
+  const order = r.order; let cur = null, n = 0;
+  return r.steps.map((s, i) => {
+    let head = '';
+    if (s.block !== cur) {
+      cur = s.block; const bi = order.indexOf(cur);
+      const btns = order.length > 1 ? `<span class="move"><button type="button" data-move="${esc(cur)}|-1"${bi <= 0 ? ' disabled' : ''} title="Do this goal earlier" aria-label="Move earlier">↑</button><button type="button" data-move="${esc(cur)}|1"${bi >= order.length - 1 ? ' disabled' : ''} title="Do this goal later" aria-label="Move later">↓</button></span>` : '';
+      head = `<li class="block-head">${btns}<span>Goal ${++n}: ${esc(blockLabel(cur))}</span></li>`;
+    }
+    return head + stepHtml(s, i);
+  }).join('');
+}
+
 function render() {
   document.querySelectorAll('#intensity button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.i === state.intensity)));
   $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
     : '<span class="muted">No goals yet: add one above.</span>';
   const nSetups = Object.keys(state.setups).length;
-  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, Object.keys(state.gpChoices).length && `${Object.keys(state.gpChoices).length} money maker choice${Object.keys(state.gpChoices).length > 1 ? 's' : ''}`, state.slayerIntensity && 'the Slayer style'].filter(Boolean);
+  const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, Object.keys(state.gpChoices).length && `${Object.keys(state.gpChoices).length} money maker choice${Object.keys(state.gpChoices).length > 1 ? 's' : ''}`, state.slayerIntensity && 'the Slayer style', state.order && 'the step order'].filter(Boolean);
   $('swaps-note').innerHTML = changes.length ? `Your changes: ${changes.join(', ')}. <button type="button" class="reset" id="clear-swaps">↺ Reset all changes</button>` : '';
   if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
   const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
-                                 account: ACCOUNT, intensity: state.intensity, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(),
+                                 account: ACCOUNT, intensity: state.intensity, order: state.order, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(),
                                  slayer: D.slayerData && { data: D.slayerData, settings: slayerStore(), intensity: state.slayerIntensity } });
   const t = r.totals;
   $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
@@ -151,7 +175,8 @@ function render() {
     <div><span class="lbl">Earned along the way</span><span class="gain">${gpShort(t.gpEarned)}</span></div>
     <div><span class="lbl">Steps</span>${r.steps.length}</div>`;
   $('warnings').innerHTML = r.errors.map(w => `<li class="error">${esc(w)}</li>`).join('') + r.warnings.map(w => `<li>${esc(w)}</li>`).join('');
-  $('steps').innerHTML = r.steps.map(stepHtml).join('') || (r.errors.length ? '' : '<li class="muted">Nothing to do: you already meet these goals.</li>');
+  LAST_ORDER = r.order;
+  $('steps').innerHTML = stepsHtml(r) || (r.errors.length ? '' : '<li class="muted">Nothing to do: you already meet these goals.</li>');
   document.documentElement.dataset.ready = '1';
 }
 
@@ -174,12 +199,20 @@ async function init() {
     state.setups[b] = e.target.value; save(); render();
   });
   $('steps').addEventListener('click', e => {
+    const mv = e.target.closest?.('[data-move]')?.dataset.move;
+    if (mv) {
+      const [key, dir] = [mv.slice(0, mv.lastIndexOf('|')), +mv.slice(mv.lastIndexOf('|') + 1)];
+      const order = [...LAST_ORDER], i = order.indexOf(key), j = i + dir;
+      if (i < 0 || j < 0 || j >= order.length) return;
+      [order[i], order[j]] = [order[j], order[i]];
+      state.order = order; save(); render(); return;
+    }
     if (e.target.dataset?.unslayer !== undefined) { delete state.slayerIntensity; save(); render(); return; }
     if (e.target.dataset?.ungp !== undefined) { delete state.gpChoices[e.target.dataset.ungp]; save(); render(); return; }
     const b = e.target.dataset?.unsetup; if (!b) return;
     delete state.setups[b]; save(); render();
   });
-  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; state.gpChoices = {}; delete state.slayerIntensity; save(); render(); } });
+  $('swaps-note').addEventListener('click', e => { if (e.target.id === 'clear-swaps') { state.swaps = []; state.setups = {}; state.gpChoices = {}; delete state.slayerIntensity; delete state.order; save(); render(); } });
   $('steps').addEventListener('change', e => {
     const k = e.target.dataset.swap;
     if (!k) return;

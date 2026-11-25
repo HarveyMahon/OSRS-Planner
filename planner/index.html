@@ -37,6 +37,13 @@
   .segs select { max-width: 420px; }
   .segs .meta { font-family: var(--mono); color: var(--muted); font-size: 13px; }
   .segs li.swapped select { border-color: var(--accent); }
+  .block-head { list-style: none; display: flex; align-items: center; gap: 8px; margin: 18px 0 2px; color: var(--muted); font: 600 13px var(--sans); letter-spacing: .02em; }
+  .block-head:first-child { margin-top: 0; }
+  .move { display: inline-flex; flex-direction: column; margin-right: 6px; vertical-align: middle; }
+  .move button { font: 11px/1 var(--mono); padding: 1px 5px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+  .move button:first-child { border-radius: 4px 4px 0 0; } .move button:last-child { border-radius: 0 0 4px 4px; border-top: 0; }
+  .move button:hover:not([disabled]) { color: var(--accent); border-color: var(--accent); }
+  .move button[disabled] { opacity: .3; cursor: default; }
   button.reset { font: inherit; font-size: 0.8rem; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; margin-left: 6px; white-space: nowrap; }
   button.reset:hover { background: var(--accent); color: var(--bg); }
   .step.changed { box-shadow: 0 0 0 1px var(--accent); }

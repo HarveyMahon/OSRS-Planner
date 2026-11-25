@@ -5,7 +5,6 @@ Ideas parked for later. Nothing here is being worked on right now.
 ## Planner
 - **Slayer v1.5**: Turael skipping and Konar point boosting; the Slayer cape's effect; superiors; "train Slayer with Ranged until level xx" when a goal needs Slayer and combat levels together. (v1 is live: the Slayer tab, the model in core/slayer.js and Slayer steps in the planner.)
 - **Slayer data gaps**: the low masters (Turael, Mazchna, Vannaka) have little rate data in KodakKid3's sheet, so below Chaeldar the planner falls back to the generic Slayer estimate. Some GP figures in the sheet were dropped as broken (bronze and iron dragons).
-- **Reorder steps** by hand (v2).
 - **Requirements filter**: Harvey's more complex idea for filtering by what an account can really do (currently recommended + required levels).
 
 ## Money Makers

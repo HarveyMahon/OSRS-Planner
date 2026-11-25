@@ -80,7 +80,7 @@ export function applySwaps(track, swaps, training, skill) {
 }
 
 export function plan(goals, d) {
-  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null } = d;
+  const { items, training, quests, bosses, methods, intensity = 'balanced', swaps = [], setupChoices = {}, gpChoices = {}, hideWild = false, slayer = null, order: userOrder = null } = d;
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
@@ -150,7 +150,7 @@ export function plan(goals, d) {
     needsOf(q.requires, needs, depth);
     currentQuest = outer;
     for (const n of q.requirementNotes || []) warnings.push(`${q.name}: also needs ${n}`);
-    milestones.push({ kind: 'quest', id, needs });
+    milestones.push({ kind: 'quest', id, needs, goal: currentGoal });
   }
 
   function addKc(bossId, n, depth = 0) {
@@ -165,7 +165,7 @@ export function plan(goals, d) {
     const { setup, why } = kcSetup(b);
     const needs = {};
     needsOf(setup.requires, needs, depth);
-    milestones.push({ kind: 'kc', id: bossId, n: Math.max(0, n - have), needs, setupId: setup.id, why });
+    milestones.push({ kind: 'kc', id: bossId, n: Math.max(0, n - have), needs, setupId: setup.id, why, goal: currentGoal });
   }
 
   const gpGoals = [];
@@ -214,11 +214,17 @@ export function plan(goals, d) {
       const added = milestones.splice(before);
       const owners = new Set(qpShortfall().map(r => r.owner));
       const at = milestones.findIndex(m => m.kind === 'quest' && owners.has(m.id));
+      if (at !== -1) for (const m of added) m.goal = milestones[at].goal;      // part of the goal that needs the points
       milestones.splice(at === -1 ? milestones.length : at, 0, ...added);
     }
   }
   const addedForQp = [];
-  for (const g of goals) {
+  let currentGoal = null;
+  const goalKey = (g, i) => g.type === 'quest' ? 'q:' + g.id : g.type === 'kc' || g.type === 'milestone' ? 'k:' + g.bossId
+    : g.type === 'level' ? 'lvl:' + g.skill : g.type === 'maxcape' ? 'maxcape' : 'gp:' + i;
+  const gkeys = goals.map(goalKey);
+  for (const [gi, g] of goals.entries()) {
+    currentGoal = gkeys[gi];
     if (g.type === 'level') finalLevels[g.skill] = Math.max(finalLevels[g.skill] || 0, g.level);
     else if (g.type === 'maxcape') SKILLS.forEach(s => { finalLevels[s] = Math.max(finalLevels[s] || 0, MAX_LEVEL); });
     else if (g.type === 'quest') { checkDoneQuest(g.id); addQuest(g.id); }
@@ -403,15 +409,15 @@ export function plan(goals, d) {
   // Do a quest straight away (prerequisite quests and levels first), e.g. when a training
   // method needs it. Levels it needs are trained with the usual tracks.
   const doing = new Set();
-  function doQuestNow(id) {
+  function doQuestNow(id, { pulledFor } = {}) {
     if (sim.quests[id] === 'complete' || !quests[id] || doing.has(id)) return;
     doing.add(id);
-    for (const r of quests[id].requires?.all || []) if (r.quest) doQuestNow(r.quest);
+    for (const r of quests[id].requires?.all || []) if (r.quest) doQuestNow(r.quest, { pulledFor });
     const needs = {};
     const walk = r => { if (!r) return; if (r.all) r.all.forEach(walk); else if (r.any) walk(r.any[0]); else if (r.skill) needs[r.skill] = Math.max(needs[r.skill] || 0, r.level); };
     walk(quests[id].requires);
     trainNeeds(needs);
-    steps.push({ kind: 'quest', id, name: quests[id].name, forTraining: true, hours: questHours(quests[id]) });
+    steps.push({ kind: 'quest', id, name: quests[id].name, forTraining: !pulledFor, pulledFor, hours: questHours(quests[id]) });
     sim.quests[id] = 'complete';
     doing.delete(id);
   }
@@ -424,15 +430,21 @@ export function plan(goals, d) {
     if (needs.Hitpoints) trainHitpoints(needs.Hitpoints, combatOrder(needs));
   };
 
-  for (const m of milestones) {
-    trainNeeds(m.needs);
+  // Quests a requirement needs that aren't done yet (when the user has moved something above them)
+  const questsIn = (r, out = []) => { if (!r) return out; if (r.all) r.all.forEach(x => questsIn(x, out)); else if (r.any) { if (!r.any.some(x => isMet(x, sim, reqCtx))) questsIn(r.any[0], out); } else if (r.quest && sim.quests[r.quest] !== 'complete') out.push(r.quest); return out; };
+
+  function runMilestone(m) {
     if (m.kind === 'quest') {
-      if (sim.quests[m.id] === 'complete') continue;
+      if (sim.quests[m.id] === 'complete') return;
+      for (const q of questsIn(quests[m.id].requires)) doQuestNow(q, { pulledFor: quests[m.id].name });
+      trainNeeds(m.needs);
       steps.push({ kind: 'quest', id: m.id, name: quests[m.id].name, hours: questHours(quests[m.id]) });
       sim.quests[m.id] = 'complete';
     } else if (m.n > 0) {
       const b = bossById(m.id);
       const bm = bossMethod(b, items, { setupId: m.setupId });
+      for (const q of questsIn(bm.setup.requires)) doQuestNow(q, { pulledFor: b.name });
+      trainNeeds(m.needs);
       const hours = bm.unitsPerHr ? m.n / bm.unitsPerHr : 0;
       const gp = -bm.profitPerUnit * m.n;
       pay(Math.max(0, bm.costPerUnit * m.n), `${b.name} kills`, `kc:${b.id}`);
@@ -443,16 +455,37 @@ export function plan(goals, d) {
                    met: isMet(bm.setup.requires, sim, reqCtx) });
       sim.kc[b.id] = (sim.kc[b.id] || 0) + m.n;
       if (b.milestone?.reward) sim.owned[b.milestone.reward] = 1;
-    }
+    } else trainNeeds(m.needs);
   }
 
-  // ---- 3. level goals, then GP goals ----
-  // Slayer first: its tasks give combat XP, which can cover combat level goals
-  const order = finalLevels.Slayer ? ['Slayer', ...SKILLS.filter(s => s !== 'Slayer')] : SKILLS;
-  for (const s of order) if (finalLevels[s] && s !== 'Hitpoints') train(s, finalLevels[s]);
-  if (finalLevels.Hitpoints) trainHitpoints(finalLevels.Hitpoints);     // after combat, which gives Hitpoints XP
-  for (const amount of gpGoals) makeGp(amount, `your goal of ${amount.toLocaleString('en-GB')} GP`, `goal:${amount}`);
-
+  // ---- 2-3. the plan's blocks: one per goal, with everything it needs (quests, kills, training, money) ----
+  // Blocks are what the user can move. Default order: goals with quests or kills, in the order their first
+  // milestone comes up; then level goals (Slayer first: its tasks give combat XP); then GP goals.
+  const blocks = [], byKey = new Map();
+  const block = key => { if (!byKey.has(key)) { const b = { key, ms: [], extra: [] }; byKey.set(key, b); blocks.push(b); } return byKey.get(key); };
+  for (const m of milestones) block(m.goal || 'other').ms.push(m);
+  const lvOrder = finalLevels.Slayer ? ['Slayer', ...SKILLS.filter(s => s !== 'Slayer')] : SKILLS;
+  const levelGoal = sk => { const i = goals.findIndex(g => g.type === 'level' && g.skill === sk); return i >= 0 ? gkeys[i] : goals.some(g => g.type === 'maxcape') ? 'maxcape' : 'lvl:' + sk; };
+  for (const sk of lvOrder) if (finalLevels[sk] && sk !== 'Hitpoints') block(levelGoal(sk)).extra.push(() => train(sk, finalLevels[sk]));
+  if (finalLevels.Hitpoints) block(levelGoal('Hitpoints')).extra.push(() => trainHitpoints(finalLevels.Hitpoints));   // after combat, which gives Hitpoints XP
+  goals.forEach((g, i) => { if (g.type === 'gp') block(gkeys[i]).extra.push(() => makeGp(g.amount, `your goal of ${g.amount.toLocaleString('en-GB')} GP`, `goal:${g.amount}`)); });
+  for (const b of blocks) b.run = () => { b.ms.forEach(runMilestone); b.extra.forEach(f => f()); };
+  // the user's order (keys from an earlier plan) first, anything new after it in the usual order
+  if (userOrder?.length) {
+    const pos = k => { const i = userOrder.indexOf(k); return i < 0 ? Infinity : i; };
+    blocks.forEach((b, i) => { b.i = i; });
+    blocks.sort((a, b) => pos(a.key) - pos(b.key) || a.i - b.i);
+  }
+  const blockOrder = [];
+  for (const b of blocks) {
+    const from = steps.length;
+    b.run();
+    if (steps.length > from) {
+      for (let i = from; i < steps.length; i++) steps[i].block = b.key;
+      steps[steps.length - 1].blockMain = true;           // the block's own step (the rest lead up to it)
+      blockOrder.push(b.key);
+    }
+  }
 
   const totals = steps.reduce((t, s) => {
     t.hours += s.hours || 0;
@@ -462,5 +495,5 @@ export function plan(goals, d) {
     return t;
   }, { hours: 0, realHours: 0, gpMade: 0, gpSpent: 0, gpEarned: 0 });
   totals.endGp = sim.gp;
-  return { steps, totals, warnings: [...new Set(warnings)], errors, endAccount: sim };
+  return { steps, totals, warnings: [...new Set(warnings)], errors, endAccount: sim, order: blockOrder };
 }
