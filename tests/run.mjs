@@ -450,6 +450,29 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     assert.ok(half && half.specs === 1 && half.used === 50);
     assert.equal(S.withSpecs(P, { weapon: sword }, { dmgLo: { weapon: claws } }, mon, { energy: 20, noRegen: true }), null);
   });
+  t('specs: repeated kills share energy across kills; ToB/ToA/TFA refill it each room (Harvey)', async () => {
+    const { bestSetup } = await import('../core/best-setup.js');
+    const sw = { id: 1, name: 'Test sword', slot: 'weapon', b: { aslash: 100, str: 133 }, speed: 4, category: 'Slash Sword' };
+    const cl = { id: 2, name: 'Dragon claws', slot: 'weapon', b: { aslash: 57, str: 56 }, speed: 4, category: 'Claw' };
+    const gear = { weapon: [sw, cl] };
+    const own = () => ({ owned: true, price: 0 });
+    const monsters = { A: { ...mon, name: 'A', hp: 300 }, B: { ...mon, name: 'B', hp: 300 } };
+    const one = { parts: [{ monster: 'A', weight: 1 }] };
+    const at = downtime => bestSetup(P, gear, one, monsters, own, { downtime }).time;
+    // more downtime, more energy per kill, never slower; a single fight on a full bar is the fastest
+    assert.ok(at(0) >= at(30) - 1e-9 && at(30) >= at(300) - 1e-9);
+    const fresh = bestSetup(P, gear, one, monsters, own, {}).time;
+    assert.ok(fresh <= at(0) + 1e-9);
+    // 25% energy a kill (75s cycle): specs on a share of kills that uses exactly that, carried over
+    const r = bestSetup(P, gear, one, monsters, own, { cycle: 75 });
+    const sp = r.perPart[0].spec;
+    assert.ok(sp && Math.abs(sp.copies * sp.used - 25) < 1e-6, `energy a kill ${sp?.copies * sp?.used}`);
+    // two rooms: refilled per room beats one pool for the whole run
+    const raid = { whole: true, parts: [{ monster: 'A', weight: 1, room: 'a' }, { monster: 'B', weight: 1, room: 'b' }] };
+    const pooled = bestSetup(P, gear, raid, monsters, own, {}).time;
+    const rooms = bestSetup(P, gear, { ...raid, specRooms: { a: 1, b: 1 } }, monsters, own, {}).time;
+    assert.ok(rooms < pooled - 1e-6);
+  });
   t('dps: in-content potions', () => {
     assert.deepEqual(D.boosts(P, 'overload'), { Attack: 21, Strength: 21, Ranged: 21, Magic: 21 });   // 6 + 16% of 99
     assert.deepEqual(D.boosts(P, 'salts'), { Attack: 26, Strength: 26, Ranged: 26, Magic: 26 });      // 11 + 16% of 99
