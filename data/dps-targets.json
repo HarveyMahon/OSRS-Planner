@@ -689,39 +689,45 @@
      "weight": 1,
      "styles": [
       "melee"
-     ]
+     ],
+     "toa": true
     },
     {
      "monster": "Akkha",
-     "weight": 1
+     "weight": 1,
+     "toa": true
     },
     {
      "monster": "Kephri#Shielded",
      "weight": 1,
      "styles": [
       "ranged"
-     ]
+     ],
+     "toa": true
     },
     {
      "monster": "Zebak#Normal",
      "weight": 1,
      "styles": [
       "ranged"
-     ]
+     ],
+     "toa": true
     },
     {
      "monster": "Tumeken's Warden#Damaged",
      "weight": 1,
      "styles": [
       "melee"
-     ]
+     ],
+     "toa": true
     },
     {
      "monster": "Tumeken's Warden#Enraged",
      "weight": 1,
      "styles": [
       "melee"
-     ]
+     ],
+     "toa": true
     }
    ]
   },

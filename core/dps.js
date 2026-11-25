@@ -263,6 +263,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   if (kind === 'melee') {
     let effA = Math.floor((L.Attack + B.Attack) * pray.acc) + 8 + (style.stance === 'accurate' ? 3 : style.stance === 'controlled' ? 1 : 0);
     let effS = Math.floor((L.Strength + B.Strength) * pray.str) + 8 + (style.stance === 'aggressive' ? 3 : style.stance === 'controlled' ? 1 : 0);
+    // Soulreaper axe: +6% of boosted Strength per stack; counted at its full 5 stacks (it holds them through a kill)
+    if (canon(w?.name) === 'Soulreaper axe') effS += Math.floor((L.Strength + B.Strength) * 30 / 100);
     if (v?.style === 'melee') { effA = Math.floor(effA * 1.1); effS = Math.floor(effS * 1.1); }
     const base = effA * (t['a' + style.type] + 64);
     atk = base;
@@ -345,6 +347,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   // ---- expected damage per attack ----
   const def = npcDefRoll(m, kind === 'melee' ? style.type : kind, w);
   let p = isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
+  // Confliction gauntlets: after a missed magic attack with a one-handed weapon, the next rolls accuracy twice
+  if (kind === 'magic' && /^Confliction gauntlets/.test(lo.hands?.name || '') && !w?.two) { const d = fangChance(atk, def); p = d / (1 + d - p); }
   const flat = m.flatArmour || 0;
   let per = 0;
   if (hits > 1) {
