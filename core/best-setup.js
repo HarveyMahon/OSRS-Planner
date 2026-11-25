@@ -241,6 +241,40 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       kinds[k] = r;
       for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned && !bought.has(it)) { bought.add(it); left -= avail(it).price || 0; } }
     }
+    // Each style was optimised against every part it can hit, but in the end it only gets the parts it's
+    // fastest on (Zulrah: magic only on the forms ranged is worse at). Re-optimise each style for the parts
+    // it actually wins, and also try its owned-only gear, keeping a swap whenever the whole target gets
+    // faster within budget. (This also makes sure spending money never leaves you slower than not.)
+    const buyCost = ks => { const set = new Set(); for (const r of Object.values(ks)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) set.add(it); } return [...set].reduce((c, it) => c + (avail(it).price || 0), 0); };
+    const quick = ks => { let tot = 0; const won = {}; for (const p of parts) { const m = monsters[p.monster]; let bd = 0, bk = null;
+      for (const [k, r] of Object.entries(ks)) { if (p.styles && !p.styles.includes(k)) continue;
+        const d = bestCalc(pl, forPart(r.loadout, p), m, { styles: [k], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon }).dps + (thrall ? THRALL_DPS : 0);
+        if (d > bd) { bd = d; bk = k; } }
+      tot += bd > 0 ? p.weight * m.hp / bd : Infinity; if (bk) (won[bk] ||= []).push(p); } return { tot, won }; };
+    if (Object.keys(kinds).length) {
+      let cur = quick(kinds);
+      for (let round = 0; round < (fast ? 1 : 2); round++) {
+        let changed = false;
+        for (const k of Object.keys(kinds)) {
+          const plk = { ...pl, thrall: k === 'magic' ? thrall : false };
+          const kParts = parts.filter(p => !p.styles || p.styles.includes(k));
+          const others = Object.fromEntries(Object.entries(kinds).filter(([x]) => x !== k));
+          const room = budget - buyCost(others);
+          const alts = [];
+          if (budget > 0 && kinds[k].cost > 0) { const key = `own:${k}:${thrall}`; let o = memo.get(key); if (o === undefined) { o = optimiseKind(k, plk, gear, kParts, monsters, avail, { reqs, budget: 0, fast }); memo.set(key, o); } if (o) alts.push(o); }
+          const won = cur.won[k];
+          if (won && won.length < kParts.length) { const o = optimiseKind(k, plk, gear, won, monsters, avail, { reqs, budget: Math.max(0, room), fast }); if (o) alts.push({ ...o, time: partsTime(plk, o.loadout, kParts.map(p => ({ ...p, styles: [k] })), monsters) }); }
+          for (const o of alts) {
+            if (o.loadout === kinds[k].loadout) continue;
+            const next = { ...kinds, [k]: o };
+            if (buyCost(next) > budget) continue;
+            const q = quick(next);
+            if (q.tot < cur.tot - 1e-9) { kinds[k] = o; cur = q; changed = true; }
+          }
+        }
+        if (!changed) break;
+      }
+    }
     // each part with its fastest style; then again preferring each style in turn, because a style that's a
     // little slower on its own can come out ahead once its spec weapons are counted
     const allKinds = { ...kinds };

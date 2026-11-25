@@ -40,6 +40,38 @@
         "high": 50
       },
       "why": "Hits that would deal over 50 are rerolled to 45-50 (Zulrah's mechanic)."
+    },
+    "Artio": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Callisto": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Calvar'ion#Normal": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Chaos Elemental": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Scorpia": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Spindel": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Venenatis": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
+    },
+    "Vet'ion#Normal": {
+      "wild": true,
+      "why": "In the Wilderness (Ursine/Webweaver/Accursed boost)."
     }
   }
 }

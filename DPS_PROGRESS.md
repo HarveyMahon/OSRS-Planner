@@ -91,6 +91,23 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Magic/3 - 10, 3 ticks, +15% magic damage), and its spec buffs the next 3 attacks too (+150% accuracy, +60% damage,
   2 ticks each) when it hits. It's now the spec Best Setup picks at Zulrah from 500M up.
 
+- **Self-tests, part 1** (14:25): every boss against its Wiki setup (10B and 500M, untradeables owned).
+  Within about 5% of the guide: Vorkath, Zulrah, the DT2 bosses, Muspah, Cerberus, Hydra, Kraken, GGs, ToB,
+  ToA, Nightmare, Phosani, Yama, Sol, Skotizo, Huey, Araxxor. Faster than the guide mostly where the Wiki
+  gear is a tank, budget or one-weapon setup (Graardor, Kril, KQ, the DKs, Mole, Nex 60% with Obligator).
+  Fixed from it: **Wilderness weapons** (Ursine/Viggora's, Webweaver/Craw's, Accursed/Thammaron's) now get
+  their +50% accuracy and damage at the Wilderness bosses (Artio, Callisto, Calvar'ion, Vet'ion, Spindel,
+  Venenatis, Scorpia, Chaos Elemental); they were being treated as plain weapons, so the optimiser never
+  picked them and the Wiki's own setups looked half as fast as they are. King Black Dragon isn't counted as
+  Wilderness (not sure his lair is). **CoX Ice Demon** can be hit with any style (it was magic only, which
+  left the guide's gear unable to finish the raid).
+- **Sweeps** (14:25): budget 0 to 5B, levels 70 to 99, extra prayers, Kandarin hard, and owning what it would
+  buy, on 10 targets: more never made a setup slower except twice (Zulrah 0 -> 10M got 3s slower; ToA at
+  200M 1s). Cause: each style was optimised for every part it *can* hit, then only used where it's fastest
+  (at Zulrah magic only does two forms). Now each style is re-optimised for the parts it wins and its
+  owned-only gear is tried too, keeping whatever makes the whole target faster within budget. Zulrah at 10M
+  is now 63.7s (was 69.6). Costs ~4s more on the first kill-rate run (now ~14s with your bank, then cached).
+
 ## Next
 
 1. Done 14:30: planner money makers use your kill rate at the levels the plan has reached (the best 8 bosses

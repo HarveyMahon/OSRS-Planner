@@ -197,6 +197,7 @@ const slayerHelmImbued = lo => has(lo, 'head', /(slayer helmet|black mask).*\(i\
 const salve = lo => { const n = lo.neck?.name || ''; return /^Salve amulet/.test(n) ? { e: /\(e\)|\(ei\)/.test(n), i: /\(i\)|\(ei\)/.test(n) } : null; };
 const isScythe = w => w && /Scythe of vitur/i.test(w.name);
 const isFang = w => w && /^Osmumten's fang/.test(w.name);
+const WILD_WEAPON = /^(Ursine chainmace|Viggora's chainmace|Webweaver bow|Craw's bow|Accursed sceptre|Thammaron's sceptre)/;
 const isKeris = w => w && /^Keris( partisan)?/.test(w.name);
 const setOf = (lo, re) => ['head', 'body', 'legs'].every(sl => re.test(lo[sl]?.name || ''));
 const bloodMoon = lo => setOf(lo, /^Blood moon/i);
@@ -384,6 +385,9 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (spell?.element && /^Tome of (fire|water|earth)/i.test(lo.shield?.name || '') && lo.shield.name.toLowerCase().includes(spell.element)) max = Math.floor(max * 11 / 10);
     if (spell?.demonbane) { const purging = canon(w?.name) === 'Purging staff'; max += Math.floor(Math.floor(max * (purging ? 0.5 : 0.25)) * (DEMON_VULN[m.name] ?? 1)); }
   }
+
+  // Wilderness weapons (charged with revenant ether): +50% accuracy and damage against NPCs in the Wilderness
+  if (m.wild && WILD_WEAPON.test(canon(w?.name) || '')) { atk = Math.floor(atk * 3 / 2); max = Math.floor(max * 3 / 2); }
 
   // ---- special attack modifiers (core/specs.js) ----
   const spec = opts.spec;

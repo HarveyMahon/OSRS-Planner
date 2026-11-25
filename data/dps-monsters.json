@@ -204,7 +204,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": null,
-   "weaknessPct": 0
+   "weaknessPct": 0,
+   "wild": true
   },
   "Ba-Ba": {
    "name": "Ba-Ba",
@@ -313,7 +314,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 30
+   "weaknessPct": 30,
+   "wild": true
   },
   "Calvar'ion#Normal": {
    "name": "Calvar'ion",
@@ -336,7 +338,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": null,
-   "weaknessPct": 0
+   "weaknessPct": 0,
+   "wild": true
   },
   "Cerberus": {
    "name": "Cerberus",
@@ -380,7 +383,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "air",
-   "weaknessPct": 50
+   "weaknessPct": 50,
+   "wild": true
   },
   "Commander Zilyana": {
    "name": "Commander Zilyana",
@@ -1743,7 +1747,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 35
+   "weaknessPct": 35,
+   "wild": true
   },
   "Scurrius#Solo": {
    "name": "Scurrius",
@@ -1940,7 +1945,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 25
+   "weaknessPct": 25,
+   "wild": true
   },
   "Tekton#Normal": {
    "name": "Tekton",
@@ -2440,7 +2446,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 40
+   "weaknessPct": 40,
+   "wild": true
   },
   "Verzik Vitur#Normal mode, Phase 2": {
    "name": "Verzik Vitur",
@@ -2507,7 +2514,8 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": null,
-   "weaknessPct": 0
+   "weaknessPct": 0,
+   "wild": true
   },
   "Vorkath#Post-quest": {
    "name": "Vorkath",

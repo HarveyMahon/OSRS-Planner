@@ -818,10 +818,7 @@
      "monster": "Ice demon#Normal",
      "weight": 1,
      "room": "ice_demon",
-     "boost": "overload",
-     "styles": [
-      "magic"
-     ]
+     "boost": "overload"
     },
     {
      "monster": "Great Olm#Left claw (Normal)",
