@@ -118,7 +118,10 @@ export function applySetupGear(d, manual) {
 
 export async function loadMethods() {
   const [d, fix] = await Promise.all([loadJson('methods.json'), corrections()]);
-  return applyCorrections(structuredClone(d), fix, 'methods');
+  const out = applyCorrections(structuredClone(d), fix, 'methods');
+  // Ironman-only guides (gathering your own supplies) aren't ways for a normal account to make money
+  if (Array.isArray(out.methods)) out.methods = out.methods.filter(m => !/\(Ironman\)$/.test(m.name));
+  return out;
 }
 
 export async function loadTraining() {

@@ -227,7 +227,7 @@ async function lookup() {
       + (r.refreshed ? '.' : ` (last saved ${new Date(r.updatedAt).toLocaleDateString('en-GB')}; a fresh lookup wasn't possible right now).`)
       + ' Quests and items aren\'t on the hiscores, so tick those below.';
   } catch (err) {
-    $('lookup-status').textContent = err.message || 'The lookup failed.';
+    $('lookup-status').textContent = /failed to fetch|networkerror|load failed/i.test(err.message || '') ? "Couldn't reach the hiscores (offline, or the lookup service is down). Try again later, or enter your levels below." : (err.message || 'The lookup failed.');
   } finally { btn.disabled = false; }
 }
 $('lookup').addEventListener('click', lookup);
