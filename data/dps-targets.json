@@ -810,7 +810,15 @@
    "parts": [
     {
      "monster": "Ba-Ba",
-     "weight": 1,
+     "weight": 0.5,
+     "styles": [
+      "melee"
+     ],
+     "toa": true
+    },
+    {
+     "monster": "Ba-Ba",
+     "weight": 0.5,
      "styles": [
       "melee"
      ],
@@ -829,12 +837,19 @@
      "styles": [
       "ranged"
      ],
-     "toa": true,
-     "boost": "salts"
+     "toa": true
     },
     {
      "monster": "Zebak#Normal",
-     "weight": 1,
+     "weight": 0.5,
+     "styles": [
+      "ranged"
+     ],
+     "toa": true
+    },
+    {
+     "monster": "Zebak#Normal",
+     "weight": 0.5,
      "styles": [
       "ranged"
      ],

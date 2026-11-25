@@ -45,7 +45,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 1. Planner money makers use rates for your current stats (kill steps use the stats the plan has reached).
 2. Spec weapons (v2).
 - Done at check-in 2: overload (+) in every CoX room (+6 +16% to Attack, Strength, Ranged, Magic) and smelling
-  salts in every ToA room (+11 +16%), on Best Setup, the DPS page and your kill rates.
+  salts in ToA from the third room on (+11 +16%): the first two rooms are Ba-Ba then Kephri or Zebak then
+  Kephri, so Kephri has none and Ba-Ba and Zebak each have them half the time, on Best Setup, the DPS page and your kill rates.
 3. Refine whole-content targets with you (raids, Inferno waves, Colosseum waves).
 
 ## Decisions taken for review
