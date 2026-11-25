@@ -1,6 +1,6 @@
 {
   "meta": {
-    "note": "Lowest Defence level a monster can be drained to, by Wiki monster name (any version). \"base\" = can't be drained. Others can be drained to 0. Araxxor: 'His Defence level can be only drained by up to 45 levels' (Araxxor/Strategies). The Fractured Archive's bosses stop at 60% of their base (The Fractured Archive/Strategies).",
+    "note": "Lowest Defence level a monster can be drained to, by Wiki monster name (any version). \"base\" = can't be drained. Others can be drained to 0. Araxxor: 'His Defence level can be only drained by up to 45 levels' (Araxxor/Strategies). The Fractured Archive's bosses stop at 60% of their base (The Fractured Archive/Strategies). The Fractured Archive (from its strategy page): Archive Guardian 260->156, Ezekiel 200->120, Bork 300->180, Moia 195->117, Xarth 170->102, Ocellus P1 215->129, P3 250->150; Dreadnoth, the Dagon'hai and Ocellus P2 (The Blade) can be drained to 0.",
     "source": "OSRS Wiki strategy pages and boss pages"
   },
   "floors": {
@@ -17,6 +17,13 @@
     "Nex": 250,
     "Araxxor": 90,
     "The Hueycoatl": 120,
-    "Yama": 145
+    "Yama": 145,
+    "Archive Guardian": 156,
+    "Ezekiel": 120,
+    "Bork": 180,
+    "Moia": 117,
+    "Xarth": 102,
+    "Ocellus#Phase 1": 129,
+    "Ocellus#Phase 3": 150
   }
 }

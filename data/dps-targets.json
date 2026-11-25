@@ -769,7 +769,24 @@
     },
     {
      "monster": "Nylocas Vasilias#Normal",
-     "weight": 1
+     "weight": 0.3333333333333333,
+     "styles": [
+      "melee"
+     ]
+    },
+    {
+     "monster": "Nylocas Vasilias#Normal",
+     "weight": 0.3333333333333333,
+     "styles": [
+      "ranged"
+     ]
+    },
+    {
+     "monster": "Nylocas Vasilias#Normal",
+     "weight": 0.3333333333333333,
+     "styles": [
+      "magic"
+     ]
     },
     {
      "monster": "Sotetseg#Normal",
@@ -830,13 +847,23 @@
      "monster": "Akkha",
      "weight": 1,
      "toa": true,
-     "boost": "salts"
+     "boost": "salts",
+     "styles": [
+      "ranged",
+      "magic"
+     ]
     },
     {
      "monster": "Kephri#Shielded",
      "weight": 1,
+     "toa": true
+    },
+    {
+     "monster": "Zebak#Normal",
+     "weight": 0.5,
      "styles": [
-      "ranged"
+      "ranged",
+      "magic"
      ],
      "toa": true
     },
@@ -844,15 +871,8 @@
      "monster": "Zebak#Normal",
      "weight": 0.5,
      "styles": [
-      "ranged"
-     ],
-     "toa": true
-    },
-    {
-     "monster": "Zebak#Normal",
-     "weight": 0.5,
-     "styles": [
-      "ranged"
+      "ranged",
+      "magic"
      ],
      "toa": true,
      "boost": "salts"
@@ -869,13 +889,11 @@
     {
      "monster": "Tumeken's Warden#Enraged",
      "weight": 1,
-     "styles": [
-      "melee"
-     ],
      "toa": true,
      "boost": "salts"
     }
-   ]
+   ],
+   "note": "From the Wiki's strategy page: Ba-Ba melee; Kephri mostly melee (anything); Zebak and Akkha ranged or magic; Wardens P2 melee on the core, P3 anything. The first two rooms have no smelling salts. Puzzle rooms and the P1 obelisk are left out."
   },
   "corrupted_gauntlet": {
    "name": "Corrupted Gauntlet",
@@ -891,10 +909,76 @@
   },
   "the_fractured_archive": {
    "name": "The Fractured Archive",
+   "whole": true,
+   "note": "The whole raid: Archive Guardian (flying: ranged or magic; grounded: anything), then one boss behind each of the next three doors (Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai or Xarth, each counted half the time), then Ocellus's three phases (magic in phase 3). From the Wiki's strategy page; the Smorks, binders and other adds are left out.",
    "parts": [
+    {
+     "monster": "Archive Guardian#Flying",
+     "weight": 1,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
     {
      "monster": "Archive Guardian#Grounded",
      "weight": 1
+    },
+    {
+     "monster": "Ezekiel",
+     "weight": 0.5
+    },
+    {
+     "monster": "Bork",
+     "weight": 0.5
+    },
+    {
+     "monster": "Moia",
+     "weight": 0.5
+    },
+    {
+     "monster": "Dreadnoth the Jellied",
+     "weight": 0.5
+    },
+    {
+     "monster": "Dagon'hai Elder",
+     "weight": 0.5,
+     "styles": [
+      "magic"
+     ]
+    },
+    {
+     "monster": "Dagon'hai Monk#Book",
+     "weight": 0.5,
+     "styles": [
+      "magic"
+     ]
+    },
+    {
+     "monster": "Dagon'hai Monk#Staff",
+     "weight": 0.5,
+     "styles": [
+      "magic"
+     ]
+    },
+    {
+     "monster": "Xarth",
+     "weight": 0.5
+    },
+    {
+     "monster": "Ocellus#Phase 1",
+     "weight": 1
+    },
+    {
+     "monster": "Ocellus#Phase 2",
+     "weight": 1
+    },
+    {
+     "monster": "Ocellus#Phase 3",
+     "weight": 1,
+     "styles": [
+      "magic"
+     ]
     }
    ]
   }

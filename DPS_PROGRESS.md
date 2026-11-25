@@ -72,6 +72,11 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 - **Raids and multi-part content** (first stab): CoX = Tekton, Vasa, the three Vanguards, Vespula, both
   Muttadiles, Ice demon, 3 Skeletal mystics, 4 Lizardman shamans, Olm's claws and head; ToB = Maiden, Bloat,
   Nylocas Vasilias, Sotetseg, Xarpus, Verzik P2 and P3; ToA = Ba-Ba, Akkha, Kephri, Zebak, Wardens P2 and P3;
+  Refined from the Wiki strategy pages (25 Nov, 12:30): **The Fractured Archive** is now the whole raid
+  (Archive Guardian flying = ranged/magic, grounded = anything; Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai
+  (magic) or Xarth, each half the time; Ocellus P1, P2, P3 = magic), with its Defence floors. **ToB**: Nylocas
+  Vasilias is a third each melee/ranged/magic (it changes form). **ToA**: Ba-Ba melee, Kephri anything (mostly
+  melee), Zebak and Akkha ranged/magic, Wardens P3 anything.
   Inferno, Fight Caves and Colosseum (check-in 1): rough counts of each wave monster across a full run plus the
   final boss (Inferno: 30 bats, 25 blobs, 20 meleers, 15 rangers, 10 magers, 4 Jads, Zuk; Fight Caves: 30 each of
   Tz-Kih / Tz-Kek / Tok-Xil, 20 Yt-MejKot, 15 Ket-Zek, Jad; Colosseum: 3 of each Fremennik, 8 shamans, 8 javelin
