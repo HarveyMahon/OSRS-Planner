@@ -625,126 +625,204 @@
   "chambers_of_xeric": {
    "name": "Chambers of Xeric",
    "whole": true,
+   "rooms": [
+    {
+     "id": "tekton",
+     "name": "Tekton",
+     "chance": 0.75
+    },
+    {
+     "id": "vasa",
+     "name": "Vasa Nistirio",
+     "chance": 0.75
+    },
+    {
+     "id": "vanguards",
+     "name": "Vanguards",
+     "chance": 0.75
+    },
+    {
+     "id": "vespula",
+     "name": "Vespula",
+     "chance": 0.75
+    },
+    {
+     "id": "muttadiles",
+     "name": "Muttadiles",
+     "chance": 0.75
+    },
+    {
+     "id": "guardians",
+     "name": "Guardians",
+     "chance": 0.75
+    },
+    {
+     "id": "mystics",
+     "name": "Skeletal Mystics",
+     "chance": 0.75
+    },
+    {
+     "id": "shamans",
+     "name": "Lizardman Shamans",
+     "chance": 0.75
+    },
+    {
+     "id": "ice_demon",
+     "name": "Ice Demon (puzzle)",
+     "chance": 0.5
+    },
+    {
+     "id": "olm",
+     "name": "Great Olm",
+     "chance": 1
+    }
+   ],
+   "note": "A raid's rooms are random. By default each combat room counts with the chance it's in a raid (6 of the 8 combat rooms, so 75%; the Ice Demon puzzle 50%); tick your own rotation to work out just those rooms. Great Olm: 3 phases of claws, then the head. Vespula: the abyssal portal. Guardians need crush (a pickaxe). Overloads (+) throughout.",
    "parts": [
     {
      "monster": "Tekton#Normal",
      "weight": 1,
+     "room": "tekton",
+     "boost": "overload",
      "styles": [
       "melee"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Vasa Nistirio#Normal",
      "weight": 1,
+     "room": "vasa",
+     "boost": "overload",
      "styles": [
       "ranged",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Vanguard#Melee",
      "weight": 1,
+     "room": "vanguards",
+     "boost": "overload",
      "styles": [
       "ranged",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Vanguard#Ranged",
      "weight": 1,
+     "room": "vanguards",
+     "boost": "overload",
      "styles": [
       "melee",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Vanguard#Magic",
      "weight": 1,
+     "room": "vanguards",
+     "boost": "overload",
      "styles": [
       "melee",
       "ranged"
-     ],
-     "boost": "overload"
+     ]
     },
     {
-     "monster": "Vespula#Normal",
+     "monster": "Abyssal portal#Normal",
      "weight": 1,
+     "room": "vespula",
+     "boost": "overload",
      "styles": [
-      "ranged"
-     ],
-     "boost": "overload"
+      "ranged",
+      "magic"
+     ]
     },
     {
      "monster": "Muttadile#Small",
      "weight": 1,
+     "room": "muttadiles",
+     "boost": "overload",
      "styles": [
       "ranged",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Muttadile#Large",
      "weight": 1,
+     "room": "muttadiles",
+     "boost": "overload",
      "styles": [
       "ranged",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     },
     {
-     "monster": "Ice demon#Normal",
-     "weight": 1,
+     "monster": "Guardian (Chambers of Xeric)#Normal",
+     "weight": 2,
+     "room": "guardians",
+     "boost": "overload",
      "styles": [
-      "magic"
+      "melee"
      ],
-     "boost": "overload"
+     "weapon": "Dragon pickaxe"
     },
     {
      "monster": "Skeletal Mystic#Normal",
      "weight": 3,
+     "room": "mystics",
+     "boost": "overload",
      "styles": [
       "melee"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Lizardman shaman (Chambers of Xeric)#Normal",
      "weight": 4,
+     "room": "shamans",
+     "boost": "overload",
      "styles": [
       "ranged"
-     ],
-     "boost": "overload"
+     ]
+    },
+    {
+     "monster": "Ice demon#Normal",
+     "weight": 1,
+     "room": "ice_demon",
+     "boost": "overload",
+     "styles": [
+      "magic"
+     ]
     },
     {
      "monster": "Great Olm#Left claw (Normal)",
-     "weight": 2,
+     "weight": 3,
+     "room": "olm",
+     "boost": "overload",
      "styles": [
       "melee"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Great Olm#Right claw (Normal)",
-     "weight": 2,
+     "weight": 3,
+     "room": "olm",
+     "boost": "overload",
      "styles": [
       "ranged",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     },
     {
      "monster": "Great Olm#Head (Normal)",
      "weight": 1,
+     "room": "olm",
+     "boost": "overload",
      "styles": [
       "ranged",
       "magic"
-     ],
-     "boost": "overload"
+     ]
     }
    ]
   },

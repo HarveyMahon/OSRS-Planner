@@ -59,12 +59,23 @@ export function candidates(gear, kind, player, avail, reqs, budget, maxPerSlot =
 
 function cost(lo, costOf) { let c = 0; for (const s of SLOTS) if (lo[s]) c += costOf(lo[s]); return c; }
 
+// Parts that need a particular weapon (CoX Guardians: a pickaxe) swap it in for that part
+let WEAPONS = new Map();
+const forPart = (lo, p) => { const w = p.weapon && WEAPONS.get(p.weapon); return w ? { ...lo, weapon: w, shield: w.two ? null : lo.shield } : lo; };
+
+/** A target with its random rooms weighted: by their chance (default), or only the rooms given. */
+export function layoutTarget(target, rooms = null) {
+  if (!target.rooms) return target;
+  const chance = Object.fromEntries(target.rooms.map(r => [r.id, rooms ? (rooms.includes(r.id) ? 1 : 0) : r.chance]));
+  return { ...target, parts: target.parts.map(p => p.room ? { ...p, weight: p.weight * (chance[p.room] ?? 1) } : p).filter(p => p.weight > 0) };
+}
+
 /** Total seconds to clear the parts this loadout is used on (Infinity if it can't damage one). */
 function partsTime(player, lo, parts, monsters) {
   let t = 0;
   for (const p of parts) {
     const m = monsters[p.monster];
-    const r = bestCalc(player, lo, m, { styles: p.styles, toa: p.toa, boost: p.boost });
+    const r = bestCalc(player, forPart(lo, p), m, { styles: p.styles, toa: p.toa, boost: p.boost });
     const d = r.dps + (player.thrall ? THRALL_DPS : 0);
     if (d <= 0) return Infinity;
     t += p.weight * m.hp / d;
@@ -170,6 +181,8 @@ const SETS = [
  * Returns { kinds: {melee|ranged|magic: {loadout, time, cost}}, time, cost, thrall, perPart: [...] }.
  */
 export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0, fast = false } = {}) {
+  WEAPONS = new Map([...(gear.weapon || []), ...(gear['2h'] || [])].map(w => [w.name, w]));
+  target = layoutTarget(target, target.chosenRooms || null);
   const parts = target.parts.filter(p => monsters[p.monster]);
   if (!parts.length) return null;
   const order = KINDS.map(k => ({ k, hp: parts.filter(p => !p.styles || p.styles.includes(k)).reduce((s, p) => s + p.weight * monsters[p.monster].hp, 0) }))
@@ -201,13 +214,13 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       let pick = null;
       for (const [k, r] of Object.entries(kinds)) {
         if (p.styles && !p.styles.includes(k)) continue;
-        const c = bestCalc(pl, r.loadout, m, { styles: [k], toa: p.toa, boost: p.boost });
+        const c = bestCalc(pl, forPart(r.loadout, p), m, { styles: [k], toa: p.toa, boost: p.boost });
         const d = c.dps + (thrall ? THRALL_DPS : 0);
         if (d > 0 && (!pick || d > pick.dps)) pick = { kind: k, dps: d, calc: c };
       }
       const secs = pick ? p.weight * m.hp / pick.dps : Infinity;
       total += secs;
-      return { ...p, name: m.name, ...pick, seconds: secs };
+      return { ...p, name: m.name, ...pick, seconds: secs, usesWeapon: p.weapon && WEAPONS.get(p.weapon) ? p.weapon : null };
     });
     const used = new Set(perPart.map(p => p.kind).filter(Boolean));
     for (const k of Object.keys(kinds)) if (!used.has(k)) delete kinds[k];
@@ -240,7 +253,7 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget }) {
     if (cost > left) continue;
     let total = 0;
     const parts = res.perPart.map(p => {
-      const ok = w => w && p.kind && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
+      const ok = w => w && p.kind && !p.weapon && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
       const d = ok(dw) ? dw : null, x = ok(xw) ? xw : null;
       if (!d && !x) { total += p.seconds; return { ...p }; }
       const main = res.kinds[p.kind].loadout;

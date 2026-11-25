@@ -26,6 +26,26 @@ $('target').value = saved.target && targets[saved.target] ? saved.target : 'vork
 $('budget').value = gp(account.gp || 0);
 $('onTask').checked = taskOnly.has($('target').value);
 
+// Raids with random rooms (CoX): tick your rotation, or leave all unticked for the average layout
+function renderRooms() {
+  const t = targets[$('target').value];
+  $('rooms').hidden = !t.rooms;
+  if (!t.rooms) return;
+  const chosen = (loadDps().rooms || {})[$('target').value] || [];
+  $('rooms').innerHTML = `<span class="muted" style="font-size:14px">Your rotation:</span>` + t.rooms.map(r =>
+    `<label><input type="checkbox" data-room="${r.id}"${chosen.includes(r.id) ? ' checked' : ''}> ${esc(r.name)}</label>`).join('')
+    + `<span class="faint">${chosen.length ? 'Only the ticked rooms count.' : 'None ticked: the average layout (each room by its chance of being in a raid).'}</span>`;
+}
+$('rooms').addEventListener('change', e => {
+  if (!e.target.dataset.room) return;
+  const st = loadDps(), all = st.rooms || {};
+  all[$('target').value] = [...$('rooms').querySelectorAll('[data-room]:checked')].map(i => i.dataset.room);
+  saveDps({ ...st, rooms: all });
+  renderRooms(); schedule();
+});
+renderRooms();
+$('target').addEventListener('change', renderRooms);
+
 let timer = null;
 function schedule() { clearTimeout(timer); $('working').textContent = 'Working…'; timer = setTimeout(run, 30); }
 $('target').addEventListener('change', () => { $('onTask').checked = taskOnly.has($('target').value); schedule(); });   // task-only bosses are fought on task
@@ -40,7 +60,8 @@ function specHow(parts) {
 }
 
 function run() {
-  const t = targets[$('target').value];
+  const base = targets[$('target').value], chosen = (loadDps().rooms || {})[$('target').value];
+  const t = base.rooms && chosen?.length ? { ...base, chosenRooms: chosen } : base;
   const budget = $('ownOnly').checked ? 0 : parseGp($('budget').value);
   const player = accountPlayer(account, { onTask: $('onTask').checked });
   const avail = $('ownOnly').checked ? it => { const a = baseAvail(it); return a.owned ? a : { owned: false, price: null }; } : baseAvail;

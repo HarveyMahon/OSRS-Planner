@@ -25,6 +25,28 @@
    "weakness": null,
    "weaknessPct": 0
   },
+  "Abyssal portal#Normal": {
+   "name": "Abyssal portal",
+   "hp": 250,
+   "def": 176,
+   "magic": 176,
+   "size": 4,
+   "attributes": [
+    "xerician"
+   ],
+   "dstab": 0,
+   "dslash": 0,
+   "dcrush": 0,
+   "dmagic": 60,
+   "amagic": 0,
+   "dlight": 140,
+   "dstandard": 140,
+   "dheavy": 110,
+   "drange": 0,
+   "flatArmour": 0,
+   "weakness": "fire",
+   "weaknessPct": 50
+  },
   "Akkha": {
    "name": "Akkha",
    "hp": 400,
@@ -823,6 +845,28 @@
    "flatArmour": 0,
    "weakness": "earth",
    "weaknessPct": 50
+  },
+  "Guardian (Chambers of Xeric)#Normal": {
+   "name": "Guardian",
+   "hp": 250,
+   "def": 100,
+   "magic": 1,
+   "size": 1,
+   "attributes": [
+    "xerician"
+   ],
+   "dstab": 80,
+   "dslash": 180,
+   "dcrush": -10,
+   "dmagic": 0,
+   "amagic": 0,
+   "dlight": 0,
+   "dstandard": 0,
+   "dheavy": 0,
+   "drange": 0,
+   "flatArmour": 0,
+   "weakness": null,
+   "weaknessPct": 0
   },
   "Ice demon#Normal": {
    "name": "Ice demon",
@@ -2207,29 +2251,6 @@
    "weakness": "fire",
    "weaknessPct": 50,
    "defFloor": 150
-  },
-  "Vespula#Normal": {
-   "name": "Vespula",
-   "hp": 200,
-   "def": 88,
-   "magic": 88,
-   "size": 5,
-   "attributes": [
-    "xerician",
-    "flying"
-   ],
-   "dstab": 0,
-   "dslash": 0,
-   "dcrush": 0,
-   "dmagic": 70,
-   "amagic": 0,
-   "dlight": 20,
-   "dstandard": 60,
-   "dheavy": 60,
-   "drange": 0,
-   "flatArmour": 0,
-   "weakness": "fire",
-   "weaknessPct": 50
   },
   "Vet'ion#Normal": {
    "name": "Vet'ion",

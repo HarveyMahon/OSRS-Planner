@@ -77,6 +77,11 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   (magic) or Xarth, each half the time; Ocellus P1, P2, P3 = magic), with its Defence floors. **ToB**: Nylocas
   Vasilias is a third each melee/ranged/magic (it changes form). **ToA**: Ba-Ba melee, Kephri anything (mostly
   melee), Zebak and Akkha ranged/magic, Wardens P3 anything.
+  **CoX** (12:55) is now the full layout: Tekton, Vasa, the 3 Vanguards, Vespula (her abyssal portal), both
+  Muttadiles, 2 Guardians (with a Dragon pickaxe: they only take pickaxe damage), 3 Skeletal Mystics, 4 Lizardman
+  Shamans, the Ice Demon puzzle, and Olm (3 phases of both claws, then the head). Rooms are random, so by default
+  each combat room counts at 75% (6 of 8 in a raid) and the Ice Demon at 50%: my estimate. On Best Setup you can
+  tick your own rotation instead; your kill rates use the average layout.
   Inferno, Fight Caves and Colosseum (check-in 1): rough counts of each wave monster across a full run plus the
   final boss (Inferno: 30 bats, 25 blobs, 20 meleers, 15 rangers, 10 magers, 4 Jads, Zuk; Fight Caves: 30 each of
   Tz-Kih / Tz-Kek / Tok-Xil, 20 Yt-MejKot, 15 Ket-Zek, Jad; Colosseum: 3 of each Fremennik, 8 shamans, 8 javelin
