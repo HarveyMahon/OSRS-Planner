@@ -120,7 +120,7 @@ function gearNote(s) {
 // expected points and the combat XP the tasks give along the way
 // "on Defence until 75, then Strength": the attack style to use for the combat XP the tasks give
 function slayerTarget(ts) {
-  const parts = ts.map(t => t.defensive ? `${t.skill} on defensive autocast` : t.rest ? t.skill : t.filled ? `${t.skill} until ${t.level}` : t.skill);
+  const parts = ts.map(t => t.defensive ? `${t.skill} on defensive autocast` : t.rest ? (t.level ? `${t.skill} to ${t.level}` : t.skill) : t.filled ? `${t.skill} until ${t.level}` : t.skill);
   return '· train ' + parts.join(', then ');
 }
 function slayerHtml(s) {

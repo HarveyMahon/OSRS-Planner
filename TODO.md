@@ -30,3 +30,8 @@ Ideas parked for later. Nothing here is being worked on right now.
   to scale it. Combat XP per task is unchanged (it's 4 per damage, so it's right in total; only the hours grow).
 - Hand corrections to Wiki data live in data/corrections.json (LMS, Wintertodt, Zalcano requirements;
   Barrows/Bryophyta not Wilderness; flower seed input cost).
+- **Planner, combat XP from Slayer (16:55, Harvey)**: melee XP from Slayer tasks now fills the plan's needs first
+  and then levels Attack, Strength and Defence together (lowest first) instead of all going into Strength, so
+  later money makers see the higher stats. Money makers later in a plan are judged at the plan's levels: bosses
+  you can't do well today stay candidates, and the best few by today's rate and by the guide's rate are
+  re-worked at the levels reached (e.g. 99 Slayer on a 70s account now brings Corp into the money list).

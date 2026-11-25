@@ -262,19 +262,25 @@ export function plan(goals, d) {
       if (b.category === 'misc' || b.moneyMaker === false || b.taskOnly || (hideWild && b.wilderness)) continue;
       for (const s of b.setups) {
         const r = rateOf(b, s);
-        if (r ? !(viableRate(r) && isMet(withoutCombatLevels(s.requires), sim, reqCtx)) : !isMet(s.requires, sim, reqCtx)) continue;
-        const m = methodOf(b, s.id);
-        if (m.gpPerHr > 0) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: m.gpPerHr, wilderness: !!b.wilderness, b, s });
+        // with kill rates, a boss you can't do well today may still be good later in the plan (after training),
+        // so it stays a candidate and is judged at the plan's levels below
+        if (r || rateAt ? !isMet(withoutCombatLevels(s.requires), sim, reqCtx) : !isMet(s.requires, sim, reqCtx)) continue;
+        const m = methodOf(b, s.id), guide = bossMethod(b, items, { setupId: s.id }).gpPerHr;
+        const now = !r || viableRate(r) ? m.gpPerHr : 0;
+        if (now > 0 || (rateAt && guide > 0)) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: now, guide, wilderness: !!b.wilderness, b, s });
       }
     }
-    // the best few bosses again at the levels the plan has reached by now (working out all of them is slow)
+    // the best bosses again at the levels the plan has reached by now: the best few by today's rate and the best
+    // few by the guide's rate (what a trained account can reach); working them all out is slow
     if (rateAt) {
-      out.sort((a, b) => b.gpPerHr - a.gpPerHr);
-      for (const o of out.slice(0, RATE_AT_TOP)) {
+      const pick = new Set([...out].sort((a, b) => b.gpPerHr - a.gpPerHr).slice(0, RATE_AT_TOP));
+      for (const o of [...out].sort((a, b) => b.guide - a.guide).slice(0, RATE_AT_TOP)) pick.add(o);
+      for (const o of pick) {
         const r = rateAt(o.b, o.s, sim.xp);
-        if (r?.kph > 0) o.gpPerHr = viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
+        if (r) o.gpPerHr = r.kph > 0 && viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
       }
     }
+    for (const o of out) delete o.guide;
     for (let i = out.length - 1; i >= 0; i--) if (out[i].gpPerHr <= 0) out.splice(i, 1);
     for (const o of out) { delete o.b; delete o.s; }
     for (const m of methods) {
@@ -413,7 +419,7 @@ export function plan(goals, d) {
     };
     const out = {}, targets = [];
     const add = (k, v) => { if (v >= 1) out[k] = Math.round((out[k] || 0) + v); };
-    // Melee: put it where the plan needs it most (the biggest shortfall first), the rest into Strength
+    // Melee: put it where the plan needs it most (the biggest shortfall first), then level all three together
     let left = melee;
     const short = ['Defence', 'Attack', 'Strength'].map(k => [k, needXp(k)]).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
     for (const [k, n] of short) {
@@ -421,7 +427,24 @@ export function plan(goals, d) {
       const give = Math.min(left, n); add(k, give); left -= give;
       targets.push({ skill: k, level: levelForXp((sim.xp[k] || 0) + give), filled: give >= n });
     }
-    if (left > 0) { add('Strength', left); if (!targets.some(t => t.skill === 'Strength')) targets.push({ skill: 'Strength', rest: true }); }
+    // the rest levels Attack, Strength and Defence together (lowest first, up to 99), as most players rotate
+    // styles, so later bosses and money makers get the accuracy and Defence too; anything past 99s goes to Strength
+    if (left > 0) {
+      const M3 = ['Attack', 'Strength', 'Defence'], cap = xpForLevel(99);
+      const have = Object.fromEntries(M3.map(k => [k, (sim.xp[k] || 0) + (out[k] || 0)]));
+      const give = Object.fromEntries(M3.map(k => [k, 0]));
+      while (left > 0.5) {
+        const open = M3.filter(k => have[k] + give[k] < cap);
+        if (!open.length) { give.Strength += left; left = 0; break; }
+        const lv = k => have[k] + give[k];
+        const low = Math.min(...open.map(lv)), atLow = open.filter(k => lv(k) - low < 1);
+        const next = Math.min(cap, ...open.filter(k => lv(k) - low >= 1).map(lv));
+        const step = Math.min(left / atLow.length, next - low);
+        for (const k of atLow) give[k] += step;
+        left -= step * atLow.length;
+      }
+      for (const k of M3) if (give[k] >= 1) { add(k, give[k]); if (!targets.some(t => t.skill === k)) targets.push({ skill: k, level: levelForXp((sim.xp[k] || 0) + (out[k] || 0)), rest: true }); }
+    }
     // Magic: defensive autocast splits it evenly with Defence; use that while the plan needs Defence.
     // Ranged all goes to Ranged.
     if (magic > 0) {
