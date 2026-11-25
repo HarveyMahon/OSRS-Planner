@@ -185,6 +185,8 @@ export function suggestPlan(m, data, acc, settings, intensity) {
     if (!best) break;
     plan.actions[best.n] = 'block';
   }
+  // tasks with no rate data are counted as skipped, so suggest skipping them (unless blocked above)
+  for (const r of rows) if (!r.run && !plan.actions[r.task]) plan.actions[r.task] = 'skip';
   // skips: worst tasks first, while it helps and points stay positive
   for (const r of [...rows].filter(r => r.run && !plan.actions[r.task]).sort((a, b) => a.val - b.val)) {
     const now = rate(plan.actions, plan.extends);
@@ -206,7 +208,9 @@ export function planFor(m, data, acc, settings, intensity) {
 
 /** The best master for the account (by the goal), with its rates. Masters with too little rate data are left out. */
 export function bestMaster(data, acc, settings, intensity, prefer) {
-  let best = null;
+  // masters whose points keep up (you can afford the skips the plan makes) come first; one losing points every
+  // hour is only used when no other master is available
+  let best = null, sustainable = null;
   for (const [id, m0] of Object.entries(data.masters)) {
     const m = { id, ...m0 };
     if (masterLocked(m, acc)) continue;
@@ -217,7 +221,9 @@ export function bestMaster(data, acc, settings, intensity, prefer) {
     if (r.coverage < 0.6 || r.xpPerHr <= 0) continue;
     // a master within 5% of the best keeps its place if it's the one already in use (no flip-flopping)
     const sc = score(r, settings.goal) * (id === prefer ? 1.05 : 1);
-    if (!best || sc > best.sc) best = { id, master: m, plan, rates: r, sc };
+    const cand = { id, master: m, plan, rates: r, sc };
+    if (!best || sc > best.sc) best = cand;
+    if (r.pointsPerHr >= 0 && (!sustainable || sc > sustainable.sc)) sustainable = cand;
   }
-  return best;
+  return sustainable || best;
 }
