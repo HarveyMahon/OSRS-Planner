@@ -277,13 +277,9 @@
    "parts": [
     {
      "monster": "Nex",
-     "weight": 1,
-     "styles": [
-      "ranged"
-     ]
+     "weight": 1
     }
-   ],
-   "note": "Nex is fought with ranged (her phases and the team make melee impractical), as on the Wiki's strategy page."
+   ]
   },
   "the_nightmare": {
    "name": "The Nightmare",

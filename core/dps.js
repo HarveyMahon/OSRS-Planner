@@ -207,13 +207,13 @@ const damned = (lo, who) => /^Amulet of the damned/i.test(lo.neck?.name || '') &
   Ahrim: () => has(lo, 'head', /^Ahrim's hood/) && has(lo, 'body', /^Ahrim's robetop/) && has(lo, 'legs', /^Ahrim's robeskirt/) && has(lo, 'weapon', /^Ahrim's staff/),
 })[who]();
 // Expected damage of the highest of k rolls in [0, max] (0s raised to 1), less flat armour
-function bestOfMean(max, k, flat = 0) {
+function bestOfMean(max, k, flat = 0, cap = null) {
   if (max <= 0) return 0;
   let s = 0;
   for (let d = 0; d <= max; d++) {
     const pr = ((d + 1) ** k - d ** k) / (max + 1) ** k;
     let x = Math.max(1, d); if (flat) x = Math.max(1, x - flat);
-    s += pr * x;
+    s += pr * capped(x, cap);
   }
   return s;
 }
@@ -257,11 +257,13 @@ function npcDefRoll(m, type, weapon) {
 }
 
 // Expected damage of one accurate hit rolled uniformly in [min, max], 0s raised to 1, less the NPC's flat armour.
-function accurateMean(min, max, flat = 0) {
+// cap: a monster that rerolls big hits (Zulrah: over 50 becomes 45-50) = { over, low, high }
+const capped = (x, cap) => cap && x > cap.over ? (cap.low + cap.high) / 2 : x;
+function accurateMean(min, max, flat = 0, cap = null) {
   if (max <= 0) return 0;
-  if (!flat) { const n = max - min + 1; return ((min + max) * n / 2 + (min === 0 ? 1 : 0)) / n; }
+  if (!flat && !cap) { const n = max - min + 1; return ((min + max) * n / 2 + (min === 0 ? 1 : 0)) / n; }
   let s = 0;
-  for (let d = min; d <= max; d++) { let x = Math.max(1, d); if (flat) x = Math.max(1, x - flat); s += x; }
+  for (let d = min; d <= max; d++) { let x = Math.max(1, d); if (flat) x = Math.max(1, x - flat); s += capped(x, cap); }
   return s / (max - min + 1);
 }
 
@@ -398,29 +400,29 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   let p = spec?.voidwaker || spec?.alwaysHit ? 1 : isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
   // Confliction gauntlets: after a missed magic attack with a one-handed weapon, the next rolls accuracy twice
   if (kind === 'magic' && /^Confliction gauntlets/.test(lo.hands?.name || '') && !w?.two) { const d = fangChance(atk, def); p = d / (1 + d - p); }
-  const flat = m.flatArmour || 0;
+  const flat = m.flatArmour || 0, cap = m.damageCap || null;
   let per = 0;
   if (hits > 1) {
     const maxes = [max, Math.floor(max / 2), Math.floor(max / 4)].slice(0, hits);
-    per = maxes.reduce((s, mx) => s + p * accurateMean(0, mx, flat), 0);
+    per = maxes.reduce((s, mx) => s + p * accurateMean(0, mx, flat, cap), 0);
   } else if (canon(w?.name) === 'Dual macuahuitl' && !spec) {
     // two hitsplats splitting the max hit; the second only rolls if the first hit
     const m1 = Math.floor(max / 2), m2 = max - m1;
-    per = p * accurateMean(0, m1, flat) + p * p * accurateMean(0, m2, flat);
+    per = p * accurateMean(0, m1, flat, cap) + p * p * accurateMean(0, m2, flat, cap);
     // Blood Moon set: a hit has a 33% chance (55.11% if both land) to make the next attack a tick sooner
     if (bloodMoon(lo)) speed -= p * (1 - p) * 0.33 + p * p * 0.5511;
   } else {
-    let acc = accurateMean(min, max, flat);
+    let acc = accurateMean(min, max, flat, cap);
     // Obligator (charged, Thrust): the best of 2 damage rolls, +1 for each of stab and slash Defence above crush;
     // 20% / 40% more damage on monsters 2 / 3+ tiles wide
     if (canon(w?.name) === 'Obligator' && !style.noPassive) {
       const k = 2 + (m.dstab > m.dcrush ? 1 : 0) + (m.dslash > m.dcrush ? 1 : 0);
       const big = m.size >= 3 ? 1.4 : m.size === 2 ? 1.2 : 1;
-      acc = bestOfMean(Math.floor(max * big), k, flat);
+      acc = bestOfMean(Math.floor(max * big), k, flat, cap);
     }
     per = p * acc;
     // Verac's set: 25% of attacks ignore Defence (always hit, 1 to max+1)
-    if (kind === 'melee' && veracs(lo)) per = 0.75 * per + 0.25 * accurateMean(1, max + 1, flat);
+    if (kind === 'melee' && veracs(lo)) per = 0.75 * per + 0.25 * accurateMean(1, max + 1, flat, cap);
     // Dharok's set: more damage the lower your Hitpoints (x(1 + missing HP x max HP / 10000)), at the HP you fight on
     if (kind === 'melee' && dharoks(lo)) { const mx = L.Hitpoints || 99, cur = Math.min(mx, Math.max(1, player.lowHp ?? mx)); per *= 1 + (mx - cur) * mx / 10000; }
     // with the Amulet of the damned: Karil's 25% chance of a second hit at half damage; Ahrim's 25% chance of +30%
@@ -434,8 +436,8 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
       if (/^Opal (dragon )?bolts \(e\)/.test(a)) per += 0.05 * k * Math.trunc(r / (zcb ? 9 : 10));
       else if (/^Pearl (dragon )?bolts \(e\)/.test(a)) { const dv = m.attributes.includes('fiery') ? 15 : 20; per += 0.06 * k * Math.trunc(r / (zcb ? dv - 2 : dv)); }
       else if (/^Dragonstone (dragon )?bolts \(e\)/.test(a) && !m.attributes.some(x => x === 'fiery' || x === 'dragon')) per += p * 0.06 * k * Math.trunc(r * 2 / (zcb ? 9 : 10));
-      else if (/^Diamond (dragon |ascension )?bolts \(e\)/.test(a)) { const c = 0.1 * k, emax = Math.trunc(max * (zcb ? 126 : 115) / 100); per = (1 - c) * per + c * accurateMean(0, emax, flat); }
-      else if (/^Onyx (dragon |ascension )?bolts \(e\)/.test(a) && !undead) { const c = 0.11 * k, emax = Math.trunc(max * (zcb ? 132 : 120) / 100); per = p * ((1 - c) * acc + c * accurateMean(0, emax, flat)); }
+      else if (/^Diamond (dragon |ascension )?bolts \(e\)/.test(a)) { const c = 0.1 * k, emax = Math.trunc(max * (zcb ? 126 : 115) / 100); per = (1 - c) * per + c * accurateMean(0, emax, flat, cap); }
+      else if (/^Onyx (dragon |ascension )?bolts \(e\)/.test(a) && !undead) { const c = 0.11 * k, emax = Math.trunc(max * (zcb ? 132 : 120) / 100); per = p * ((1 - c) * acc + c * accurateMean(0, emax, flat, cap)); }
       else if (/^Ruby (dragon )?bolts \(e\)/.test(a)) {     // 20% of the monster's current HP: averaged over the kill
         const c = 0.06 * k, eff = Math.min(zcb ? 110 : 100, Math.trunc(m.hp / 2 * (zcb ? 22 : 20) / 100));
         per = (1 - c) * per + c * eff;
@@ -454,7 +456,7 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   }
   if (m.name === 'Corporeal Beast' && !(style.type === 'stab' && ['Spear', 'Polearm'].includes(w?.category)) && !(kind === 'magic')) per /= 2;
   const dps = per / (speed * TICK);
-  return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes, perAttack: per, acc: accurateMean(min, max, flat) };
+  return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes, perAttack: per, acc: accurateMean(min, max, flat, cap) };
 }
 
 /** The best attack style (and spell) for a loadout against a monster: the calc result with the highest DPS. */

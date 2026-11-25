@@ -2686,7 +2686,12 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 50
+   "weaknessPct": 50,
+   "damageCap": {
+    "over": 50,
+    "low": 45,
+    "high": 50
+   }
   },
   "Zulrah#Serpentine": {
    "name": "Zulrah",
@@ -2707,7 +2712,12 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 50
+   "weaknessPct": 50,
+   "damageCap": {
+    "over": 50,
+    "low": 45,
+    "high": 50
+   }
   },
   "Zulrah#Tanzanite": {
    "name": "Zulrah",
@@ -2728,7 +2738,12 @@
    "flatArmour": 0,
    "burnImmune": null,
    "weakness": "fire",
-   "weaknessPct": 50
+   "weaknessPct": 50,
+   "damageCap": {
+    "over": 50,
+    "low": 45,
+    "high": 50
+   }
   }
  }
 }

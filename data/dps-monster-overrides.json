@@ -16,6 +16,30 @@
       "weakness": "fire",
       "weaknessPct": 35,
       "why": "His Defence goes from 215 at full health down to 145 as he loses health (Wiki), so 180 on average; drains don't apply."
+    },
+    "Zulrah#Serpentine": {
+      "damageCap": {
+        "over": 50,
+        "low": 45,
+        "high": 50
+      },
+      "why": "Hits that would deal over 50 are rerolled to 45-50 (Zulrah's mechanic)."
+    },
+    "Zulrah#Magma": {
+      "damageCap": {
+        "over": 50,
+        "low": 45,
+        "high": 50
+      },
+      "why": "Hits that would deal over 50 are rerolled to 45-50 (Zulrah's mechanic)."
+    },
+    "Zulrah#Tanzanite": {
+      "damageCap": {
+        "over": 50,
+        "low": 45,
+        "high": 50
+      },
+      "why": "Hits that would deal over 50 are rerolled to 45-50 (Zulrah's mechanic)."
     }
   }
 }

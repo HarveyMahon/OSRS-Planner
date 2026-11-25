@@ -388,6 +388,12 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     const full = D.bestCalc(P, { weapon: axe, ...set }, mon).dps, low = D.bestCalc({ ...P, lowHp: 1 }, { weapon: axe, ...set }, mon).dps;
     assert.ok(Math.abs(low / full - (1 + 98 * 99 / 10000)) < 1e-9);                  // 99 max HP at 1 HP: +97%
   });
+  t('dps: Zulrah rerolls hits over 50 to 45-50', () => {
+    const big = { name: 'Big', b: { aslash: 200, str: 400 }, speed: 4, category: 'Slash Sword' };
+    const st = D.attackStyles(big)[1];
+    const r = D.calc(P, { weapon: big }, { ...mon, damageCap: { over: 50, low: 45, high: 50 } }, st);
+    assert.ok(r.maxHit > 50 && r.acc <= 47.5 + 1e-9);
+  });
   t('dps: ammo rules', () => {
     assert.equal(D.ammoFits({ name: 'Twisted bow', category: 'Bow' }, { name: 'Dragon arrow' }), true);
     assert.equal(D.ammoFits({ name: 'Magic shortbow', category: 'Bow' }, { name: 'Dragon arrow' }), false);
