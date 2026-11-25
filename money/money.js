@@ -7,6 +7,7 @@ import { bossMethod, setupOf, guideMethod, gearList } from '../core/money.js';
 import { isMet, unmet, describe } from '../core/requirements.js';
 import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
 import { getOverride, setOverride, resetOverride, withQty, withRemoved, withAdded } from '../core/overrides.js';
+import { accountRates, withoutCombatLevels } from '../core/rates.js';
 
 console.log('Money Makers: starting');
 const $ = id => document.getElementById(id);
@@ -28,27 +29,41 @@ const gpClass = n => n < 0 ? 'cost' : Math.abs(n) >= 1e7 ? 'gp-high' : Math.abs(
 const gp = n => `<span class="${gpClass(n)}">${gpShort(n)}</span>`;
 const num = n => (Math.round(n * 100) / 100).toLocaleString('en-GB');
 
-let ITEMS, BOSSES, METHODS, QUESTS, ACCOUNT = null, open = null;
+let ITEMS, BOSSES, METHODS, QUESTS, ACCOUNT = null, RAW_ACCOUNT = null, RATES = null, open = null;
 const CATS = { all: 'All', bosses: 'Bosses', combat: 'Combat', skilling: 'Skilling', processing: 'Processing', collecting: 'Collecting', other: 'Other' };
 const catOf = m => { const c = (m.category || '').toLowerCase(); return c.startsWith('combat') ? 'combat' : CATS[c] ? c : 'other'; };
 const names = () => ({ quests: QUESTS.quests, items: ITEMS.items });
 const setupChoice = id => store.get('setup:' + id);
 const ctx = () => ({ quests: QUESTS.quests });
-const meets = s => !ACCOUNT || isMet(s.requires, ACCOUNT, ctx());
-const method = (b, setupId) => bossMethod(b, ITEMS.items, { setupId, override: getOverride(b.id, setupId) });
+// With your kill rates worked out, a boss setup's combat levels are judged by how fast you kill it instead
+const myRates = () => RATES && $('my-rates').checked;
+const rateOf = (b, s) => myRates() && b ? RATES[b.id]?.setups?.[s.id] : null;
+const meets = (s, b) => {
+  if (!ACCOUNT) return true;
+  const r = rateOf(b, s);
+  return r ? r.kph > 0 && isMet(withoutCombatLevels(s.requires), ACCOUNT, ctx()) : isMet(s.requires, ACCOUNT, ctx());
+};
+const unmetOf = (s, b) => unmet(rateOf(b, s) ? withoutCombatLevels(s.requires) : s.requires, ACCOUNT, ctx());
+const method = (b, setupId) => {
+  const o = getOverride(b.id, setupId), r = rateOf(b, setupOf(b, setupId));
+  const m = bossMethod(b, ITEMS.items, { setupId, override: r && o?.unitsPerHr == null ? { ...(o || {}), unitsPerHr: r.kph } : o });
+  if (r && o?.unitsPerHr == null) { m.rate = r; if (!o) m.setup = { ...m.setup, customised: false }; }
+  return m;
+};
 
 // For each boss: the setup you picked if you meet it, else the best-paying setup you meet.
 // Bosses with no setup you meet are "locked", shown (with what's missing) only on request.
 function rows() {
   const bossRows = BOSSES.map(b => {
     const chosen = setupChoice(b.id) && b.setups.find(s => s.id === setupChoice(b.id));
-    const ok = b.setups.filter(meets);
+    const ok = b.setups.filter(s => meets(s, b));
     let m;
-    if (chosen && meets(chosen)) m = method(b, chosen.id);
+    if (chosen && meets(chosen, b)) m = method(b, chosen.id);
     else if (ok.length) m = ok.map(s => method(b, s.id)).sort((x, y) => y.gpPerHr - x.gpPerHr)[0];
     else {
       m = method(b, setupOf(b, chosen?.id).id);
-      m.locked = unmet(m.setup.requires, ACCOUNT, ctx()).map(r => describe(r, names()));
+      m.locked = unmetOf(setupOf(b, m.setup.id), b).map(r => describe(r, names()));
+      if (!m.locked.length && rateOf(b, setupOf(b, m.setup.id))) m.locked = ["gear that can damage it"];
     }
     return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, taskOnly: !!b.taskOnly, members: true };
   });
@@ -70,7 +85,9 @@ function render() {
   const inView = rows().filter(r => (f.cat === 'all' || r.cat === f.cat) && !(f.hideWild && r.wilderness) && !(f.f2p && r.members));
   const list = inView.filter(r => !r.locked || f.showLocked);
   $('filter-note').innerHTML = ACCOUNT
-    ? `Showing what your account can do: <b>${inView.filter(r => !r.locked).length}</b> of ${inView.length} methods. Levels include the Wiki guides' recommended levels. <a href="../account/">Edit your stats</a>`
+    ? `Showing what your account can do: <b>${inView.filter(r => !r.locked).length}</b> of ${inView.length} methods. ${myRates()
+      ? 'Boss kill rates are scaled to how fast <i>you</i> kill each boss with your best gear (your bank plus your cash stack), and that replaces the guides\' recommended combat levels.'
+      : "Levels include the Wiki guides' recommended levels."} <a href="../account/">Edit your stats</a>`
     : `Showing all ${inView.length} methods. <a href="../account/">Enter your stats</a> to see only what you can do.`;
   $('locked-toggle').hidden = !ACCOUNT;
   $('table').tBodies[0].innerHTML = list.map((r, i) => r.kind === 'method' ? methodRow(r, i) : bossRow(r, i)).join('');
@@ -116,13 +133,13 @@ function bossRow(r, i) {
     const costNote = r.costSource === 'flat' ? ' <span class="tag" title="Flat GP figure from before supplies were item lists">flat</span>'
       : r.missing.length ? ' <span class="tag warn" title="Some supplies have no price yet">incomplete</span>' : '';
     const setupCell = b.setups.length > 1
-      ? `<select data-setup="${b.id}" aria-label="Setup for ${esc(b.name)}">${b.setups.map(s => `<option value="${s.id}"${s.id === r.setup.id ? ' selected' : ''}>${esc(s.label)}${meets(s) ? '' : ' (locked)'}</option>`).join('')}</select>`
+      ? `<select data-setup="${b.id}" aria-label="Setup for ${esc(b.name)}">${b.setups.map(s => `<option value="${s.id}"${s.id === r.setup.id ? ' selected' : ''}>${esc(s.label)}${meets(s, b) ? '' : ' (locked)'}</option>`).join('')}</select>`
       : esc(r.setup.label);
     const row = `<tr data-id="${b.id}" class="${open === b.id ? 'open' : ''}${r.locked ? ' locked' : ''}">
       <td class="rank">${i + 1}</td>
       <td class="name"><button type="button" class="link" data-open="${b.id}">${esc(b.name)}</button>${wildTag(r)}${r.setup.customised ? ' <span class="tag mine" title="You have changed this setup">edited</span>' : ''}${needs(r)}</td>
       <td>${setupCell}</td>
-      <td class="num">${num(r.unitsPerHr)} <span class="unit">${esc(b.unit)}s</span></td>
+      <td class="num">${num(r.unitsPerHr)} <span class="unit">${esc(b.unit)}s</span>${r.rate ? ` <span class="tag ${r.rate.factor >= 1 ? 'mine' : 'warn'}" title="Your kill rate: ${(r.rate.factor * 100).toFixed(0)}% of the guide's ${num(setupOf(b, r.setup.id).unitsPerHr)} per hour${r.rate.capped ? ' (limited to between 20% and 200%)' : ''}">${r.rate.factor.toFixed(2)}×</span>` : ''}</td>
       <td class="num">${gp(r.lootPerUnit)}</td>
       <td class="num"><span class="cost">${gpShort(r.costPerUnit)}</span>${costNote}</td>
       <td class="num strong">${gp(r.gpPerHr)}</td>
@@ -147,6 +164,8 @@ function editor(b, r) {
       <label>${esc(b.unit)}s per trip <input type="number" min="0" step="any" id="ed-upt" value="${s.unitsPerTrip ?? ''}" placeholder="for per-trip supplies"></label>
     </div>
     <p class="src">Requires: ${def.requires ? esc(describe(def.requires, { quests: QUESTS.quests, items: ITEMS.items })) : 'nothing listed'}.</p>
+    ${r.rate ? `<p class="src">Your kill rate: <b>${num(r.rate.kph)}</b> per hour against the guide's ${num(def.unitsPerHr)}. Fighting takes you ${r.rate.myFight.toFixed(0)}s a kill with your best gear and the guide ${r.rate.guideFight.toFixed(0)}s with its gear; the rest of the guide's time per kill (banking, walking, phases) is the same for you.
+      ${RATES[b.id]?.buy?.length ? `Your best setup buys ${esc(RATES[b.id].buy.join(', '))} (${gpShort(RATES[b.id].cost)}).` : 'Your best setup uses only gear you own.'} <a href="../gear/">See it on Best Setup</a>.</p>` : ''}
     <p class="src">Rate: ${esc(def.unitsPerHrSource || 'n/a')}. Cost: ${esc(def.costSource || 'n/a')}.${def.guide ? ` <a href="https://oldschool.runescape.wiki/w/${encodeURI(def.guide.replace(/ /g, '_'))}" target="_blank" rel="noopener">Wiki guide</a>` : ''}</p>
     ${gearHtml(b, s)}
     ${s.supplies.length ? `<table class="supplies"><thead><tr><th>Supply</th><th>Qty</th><th></th><th class="num">Cost</th><th></th></tr></thead><tbody>${lines}</tbody></table>`
@@ -187,7 +206,10 @@ async function init() {
     $(id).checked = store.get(id) === '1';
     $(id).addEventListener('change', () => { store.set(id, $(id).checked ? '1' : '0'); render(); });
   }
-  if (hasAccount()) ACCOUNT = forRequirements(loadAccount());
+  if (hasAccount()) { RAW_ACCOUNT = loadAccount(); ACCOUNT = forRequirements(RAW_ACCOUNT); }
+  $('my-rates').checked = store.get('myRates') !== '0';
+  $('my-rates').addEventListener('change', () => { store.set('myRates', $('my-rates').checked ? '1' : '0'); render(); });
+  $('rates-toggle').hidden = !ACCOUNT;
   $('show-locked').checked = store.get('showLocked') === '1';
   $('show-locked').addEventListener('change', () => { store.set('showLocked', $('show-locked').checked ? '1' : '0'); render(); });
   // Minigames and other activities (category "misc") belong to the pet calculator only
@@ -218,6 +240,12 @@ async function init() {
   tbody.addEventListener('input', e => { if (e.target.id === 'ed-add') e.target.setCustomValidity(''); });
   render();
   document.documentElement.dataset.ready = '1';
+  if (RAW_ACCOUNT) {
+    $('rates-status').textContent = 'Working out your kill rates…';
+    RATES = await accountRates(RAW_ACCOUNT, BOSSES, ITEMS.items, { onProgress: (d, n) => { $('rates-status').textContent = `Working out your kill rates… ${d}/${n}`; } });
+    $('rates-status').textContent = '';
+    render();
+  }
 }
 
 init().catch(err => {

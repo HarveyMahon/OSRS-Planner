@@ -231,6 +231,7 @@ function npcDefRoll(m, type, weapon) {
 // Expected damage of one accurate hit rolled uniformly in [min, max], 0s raised to 1, less the NPC's flat armour.
 function accurateMean(min, max, flat = 0) {
   if (max <= 0) return 0;
+  if (!flat) { const n = max - min + 1; return ((min + max) * n / 2 + (min === 0 ? 1 : 0)) / n; }
   let s = 0;
   for (let d = min; d <= max; d++) { let x = Math.max(1, d); if (flat) x = Math.max(1, x - flat); s += x; }
   return s / (max - min + 1);

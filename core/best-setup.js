@@ -5,7 +5,7 @@
 // Crystal, Inquisitor) as one move. A target is one monster or several parts (raids, multi-form bosses):
 // each part is killed with the best style allowed on it, and every style has one loadout.
 
-import { SLOTS, bestCalc, styleKind, attackStyles, THRALL_DPS } from './dps.js';
+import { SLOTS, bestCalc, styleKind, attackStyles, ammoFits, THRALL_DPS } from './dps.js';
 
 const KINDS = ['melee', 'ranged', 'magic'];
 const MAX_PER_SLOT = 12, TOP_WEAPONS = 3;
@@ -23,12 +23,12 @@ export const meetsReqs = (item, player, reqs) => {
  * Candidate items per slot for one style: usable (levels), available (owned or buyable), relevant, not dominated.
  * avail(item) -> { owned: bool, price: number|null } (price null = can't be bought)
  */
-export function candidates(gear, kind, player, avail, reqs, budget) {
+export function candidates(gear, kind, player, avail, reqs, budget, maxPerSlot = MAX_PER_SLOT) {
   const keys = STAT_KEYS[kind];
   const out = {};
   for (const slot of SLOTS) {
     if (slot === 'ammo' && kind !== 'ranged') { out[slot] = []; continue; }
-    const tables = slot === 'weapon' ? [...(gear.weapon || []), ...(gear['2h'] || []).map(x => ({ ...x, two: true }))] : (gear[slot] || []);
+    const tables = slot === 'weapon' ? [...(gear.weapon || []), ...(gear['2h'] || [])] : (gear[slot] || []);
     let list = [];
     for (const it of tables) {
       const a = avail(it);
@@ -46,10 +46,10 @@ export function candidates(gear, kind, player, avail, reqs, budget) {
       list = list.filter(a => a.special || !list.some(b => b !== a && !b.special && b.cost <= a.cost
         && b.score.every((v, i) => v >= a.score[i]) && (b.cost < a.cost || b.score.some((v, i) => v > a.score[i]))));
     }
-    if (slot !== 'weapon' && slot !== 'ammo' && list.length > MAX_PER_SLOT) {
+    if (slot !== 'weapon' && slot !== 'ammo' && list.length > maxPerSlot) {
       const val = c => c.score.reduce((a, b) => a + b, 0) + (c.cost === 0 ? 5 : 0);
       const spec = list.filter(c => c.special), rest = list.filter(c => !c.special).sort((a, b) => val(b) - val(a));
-      list = [...spec, ...rest.slice(0, MAX_PER_SLOT)];
+      list = [...spec, ...rest.slice(0, maxPerSlot)];
     }
     out[slot] = list;
   }
@@ -72,8 +72,8 @@ function partsTime(player, lo, parts, monsters) {
 }
 
 /** The best loadout for one style over some parts. Returns { loadout, time, cost } or null. */
-export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs, budget = 0 } = {}) {
-  const cand = candidates(gear, kind, player, avail, reqs, budget);
+export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs, budget = 0, fast = false } = {}) {
+  const cand = candidates(gear, kind, player, avail, reqs, budget, fast ? 6 : MAX_PER_SLOT);
   const costOf = it => { const a = avail(it); return a.owned ? 0 : (a.price ?? Infinity); };
   const kParts = parts.map(p => ({ ...p, styles: [kind] }));
   const time = lo => partsTime(player, lo, kParts, monsters);
@@ -87,10 +87,11 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
     base[s] = pick?.it || null;
   }
 
-  // weapons: score each with the starting armour (and its best ammo), keep the best few
+  // weapons: score each with the starting armour and its strongest ammo, then give the best few their best ammo
+  const fitting = w => cand.ammo.filter(c => ammoFits(w, c.it));
   const ammoFor = lo => {
     let best = lo.ammo, bt = time(lo);
-    for (const c of cand.ammo) {
+    for (const c of fitting(lo.weapon)) {
       if (cost({ ...lo, ammo: c.it }, costOf) > budget) continue;
       const t = time({ ...lo, ammo: c.it });
       if (t < bt) { bt = t; best = c.it; }
@@ -99,16 +100,19 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
   };
   const scored = [];
   for (const c of cand.weapon) {
-    const lo = { ...base, weapon: c.it, shield: c.it.two ? null : base.shield };
+    const lo = { ...base, weapon: c.it, shield: c.it.two ? null : base.shield, ammo: null };
     if (cost(lo, costOf) > budget) { lo.shield = null; if (cost(lo, costOf) > budget) continue; }
-    lo.ammo = ammoFor(lo);
+    const fits = fitting(c.it).filter(a => cost({ ...lo, ammo: a.it }, costOf) <= budget).sort((a, b) => (b.it.b?.rstr || 0) - (a.it.b?.rstr || 0));
+    lo.ammo = fits[0]?.it || null;
     const t = time(lo);
     if (t < Infinity) scored.push({ lo, t });
   }
   scored.sort((a, b) => a.t - b.t);
+  for (const x of scored.slice(0, 8)) if (x.lo.ammo) { x.lo.ammo = ammoFor(x.lo); x.t = time(x.lo); }
+  scored.sort((a, b) => a.t - b.t);
   let best = null;
-  for (const { lo: start } of scored.slice(0, TOP_WEAPONS)) {
-    const lo = improve(start, cand, time, costOf, budget);
+  for (const { lo: start } of scored.slice(0, fast ? 2 : TOP_WEAPONS)) {
+    const lo = improve(start, cand, time, costOf, budget, fast ? 2 : 3);
     const t = time(lo);
     if (!best || t < best.time) best = { loadout: lo, time: t, cost: cost(lo, costOf) };
   }
@@ -116,13 +120,13 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
 }
 
 // One slot at a time, then whole sets, until nothing improves.
-function improve(start, cand, time, costOf, budget) {
+function improve(start, cand, time, costOf, budget, passes = 3) {
   let lo = { ...start }, cur = time(lo);
-  for (let pass = 0; pass < 3; pass++) {
+  for (let pass = 0; pass < passes; pass++) {
     let changed = false;
     for (const s of SLOTS) {
       if (s === 'weapon' || (s === 'shield' && lo.weapon?.two)) continue;
-      for (const c of [{ it: null }, ...cand[s]]) {
+      for (const c of [{ it: null }, ...(s === 'ammo' ? cand.ammo.filter(c => ammoFits(lo.weapon, c.it)) : cand[s])]) {
         if (c.it === lo[s]) continue;
         const next = { ...lo, [s]: c.it };
         if (cost(next, costOf) > budget) continue;
@@ -164,23 +168,27 @@ const SETS = [
  * target they're allowed on; each later style gets the budget the earlier ones left.
  * Returns { kinds: {melee|ranged|magic: {loadout, time, cost}}, time, cost, thrall, perPart: [...] }.
  */
-export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0 } = {}) {
+export function bestSetup(player, gear, target, monsters, avail, { reqs, budget = 0, fast = false } = {}) {
   const parts = target.parts.filter(p => monsters[p.monster]);
   if (!parts.length) return null;
+  const order = KINDS.map(k => ({ k, hp: parts.filter(p => !p.styles || p.styles.includes(k)).reduce((s, p) => s + p.weight * monsters[p.monster].hp, 0) }))
+    .filter(x => x.hp > 0).sort((a, b) => b.hp - a.hp);
+  // A thrall adds the same DPS to every setup, so it doesn't change the best melee or ranged gear; it only
+  // changes magic (Arceuus spells instead of standard and Ancient ones). Optimise magic both ways.
   const variants = player.thrallOk ? [false, true] : [false];
+  const memo = new Map();
   let best = null;
   for (const thrall of variants) {
     const pl = { ...player, thrall };
-    const order = KINDS.map(k => ({ k, hp: parts.filter(p => !p.styles || p.styles.includes(k)).reduce((s, p) => s + p.weight * monsters[p.monster].hp, 0) }))
-      .filter(x => x.hp > 0).sort((a, b) => b.hp - a.hp);
     const kinds = {};
     let left = budget;
     const bought = new Set();
     for (const { k } of order) {
       const kParts = parts.filter(p => !p.styles || p.styles.includes(k));
-      // items already bought for another style are free here
       const av = it => bought.has(it) ? { owned: true, price: 0 } : avail(it);
-      const r = optimiseKind(k, pl, gear, kParts, monsters, av, { reqs, budget: left });
+      const key = k === 'magic' ? `${k}:${thrall}:${left}` : `${k}:${left}`;
+      let r = memo.get(key);
+      if (r === undefined) { r = optimiseKind(k, { ...pl, thrall: k === 'magic' ? thrall : false }, gear, kParts, monsters, av, { reqs, budget: left, fast }); memo.set(key, r); }
       if (!r) continue;
       kinds[k] = r;
       for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned && !bought.has(it)) { bought.add(it); left -= avail(it).price || 0; } }
