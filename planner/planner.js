@@ -30,7 +30,7 @@ function goalLabel(g) {
   if (g.type === 'level') return `${g.level} ${g.skill}`;
   if (g.type === 'maxcape') return 'Max cape (all 99s)';
   if (g.type === 'quest') return D.quests[g.id]?.name || g.id;
-  if (g.type === 'kc') return `${g.n} ${D.bossName(g.bossId)} kills`;
+  if (g.type === 'kc') return `${g.n} ${D.bossName(g.bossId)} kill${g.n === 1 ? '' : 's'}`;
   if (g.type === 'milestone') { const b = D.bosses.find(x => x.id === g.bossId); return b?.milestone?.label || b?.name; }
   if (g.type === 'gp') return `${gpShort(g.amount)} GP`;
 }
@@ -155,10 +155,16 @@ function stepsHtml(r) {
     if (s.block !== cur) {
       cur = s.block; const bi = order.indexOf(cur);
       const btns = order.length > 1 ? `<span class="move"><button type="button" data-move="${esc(cur)}|-1"${bi <= 0 ? ' disabled' : ''} title="Do this goal earlier" aria-label="Move earlier">↑</button><button type="button" data-move="${esc(cur)}|1"${bi >= order.length - 1 ? ' disabled' : ''} title="Do this goal later" aria-label="Move later">↓</button></span>` : '';
-      head = `<li class="block-head">${btns}<span>Goal ${++n}: ${esc(blockLabel(cur))}</span></li>`;
+      // numbered in the order they're done (the planner orders goals to finish them all soonest), with any goal
+      // that's met on the way (e.g. 43 Prayer inside Fire cape) named alongside
+      head = `<li class="block-head">${btns}<span>${++n === 1 ? 'First' : 'Then'}: ${esc(blockLabel(cur))}</span></li>`;
     }
     return head + stepHtml(s, i);
-  }).join('');
+  }).join('') + (() => {
+    // goals with no steps of their own: met along the way by another goal (e.g. 43 Prayer for a Fire cape) or already
+    const along = state.goals.map((g, j) => keyOf(g, j)).filter(k => !order.includes(k)).map(blockLabel);
+    return along.length ? `<li class="block-head"><span class="faint">Covered along the way or already met: ${esc(along.join(', '))}</span></li>` : '';
+  })();
 }
 
 function render() {
