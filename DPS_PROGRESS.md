@@ -40,10 +40,18 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Masori (f) 80 Ranged + 80 Defence). The optimiser skips gear you can't wear; the DPS page outlines it.
 - Soulreaper axe (at 5 stacks), Confliction gauntlets, Tumeken's shadow x4 in ToA. Tests for the engine.
 
+- **Special attacks** (`core/specs.js`, check-in 2): Defence drains (Dragon warhammer 30%, Elder maul 35%,
+  Bandos godsword by damage, Arclight/Emberlight 5%, 10% on demons) spend the starting 100% energy at the start,
+  then the main setup kills at the lowered Defence. Damage specs (Dragon claws by the Wiki's 4-2-1-1 cases,
+  Armadyl godsword, Voidwaker, blowpipes, Zaryte crossbow with ruby/diamond/onyx bolts, Osmumten's fang, dragon
+  and abyssal daggers, halberds) are used whenever there's energy (10% every 30s, twice with a Lightbearer).
+  Best Setup picks the one spec weapon that saves the most time (owned, or bought from what's left of the
+  budget if it saves at least 5%); the DPS page has a "Spec weapon" row per setup; kill rates include it.
+
 ## Next
 
 1. Planner money makers use rates for your current stats (kill steps use the stats the plan has reached).
-2. Spec weapons (v2).
+2. Special attacks: first version done (below). More spec weapons and a better energy model to follow.
 - Done at check-in 2: overload (+) in every CoX room (+6 +16% to Attack, Strength, Ranged, Magic) and smelling
   salts in ToA from the third room on (+11 +16%): the first two rooms are Ba-Ba then Kephri or Zebak then
   Kephri, so Kephri has none and Ba-Ba and Zebak each have them half the time, on Best Setup, the DPS page and your kill rates.
@@ -75,5 +83,7 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   survival aren't modelled, so a low-Defence account could see e.g. Nex if its DPS is good. Easy to add back
   a minimum if you'd rather.
 - **Soulreaper axe** counted at 5 stacks all the time.
+- **Spec energy in raids and multi-part content**: every room or part starts with full energy (the time
+  between rooms usually refills it). A melee spec isn't used on a part that only allows ranged (e.g. Xarpus).
 - **Budget across styles**: the style used on most of the target's HP is optimised first with the full
   budget; later styles get what's left, and items already bought are free for them.

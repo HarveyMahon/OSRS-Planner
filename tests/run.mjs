@@ -366,6 +366,16 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     assert.equal(D.ammoFits({ name: "Karil's crossbow", category: 'Crossbow' }, { name: 'Bolt rack' }), true);
     assert.equal(D.ammoFits({ name: 'Bow of faerdhinen', category: 'Bow' }, { name: 'Dragon arrow' }), false);
   });
+  t('specs: a Dragon warhammer drains Defence and shortens the kill', async () => {
+    const S = await import('../core/specs.js');
+    const dwh = { name: 'Dragon warhammer', b: { acrush: 95, str: 85 }, speed: 6, category: 'Blunt' };
+    const tank = { ...mon, hp: 2000, def: 250, dcrush: 200 };
+    const r = S.withSpec(P, { weapon: sword }, { weapon: dwh }, tank);
+    assert.ok(r && r.plan === 'drain' && r.specs === 2 && r.defence < 250 && r.seconds < tank.hp / D.bestCalc(P, { weapon: sword }, tank).dps);
+    const claws = { name: 'Dragon claws', b: { aslash: 57, str: 56 }, speed: 4, category: 'Claw' };
+    const c = S.withSpec(P, { weapon: sword }, { weapon: claws }, mon);
+    assert.ok(c && c.plan === 'damage' && c.specs >= 2);
+  });
   t('dps: in-content potions', () => {
     assert.deepEqual(D.boosts(P, 'overload'), { Attack: 21, Strength: 21, Ranged: 21, Magic: 21 });   // 6 + 16% of 99
     assert.deepEqual(D.boosts(P, 'salts'), { Attack: 26, Strength: 26, Ranged: 26, Magic: 26 });      // 11 + 16% of 99

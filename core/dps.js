@@ -352,9 +352,18 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     if (spell?.demonbane) { const purging = canon(w?.name) === 'Purging staff'; max += Math.floor(Math.floor(max * (purging ? 0.5 : 0.25)) * (DEMON_VULN[m.name] ?? 1)); }
   }
 
+  // ---- special attack modifiers (core/specs.js) ----
+  const spec = opts.spec;
+  if (spec) {
+    if (spec.fang) { max += min; }                          // the fang's spec keeps its full max hit (min stays)
+    if (spec.acc) atk = Math.floor(atk * spec.acc);
+    for (const f of spec.dmg || []) max = Math.floor(max * f);
+    if (spec.voidwaker) { min = Math.floor(max / 2); max += min; }
+    hits = 1;
+  }
   // ---- expected damage per attack ----
   const def = npcDefRoll(m, kind === 'melee' ? style.type : kind, w);
-  let p = isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
+  let p = spec?.voidwaker ? 1 : isFang(w) && style.type === 'stab' ? fangChance(atk, def) : hitChance(atk, def);
   // Confliction gauntlets: after a missed magic attack with a one-handed weapon, the next rolls accuracy twice
   if (kind === 'magic' && /^Confliction gauntlets/.test(lo.hands?.name || '') && !w?.two) { const d = fangChance(atk, def); p = d / (1 + d - p); }
   const flat = m.flatArmour || 0;
@@ -366,7 +375,7 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     const acc = accurateMean(min, max, flat);
     per = p * acc;
     // enchanted bolts (Kandarin hard diary raises the chance by 10%)
-    if (kind === 'ranged' && w?.category === 'Crossbow' && lo.ammo) {
+    if (kind === 'ranged' && w?.category === 'Crossbow' && lo.ammo && !spec) {
       const k = (player.diaries?.has('kandarin:hard') ? 1.1 : 1) * (canon(w.name) === 'Ascension crossbows' ? 0.5 : 1), zcb = canon(w.name) === 'Zaryte crossbow', a = lo.ammo.name, r = L.Ranged + B.Ranged;
       if (/^Opal (dragon )?bolts \(e\)/.test(a)) per += 0.05 * k * Math.trunc(r / (zcb ? 9 : 10));
       else if (/^Pearl (dragon )?bolts \(e\)/.test(a)) { const dv = m.attributes.includes('fiery') ? 15 : 20; per += 0.06 * k * Math.trunc(r / (zcb ? dv - 2 : dv)); }
@@ -382,7 +391,7 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
   }
   if (m.name === 'Corporeal Beast' && !(style.type === 'stab' && ['Spear', 'Polearm'].includes(w?.category)) && !(kind === 'magic')) per /= 2;
   const dps = per / (speed * TICK);
-  return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes };
+  return { dps, maxHit: max, minHit: min, hits, accuracy: p, speed, style, spell, prayer: pray.id || null, notes, perAttack: per, acc: accurateMean(min, max, flat) };
 }
 
 /** The best attack style (and spell) for a loadout against a monster: the calc result with the highest DPS. */
