@@ -1,6 +1,6 @@
 {
  "meta": {
-  "source": "OSRS Wiki (Infobox Monster); defFloor from data/defence-floors.json"
+  "source": "OSRS Wiki (Infobox Monster); defFloor from data/defence-floors.json; corrections from data/dps-monster-overrides.json"
  },
  "monsters": {
   "Abyssal Sire#Phase 2": {
@@ -1960,6 +1960,26 @@
    "weakness": "water",
    "weaknessPct": 40
   },
+  "Tumeken's Warden#Active": {
+   "name": "Tumeken's Warden",
+   "hp": 140,
+   "def": 100,
+   "magic": 190,
+   "size": 5,
+   "attributes": [],
+   "dstab": 70,
+   "dslash": 70,
+   "dcrush": 70,
+   "dmagic": -30,
+   "amagic": 225,
+   "dlight": 70,
+   "dstandard": 70,
+   "dheavy": 70,
+   "drange": 0,
+   "flatArmour": 0,
+   "weakness": "earth",
+   "weaknessPct": 50
+  },
   "Tumeken's Warden#Damaged": {
    "name": "Tumeken's Warden",
    "hp": 880,
@@ -1978,7 +1998,8 @@
    "drange": 0,
    "flatArmour": 0,
    "weakness": "earth",
-   "weaknessPct": 50
+   "weaknessPct": 50,
+   "defFloor": 120
   },
   "Tumeken's Warden#Enraged": {
    "name": "Tumeken's Warden",
@@ -2150,7 +2171,7 @@
   "Vardorvis#Post-quest": {
    "name": "Vardorvis",
    "hp": 700,
-   "def": 0,
+   "def": 180,
    "magic": 215,
    "size": 2,
    "attributes": [],
@@ -2166,7 +2187,7 @@
    "flatArmour": 0,
    "weakness": "fire",
    "weaknessPct": 35,
-   "defFloor": 0
+   "defFloor": 180
   },
   "Vasa Nistirio#Normal": {
    "name": "Vasa Nistirio",

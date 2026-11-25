@@ -49,7 +49,9 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   budget if it saves at least 5%). Drains are used only as many times as help (each costs its own energy, e.g.
   50%), never below the boss's **Defence floor** (`data/defence-floors.json`: Verzik and Vardorvis can't be
   drained; Sotetseg 100, Nightmare/Phosani 120, Akkha 70, Ba-Ba 60, Kephri 60, Zebak 50, Wardens P3 120, Nex 250,
-  Araxxor 90, Hueycoatl 120, Yama 145); the energy left goes on damage specs. The DPS page has a "Spec weapon"
+  Araxxor 90, Hueycoatl 120, Yama 145; checked against the Wiki at 13:40, except Akkha 70 and Phosani 120 which
+  the pages read don't state); the energy left goes on damage specs. Vardorvis: his Defence falls from 215 to
+  145 with his health (Wiki), so he's counted at 180 and drains don't apply (data/dps-monster-overrides.json). The DPS page has a "Spec weapon"
   row per setup; kill rates include specs.
   Added 13:15: Tonalztics of Ralos (Defence -1/8 of the boss's Magic per hit, second shot at the lowered
   Defence), Accursed sceptre (-15% Defence), Dark bow, Eldritch and Volatile nightmare staffs, Eye of Ayak,
@@ -83,7 +85,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   (Archive Guardian flying = ranged/magic, grounded = anything; Ezekiel or Bork; Moia or Dreadnoth; the Dagon'hai
   (magic) or Xarth, each half the time; Ocellus P1, P2, P3 = magic), with its Defence floors. **ToB**: Nylocas
   Vasilias is a third each melee/ranged/magic (it changes form). **ToA**: Ba-Ba melee, Kephri anything (mostly
-  melee), Zebak and Akkha ranged/magic, Wardens P3 anything.
+  melee), Zebak and Akkha ranged/magic, Wardens P2 ranged on the Warden (it prays melee and magic; the core
+  isn't modelled), P3 anything with the last 20% enraged (my estimate; they share 880 HP, which was counted twice).
   **CoX** (12:55) is now the full layout: Tekton, Vasa, the 3 Vanguards, Vespula (her abyssal portal), both
   Muttadiles, 2 Guardians (with a Dragon pickaxe: they only take pickaxe damage), 3 Skeletal Mystics, 4 Lizardman
   Shamans, the Ice Demon puzzle, and Olm (3 phases of both claws, then the head). Rooms are random, so by default

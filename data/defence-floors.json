@@ -1,6 +1,6 @@
 {
   "meta": {
-    "note": "Lowest Defence level a monster can be drained to, by Wiki monster name (any version). \"base\" = can't be drained. Others can be drained to 0. Araxxor: 'His Defence level can be only drained by up to 45 levels' (Araxxor/Strategies). The Fractured Archive's bosses stop at 60% of their base (The Fractured Archive/Strategies). The Fractured Archive (from its strategy page): Archive Guardian 260->156, Ezekiel 200->120, Bork 300->180, Moia 195->117, Xarth 170->102, Ocellus P1 215->129, P3 250->150; Dreadnoth, the Dagon'hai and Ocellus P2 (The Blade) can be drained to 0.",
+    "note": "Lowest Defence level a monster can be drained to, by Wiki monster name (any version). \"base\" = can't be drained. Others can be drained to 0. Checked on the Wiki (25 Nov): Verzik 'Her defence cannot be lowered'; Sotetseg min 100; the Nightmare min 120; Ba-Ba min 60; Kephri min 60; Zebak min 50; Wardens P3 min 120 (also after enraging); Nex 'reduced a maximum of 10 levels' (260 -> 250); Araxxor drained by up to 45 (135 -> 90); Hueycoatl 'only drain up to 5 levels' (125 -> 120); Yama 'only be reduced by 80 (from 225 down to 145)'; The Fractured Archive bosses from its strategy page. Vardorvis: his Defence falls with his health instead (see dps-monster-overrides.json). Not stated on the Wiki pages read, kept from other sources: Akkha 70, Phosani's Nightmare 120.",
     "source": "OSRS Wiki strategy pages and boss pages"
   },
   "floors": {
@@ -13,7 +13,6 @@
     "Ba-Ba": 60,
     "Kephri": 60,
     "Zebak": 50,
-    "Tumeken's Warden#Enraged": 120,
     "Nex": 250,
     "Araxxor": 90,
     "The Hueycoatl": 120,
@@ -24,6 +23,8 @@
     "Moia": 117,
     "Xarth": 102,
     "Ocellus#Phase 1": 129,
-    "Ocellus#Phase 3": 150
+    "Ocellus#Phase 3": 150,
+    "Tumeken's Warden#Damaged": 120,
+    "Tumeken's Warden#Enraged": 120
   }
 }

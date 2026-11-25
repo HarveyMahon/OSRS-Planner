@@ -121,5 +121,7 @@ floors = json.load(open(os.path.join(ROOT, "data", "defence-floors.json")))["flo
 for key, mon in out.items():
     f = floors.get(key, floors.get(key.split("#")[0]))
     if f is not None: mon["defFloor"] = mon["def"] if f == "base" else f
-json.dump({"meta": {"source": "OSRS Wiki (Infobox Monster); defFloor from data/defence-floors.json"}, "monsters": out}, open(os.path.join(ROOT, "data", "dps-monsters.json"), "w"), indent=1, ensure_ascii=False)
+for key, o in json.load(open(os.path.join(ROOT, "data", "dps-monster-overrides.json")))["monsters"].items():
+    if key in out: out[key].update({k: v for k, v in o.items() if k != "why"})
+json.dump({"meta": {"source": "OSRS Wiki (Infobox Monster); defFloor from data/defence-floors.json; corrections from data/dps-monster-overrides.json"}, "monsters": out}, open(os.path.join(ROOT, "data", "dps-monsters.json"), "w"), indent=1, ensure_ascii=False)
 print(f"  monsters: {len(out)} ({len(missing)} missing: {missing})")

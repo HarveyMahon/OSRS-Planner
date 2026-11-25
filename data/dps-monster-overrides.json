@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "note": "Corrections to the Wiki's monster data for the DPS calculator."
+  },
+  "monsters": {
+    "Vardorvis#Post-quest": {
+      "def": 180,
+      "defFloor": 180,
+      "dstab": 215,
+      "dslash": 65,
+      "dcrush": 85,
+      "dmagic": 580,
+      "dlight": 580,
+      "dstandard": 580,
+      "dheavy": 580,
+      "weakness": "fire",
+      "weaknessPct": 35,
+      "why": "His Defence goes from 215 at full health down to 145 as he loses health (Wiki), so 180 on average; drains don't apply."
+    }
+  }
+}
