@@ -8,10 +8,10 @@
 
 import { loadGear, loadTargets, loadMonsters, availability, accountPlayer, idsOf } from './gear.js';
 import { bestSetup } from './best-setup.js';
-import { levelForXp } from './xp.js';
+import { levelForXp, xpForLevel } from './xp.js';
 
 const KEY = 'osrsplanner:rates';
-const VERSION = 16;
+const VERSION = 17;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list
 const MAX_FIGHT_SHARE = 0.8;             // the guide's fight is at most this share of its time per kill
@@ -128,8 +128,11 @@ export async function rateContext(account, items, { budget } = {}) {
       guide.set(`${b.id}:${s.id}`, g);
     }
     if (!g || !isFinite(g)) return null;
-    const acc = { ...account, xp };
-    const lv = COMBAT.map(k => levelForXp(xp?.[k] || 0)).join(',');
+    // levels rounded down to a multiple of 5, so a long plan only works out a few states per boss
+    // (your current level and 99 are kept as they are)
+    const q = COMBAT.map(k => { const l = levelForXp(xp?.[k] || 0); return l >= 99 || l === levelForXp(account.xp?.[k] || 0) ? l : Math.max(1, Math.floor(l / 5) * 5); });
+    const lv = q.join(',');
+    const acc = { ...account, xp: { ...xp, ...Object.fromEntries(COMBAT.map((k, i) => [k, xpForLevel(q[i])])) } };
     let f = mine.get(`${b.id}:${lv}`);
     if (f === undefined) { f = bestSetup(accountPlayer(acc, { onTask: !!b.taskOnly }), gear, t, monsters, avail, { budget: gp, fast: true })?.time ?? Infinity; mine.set(`${b.id}:${lv}`, f); }
     const per = 3600 / s.unitsPerHr, n = teamSize(s, b);

@@ -234,7 +234,15 @@ async function init() {
   });
   render();
   // your kill rates (DPS from your gear): worked out once per account change, then cached
-  if (hasAccount()) { [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items), rateContext(ACCOUNT, items.items)]); render(); }
+  if (hasAccount()) {
+    const status = document.createElement('p');
+    status.className = 'hint'; status.setAttribute('role', 'status');
+    status.textContent = 'Working out your kill rates (DPS with your gear)…';
+    document.querySelector('h1')?.after(status);
+    [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items, { onProgress: (d, n) => { status.textContent = `Working out your kill rates (DPS with your gear)… ${d}/${n}`; } }), rateContext(ACCOUNT, items.items)]);
+    status.remove();
+    render();
+  }
 }
 
 init().catch(err => { $('steps').innerHTML = `<li class="error">Couldn't load the app's data (${esc(err.message)}).</li>`; console.error(err); });

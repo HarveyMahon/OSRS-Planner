@@ -110,8 +110,16 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
     }
     return best;
   };
+  // many-part targets: shortlist weapons on the biggest part first (scoring every weapon on every part is slow)
+  let weaponCands = cand.weapon;
+  if (kParts.length > 3) {
+    const big = kParts.reduce((a, p) => (p.weight * monsters[p.monster].hp > a.weight * monsters[a.monster].hp ? p : a));
+    const quick = c => { const lo = { ...base, weapon: c.it, shield: c.it.two ? null : base.shield, ammo: fitting(c.it).sort((a, b) => (b.it.b?.rstr || 0) - (a.it.b?.rstr || 0))[0]?.it || null };
+      return partsTime(player, lo, [big], monsters); };
+    weaponCands = cand.weapon.map(c => ({ c, t: quick(c) })).filter(x => x.t < Infinity).sort((a, b) => a.t - b.t).slice(0, 15).map(x => x.c);
+  }
   const scored = [];
-  for (const c of cand.weapon) {
+  for (const c of weaponCands) {
     const lo = { ...base, weapon: c.it, shield: c.it.two ? null : base.shield, ammo: null };
     if (cost(lo, costOf) > budget) { lo.shield = null; if (cost(lo, costOf) > budget) continue; }
     const fits = fitting(c.it).filter(a => cost({ ...lo, ammo: a.it }, costOf) <= budget).sort((a, b) => (b.it.b?.rstr || 0) - (a.it.b?.rstr || 0));
@@ -236,7 +244,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
 // Special attacks: the Defence-drain weapon and/or damage spec weapon that save the most time over the whole
 // target (used in every part where they help, each part starting with full energy). Owned, or bought from
 // what's left of the budget when that saves at least 5% of the time.
-function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget }) {
+function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast }) {
   const left = budget - res.cost;
   const priceOf = w => avail(w).owned ? 0 : avail(w).price;
   const cands = [...(gear.weapon || []), ...(gear['2h'] || [])].filter(w => specOf(w) && !buy.has(w)
@@ -247,10 +255,9 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget }) {
   const drains = [null, ...weapons.filter(w => specOf(w).drain)], damages = [null, ...weapons.filter(w => !specOf(w).drain)];
   const kindOf = w => specOf(w).type === 'ranged' ? 'ranged' : 'melee';
   let best = null;
-  for (const dw of drains) for (const xw of damages) {
-    if (!dw && !xw) continue;
+  const evalPair = (dw, xw) => {
     const cost = (dw ? priceOf(dw) : 0) + (xw ? priceOf(xw) : 0);
-    if (cost > left) continue;
+    if (cost > left) return null;
     let total = 0;
     const parts = res.perPart.map(p => {
       const ok = w => w && p.kind && !p.weapon && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
@@ -263,8 +270,21 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget }) {
       total += secs;
       return { ...p, seconds: secs, spec: r };
     });
-    const need = cost ? Math.max(0.5, res.time * 0.05) : 0.5;
-    if (total < res.time - need && (!best || total < best.total - 1e-6 || (Math.abs(total - best.total) < 1e-6 && cost < best.cost))) best = { dw, xw, total, parts, cost };
+    return { dw, xw, total, parts, cost };
+  };
+  const consider = c => {
+    if (!c) return;
+    const need = c.cost ? Math.max(0.5, res.time * 0.05) : 0.5;
+    if (c.total < res.time - need && (!best || c.total < best.total - 1e-6 || (Math.abs(c.total - best.total) < 1e-6 && c.cost < best.cost))) best = c;
+  };
+  if (fast) {
+    // quicker: each weapon alone, then the best drain weapon with the best damage weapon
+    const singles = weapons.map(w => specOf(w).drain ? evalPair(w, null) : evalPair(null, w)).filter(Boolean);
+    singles.forEach(consider);
+    const bd = singles.filter(c => c.dw).sort((a, b) => a.total - b.total)[0], bx = singles.filter(c => c.xw).sort((a, b) => a.total - b.total)[0];
+    if (bd && bx) consider(evalPair(bd.dw, bx.xw));
+  } else {
+    for (const dw of drains) for (const xw of damages) if (dw || xw) consider(evalPair(dw, xw));
   }
   if (!best) return;
   const info = w => w && { item: w, owned: avail(w).owned, price: priceOf(w) };

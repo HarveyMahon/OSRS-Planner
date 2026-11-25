@@ -63,7 +63,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
 
 ## Next
 
-1. Planner money makers use rates for your current stats (kill steps use the stats the plan has reached).
+1. Done 14:30: planner money makers use your kill rate at the levels the plan has reached (the best 8 bosses
+   are re-worked at each step, levels rounded down to 5s; the rest use today's rates). Kill steps already did.
 2. Special attacks: first version done (below). More spec weapons and a better energy model to follow.
 - Done at check-in 2: overload (+) in every CoX room (+6 +16% to Attack, Strength, Ranged, Magic) and smelling
   salts in ToA from the third room on (+11 +16%): the first two rooms are Ba-Ba then Kephri or Zebak then
