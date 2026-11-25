@@ -6,6 +6,7 @@ import { loadAccount, saveAccount, freshAccount } from '../core/account.js';
 import { loadQuests, loadItems, loadBosses, loadFile } from '../core/data.js';
 import { requiredItems, prerequisiteQuests, questPoints } from '../core/requirements.js';
 import { parseBank, resolveBank } from '../core/bank.js';
+import { UNLOCKABLE_PRAYERS } from '../core/dps.js';
 import { lookupPlayer } from '../core/hiscores.js';
 
 console.log('Account: starting');
@@ -144,6 +145,22 @@ $('unlocks').addEventListener('change', e => {
   commit();
 });
 
+// Prayers unlocked (for the DPS calculator)
+function renderPrayers() {
+  const have = new Set(account.prayers || []);
+  $('prayers').innerHTML = UNLOCKABLE_PRAYERS.map(p =>
+    `<label class="quest"><input type="checkbox" data-prayer="${p.id}"${have.has(p.id) ? ' checked' : ''}> ${p.label}</label>`).join('');
+}
+renderPrayers();
+$('prayers').addEventListener('change', e => {
+  const id = e.target.dataset.prayer;
+  if (!id) return;
+  const have = new Set(account.prayers || []);
+  if (e.target.checked) have.add(id); else have.delete(id);
+  account.prayers = [...have];
+  commit();
+});
+
 // Bank: a pasted Bank Memory export, matched to known items; replaces the previous import
 function bankStatus(extra = '') {
   const n = Object.keys(account.bank).length;
@@ -155,6 +172,8 @@ $('bank-import').addEventListener('click', async () => {
   const [{ items }, tiers] = await Promise.all([loadItems(), loadFile('gear-tiers.json')]);
   const r = resolveBank(rows, items, tiers);
   account.bank = r.bank;
+  account.bankIds = {};                       // every item by ID, for the DPS calculator's gear
+  for (const row of rows) account.bankIds[row.id] = (account.bankIds[row.id] || 0) + row.qty;
   account.bankImportedAt = new Date().toISOString();
   let gpNote = '';
   if (r.gp != null) { account.gp = r.gp; $('gp').value = gpText(r.gp); gpNote = ` Cash stack set to the ${gpText(r.gp)} coins in it.`; }
@@ -164,7 +183,7 @@ $('bank-import').addEventListener('click', async () => {
   bankStatus(`Imported ${rows.length.toLocaleString('en-GB')} items; ${Object.keys(r.bank).length.toLocaleString('en-GB')} are ones the planner uses.${gpNote}`);
 });
 $('bank-clear').addEventListener('click', () => {
-  account.bank = {}; account.bankImportedAt = null; commit(); renderUnlocks(); bankStatus();
+  account.bank = {}; account.bankIds = {}; account.bankImportedAt = null; commit(); renderUnlocks(); bankStatus();
 });
 
 // Hiscores: fill skills (and boss kill counts) from the OSRS hiscores via Wise Old Man

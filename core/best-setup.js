@@ -8,6 +8,7 @@
 import { SLOTS, bestCalc, styleKind, attackStyles, THRALL_DPS } from './dps.js';
 
 const KINDS = ['melee', 'ranged', 'magic'];
+const MAX_PER_SLOT = 12, TOP_WEAPONS = 3;
 const STAT_KEYS = { melee: ['astab', 'aslash', 'acrush', 'str'], ranged: ['arange', 'rstr'], magic: ['amagic', 'mdmg'] };
 // Items kept whatever their stats, for their effects
 const SPECIAL = /^(Void|Elite void|Obsidian|Crystal (helm|body|legs)|Inquisitor's|Slayer helmet|Black mask|.* slayer helmet|Salve amulet|Berserker necklace|Dizana's|Blessed Dizana's|Tome of)/;
@@ -26,6 +27,7 @@ export function candidates(gear, kind, player, avail, reqs, budget) {
   const keys = STAT_KEYS[kind];
   const out = {};
   for (const slot of SLOTS) {
+    if (slot === 'ammo' && kind !== 'ranged') { out[slot] = []; continue; }
     const tables = slot === 'weapon' ? [...(gear.weapon || []), ...(gear['2h'] || []).map(x => ({ ...x, two: true }))] : (gear[slot] || []);
     let list = [];
     for (const it of tables) {
@@ -43,6 +45,11 @@ export function candidates(gear, kind, player, avail, reqs, budget) {
       // drop items another item beats on every stat at no more cost
       list = list.filter(a => a.special || !list.some(b => b !== a && !b.special && b.cost <= a.cost
         && b.score.every((v, i) => v >= a.score[i]) && (b.cost < a.cost || b.score.some((v, i) => v > a.score[i]))));
+    }
+    if (slot !== 'weapon' && slot !== 'ammo' && list.length > MAX_PER_SLOT) {
+      const val = c => c.score.reduce((a, b) => a + b, 0) + (c.cost === 0 ? 5 : 0);
+      const spec = list.filter(c => c.special), rest = list.filter(c => !c.special).sort((a, b) => val(b) - val(a));
+      list = [...spec, ...rest.slice(0, MAX_PER_SLOT)];
     }
     out[slot] = list;
   }
@@ -100,7 +107,7 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
   }
   scored.sort((a, b) => a.t - b.t);
   let best = null;
-  for (const { lo: start } of scored.slice(0, 4)) {
+  for (const { lo: start } of scored.slice(0, TOP_WEAPONS)) {
     const lo = improve(start, cand, time, costOf, budget);
     const t = time(lo);
     if (!best || t < best.time) best = { loadout: lo, time: t, cost: cost(lo, costOf) };
@@ -111,7 +118,7 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
 // One slot at a time, then whole sets, until nothing improves.
 function improve(start, cand, time, costOf, budget) {
   let lo = { ...start }, cur = time(lo);
-  for (let pass = 0; pass < 4; pass++) {
+  for (let pass = 0; pass < 3; pass++) {
     let changed = false;
     for (const s of SLOTS) {
       if (s === 'weapon' || (s === 'shield' && lo.weapon?.two)) continue;

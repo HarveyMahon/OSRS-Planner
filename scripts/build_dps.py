@@ -20,9 +20,11 @@ def n(v):
         try: return float(v)
         except (TypeError, ValueError): return 0
 
-SKIP = re.compile(r"\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)", re.I)
+SKIP = re.compile(r"\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)|^Castle wars (bolts|arrow)|^Corrupted |\((basic|attuned|perfected)\)|^Echo |^Zaryte bow|^Crystal bow \d+/10|^Crystal bow full|^Training |^Signed oak", re.I)
 tables = {}
 seen = {}
+alt_ids = {}
+page_of = {}
 for r in raw:
     slot = r.get("infobox_bonuses.equipment_slot")
     if not slot: continue
@@ -34,7 +36,9 @@ for r in raw:
     ids = [int(i) for i in ids if str(i).isdigit()]
     if not ids: continue
     ver = sub.split("#", 1)[1] if "#" in sub else ""
-    if re.search(r"^(Uncharged|Empty|Inactive|Broken|Locked \+ Uncharged|Nightmare Zone|Locked)$", ver) or re.search(r"\((uncharged|empty|inactive|broken)\)$", name, re.I): continue
+    if re.search(r"^(Uncharged|Empty|Inactive|Broken|Locked \+ Uncharged|Nightmare Zone|Locked)$", ver) or re.search(r"\((uncharged|empty|inactive|broken)\)$", name, re.I):
+        alt_ids.setdefault(r.get("page_name"), []).extend(ids)   # counts as owning / buying the charged item
+        continue
     g = lambda f: n(r.get("infobox_bonuses." + f))
     it = {"id": ids[0], "name": name}
     if ids[1:]: it["ids"] = ids[1:]
@@ -52,8 +56,13 @@ for r in raw:
     if key in seen:   # same item, another version or id (e.g. ornament kits, Soul Wars imbue): keep one, note the ids
         seen[key].setdefault("ids", []).extend([it["id"]] + it.get("ids", [])); continue
     seen[key] = it
+    page_of[id(it)] = r.get("page_name")
     tables.setdefault(slot, []).append(it)
 
+for items in tables.values():
+    for it in items:
+        alt = [i for i in alt_ids.get(page_of[id(it)], []) if i != it["id"] and i not in it.get("ids", [])]
+        if alt: it["alt"] = sorted(set(alt))       # uncharged / empty versions: owned or bought, then charged
 os.makedirs(os.path.join(ROOT, "data", "gear"), exist_ok=True)
 for slot, items in tables.items():
     items.sort(key=lambda x: (x["name"], x.get("version", "")))

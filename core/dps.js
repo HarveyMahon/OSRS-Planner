@@ -135,19 +135,29 @@ const POWERED = {
 const poweredBase = (w, m) => { const f = POWERED[canon(w.name)] || POWERED[w.name]; return f ? Math.max(1, f(m)) : 0; };
 
 // ---------- ammo ----------
-const DRAGON_ARROW_BOWS = ['Twisted bow', 'Dark bow', '3rd Age bow', 'Scorching bow', 'Venator bow'];
-const NO_AMMO_BOWS = /^(Crystal bow|Bow of faerdhinen|Craw's bow|Webweaver bow|Venator bow)/;
+const DRAGON_ARROW_BOWS = ['Twisted bow', 'Dark bow', '3rd Age bow', 'Scorching bow'];
+const NO_AMMO_BOWS = /^(Crystal bow|New crystal bow|Bow of faerdhinen|Craw's bow|Webweaver bow|Venator bow|Nature's recurve|Starter bow|Cursed goblin bow)/i;
 const DRAGON_BOLT_XBOWS = ['Armadyl crossbow', 'Zaryte crossbow', 'Dragon crossbow', 'Dragon hunter crossbow'];
 const AMMO_TIER = [['Dragon', 6], ['Amethyst', 5], ['Rune', 4], ['Adamant', 3], ['Mithril', 2], ['Steel', 1], ['Iron', 0], ['Bronze', 0]];
 const arrowTier = n => (AMMO_TIER.find(([t]) => n.startsWith(t)) || [null, 0])[1];
+// Weapons that fire only their own ammo, and that ammo fires from nothing else
+const OWN_AMMO = [
+  [/^Karil's crossbow/, /^Bolt rack/], [/^Dorgeshuun crossbow/, /^Bone bolts/], [/^Hunters' /, /antler bolts/i],
+  [/^Ascension crossbows/, /ascension bolts/i], [/ballista/i, /javelin/i], [/^(Comp )?ogre bow/i, /^(Ogre arrow|.* brutal)/i],
+  [/^Eclipse atlatl/, /atlatl dart/i],
+];
 
 /** Does this ammo fire from this weapon? (Bonuses of ammo that doesn't are ignored.) */
 export function ammoFits(weapon, ammo) {
   if (!weapon || !ammo) return false;
   const w = canon(weapon.name), a = ammo.name;
+  for (const [wr, ar] of OWN_AMMO) {
+    const own = wr.test(w), mine = ar.test(a);
+    if (own || mine) return own && mine;
+  }
   if (weapon.category === 'Bow') {
-    if (NO_AMMO_BOWS.test(w) || !/arrow/i.test(a) || /brutal|ogre/i.test(a) !== /ogre/i.test(w)) return false;
-    const max = DRAGON_ARROW_BOWS.includes(w) ? 6 : /^Magic|^Seercull|^Eclipse/.test(w) ? 5 : /^Yew/.test(w) ? 4 : /^Maple/.test(w) ? 2 : 4;
+    if (NO_AMMO_BOWS.test(w) || !/arrow/i.test(a)) return false;
+    const max = DRAGON_ARROW_BOWS.includes(w) ? 6 : /^Magic|^Seercull/.test(w) ? 5 : /^Yew/.test(w) ? 4 : /^Maple/.test(w) ? 2 : /^Willow/.test(w) ? 1 : /^(Oak|Shortbow|Longbow)/.test(w) ? 0 : 4;
     return arrowTier(a) <= max;
   }
   if (weapon.category === 'Crossbow') {
@@ -157,7 +167,7 @@ export function ammoFits(weapon, ammo) {
   }
   return false;
 }
-const firesAmmo = w => w && ((w.category === 'Bow' && !NO_AMMO_BOWS.test(canon(w.name))) || w.category === 'Crossbow');
+const firesAmmo = w => w && ((w.category === 'Bow' && !NO_AMMO_BOWS.test(canon(w.name))) || w.category === 'Crossbow' || /^Eclipse atlatl/.test(w.name));
 const isBlowpipe = w => w && /blowpipe$/i.test(w.name);
 const BLOWPIPE_DART = { name: 'Dragon dart', rstr: 35 };
 
@@ -344,12 +354,12 @@ export function calc(player, lo, monster, style, spell = null, opts = {}) {
     per = p * acc;
     // enchanted bolts (Kandarin hard diary raises the chance by 10%)
     if (kind === 'ranged' && w?.category === 'Crossbow' && lo.ammo) {
-      const k = player.diaries?.has('kandarin:hard') ? 1.1 : 1, zcb = canon(w.name) === 'Zaryte crossbow', a = lo.ammo.name, r = L.Ranged + B.Ranged;
+      const k = (player.diaries?.has('kandarin:hard') ? 1.1 : 1) * (canon(w.name) === 'Ascension crossbows' ? 0.5 : 1), zcb = canon(w.name) === 'Zaryte crossbow', a = lo.ammo.name, r = L.Ranged + B.Ranged;
       if (/^Opal (dragon )?bolts \(e\)/.test(a)) per += 0.05 * k * Math.trunc(r / (zcb ? 9 : 10));
       else if (/^Pearl (dragon )?bolts \(e\)/.test(a)) { const dv = m.attributes.includes('fiery') ? 15 : 20; per += 0.06 * k * Math.trunc(r / (zcb ? dv - 2 : dv)); }
       else if (/^Dragonstone (dragon )?bolts \(e\)/.test(a) && !m.attributes.some(x => x === 'fiery' || x === 'dragon')) per += p * 0.06 * k * Math.trunc(r * 2 / (zcb ? 9 : 10));
-      else if (/^Diamond (dragon )?bolts \(e\)/.test(a)) { const c = 0.1 * k, emax = Math.trunc(max * (zcb ? 126 : 115) / 100); per = (1 - c) * per + c * accurateMean(0, emax, flat); }
-      else if (/^Onyx (dragon )?bolts \(e\)/.test(a) && !undead) { const c = 0.11 * k, emax = Math.trunc(max * (zcb ? 132 : 120) / 100); per = p * ((1 - c) * acc + c * accurateMean(0, emax, flat)); }
+      else if (/^Diamond (dragon |ascension )?bolts \(e\)/.test(a)) { const c = 0.1 * k, emax = Math.trunc(max * (zcb ? 126 : 115) / 100); per = (1 - c) * per + c * accurateMean(0, emax, flat); }
+      else if (/^Onyx (dragon |ascension )?bolts \(e\)/.test(a) && !undead) { const c = 0.11 * k, emax = Math.trunc(max * (zcb ? 132 : 120) / 100); per = p * ((1 - c) * acc + c * accurateMean(0, emax, flat)); }
       else if (/^Ruby (dragon )?bolts \(e\)/.test(a)) {     // 20% of the monster's current HP: averaged over the kill
         const c = 0.06 * k, eff = Math.min(zcb ? 110 : 100, Math.trunc(m.hp / 2 * (zcb ? 22 : 20) / 100));
         per = (1 - c) * per + c * eff;

@@ -214,7 +214,7 @@ def write_gear_prices(by_id, latest):
     ids = set()
     for f in GEAR_DIR.glob("*.json"):
         for it in json.loads(f.read_text(encoding="utf-8"))["items"]:
-            ids.update([it["id"], *it.get("ids", [])])
+            ids.update([it["id"], *it.get("ids", []), *it.get("alt", [])])
     prices = {}
     for i in sorted(ids):
         if i not in by_id:
