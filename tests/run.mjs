@@ -156,6 +156,8 @@ t('unmet and describe', () => {
   const u = unmet(req, acc);
   assert.deepEqual(u.map(r => describe(r, { quests: { regicide: { name: 'Regicide' } } })), ['Ranged 90', 'Regicide']);
   assert.equal(describe({ any: [{ skill: 'Ranged', level: 80 }, { skill: 'Magic', level: 80 }] }), 'Ranged 80 or Magic 80');
+  assert.equal(isMet({ any: [{ prayer: 'piety' }, { quest: 'king_s_ransom' }] }, { quests: {}, prayers: ['piety'] }), true);
+  assert.equal(isMet({ totalLevel: 750 }, { xp: { Attack: xpForLevel(99) } }), false);
 });
 
 const { guideMethod } = await import('../core/money.js');

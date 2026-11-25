@@ -7,17 +7,73 @@
    "zalcano": "https://oldschool.runescape.wiki/w/Zalcano (Song of the Elves)",
    "barrows": "Barrows is in Morytania; the Wilderness flag came from a supplies list naming black salamanders",
    "killing_bryophyta_free_to_play": "Bryophyta's lair is in the Varrock Sewers, not the Wilderness",
-   "planting_flower_seeds": "https://oldschool.runescape.wiki/w/Money_making_guide/Planting_flower_seeds (input 2,002 adamant seeds; the guide's input template didn't parse)"
+   "planting_flower_seeds": "https://oldschool.runescape.wiki/w/Money_making_guide/Planting_flower_seeds (input 2,002 adamant seeds; the guide's input template didn't parse)",
+   "chambers_of_xeric": "The CoX guides list King's Ransom as the way to Piety; Piety ticked on My Account counts too"
   }
  },
  "methods": {
-  "last_man_standing": { "requires": { "any": [ { "all": [ { "totalLevel": 750 }, { "questPoints": 30 } ] }, { "totalLevel": 1500 } ] } },
-  "barrows": { "wilderness": false, "wildernessNote": null },
-  "killing_bryophyta_free_to_play": { "wilderness": false, "wildernessNote": null },
-  "planting_flower_seeds": { "inputsPerHr": [ { "item": "29458", "qty": 2002 } ], "notes": [] }
+  "last_man_standing": {
+   "requires": {
+    "any": [
+     {
+      "all": [
+       {
+        "totalLevel": 750
+       },
+       {
+        "questPoints": 30
+       }
+      ]
+     },
+     {
+      "totalLevel": 1500
+     }
+    ]
+   }
+  },
+  "barrows": {
+   "wilderness": false,
+   "wildernessNote": null
+  },
+  "killing_bryophyta_free_to_play": {
+   "wilderness": false,
+   "wildernessNote": null
+  },
+  "planting_flower_seeds": {
+   "inputsPerHr": [
+    {
+     "item": "29458",
+     "qty": 2002
+    }
+   ],
+   "notes": []
+  }
  },
  "bosses": {
-  "wintertodt": { "requires": { "skill": "Firemaking", "level": 50 } },
-  "zalcano": { "requires": { "quest": "song_of_the_elves" } }
+  "wintertodt": {
+   "requires": {
+    "skill": "Firemaking",
+    "level": 50
+   }
+  },
+  "zalcano": {
+   "requires": {
+    "quest": "song_of_the_elves"
+   }
+  },
+  "chambers_of_xeric": {
+   "swap": {
+    "{\"quest\":\"king_s_ransom\"}": {
+     "any": [
+      {
+       "prayer": "piety"
+      },
+      {
+       "quest": "king_s_ransom"
+      }
+     ]
+    }
+   }
+  }
  }
 }

@@ -52,8 +52,13 @@ export function applyCorrections(doc, fix, kind) {
   for (const x of doc[kind] || []) {
     const c = fix?.[kind]?.[x.id];
     if (!c) continue;
-    if (kind === 'methods') Object.assign(x, c);
-    else for (const s of x.setups || []) s.requires = s.requires ? { all: [s.requires, c.requires] } : c.requires;
+    if (kind === 'methods') { Object.assign(x, c); continue; }
+    for (const s of x.setups || []) {
+      // swap: a requirement the guide uses as a stand-in (e.g. King's Ransom for Piety) -> what it stands for
+      if (c.swap && s.requires) s.requires = JSON.parse(JSON.stringify(s.requires), (k, v) =>
+        v && typeof v === 'object' && !Array.isArray(v) && c.swap[JSON.stringify(v)] ? c.swap[JSON.stringify(v)] : v);
+      if (c.requires) s.requires = s.requires ? { all: [s.requires, c.requires] } : c.requires;
+    }
   }
   return doc;
 }

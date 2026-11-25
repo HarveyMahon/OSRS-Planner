@@ -10,6 +10,7 @@
 //   | { kc: bossId, n }
 //   | { questPoints }                     total quest points from completed quests (ctx.quests)
 //   | { totalLevel }                      total of the 24 skill levels
+//   | { prayer }                          an unlockable prayer ticked on My Account (piety, rigour, augury...)
 //
 // Account = { xp: {Skill: xp}, quests: {questId: milestoneId}, diaries: Set<'region:tier'>,
 //             owned: {itemKey: qty}, kc: {bossId: n}, gp }
@@ -52,6 +53,7 @@ export function isMet(req, account, ctx = {}) {
   if (req.kc) return (account.kc?.[req.kc] || 0) >= req.n;
   if (req.questPoints) return questPoints(account, ctx.quests) >= req.questPoints;
   if (req.totalLevel) return totalLevel(account.xp || {}) >= req.totalLevel;
+  if (req.prayer) return [...(account.prayers || [])].includes(req.prayer);
   throw new Error(`Unknown requirement: ${JSON.stringify(req)}`);
 }
 
@@ -107,6 +109,7 @@ export function describe(req, names = {}) {
   if (req.kc) return `${req.n} ${req.kc} kills`;
   if (req.questPoints) return `${req.questPoints} quest points`;
   if (req.totalLevel) return `total level ${req.totalLevel}`;
+  if (req.prayer) return req.prayer[0].toUpperCase() + req.prayer.slice(1);
   return JSON.stringify(req);
 }
 

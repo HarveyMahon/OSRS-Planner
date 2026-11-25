@@ -88,7 +88,7 @@ export function plan(goals, d) {
   const methodOf = (b, setupId) => { const r = rateOf(b, setupOf(b, setupId)); return bossMethod(b, items, { setupId, override: r ? { unitsPerHr: r.kph } : undefined }); };
   const reqCtx = { quests };
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
-                kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
+                kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), prayers: [...(d.account.prayers || [])], gp: d.account.gp || 0 };
   const warnings = [];
   const errors = [];               // contradictions in the account, e.g. a quest ticked without its levels
   const steps = [];
@@ -139,7 +139,8 @@ export function plan(goals, d) {
     }
     if (req.questPoints) { milestonesQP.push({ qp: req.questPoints, owner: currentQuest }); return; }
     if (req.combatLevel) { combatNeeds.push(req.combatLevel); return; }
-    if (req.totalLevel) { warnings.push(`Needs total level ${req.totalLevel}, which the planner doesn't plan for.`); return; }
+    if (req.prayer) { if (isMet(req, sim, reqCtx)) return; warnings.push(`Needs the ${req.prayer} prayer unlocked, which the planner doesn't plan for.`); return; }
+    if (req.totalLevel) { if (isMet(req, sim, reqCtx)) return; warnings.push(`Needs total level ${req.totalLevel}, which the planner doesn't plan for.`); return; }
     if (req.diary) warnings.push(`Needs the ${req.tier} ${req.diary} diary, which the planner doesn't plan yet.`);
   }
   const milestonesQP = [], combatNeeds = [];
@@ -207,7 +208,7 @@ export function plan(goals, d) {
     return [...done].reduce((t, id) => t + (quests[id]?.questPoints || 0), 0);
   };
   const qpShortfall = () => milestonesQP.map(r => ({ ...r, have: questPointsPlanned(r.owner) })).filter(r => r.have < r.qp);
-  // Not enough quest points: add quests (placed early), the ones with the fewest unmet requirements first
+  // Not enough quest points: add quests (placed early): ones you can start now, most quest points per hour first
   function fillQuestPoints() {
     let guard = 0;
     while (qpShortfall().length && guard++ < 300) {
@@ -215,7 +216,9 @@ export function plan(goals, d) {
       const cands = Object.entries(quests).filter(([id, q]) => !q.miniquest && q.questPoints && sim.quests[id] !== 'complete' && !planned.has(id));
       if (!cands.length) break;
       const unmet = q => (q.requires?.all || []).filter(r => !(r.quest && planned.has(r.quest)) && !isMet(r, sim, reqCtx)).length;
-      cands.sort((a, b) => unmet(a[1]) - unmet(b[1]) || b[1].questPoints - a[1].questPoints);
+      // quests you can start now first, then the most quest points per hour (short 2-3 QP quests before long ones)
+      const qph = q => q.questPoints / questHours(q);
+      cands.sort((a, b) => Math.min(1, unmet(a[1])) - Math.min(1, unmet(b[1])) || qph(b[1]) - qph(a[1]) || unmet(a[1]) - unmet(b[1]));
       const before = milestones.length;
       addQuest(cands[0][0]);
       addedForQp.push(cands[0][0]);
