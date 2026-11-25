@@ -366,6 +366,11 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     assert.equal(D.ammoFits({ name: "Karil's crossbow", category: 'Crossbow' }, { name: 'Bolt rack' }), true);
     assert.equal(D.ammoFits({ name: 'Bow of faerdhinen', category: 'Bow' }, { name: 'Dragon arrow' }), false);
   });
+  t('dps: in-content potions', () => {
+    assert.deepEqual(D.boosts(P, 'overload'), { Attack: 21, Strength: 21, Ranged: 21, Magic: 21 });   // 6 + 16% of 99
+    assert.deepEqual(D.boosts(P, 'salts'), { Attack: 26, Strength: 26, Ranged: 26, Magic: 26 });      // 11 + 16% of 99
+    assert.equal(D.boosts(P).Strength, 19);                                                             // super combat
+  });
   t('dps: prayers by unlock and level', () => {
     assert.equal(D.bestPrayer(P, 'melee').id, 'piety');
     assert.equal(D.bestPrayer({ ...P, prayers: new Set(['piety', 'zeal']) }, 'melee').id, 'zeal');

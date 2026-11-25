@@ -81,8 +81,9 @@ function render() {
   const t = targets[$('target').value], part = t.parts[Number($('part').value)] || t.parts[0];
   const m = monsters[part.monster];
   $('monster').textContent = m ? `${m.name}: ${m.hp} HP, Defence ${m.def}, Magic ${m.magic}, defence bonuses stab ${m.dstab} / slash ${m.dslash} / crush ${m.dcrush} / magic ${m.dmagic} / ranged ${m.dstandard || m.drange}`
-    + `${m.flatArmour ? `, flat armour ${m.flatArmour}` : ''}${m.weakness ? `, ${m.weaknessPct}% weak to ${m.weakness}` : ''}${m.attributes.length ? ` · ${m.attributes.join(', ')}` : ''}` : '';
+    + `${part.boost === 'overload' ? ' · with an overload (+)' : part.boost === 'salts' ? ' · with smelling salts' : ''}${m.flatArmour ? `, flat armour ${m.flatArmour}` : ''}${m.weakness ? `, ${m.weaknessPct}% weak to ${m.weakness}` : ''}${m.attributes.length ? ` · ${m.attributes.join(', ')}` : ''}` : '';
   const P = player(), cols = state.loadouts.length;
+  const ctxOpts = { toa: part.toa, boost: part.boost };    // ToA: Tumeken's shadow x4; CoX overloads / ToA smelling salts
   const results = state.loadouts.map(L => {
     const lo = loadoutOf(L);
     let r;
@@ -90,9 +91,9 @@ function render() {
       const [si, spell] = L.style.split('|');
       const st = attackStyles(lo.weapon)[Number(si)];
       const sp = spell ? spellsFor(P, lo.weapon).find(x => x.name === spell) : null;
-      r = st ? calc(P, lo, m, st, sp) : bestCalc(P, lo, m);
+      r = st ? calc(P, lo, m, st, sp, ctxOpts) : bestCalc(P, lo, m, ctxOpts);
       r.total = r.dps + (P.thrall ? THRALL_DPS : 0);
-    } else r = bestCalc(P, lo, m);
+    } else r = bestCalc(P, lo, m, ctxOpts);
     return { lo, r };
   });
   const bestDps = Math.max(...results.map(x => x.r.total ?? x.r.dps));

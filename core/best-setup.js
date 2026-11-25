@@ -63,7 +63,7 @@ function partsTime(player, lo, parts, monsters) {
   let t = 0;
   for (const p of parts) {
     const m = monsters[p.monster];
-    const r = bestCalc(player, lo, m, { styles: p.styles, toa: p.toa });
+    const r = bestCalc(player, lo, m, { styles: p.styles, toa: p.toa, boost: p.boost });
     const d = r.dps + (player.thrall ? THRALL_DPS : 0);
     if (d <= 0) return Infinity;
     t += p.weight * m.hp / d;
@@ -200,7 +200,7 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       let pick = null;
       for (const [k, r] of Object.entries(kinds)) {
         if (p.styles && !p.styles.includes(k)) continue;
-        const c = bestCalc(pl, r.loadout, m, { styles: [k], toa: p.toa });
+        const c = bestCalc(pl, r.loadout, m, { styles: [k], toa: p.toa, boost: p.boost });
         const d = c.dps + (thrall ? THRALL_DPS : 0);
         if (d > 0 && (!pick || d > pick.dps)) pick = { kind: k, dps: d, calc: c };
       }

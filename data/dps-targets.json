@@ -1,6 +1,6 @@
 {
  "meta": {
-  "note": "Which Wiki monster entries make up each boss or piece of content. weight = how many of that monster per kill (or the share of the boss's HP for multi-form bosses). styles = the combat styles worth using on it (all if absent). Raids, the Inferno, the Fight Caves and the Colosseum are a first stab, to refine."
+  "note": "Which Wiki monster entries make up each boss or piece of content. weight = how many of that monster per kill (or the share of the boss's HP for multi-form bosses). styles = the combat styles worth using on it (all if absent). Raids, the Inferno, the Fight Caves and the Colosseum are a first stab, to refine. boost = the in-content potion used (overload = overload (+) in CoX, salts = smelling salts in ToA)."
  },
  "targets": {
   "abyssal_sire": {
@@ -631,7 +631,8 @@
      "weight": 1,
      "styles": [
       "melee"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Vasa Nistirio#Normal",
@@ -639,7 +640,8 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Vanguard#Melee",
@@ -647,7 +649,8 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Vanguard#Ranged",
@@ -655,7 +658,8 @@
      "styles": [
       "melee",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Vanguard#Magic",
@@ -663,14 +667,16 @@
      "styles": [
       "melee",
       "ranged"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Vespula#Normal",
      "weight": 1,
      "styles": [
       "ranged"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Muttadile#Small",
@@ -678,7 +684,8 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Muttadile#Large",
@@ -686,35 +693,40 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Ice demon#Normal",
      "weight": 1,
      "styles": [
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Skeletal Mystic#Normal",
      "weight": 3,
      "styles": [
       "melee"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Lizardman shaman (Chambers of Xeric)#Normal",
      "weight": 4,
      "styles": [
       "ranged"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Great Olm#Left claw (Normal)",
      "weight": 2,
      "styles": [
       "melee"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Great Olm#Right claw (Normal)",
@@ -722,7 +734,8 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     },
     {
      "monster": "Great Olm#Head (Normal)",
@@ -730,7 +743,8 @@
      "styles": [
       "ranged",
       "magic"
-     ]
+     ],
+     "boost": "overload"
     }
    ]
   },
@@ -800,12 +814,14 @@
      "styles": [
       "melee"
      ],
-     "toa": true
+     "toa": true,
+     "boost": "salts"
     },
     {
      "monster": "Akkha",
      "weight": 1,
-     "toa": true
+     "toa": true,
+     "boost": "salts"
     },
     {
      "monster": "Kephri#Shielded",
@@ -813,7 +829,8 @@
      "styles": [
       "ranged"
      ],
-     "toa": true
+     "toa": true,
+     "boost": "salts"
     },
     {
      "monster": "Zebak#Normal",
@@ -821,7 +838,8 @@
      "styles": [
       "ranged"
      ],
-     "toa": true
+     "toa": true,
+     "boost": "salts"
     },
     {
      "monster": "Tumeken's Warden#Damaged",
@@ -829,7 +847,8 @@
      "styles": [
       "melee"
      ],
-     "toa": true
+     "toa": true,
+     "boost": "salts"
     },
     {
      "monster": "Tumeken's Warden#Enraged",
@@ -837,7 +856,8 @@
      "styles": [
       "melee"
      ],
-     "toa": true
+     "toa": true,
+     "boost": "salts"
     }
    ]
   },

@@ -43,8 +43,14 @@ export function bestPrayer(player, style) {
 }
 
 // ---------- potions (divine versions are the same) ----------
-export function boosts(player) {
+// In-content potions (opts.boost): overload (+) in the Chambers of Xeric, smelling salts in the Tombs of Amascut
+const CONTENT_BOOSTS = { overload: [6, 16], salts: [11, 16] };
+export function boosts(player, content = null) {
   const L = player.levels;
+  if (CONTENT_BOOSTS[content]) {
+    const [flat, pct] = CONTENT_BOOSTS[content], f = l => Math.floor(l * pct / 100) + flat;
+    return { Attack: f(L.Attack), Strength: f(L.Strength), Ranged: f(L.Ranged), Magic: f(L.Magic) };
+  }
   const melee = l => Math.floor(l * 0.15) + 5;                   // super combat
   const magic = player.hearts === 'saturated' ? Math.floor(L.Magic * 0.1) + 4
     : player.hearts === 'imbued' ? Math.floor(L.Magic * 0.1) + 1 : 0;
@@ -252,7 +258,7 @@ function tbow(current, magic, acc) {
  * Returns { dps, maxHit, accuracy, speed, style, spell, prayer } (dps without the thrall).
  */
 export function calc(player, lo, monster, style, spell = null, opts = {}) {
-  const L = player.levels, B = boosts(player), m = monster;
+  const L = player.levels, B = boosts(player, opts.boost), m = monster;
   const w = lo.weapon;
   const kind = styleKind(style.type);
   const t = totals(lo, m, opts);

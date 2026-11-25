@@ -11,7 +11,7 @@ import { bestSetup } from './best-setup.js';
 import { levelForXp } from './xp.js';
 
 const KEY = 'osrsplanner:rates';
-const VERSION = 5;
+const VERSION = 6;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list
 const MAX_FIGHT_SHARE = 0.8;             // the guide's fight is at most this share of its time per kill
