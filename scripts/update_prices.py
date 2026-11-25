@@ -203,6 +203,30 @@ def write_json_atomically(path, obj):
         raise
 
 
+GEAR_DIR = HERE.parent / "data" / "gear"
+GEAR_PRICES = HERE.parent / "data" / "gear-prices.json"
+
+
+def write_gear_prices(by_id, latest):
+    """Prices of every tradeable item in the DPS calculator's slot tables (data/gear/*.json): {id: price}."""
+    if not GEAR_DIR.exists():
+        return
+    ids = set()
+    for f in GEAR_DIR.glob("*.json"):
+        for it in json.loads(f.read_text(encoding="utf-8"))["items"]:
+            ids.update([it["id"], *it.get("ids", [])])
+    prices = {}
+    for i in sorted(ids):
+        if i not in by_id:
+            continue                     # untradeable
+        p = latest.get(str(i)) or {}
+        vals = [v for v in (p.get("high"), p.get("low")) if isinstance(v, (int, float)) and v > 0]
+        prices[str(i)] = round(sum(vals) / len(vals)) if vals else None
+    write_json_atomically(GEAR_PRICES, {"meta": {"updatedAt": now_iso(), "source": "prices.runescape.wiki /latest",
+                                                 "note": "Tradeable gear only; null = no recent trade."}, "prices": prices})
+    log["summary"]["gearPrices"] = len(prices)
+
+
 def run(force):
     data = json.loads(DATA.read_text(encoding="utf-8"))
     meta = data["meta"]
@@ -295,6 +319,7 @@ def run(force):
 
     # 4) All checks passed: save
     data["items"] = items
+    write_gear_prices(by_id, latest)
     meta["pricesUpdated"] = datetime.now(timezone.utc).date().isoformat()
     meta["pricesUpdatedAt"] = now_iso()
     meta["priceSource"] = "prices.runescape.wiki /latest (average of instant buy and sell)"

@@ -63,6 +63,7 @@ jobs:
             git checkout -- data/items.json
           fi
           git add data/items.json logs/price_update_log.json
+          if [ -f data/gear-prices.json ]; then git add data/gear-prices.json; fi
           if git diff --cached --quiet; then
             echo "Nothing changed."
           else
