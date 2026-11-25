@@ -21,7 +21,7 @@ import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
 import { isMet, describe, unmet, questPoints } from './requirements.js';
 import { estimate, stageAt } from './training.js';
 import { bossMethod, guideMethod, setupOf, gearCost, gearEntry, viableRate } from './money.js';
-import { withoutCombatLevels } from './rates.js';
+import { withoutCombatLevels, GP_TIERS } from './rates.js';
 const RATE_AT_TOP = 8;
 import { bestMaster, slayerSettings, blockSlotsFor, slayerSpeed } from './slayer.js';
 
@@ -276,7 +276,7 @@ export function plan(goals, d) {
       const pick = new Set([...out].sort((a, b) => b.gpPerHr - a.gpPerHr).slice(0, RATE_AT_TOP));
       for (const o of [...out].sort((a, b) => b.guide - a.guide).slice(0, RATE_AT_TOP)) pick.add(o);
       for (const o of pick) {
-        const r = rateAt(o.b, o.s, sim.xp);
+        const r = rateAt(o.b, o.s, sim.xp, sim.gp);
         if (r) o.gpPerHr = r.kph > 0 && viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
       }
     }
@@ -294,16 +294,30 @@ export function plan(goals, d) {
 
   // The money maker the user chose for this step (keyed by what it pays for) when the account can do it
   // at this point, otherwise the best one
+  // Money is made in stages: each time the cash stack reaches the next gear tier (10M, 25M, 50M, ... 10B), the
+  // money makers are worked out again with gear that cash can buy, so early money funds better gear and faster
+  // money later. (Gear bought keeps its value, so it isn't taken off the total.)
   function makeGp(amount, reason, key = reason) {
-    const amt = Math.ceil(amount / 100000) * 100000;
-    const all = moneyMakers();
+    let left = Math.ceil(amount / 100000) * 100000;
     const gpChoice = gpChoices[key];
-    const chosen = gpChoice && all.find(m => m.id === gpChoice);
-    const mm = chosen || all[0];
-    if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += amt; steps.push({ kind: 'gp', amount: amt, method: null, hours: 0, reason, key }); return; }
-    steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason, key, chosen: !!chosen,
-                 choiceUnavailable: !!gpChoice && !chosen, options: all.slice(0, 25) });
-    sim.gp += amt;
+    let first = true;
+    while (left > 0) {
+      const all = moneyMakers();
+      const chosen = gpChoice && all.find(m => m.id === gpChoice);
+      const mm = chosen || all[0];
+      if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += left; steps.push({ kind: 'gp', amount: left, method: null, hours: 0, reason, key }); return; }
+      const nextTier = rateAt && !chosen ? GP_TIERS.find(t => t > sim.gp) : null;
+      const amt = nextTier && nextTier - sim.gp < left ? Math.ceil((nextTier - sim.gp) / 100000) * 100000 : left;
+      const prev = steps[steps.length - 1];
+      if (!first && prev?.kind === 'gp' && prev.key === key && prev.method?.id === mm.id) {
+        prev.hours += amt / mm.gpPerHr; prev.amount += amt;                    // same method again: one longer step
+        prev.method = { ...mm, gpPerHr: prev.amount / prev.hours, rising: true }; // at its average rate over the stages
+      } else {
+        steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason: first ? reason : `${reason} (with the gear your cash can now buy)`, key, chosen: !!chosen,
+                     choiceUnavailable: !!gpChoice && !chosen, options: all.slice(0, 25) });
+      }
+      sim.gp += amt; left -= amt; first = false;
+    }
   }
 
   // pay for a step, making money first if needed
@@ -494,7 +508,7 @@ export function plan(goals, d) {
     } else if (m.n > 0) {
       const b = bossById(m.id);
       // kill steps: your kill rate at the levels the plan has reached by now, when the planner can work it out
-      const atNow = rateAt?.(b, setupOf(b, m.setupId), sim.xp);
+      const atNow = rateAt?.(b, setupOf(b, m.setupId), sim.xp, sim.gp);
       const bm = atNow ? bossMethod(b, items, { setupId: m.setupId, override: { unitsPerHr: atNow.kph } }) : methodOf(b, m.setupId);
       for (const q of questsIn(bm.setup.requires)) doQuestNow(q, { pulledFor: b.name });
       trainNeeds(m.needs);

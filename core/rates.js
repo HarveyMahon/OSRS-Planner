@@ -123,16 +123,22 @@ function guideItems(setup, items, byId) {
 
 /**
  * A synchronous rate function for the planner's kill-count steps, at the levels the plan has reached:
- * rateAt(boss, setup, xp) -> { kph, factor, myFight, guideFight } or null. Loads the data up front.
+ * rateAt(boss, setup, xp, cash) -> { kph, factor, myFight, guideFight } or null (cash: gold for gear at that point). Loads the data up front.
  */
+// cash stack tiers the planner re-works gear at, as money steps build up cash
+export const GP_TIERS = [10e6, 25e6, 50e6, 100e6, 250e6, 500e6, 1e9, 2.5e9, 5e9, 10e9];
+
 export async function rateContext(account, items, { budget } = {}) {
   const gp = budget ?? account.gp ?? 0;
   const [gear, targets, monsters, { avail }] = await Promise.all([loadGear(), loadTargets(), loadMonsters(), availability(account)]);
   const byId = new Map();
   for (const list of Object.values(gear)) for (const it of list) for (const i of idsOf(it)) if (!byId.has(i)) byId.set(i, it);
   const mine = new Map(), guide = new Map();
-  return (b, s, xp) => {
+  // cash for gear: what the plan has at that point, rounded down to a few tiers so states are shared
+  const tierOf = c => { let t = gp; for (const x of GP_TIERS) if (c >= x && x > t) t = x; return t; };
+  return (b, s, xp, cash = gp) => {
     const t = targets[b.id];
+    const budgetNow = tierOf(cash);
     if (!t?.parts?.length || !s.unitsPerHr) return null;
     let g = guide.get(`${b.id}:${s.id}`);
     if (g === undefined) {
@@ -148,8 +154,11 @@ export async function rateContext(account, items, { budget } = {}) {
     const acc = { ...account, xp: { ...xp, ...Object.fromEntries(COMBAT.map((k, i) => [k, xpForLevel(q[i])])) } };
     const per = 3600 / s.unitsPerHr, n = teamSize(s, b);
     const guideFight = Math.min(g / n, per * MAX_FIGHT_SHARE);
-    let f = mine.get(`${b.id}:${s.id}:${lv}`);           // (energy per kill uses this setup's downtime)
-    if (f === undefined) { f = bestSetup(accountPlayer(acc, { onTask: !!b.taskOnly }), gear, t, monsters, avail, { budget: gp, fast: true, downtime: per - guideFight, team: n })?.time ?? Infinity; mine.set(`${b.id}:${s.id}:${lv}`, f); }
+    let f = mine.get(`${b.id}:${s.id}:${lv}:${budgetNow}`);           // (energy per kill uses this setup's downtime)
+    if (f === undefined) { f = bestSetup(accountPlayer(acc, { onTask: !!b.taskOnly }), gear, t, monsters, avail, { budget: budgetNow, fast: true, downtime: per - guideFight, team: n })?.time ?? Infinity; mine.set(`${b.id}:${s.id}:${lv}:${budgetNow}`, f); }
+    // more cash can only help: never slower than with a smaller cash stack already worked out (the quick
+    // optimiser can land on a slightly worse set with more choice)
+    for (const lower of [gp, ...GP_TIERS]) { if (lower >= budgetNow) continue; const g2 = mine.get(`${b.id}:${s.id}:${lv}:${lower}`); if (g2 != null && g2 < f) f = g2; }
     const myFight = f / n;
     const raw = isFinite(myFight) ? 3600 / (per - guideFight + myFight) / s.unitsPerHr : 0;
     const factor = raw ? Math.max(MIN_FACTOR, Math.min(MAX_FACTOR, raw)) : 0;

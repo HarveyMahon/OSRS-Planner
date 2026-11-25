@@ -35,3 +35,8 @@ Ideas parked for later. Nothing here is being worked on right now.
   later money makers see the higher stats. Money makers later in a plan are judged at the plan's levels: bosses
   you can't do well today stay candidates, and the best few by today's rate and by the guide's rate are
   re-worked at the levels reached (e.g. 99 Slayer on a 70s account now brings Corp into the money list).
+- **Planner money steps build on each other (16:55, Harvey)**: a big GP goal is made in stages. Each time the
+  cash stack reaches the next gear tier (10M, 25M, 50M, 100M, 250M, 500M, 1B, 2.5B, 5B, 10B) the money makers
+  are worked out again with the gear that cash buys (kill rates and boss kill steps use the plan's cash at that
+  point, not today's). Consecutive stages at the same money maker show as one step at its average rate. Gear
+  bought keeps its value, so it isn't taken off the total. More cash never makes a kill rate slower.
