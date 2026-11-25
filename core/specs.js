@@ -213,12 +213,12 @@ export function withSpecs(player, mainLo, { drainLo = null, dmgLo = null }, mons
     if (ds) {                                      // damage specs with the energy left and what regenerates
       const h = specHit(player, dmgLo, m, ds, opts);
       if (h && h.dmg > d * h.secs) {
+        // the most specs the energy allows: n specs need n x cost <= what's left + what regenerates over the
+        // (shorter) fight they make. More specs shorten the fight, so scan down from the most that could help.
         const left = energy - k * (dr?.cost || 0);
-        for (let i = 0; i < 6; i++) {
-          n = fl((left + (T - t) * regen) / ds.cost);
-          n = Math.max(0, Math.min(n, Math.ceil(hpLeft / Math.max(h.dmg, 1))));
-          T = t + n * h.secs + Math.max(0, hpLeft - n * h.dmg - thrall * n * h.secs) / d;
-        }
+        const Tn = j => t + j * h.secs + Math.max(0, hpLeft - j * h.dmg - thrall * j * h.secs) / d;
+        for (let j = Math.ceil(hpLeft / Math.max(h.dmg, 1)); j >= 1; j--) if (j * ds.cost <= left + (Tn(j) - t) * regen + 1e-9) { n = j; break; }
+        T = Tn(n);
       }
     }
     if (!best || T < best.seconds - 1e-9) best = { seconds: T, drains: k, specs: n, defence: Math.round(m.def), used: k * (dr?.cost || 0) + n * (ds?.cost || 0) };

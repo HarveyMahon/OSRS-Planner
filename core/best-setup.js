@@ -331,43 +331,45 @@ function addSpec(res, player, gear, monsters, avail, buy, { reqs, budget, fast, 
   const weapons = [...byName.values()];
   const drains = [null, ...weapons.filter(w => specOf(w).drain)], damages = [null, ...weapons.filter(w => !specOf(w).drain)];
   const kindOf = w => specOf(w).type === 'ranged' ? 'ranged' : 'melee';
-  // One energy pool for the whole fight or run: a full bar plus 10% per 30s (x2 with a Lightbearer) over it,
-  // or for repeated kills (cycle) what regenerates over one kill cycle. Many copies of a monster share it.
+  // One energy pool for the whole fight or run: a full bar (for repeated kills, cycle: what regenerates over the
+  // downtime of one kill cycle) plus 10% per 30s (x2 with a Lightbearer) over the fight, spent on the parts that
+  // save the most time per energy point; many copies of a monster share it.
   const light = Object.values(res.kinds).some(k => /^Lightbearer/.test(k.loadout.ring?.name || '')) ? 2 : 1;
-  const pool0 = cycle ? Math.min(100, cycle * REGEN_PER_SEC * light) : 100 + res.time * REGEN_PER_SEC * light;
+  const regen = REGEN_PER_SEC * light;
   let best = null;
   const evalPair = (dw, xw) => {
     const cost = (dw ? priceOf(dw) : 0) + (xw ? priceOf(xw) : 0);
     if (cost > left) return null;
-    // each part's saving per copy with as much energy as one copy can use, then the pool goes to the parts
-    // that save the most time per energy point
+    // each copy of a part on its own: starting with a bar (or the cycle's energy), with its own regeneration
+    const start = cycle ? Math.min(100, Math.max(0, cycle - res.time) * regen) : 100;
     const opts = res.perPart.map(p => {
       const ok = w => w && p.kind && !p.weapon && (!p.styles || p.styles.includes(kindOf(w)));   // e.g. no melee spec on a ranged-only part
       const d = ok(dw) ? dw : null, x = ok(xw) ? xw : null;
       if (!d && !x) return null;
       const main = res.kinds[p.kind].loadout;
       const loFor = w => { const b = res.kinds[kindOf(w)]?.loadout || main; return { ...b, weapon: w, shield: w.two ? null : b.shield }; };
-      const energy = Math.min(pool0, 100 + p.seconds / p.weight * REGEN_PER_SEC * light);   // one copy can't use more than a bar plus its own regen
-      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon, energy, noRegen: true });
+      const r = withSpecs(player, main, { drainLo: d && loFor(d), dmgLo: x && loFor(x) }, monsters[p.monster], { styles: [p.kind], toa: p.toa, boost: p.boost, noAncients: p.noAncients, meleeWeapon: p.meleeWeapon, energy: start });
       if (!r) return null;
-      const per = p.seconds / p.weight, save = per - r.seconds;
+      const save = p.seconds / p.weight - r.seconds;
       return save > 0 ? { r, save, rate: r.used ? save / r.used : Infinity } : null;
     });
     const order = opts.map((o, i) => o ? i : -1).filter(i => i >= 0).sort((a, b) => opts[b].rate - opts[a].rate);
-    let pool = pool0;
-    const copies = new Array(res.perPart.length).fill(0);
-    for (const i of order) {
-      const o = opts[i], w = res.perPart[i].weight;
-      const c = o.r.used ? Math.max(0, Math.min(w, pool / o.r.used)) : w;
-      copies[i] = c; pool -= c * o.r.used;
+    // the pool is the starting energy plus regeneration over the whole (spec-shortened) fight: a few rounds
+    let total = res.time, copies = [];
+    for (let round = 0; round < 3; round++) {
+      let pool = start + total * regen;
+      copies = new Array(res.perPart.length).fill(0);
+      for (const i of order) {
+        const o = opts[i], w = res.perPart[i].weight;
+        const c = o.r.used ? Math.max(0, Math.min(w, pool / o.r.used)) : w;
+        copies[i] = c; pool -= c * o.r.used;
+      }
+      total = res.perPart.reduce((sum, p, i) => sum + p.seconds - (opts[i] ? copies[i] * opts[i].save : 0), 0);
     }
-    let total = 0;
     const parts = res.perPart.map((p, i) => {
       const o = opts[i], c = copies[i];
-      if (!o || c <= 0) { total += p.seconds; return { ...p }; }
-      const secs = p.seconds - c * o.save;
-      total += secs;
-      return { ...p, seconds: secs, spec: { ...o.r, copies: c, of: p.weight } };
+      if (!o || c <= 0) return { ...p };
+      return { ...p, seconds: p.seconds - c * o.save, spec: { ...o.r, copies: c, of: p.weight } };
     });
     return { dw, xw, total, parts, cost };
   };
