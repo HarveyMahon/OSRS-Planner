@@ -282,6 +282,14 @@ t('planner', () => {
     assert.equal(done.errors.length, 1); assert.match(done.errors[0], /marked complete/);
     assert.ok(done.steps.some(s => s.kind === 'train' && s.skill === 'Agility' && s.toLevel === lv));
   }
+  // goal order: the user's order is followed, and each goal's steps move with it
+  const og = [{ type: 'kc', bossId: 'cave', n: 1 }, { type: 'level', skill: 'Attack', level: 30 }];
+  const od = { ...d, training: hpTraining, bosses: [...bosses, hpBoss], account: { ...account, xp: { ...account.xp, Hitpoints: xpForLevel(10), Ranged: 0, Attack: 0 } } };
+  const o1 = plan(og, od);
+  assert.deepEqual(o1.order, ['k:cave', 'lvl:Attack']);
+  const o2 = plan(og, { ...od, order: ['lvl:Attack', 'k:cave'] });
+  assert.deepEqual(o2.order, ['lvl:Attack', 'k:cave']);
+  assert.equal(o2.steps.filter(s => s.blockMain)[0].skill, 'Attack');
   // max cape covers every skill with data
   const mc = plan([{ type: 'maxcape' }], d);
   assert.deepEqual(mc.steps.filter(s => s.kind === 'train').map(s => s.skill).sort(), ['Agility', 'Prayer']);
