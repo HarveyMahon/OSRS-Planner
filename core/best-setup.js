@@ -349,6 +349,8 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       const ks = Object.fromEntries(Object.entries(allKinds).filter(([k]) => used.has(k)));
       const buy = new Set();
       for (const r of Object.values(ks)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) buy.add(it); }
+      // a weapon a part forces (the CoX Guardians' Dragon pickaxe) is bought too if you don't have it
+      for (const p of perPart) { const w = p.usesWeapon && WEAPONS.get(p.usesWeapon); if (w && p.kind && !avail(w).owned && avail(w).price != null) buy.add(w); }
       const res = { kinds: ks, time: total, cost: [...buy].reduce((c, it) => c + (avail(it).price || 0), 0), thrall, perPart };
       addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast, cycle: target.whole ? null : cycle, downtime: target.whole ? null : downtime, team, specRooms: target.specRooms || null });
       return res;

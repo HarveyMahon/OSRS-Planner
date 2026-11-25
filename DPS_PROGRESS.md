@@ -183,9 +183,8 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   fixing; three critic rounds, 55 complaints). Rounds 1 and 3 (Best Setup, DPS page, kill rates) and round 2
   (planner, Money Makers, Training, Slayer, Pets, My Account) are in the git log from c86b51b to 41189fe; page-side
   decisions are in TODO.md "Review round 2". The developer agents stopped at about 16:00 (usage limit), and I
-  finished their lists. Still open, for later: gear ignores Defence (noted on the page); the CoX Guardians'
-  pickaxe isn't costed; Nex is one part; the Ranged cannon stage has no cannonball cost (no price data for
-  cannonballs offline, and the Wiki gives no balls-per-hour figure); planner goal labels/order (critic 2 #24).
+  finished their lists. Still open, for later: gear ignores Defence (noted on the page); Nex is one part; the Ranged cannon stage has no cannonball cost (no price data for
+  cannonballs offline, and the Wiki gives no balls-per-hour figure). Planner goal headings fixed at 16:35; the Guardians' pickaxe is now in the cost when you don't own one (added on top, so it can go a little past the budget).
 
 ## Next
 
