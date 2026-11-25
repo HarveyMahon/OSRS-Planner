@@ -93,10 +93,11 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Shamans, the Ice Demon puzzle, and Olm (3 phases of both claws, then the head). Rooms are random, so by default
   each combat room counts at 75% (6 of 8 in a raid) and the Ice Demon at 50%: my estimate. On Best Setup you can
   tick your own rotation instead; your kill rates use the average layout.
-  Inferno, Fight Caves and Colosseum (check-in 1): rough counts of each wave monster across a full run plus the
-  final boss (Inferno: 30 bats, 25 blobs, 20 meleers, 15 rangers, 10 magers, 4 Jads, Zuk; Fight Caves: 30 each of
-  Tz-Kih / Tz-Kek / Tok-Xil, 20 Yt-MejKot, 15 Ket-Zek, Jad; Colosseum: 3 of each Fremennik, 8 shamans, 8 javelin
-  colossi, 6 jaguars, 6 manticores, 4 minotaurs, 4 shockwave colossi, Sol). Estimates to refine together. Each part lists the
+  Inferno, Fight Caves and Colosseum (14:05): from the Wiki's wave lists. Fight Caves: 48 Tz-Kih, 40 Tz-Kek
+  (+80 small from splits), 36 Tok-Xil, 34 Yt-MejKot, 33 Ket-Zek, Jad. Inferno: 210 nibblers, 48 bats, 40 blobs
+  (+120 small), 36 meleers, 34 rangers, 33 magers, 5 Jads, 4 healers, Zuk (Zuk-phase spawns and Jad healers left
+  out). Colosseum: waves 1-11 main spawns (11 Fremennik trios, 6 shamans, 13 javelin colossi, 11 manticores,
+  3 shockwave colossi), Sol; reinforcements (only after 40s on a wave) left out. Each part lists the
   styles worth using on it. Gauntlets are skipped (gear is made inside).
 - **Kill time** is HP / DPS, no downtime; for comparisons only.
 - **Guide player** for the kill-rate comparison: the setup's recommended levels, 90 in any combat skill it

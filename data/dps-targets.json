@@ -362,39 +362,31 @@
    "parts": [
     {
      "monster": "Fremennik warband archer",
-     "weight": 3
+     "weight": 11
     },
     {
      "monster": "Fremennik warband berserker",
-     "weight": 3
+     "weight": 11
     },
     {
      "monster": "Fremennik warband seer",
-     "weight": 3
+     "weight": 11
     },
     {
      "monster": "Serpent shaman",
-     "weight": 8
+     "weight": 6
     },
     {
      "monster": "Javelin Colossus",
-     "weight": 8
-    },
-    {
-     "monster": "Jaguar warrior",
-     "weight": 6
+     "weight": 13
     },
     {
      "monster": "Manticore",
-     "weight": 6
-    },
-    {
-     "monster": "Minotaur (Fortis Colosseum)",
-     "weight": 4
+     "weight": 11
     },
     {
      "monster": "Shockwave Colossus",
-     "weight": 4
+     "weight": 3
     },
     {
      "monster": "Sol Heredit",
@@ -405,7 +397,7 @@
     }
    ],
    "whole": true,
-   "note": "A first estimate of a full Fortis Colosseum run: roughly how many of each monster the 11 waves hold, then Sol Heredit. To refine."
+   "note": "A full Fortis Colosseum run from the Wiki's wave breakdown (waves 1-11, main spawns): 11 Fremennik trios, 6 serpent shamans, 13 javelin colossi, 11 manticores, 3 shockwave colossi, then Sol Heredit. Reinforcements (jaguar warriors, minotaurs, more shamans) only come when a wave takes over 40 seconds, so they're left out."
   },
   "spindel": {
    "name": "Spindel",
@@ -429,8 +421,12 @@
    "name": "TzKal-Zuk",
    "parts": [
     {
+     "monster": "Jal-Nib",
+     "weight": 210
+    },
+    {
      "monster": "Jal-MejRah",
-     "weight": 30,
+     "weight": 48,
      "styles": [
       "ranged",
       "magic"
@@ -438,15 +434,27 @@
     },
     {
      "monster": "Jal-Ak",
-     "weight": 25,
+     "weight": 40,
      "styles": [
       "ranged",
       "magic"
      ]
     },
     {
+     "monster": "Jal-AkRek-Ket",
+     "weight": 40
+    },
+    {
+     "monster": "Jal-AkRek-Mej",
+     "weight": 40
+    },
+    {
+     "monster": "Jal-AkRek-Xil",
+     "weight": 40
+    },
+    {
      "monster": "Jal-ImKot",
-     "weight": 20,
+     "weight": 36,
      "styles": [
       "ranged",
       "magic"
@@ -454,7 +462,7 @@
     },
     {
      "monster": "Jal-Xil",
-     "weight": 15,
+     "weight": 34,
      "styles": [
       "ranged",
       "magic"
@@ -462,7 +470,7 @@
     },
     {
      "monster": "Jal-Zek",
-     "weight": 10,
+     "weight": 33,
      "styles": [
       "ranged",
       "magic"
@@ -470,6 +478,14 @@
     },
     {
      "monster": "JalTok-Jad",
+     "weight": 5,
+     "styles": [
+      "ranged",
+      "magic"
+     ]
+    },
+    {
+     "monster": "Jal-MejJak",
      "weight": 4,
      "styles": [
       "ranged",
@@ -485,30 +501,34 @@
     }
    ],
    "whole": true,
-   "note": "A first estimate of a full Inferno: roughly how many of each monster the 69 waves hold (nibblers left out), then Zuk. To refine."
+   "note": "A full Inferno from the Wiki's wave list: 210 nibblers, 48 bats, 40 blobs (each splits into 3 small ones), 36 meleers, 34 rangers, 33 magers, 4 Jads, then Zuk with his Jad and 4 healers. The rangers and magers that keep spawning during Zuk, and the Jads' healers, are left out."
   },
   "tztok_jad": {
    "name": "TzTok-Jad",
    "parts": [
     {
      "monster": "Tz-Kih",
-     "weight": 30
+     "weight": 48
     },
     {
      "monster": "Tz-Kek#Level 45",
-     "weight": 30
+     "weight": 40
+    },
+    {
+     "monster": "Tz-Kek#Level 22",
+     "weight": 80
     },
     {
      "monster": "Tok-Xil#Standard",
-     "weight": 30
+     "weight": 36
     },
     {
      "monster": "Yt-MejKot#Standard",
-     "weight": 20
+     "weight": 34
     },
     {
      "monster": "Ket-Zek#Standard",
-     "weight": 15
+     "weight": 33
     },
     {
      "monster": "TzTok-Jad",
@@ -520,7 +540,7 @@
     }
    ],
    "whole": true,
-   "note": "A first estimate of a full Fight Caves run: roughly how many of each monster the 63 waves hold, then Jad. To refine."
+   "note": "A full Fight Caves run from the Wiki's wave list: 48 Tz-Kih, 40 Tz-Kek (each splits into 2 small ones), 36 Tok-Xil, 34 Yt-MejKot, 33 Ket-Zek, then Jad. Jad's healers are left out."
   },
   "vardorvis": {
    "name": "Vardorvis",
