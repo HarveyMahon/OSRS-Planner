@@ -34,7 +34,7 @@ export const SPECS = {
   'Eldritch nightmare staff': { cost: 55, type: 'magic', staffMax: 44 },
   'Volatile nightmare staff': { cost: 55, type: 'magic', acc: 1.5, staffMax: 58 },
   'Eye of Ayak': { cost: 50, type: 'magic', acc: 2, dmg: [1.3], speed: 5 },
-  "Zorya's tome": { cost: 50, type: 'magic', acc: 2.5, dmg: [1.6] },
+  "Zorya's tome": { cost: 50, type: 'magic', acc: 2.5, dmg: [1.6], zorya: true },   // a hit buffs the next 3 attacks the same, at 2 ticks
   'Webweaver bow': { cost: 50, type: 'ranged', acc: 2, dmg: [0.4], hits: 4 },
   'Burning claws': { cost: 35, type: 'slash', burning: true },
   'Crimson kisten': { cost: 50, type: 'crush', kisten: true },
@@ -118,6 +118,9 @@ function specHit(player, lo, monster, sp, opts) {
     const m2 = { ...monster, def: Math.max(monster.defFloor ?? 0, monster.def - Math.trunc(monster.magic / 8)) };
     const r2 = calc(player, lo, m2, style, null, { ...opts, spec: { acc: sp.acc } });
     dmg = r.perAttack + p * r2.perAttack + (1 - p) * r.perAttack;
+  } else if (sp.zorya) {      // Zorya's flow: if it hits, the next 3 tome attacks get +150% accuracy, +60% damage, 2 ticks each
+    dmg = r.perAttack + p * 3 * r.perAttack;
+    return { dmg, p, maxHit: M, secs: secs + p * 3 * 2 * TICK, avgOnHit: p ? r.perAttack / p : 0 };
   } else if (sp.fixedPct) {
     dmg = p * Math.max(1, Math.floor(M * sp.fixedPct));
   } else if (sp.eclipse) {

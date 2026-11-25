@@ -87,6 +87,9 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   Elder maul + kisten, 242s). Nex can be meleed (Harvey: Obligator and Inquisitor's should be best there).
   Zulrah: hits over 50 are rerolled to 45-50 (her mechanic), so big max hits count as 47.5 on average; she can
   only be meleed with a halberd, for attacks and specs (so a Crystal halberd spec, not Dragon claws).
+  Fixed 14:10: Zorya's tome (a "Powered Book") was treated as a melee weapon; it now attacks with magic (max hit
+  Magic/3 - 10, 3 ticks, +15% magic damage), and its spec buffs the next 3 attacks too (+150% accuracy, +60% damage,
+  2 ticks each) when it hits. It's now the spec Best Setup picks at Zulrah from 500M up.
 
 ## Next
 

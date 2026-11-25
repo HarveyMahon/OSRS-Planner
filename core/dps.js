@@ -94,7 +94,7 @@ const AUTOCAST_CATS = ['Staff', 'Bladed Staff', 'Polestaff'];
 export function attackStyles(weapon) {
   const cat = weapon?.category || 'Unarmed';
   if (RANGED_CATS.includes(cat)) return [ST('Accurate', 'ranged', 'accurate'), ST('Rapid', 'ranged', 'rapid')];
-  if (cat === 'Powered Staff' || cat === 'Powered Wand') return [ST('Accurate', 'magic', 'accurate')];
+  if (/^Powered/.test(cat)) return [ST('Accurate', 'magic', 'accurate')];          // powered staves, wands and books
   const melee = MELEE[cat] || [ST('Accurate', 'stab', 'accurate'), ST('Aggressive', 'slash', 'aggressive'), ST('Aggressive', 'crush', 'aggressive')];
   const styles = melee.filter(s => s.stance !== 'defensive');
   if (AUTOCAST_CATS.includes(cat)) styles.push(ST('Autocast', 'magic', 'autocast'));
