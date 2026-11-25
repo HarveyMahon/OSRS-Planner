@@ -143,6 +143,11 @@ t('slayer model', () => {
   const best = SL.bestMaster(data, acc, st, 'fastest');
   assert.equal(best.id, 'm'); assert.ok(Math.abs(best.rates.xpPerHr - 60000) < 1);
   assert.equal(SL.taskLocked({ requires: { slayer: 50 } }, acc, st), '50 Slayer');
+  assert.equal(SL.taskLocked({ requires: { unlock: 'Hot stuff' } }, acc, st), 'the Hot stuff unlock');          // unlocks count only when ticked
+  assert.equal(SL.taskLocked({ requires: { unlock: 'Hot stuff' } }, acc, SL.slayerSettings({ unlocks: { 'Hot stuff': true } })), null);
+  assert.equal(SL.blockSlotsFor(120, new Set(['lumbridge:elite'])), 3);
+  const td = { name: 'Tormented Demon', killsPerHr: 60, xpPerKill: 1, needs: { quests: [['while_guthix_sleeps']] } };
+  assert.equal(SL.methodsFor({ key: 'g' }, { variants: { g: [td] } }, acc, st, 'fastest', {}).length, 0);       // behind While Guthix Sleeps
 });
 const { unmet, describe } = await import('../core/requirements.js');
 t('unmet and describe', () => {

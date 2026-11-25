@@ -1,7 +1,8 @@
 // Slayer tab: choose a master and customise the task list. Settings are saved for the Goal Planner.
-import { loadFile } from '../core/data.js';
+import { loadFile, loadQuests } from '../core/data.js';
 import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
-import { slayerSettings, masterLocked, masterRates, planFor, bestMaster } from '../core/slayer.js';
+import { slayerSettings, masterLocked, masterRates, planFor, bestMaster, blockSlotsFor } from '../core/slayer.js';
+import { questPoints } from '../core/requirements.js';
 import { loadSlayer, saveSlayer } from '../core/slayer-store.js';
 
 const $ = id => document.getElementById(id);
@@ -34,11 +35,11 @@ function render() {
   if (s.master === 'auto') $('master').value = 'auto';
   for (const [el, v] of [['goal', s.goal], ['intensity', s.intensity || 'fastest']])
     document.querySelectorAll(`#${el} button`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
-  $('bracelet').value = s.bracelet; $('blocks').value = s.blockSlots;
+  $('bracelet').value = s.bracelet; $('blocks').value = s.blockSlots ?? ACCOUNT.blockSlots ?? 0; $('blocks').title = s.blockSlots == null ? 'From your quest points (one slot per 50)' : '';
   $('kourendElite').checked = !!s.diaries.kourendElite; $('westernElite').checked = !!s.diaries.westernElite;
   for (const id of ['cannon', 'wildernessMethods', 'bossVariants']) $(id).checked = !!s[id];
   const unlockNames = [...new Set(Object.values(DATA.masters).flatMap(m => m.tasks.map(t => t.requires?.unlock).filter(Boolean)))].sort();
-  $('unlocks').innerHTML = unlockNames.map(u => `<label><input type="checkbox" data-unlock="${esc(u)}"${s.unlocks[u] === false ? '' : ' checked'}> ${esc(u)}</label>`).join('');
+  $('unlocks').innerHTML = unlockNames.map(u => `<label><input type="checkbox" data-unlock="${esc(u)}"${s.unlocks[u] === true ? ' checked' : ''}> ${esc(u)}</label>`).join('');
 
   const c = current();
   if (!c) { $('summary').innerHTML = '<p class="muted">No master with rate data is available for this account yet (the rates start around Chaeldar and up).</p>'; $('rows').innerHTML = ''; done(); return; }
@@ -80,7 +81,9 @@ function override(kind, key, value) {
 }
 
 async function init() {
-  DATA = await loadFile('slayer.json');
+  const [d, q] = await Promise.all([loadFile('slayer.json'), loadQuests().catch(() => null)]);
+  DATA = d;
+  ACCOUNT.blockSlots = blockSlotsFor(q ? questPoints(ACCOUNT, q.quests) : 0, ACCOUNT.diaries);
   $('acct-note').innerHTML = hasAccount() ? 'Using your stats and quests from <a href="../account/">My Account</a>.' : 'Using a brand-new account. <a href="../account/">Enter your stats</a> to see what you can do.';
   $('master').addEventListener('change', e => { raw.master = e.target.value; save(); });
   for (const id of ['goal', 'intensity']) $(id).addEventListener('click', e => { if (e.target.dataset.v) { raw[id] = e.target.dataset.v; save(); } });

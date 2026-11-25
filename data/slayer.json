@@ -89,6 +89,14 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 5,
+      "quests": [
+       [
+        "priest_in_peril"
+       ]
+      ]
      }
     },
     {
@@ -124,6 +132,9 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 7
      }
     },
     {
@@ -154,6 +165,10 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "combat": 20
      }
     },
     {
@@ -466,6 +481,14 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 5,
+      "quests": [
+       [
+        "priest_in_peril"
+       ]
+      ]
      }
     },
     {
@@ -479,6 +502,13 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 25,
+      "combat": 25,
+      "skills": {
+       "Defence": 20
+      }
      }
     },
     {
@@ -530,6 +560,10 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "combat": 35
      }
     },
     {
@@ -543,6 +577,9 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 7
      }
     },
     {
@@ -623,6 +660,10 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 32,
+      "combat": 30
      }
     },
     {
@@ -653,6 +694,10 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 20,
+      "combat": 20
      }
     },
     {
@@ -683,6 +728,10 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "combat": 45
      }
     },
     {
@@ -764,6 +813,10 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "combat": 15
      }
     },
     {
@@ -794,6 +847,15 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "combat": 25,
+      "quests": [
+       [
+        "priest_in_peril"
+       ]
+      ]
      }
     },
     {
@@ -908,6 +970,15 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 37,
+      "combat": 50,
+      "quests": [
+       [
+        "ernest_the_chicken"
+       ]
+      ]
      }
     },
     {
@@ -2306,7 +2377,8 @@
       "skills": {
        "Agility": 60,
        "Strength": 60
-      }
+      },
+      "unlock": "Watch the birdie"
      }
     },
     {
@@ -2594,7 +2666,8 @@
        [
         "the_path_of_glouphrie"
        ]
-      ]
+      ],
+      "unlock": "Warped Reality"
      }
     },
     {
@@ -2620,7 +2693,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -4048,7 +4122,8 @@
       "skills": {
        "Agility": 60,
        "Strength": 60
-      }
+      },
+      "unlock": "Watch the birdie"
      }
     },
     {
@@ -4502,7 +4577,8 @@
      },
      "requires": {
       "slayer": 40,
-      "combat": 40
+      "combat": 40,
+      "unlock": "Basilocked"
      }
     },
     {
@@ -4525,7 +4601,8 @@
      },
      "requires": {
       "slayer": 40,
-      "combat": 40
+      "combat": 40,
+      "unlock": "Basilocked"
      }
     },
     {
@@ -4892,7 +4969,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -4920,7 +4998,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -4948,7 +5027,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -4976,7 +5056,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -4999,7 +5080,8 @@
        [
         "the_path_of_glouphrie"
        ]
-      ]
+      ],
+      "unlock": "Warped Reality"
      }
     },
     {
@@ -5513,7 +5595,12 @@
      },
      "requires": {
       "slayer": 1,
-      "combat": 75
+      "combat": 75,
+      "quests": [
+       [
+        "horror_from_the_deep"
+       ]
+      ]
      }
     },
     {
@@ -5612,7 +5699,7 @@
      },
      "requires": {
       "slayer": 1,
-      "combat": 70
+      "combat": 75
      }
     },
     {
@@ -5635,11 +5722,15 @@
      "requires": {
       "slayer": 51,
       "combat": 50,
+      "skills": {
+       "Sailing": 45
+      },
       "quests": [
        [
         "troubled_tortugans"
        ]
-      ]
+      ],
+      "unlock": "Wings Spread"
      }
     },
     {
@@ -5750,7 +5841,8 @@
       "skills": {
        "Agility": 60,
        "Strength": 60
-      }
+      },
+      "unlock": "Watch the birdie"
      }
     },
     {
@@ -5771,7 +5863,8 @@
      },
      "requires": {
       "slayer": 40,
-      "combat": 40
+      "combat": 40,
+      "unlock": "Basilocked"
      }
     },
     {
@@ -5895,17 +5988,17 @@
       "extend": false
      },
      "requires": {
-      "slayer": 1,
+      "slayer": 63,
       "combat": 60,
+      "skills": {
+       "Agility": 60,
+       "Strength": 60
+      },
       "quests": [
        [
         "death_plateau"
        ]
-      ],
-      "skills": {
-       "Agility": 60,
-       "Strength": 60
-      }
+      ]
      }
     },
     {
@@ -5949,7 +6042,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -5971,7 +6065,8 @@
        [
         "the_path_of_glouphrie"
        ]
-      ]
+      ],
+      "unlock": "Warped Reality"
      }
     },
     {
@@ -6017,7 +6112,8 @@
       "slayer": 78,
       "skills": {
        "Sailing": 73
-      }
+      },
+      "unlock": "Lured In"
      }
     },
     {
@@ -6096,6 +6192,9 @@
       "quests": [
        [
         "bone_voyage"
+       ],
+       [
+        "elemental_workshop_i"
        ]
       ]
      }
@@ -6116,6 +6215,18 @@
      "sheet": {
       "action": "locked",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "skills": {
+       "Sailing": 87
+      },
+      "combat": 85,
+      "quests": [
+       [
+        "dragon_slayer_i"
+       ]
+      ]
      }
     },
     {
@@ -6132,6 +6243,7 @@
      },
      "requires": {
       "slayer": 1,
+      "combat": 68,
       "quests": [
        [
         "dragon_slayer_i"
@@ -6156,6 +6268,15 @@
      "sheet": {
       "action": "do",
       "extend": false
+     },
+     "requires": {
+      "slayer": 72,
+      "combat": 70,
+      "quests": [
+       [
+        "elemental_workshop_i"
+       ]
+      ]
      }
     },
     {
@@ -6554,7 +6675,12 @@
      },
      "requires": {
       "slayer": 1,
-      "combat": 75
+      "combat": 75,
+      "quests": [
+       [
+        "horror_from_the_deep"
+       ]
+      ]
      }
     },
     {
@@ -6575,7 +6701,7 @@
      },
      "requires": {
       "slayer": 1,
-      "combat": 70
+      "combat": 75
      }
     },
     {
@@ -6662,7 +6788,8 @@
       "skills": {
        "Agility": 60,
        "Strength": 60
-      }
+      },
+      "unlock": "Watch the birdie"
      }
     },
     {
@@ -6770,6 +6897,7 @@
      },
      "requires": {
       "slayer": 1,
+      "combat": 68,
       "quests": [
        [
         "dragon_slayer_i"
@@ -6828,7 +6956,8 @@
        [
         "priest_in_peril"
        ]
-      ]
+      ],
+      "unlock": "Actual Vampyre Slayer"
      }
     },
     {
@@ -6866,7 +6995,8 @@
        [
         "the_path_of_glouphrie"
        ]
-      ]
+      ],
+      "unlock": "Warped Reality"
      }
     },
     {
@@ -6913,7 +7043,8 @@
      },
      "requires": {
       "slayer": 40,
-      "combat": 40
+      "combat": 40,
+      "unlock": "Basilocked"
      }
     },
     {
@@ -6953,11 +7084,15 @@
      "requires": {
       "slayer": 51,
       "combat": 50,
+      "skills": {
+       "Sailing": 45
+      },
       "quests": [
        [
         "troubled_tortugans"
        ]
-      ]
+      ],
+      "unlock": "Wings Spread"
      }
     },
     {
@@ -6975,6 +7110,15 @@
      "sheet": {
       "action": "skip",
       "extend": false
+     },
+     "requires": {
+      "slayer": 72,
+      "combat": 70,
+      "quests": [
+       [
+        "elemental_workshop_i"
+       ]
+      ]
      }
     },
     {
@@ -6994,17 +7138,17 @@
       "extend": false
      },
      "requires": {
-      "slayer": 1,
+      "slayer": 63,
       "combat": 60,
+      "skills": {
+       "Agility": 60,
+       "Strength": 60
+      },
       "quests": [
        [
         "death_plateau"
        ]
-      ],
-      "skills": {
-       "Agility": 60,
-       "Strength": 60
-      }
+      ]
      }
     },
     {
@@ -7068,7 +7212,8 @@
       "slayer": 78,
       "skills": {
        "Sailing": 73
-      }
+      },
+      "unlock": "Lured In"
      }
     },
     {
@@ -7120,6 +7265,9 @@
       "quests": [
        [
         "bone_voyage"
+       ],
+       [
+        "elemental_workshop_i"
        ]
       ]
      }
@@ -7140,6 +7288,18 @@
      "sheet": {
       "action": "locked",
       "extend": false
+     },
+     "requires": {
+      "slayer": 1,
+      "skills": {
+       "Sailing": 87
+      },
+      "combat": 85,
+      "quests": [
+       [
+        "dragon_slayer_i"
+       ]
+      ]
      }
     },
     {
@@ -7333,7 +7493,8 @@
       "skills": {
        "Agility": 60,
        "Strength": 60
-      }
+      },
+      "unlock": "Watch the birdie"
      }
     },
     {
@@ -8242,7 +8403,14 @@
     "travel": 35.0,
     "killsPerTrip": 40.0,
     "quality": 5.0,
-    "style": "melee"
+    "style": "melee",
+    "needs": {
+     "quests": [
+      [
+       "the_fremennik_exiles"
+      ]
+     ]
+    }
    },
    {
     "name": "Basilisk",
@@ -8437,7 +8605,14 @@
     "travel": 71.0,
     "killsPerTrip": 46.0,
     "quality": 5.0,
-    "style": "melee"
+    "style": "melee",
+    "needs": {
+     "quests": [
+      [
+       "monkey_madness_ii"
+      ]
+     ]
+    }
    }
   ],
   "blackknight": [
@@ -9557,6 +9732,13 @@
     "killsPerTrip": null,
     "quality": 3.0,
     "style": "melee",
+    "needs": {
+     "quests": [
+      [
+       "while_guthix_sleeps"
+      ]
+     ]
+    },
     "note": "More testing needed"
    }
   ],
@@ -10507,7 +10689,14 @@
     "travel": 10.0,
     "killsPerTrip": null,
     "quality": 4.0,
-    "style": "melee"
+    "style": "melee",
+    "needs": {
+     "quests": [
+      [
+       "sins_of_the_father"
+      ]
+     ]
+    }
    },
    {
     "name": "Venator",

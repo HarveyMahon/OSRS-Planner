@@ -65,6 +65,76 @@ for block in lst.split("\n|-"):
         if s: r.setdefault("skills", {})[skill] = int(s.group(1))
     reqs[norm(page)] = r
 
+# ---- per-master requirements (Wiki: <Master>/Slayer assignments "Unlock requirement" column) ----
+# The generic task list misses some (Frost dragons' 87 Sailing, Skeletal wyverns' 72 Slayer and Elemental Workshop I)
+# and the unlocks a master needs (Watch the birdie, Basilocked, Actual Vampyre Slayer), so a master's own page wins.
+WIKI_PAGE = {"konar": "konar_quo_maten"}
+def master_reqs(mid):
+    f = os.path.join(SRC, f"wiki_{WIKI_PAGE.get(mid, mid)}_slayer_assignments.txt")
+    if not os.path.exists(f): return {}
+    out = {}
+    text = open(f, encoding="utf-8").read()
+    heads = [h for h in re.findall(r"^!(.*)$", text, re.M)]
+    col = next((i for i, h in enumerate(heads) if "requirement" in h.lower()), None)
+    if col is None: return {}
+    for block in text.split("\n|-"):
+        lines = block.strip().split("\n")
+        if not lines or not lines[0].startswith("|[["): continue
+        m = re.match(r"\|\[\[([^\]|]+)(?:\|([^\]]+))?\]\](\w*)", lines[0])
+        if not m: continue
+        name = (m.group(2) or m.group(1)) + m.group(3)
+        if len(lines) <= col: continue
+        req_cell = lines[col]                        # the "Unlock requirement" column
+        r = {"slayer": 1}
+        for sk, lv in re.findall(r"\{\{SCP\|(\w+)\|(\d+)", req_cell):
+            if sk == "Slayer": r["slayer"] = int(lv)
+            elif sk == "Combat": r["combat"] = int(lv)
+            else: r.setdefault("skills", {})[sk] = int(lv)
+        un = re.search(r"(?i)unlocked the ''([^']+)''", req_cell)
+        if un: r["unlock"] = un.group(1)
+        txt = re.sub(r"\{\{Cite[^}]*\}\}", "", req_cell)
+        txt = re.sub(r"(?i)partial completion", "completion", txt)   # part of a quest (e.g. Dragon Slayer I): counted as the whole quest
+        qs = []
+        for part in re.split(r",| and ", re.sub(r"(?i).*?completion of", "", txt, count=1)) if re.search(r"(?i)completion of", txt) else []:
+            alts = [qbyname.get(re.sub(r"[^a-z0-9]", "", x.lower())) for x in re.findall(r"\[\[([^\]|]+)", part)]
+            alts = [a for a in alts if a]
+            if alts: qs.append(alts)
+        if qs: r["quests"] = qs
+        out[norm(name)] = r
+    return out
+
+# Reward unlocks a master needs before assigning a task (Wiki: Slayer Rewards, "will be able to assign ..."),
+# for the masters whose assignment pages we couldn't fetch
+UNLOCKS = {
+    "Watch the birdie": ("aviansie", {"konar", "duradel", "nieve", "chaeldar", "krystilia"}),
+    "Basilocked": ("basilisk", {"konar", "duradel", "nieve"}),
+    "Actual Vampyre Slayer": ("vampyre", {"konar", "duradel", "nieve", "chaeldar"}),
+    "Hot stuff": ("tzhaar", {"duradel", "nieve", "chaeldar"}),
+    "Reptile got ripped": ("lizardmen", {"konar", "duradel", "nieve", "chaeldar"}),
+    "Seeing red": ("reddragon", {"konar", "duradel", "nieve"}),
+    "Warped Reality": ("warpedcreature", {"konar", "duradel", "nieve", "chaeldar"}),
+    "Wings Spread": ("gryphon", {"nieve", "duradel"}),
+    "Lured In": ("aquanite", {"nieve", "duradel"}),
+}
+
+def merge_reqs(a, b):
+    """The task list's requirements plus the master page's: highest levels, all quests, the master's unlock."""
+    if not a or not b: return a or b
+    r = {"slayer": max(a.get("slayer", 1), b.get("slayer", 1))}
+    if a.get("combat") or b.get("combat"): r["combat"] = max(a.get("combat", 0), b.get("combat", 0))
+    sk = dict(a.get("skills", {}))
+    for k, v in b.get("skills", {}).items(): sk[k] = max(sk.get(k, 0), v)
+    if sk: r["skills"] = sk
+    qs = list(a.get("quests", []))
+    for q in b.get("quests", []):
+        if not any(set(q) & set(x) for x in qs): qs.append(q)
+    if qs: r["quests"] = qs
+    if b.get("unlock") or a.get("unlock"): r["unlock"] = b.get("unlock") or a.get("unlock")
+    return r
+
+VARIANT_QUESTS = [(r"^Tormented Demon", "while_guthix_sleeps"), (r"^Demonic Gorilla", "monkey_madness_ii"),
+                  (r"^Basilisk Knight", "the_fremennik_exiles"), (r"^Vyrewatch Sentinel", "sins_of_the_father")]
+
 # ---- variants (sheet: Mob Data) ----
 BOSSES = {norm(b["name"]) for b in json.load(open(os.path.join(ROOT, "data", "bosses.json")))["bosses"]} | {norm(x) for x in
           ("Inferno", "Fight Caves", "TzHaar-Ket-Rak", "Alchemical Hydra", "Cerberus", "Araxxor", "Kraken", "Thermonuclear smoke devil", "Grotesque Guardians", "Abyssal Sire", "Skotizo", "Vorkath", "Dagannoth Kings")}
@@ -83,6 +153,9 @@ for r in mob[1:]:
          "gpPerKillKonar": num(r[ix["GP/Kill (Konar)"]]), "gpPerKillKrystilia": num(r[ix["GP/Kill (Krystilia)"]]),
          "travel": num(r[ix["Travel Time"]]) or 0, "killsPerTrip": num(r[ix["Kills/Trip"]]), "quality": q, "style": style}
     if style == "magic": v["needs"] = {"skills": {"Magic": 70}, "quests": [["desert_treasure_i"]]}   # Ice Burst at 70, Barrage at 94
+    for pat, q in VARIANT_QUESTS:                     # methods behind a quest (Wiki: each monster's page)
+        if re.search(pat, name, re.I):
+            nd = v.setdefault("needs", {}); nd["quests"] = nd.get("quests", []) + [[q]]
     if "cannon" in (low + " " + note.lower()): v["cannon"] = True
     if "wild" in low: v["wilderness"] = True
     # The sheet's GP for a few variants is far off (e.g. bronze and iron dragons at ~160-290K a kill, from a
@@ -109,6 +182,7 @@ for mid, m in MASTERS.items():
     tab = rows("sheet_" + re.sub(r"[^a-z0-9]+", "_", m["sheet"].lower()).strip("_") + ".csv")
     hd = tab[0]; c = {h: i for i, h in enumerate(hd)}
     tasks = []
+    mreqs = master_reqs(mid)
     for r in tab[1:]:
         name = r[0].strip()
         if not name or re.search(r"weight|ratio|total|per hour|percentage", name, re.I): continue
@@ -128,7 +202,9 @@ for mid, m in MASTERS.items():
             a = num(r[c["Avg Task Length"]]); t["amount"] = [a, a]
         if "Variant" in c and r[c["Variant"]].strip(): t["sheetVariant"] = r[c["Variant"]].strip()
         t["sheet"] = {"action": action if action in ("do", "skip", "block", "locked") else "do", "extend": ext}
-        rq = reqs.get(norm(name)) or reqs.get(norm(name + "s"))
+        rq = merge_reqs(reqs.get(norm(name)) or reqs.get(norm(name + "s")), mreqs.get(norm(name)) or mreqs.get(norm(name + "s")))
+        un = next((u for u, (key, ms) in UNLOCKS.items() if key == norm(name) and mid in ms), None)
+        if un: rq = {**(rq or {"slayer": 1}), "unlock": (rq or {}).get("unlock") or un}
         if rq: t["requires"] = rq
         tasks.append(t)
     out_masters[mid] = {k: v for k, v in m.items() if k != "sheet"} | {"tasks": tasks}

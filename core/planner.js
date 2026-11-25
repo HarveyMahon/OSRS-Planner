@@ -18,12 +18,12 @@
 // gp on a step: positive = it costs that much, negative = it earns that much.
 
 import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
-import { isMet, describe, unmet } from './requirements.js';
+import { isMet, describe, unmet, questPoints } from './requirements.js';
 import { estimate, stageAt } from './training.js';
 import { bossMethod, guideMethod, setupOf, gearCost, gearEntry } from './money.js';
 import { withoutCombatLevels } from './rates.js';
 const RATE_AT_TOP = 8;
-import { bestMaster, slayerSettings } from './slayer.js';
+import { bestMaster, slayerSettings, blockSlotsFor } from './slayer.js';
 
 const INTENSITY_ORDER = { fastest: ['fastest', 'balanced', 'afk'], balanced: ['balanced', 'fastest', 'afk'], afk: ['afk', 'balanced', 'fastest'] };
 const COMBAT_HP = new Set(['Attack', 'Strength', 'Defence', 'Ranged']);
@@ -365,7 +365,8 @@ export function plan(goals, d) {
     const levels = [from];
     for (let L = from - (from % 5) + 5; L <= to; L += 5) levels.push(L);      // re-check every 5 Slayer levels
     for (const L of levels) {
-      const acc = { ...sim, xp: { ...sim.xp, Slayer: Math.max(sim.xp.Slayer || 0, xpForLevel(Math.min(L, 99))) } };
+      const acc = { ...sim, xp: { ...sim.xp, Slayer: Math.max(sim.xp.Slayer || 0, xpForLevel(Math.min(L, 99))) },
+                    blockSlots: blockSlotsFor(questPoints(sim, quests), sim.diaries) };
       const key = `${L}|${inten}|${['Magic', 'Strength', 'Defence', 'Ranged', 'Attack', 'Hitpoints', 'Prayer'].map(k => levelForXp(sim.xp[k] || 0)).join('.')}`;
       const prev = stages[stages.length - 1]?.slayerMaster;
       if (!slayerCache.has(key + prev)) slayerCache.set(key + prev, bestMaster(slayer.data, acc, settings, inten, prev));

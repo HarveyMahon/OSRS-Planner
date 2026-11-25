@@ -14,9 +14,13 @@ import { combatLevel } from './requirements.js';
 const lvl = (acc, s) => levelForXp(acc.xp?.[s] || 0);
 const quest = (acc, q) => acc.quests?.[q] === 'complete';
 
+/** Block slots the account has (Wiki, Slayer Rewards): one per 50 quest points, one more with the elite Lumbridge & Draynor diary. */
+export const blockSlotsFor = (qp, diaries) => Math.floor((qp || 0) / 50) + (diaries?.has?.('lumbridge:elite') ? 1 : 0);
+
 /** Settings with defaults. */
 export function slayerSettings(s = {}) {
-  return { master: 'auto', goal: 'xp', intensity: null, bracelet: 'none', blockSlots: 6,
+  // blockSlots null = what the account has: one per 50 quest points (+1 for the elite Lumbridge diary), from acc.blockSlots
+  return { master: 'auto', goal: 'xp', intensity: null, bracelet: 'none', blockSlots: null,
            unlocks: {}, diaries: {}, cannon: true, overrides: {}, ...s };
 }
 
@@ -30,14 +34,14 @@ export function masterLocked(m, acc) {
   return null;
 }
 
-/** Why the account can't be given this task (null if it can). Unlock purchases count as bought unless turned off. */
+/** Why the account can't be given this task (null if it can). Reward unlocks count only when ticked on the Slayer tab. */
 export function taskLocked(t, acc, settings) {
   const r = t.requires || {};
   if (r.slayer && lvl(acc, 'Slayer') < r.slayer) return `${r.slayer} Slayer`;
   if (r.combat && combatLevel(acc.xp || {}) < r.combat) return `combat ${r.combat}`;
   for (const [s, l] of Object.entries(r.skills || {})) if (lvl(acc, s) < l) return `${l} ${s}`;
   for (const any of r.quests || []) if (!any.some(q => quest(acc, q))) return 'a quest';
-  if (r.unlock && settings.unlocks?.[r.unlock] === false) return `the ${r.unlock} unlock`;
+  if (r.unlock && settings.unlocks?.[r.unlock] !== true) return `the ${r.unlock} unlock`;
   return null;
 }
 
@@ -170,7 +174,8 @@ export function suggestPlan(m, data, acc, settings, intensity) {
   for (const r of rows) if (r.ext && r.val > base) plan.extends[r.task] = true;
   // blocks: greedily, the task whose removal helps most
   const names = [...new Set(rows.map(r => r.task))];
-  for (let i = 0; i < settings.blockSlots; i++) {
+  const slots = settings.blockSlots ?? acc.blockSlots ?? 0;
+  for (let i = 0; i < slots; i++) {
     const now = rate(plan.actions, plan.extends).v; let best = null;
     for (const n of names) {
       if (plan.actions[n]) continue;
