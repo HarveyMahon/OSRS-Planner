@@ -20,7 +20,7 @@
 import { SKILLS, xpForLevel, levelForXp, MAX_LEVEL } from './xp.js';
 import { isMet, describe, unmet, questPoints } from './requirements.js';
 import { estimate, stageAt } from './training.js';
-import { bossMethod, guideMethod, setupOf, gearCost, gearEntry } from './money.js';
+import { bossMethod, guideMethod, setupOf, gearCost, gearEntry, viableRate } from './money.js';
 import { withoutCombatLevels } from './rates.js';
 const RATE_AT_TOP = 8;
 import { bestMaster, slayerSettings, blockSlotsFor } from './slayer.js';
@@ -252,7 +252,7 @@ export function plan(goals, d) {
       if (b.category === 'misc' || b.moneyMaker === false || b.taskOnly || (hideWild && b.wilderness)) continue;
       for (const s of b.setups) {
         const r = rateOf(b, s);
-        if (r ? !(r.kph > 0 && isMet(withoutCombatLevels(s.requires), sim, reqCtx)) : !isMet(s.requires, sim, reqCtx)) continue;
+        if (r ? !(viableRate(r) && isMet(withoutCombatLevels(s.requires), sim, reqCtx)) : !isMet(s.requires, sim, reqCtx)) continue;
         const m = methodOf(b, s.id);
         if (m.gpPerHr > 0) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: m.gpPerHr, wilderness: !!b.wilderness, b, s });
       }
@@ -262,9 +262,10 @@ export function plan(goals, d) {
       out.sort((a, b) => b.gpPerHr - a.gpPerHr);
       for (const o of out.slice(0, RATE_AT_TOP)) {
         const r = rateAt(o.b, o.s, sim.xp);
-        if (r?.kph > 0) o.gpPerHr = bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr;
+        if (r?.kph > 0) o.gpPerHr = viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
       }
     }
+    for (let i = out.length - 1; i >= 0; i--) if (out[i].gpPerHr <= 0) out.splice(i, 1);
     for (const o of out) { delete o.b; delete o.s; }
     for (const m of methods) {
       if (m.recurring || (hideWild && m.wilderness) || !isMet(m.requires, sim, reqCtx)) continue;

@@ -14,6 +14,14 @@
 
 import { defaultRun } from './loot.js';
 
+/**
+ * Is a kill rate from core/rates.js good enough to list the boss as a money maker? Your kill rate stands in for
+ * the guide's combat level requirements, but it only measures damage: survival and Defence aren't modelled.
+ * So a boss you'd kill at under half the guide's rate isn't offered (you're well short of what it expects).
+ */
+export const MIN_VIABLE_FACTOR = 0.5;
+export const viableRate = r => !!r && r.kph > 0 && r.factor >= MIN_VIABLE_FACTOR;
+
 export function applyOverride(setup, o) {
   if (!o) return setup;
   const removed = new Set(o.removed || []);

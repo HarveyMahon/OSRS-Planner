@@ -3,7 +3,7 @@
 // setup the account can do. Requirements include the guides' recommended levels for now.
 
 import { loadItems, loadBosses, loadQuests, loadMethods } from '../core/data.js';
-import { bossMethod, setupOf, guideMethod, gearList } from '../core/money.js';
+import { bossMethod, setupOf, guideMethod, gearList, viableRate } from '../core/money.js';
 import { isMet, unmet, describe } from '../core/requirements.js';
 import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
 import { getOverride, setOverride, resetOverride, withQty, withRemoved, withAdded } from '../core/overrides.js';
@@ -41,7 +41,7 @@ const rateOf = (b, s) => myRates() && b ? RATES[b.id]?.setups?.[s.id] : null;
 const meets = (s, b) => {
   if (!ACCOUNT) return true;
   const r = rateOf(b, s);
-  return r ? r.kph > 0 && isMet(withoutCombatLevels(s.requires), ACCOUNT, ctx()) : isMet(s.requires, ACCOUNT, ctx());
+  return r ? viableRate(r) && isMet(withoutCombatLevels(s.requires), ACCOUNT, ctx()) : isMet(s.requires, ACCOUNT, ctx());
 };
 const unmetOf = (s, b) => unmet(rateOf(b, s) ? withoutCombatLevels(s.requires) : s.requires, ACCOUNT, ctx());
 const method = (b, setupId) => {
@@ -63,7 +63,8 @@ function rows() {
     else {
       m = method(b, setupOf(b, chosen?.id).id);
       m.locked = unmetOf(setupOf(b, m.setup.id), b).map(r => describe(r, names()));
-      if (!m.locked.length && rateOf(b, setupOf(b, m.setup.id))) m.locked = ["gear that can damage it"];
+      const rt = rateOf(b, setupOf(b, m.setup.id));
+      if (!m.locked.length && rt) m.locked = [rt.kph > 0 ? 'a faster kill (with your best gear you\'d kill it at under half the guide\'s rate)' : 'gear that can damage it'];
     }
     return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, taskOnly: !!b.taskOnly, members: true };
   });
@@ -86,7 +87,7 @@ function render() {
   const list = inView.filter(r => !r.locked || f.showLocked);
   $('filter-note').innerHTML = ACCOUNT
     ? `Showing what your account can do: <b>${inView.filter(r => !r.locked).length}</b> of ${inView.length} methods. ${myRates()
-      ? 'Boss kill rates are scaled to how fast <i>you</i> kill each boss with your best gear (your bank plus your cash stack), and that replaces the guides\' recommended combat levels.'
+      ? 'Boss kill rates are scaled to how fast <i>you</i> kill each boss with your best gear (your bank plus your cash stack), and that replaces the guides\' recommended combat levels. A boss you\'d kill at under half the guide\'s rate isn\'t offered: kill rates only measure damage, not whether you\'d survive.'
       : "Levels include the Wiki guides' recommended levels."} <a href="../account/">Edit your stats</a>`
     : `Showing all ${inView.length} methods. <a href="../account/">Enter your stats</a> to see only what you can do.`;
   $('locked-toggle').hidden = !ACCOUNT;
