@@ -457,6 +457,7 @@ export function plan(goals, d) {
       steps.push({ kind: 'kc', bossId: b.id, name: b.name, n: m.n, unit: b.unit, setup: bm.setup.label, setupId: bm.setup.id, why: m.why,
                    setups: b.setups.map(s => ({ id: s.id, label: s.label, gearToBuy: gearToBuy(s) })), hours, gp,
                    gearMissing: (bm.setup.gear || []).filter(g => { const e = gearEntry(g); return e.keys.reduce((t, k) => t + (sim.owned[k] || 0), 0) < e.qty; }).map(g => { const e = gearEntry(g); return (e.qty > 1 ? `${e.qty} × ` : '') + (items[e.keys[0]]?.name || e.keys[0]); }),
+                   rate: rateOf(b, bm.setup), best: rates?.[b.id] ? { buy: rates[b.id].buy, cost: rates[b.id].cost } : null,
                    met: isMet(bm.setup.requires, sim, reqCtx) });
       sim.kc[b.id] = (sim.kc[b.id] || 0) + m.n;
       if (b.milestone?.reward) sim.owned[b.milestone.reward] = 1;

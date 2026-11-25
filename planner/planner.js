@@ -109,7 +109,9 @@ function stepHtml(s, i) {
 
 // Gear the chosen setup still needs (not owned or in the imported bank)
 function gearNote(s) {
-  if (!s.gearMissing?.length) return '';
+  const rate = s.rate ? `<div class="note">Your kill rate: ${Math.round(s.rate.kph * 10) / 10}/hr (${Math.round(s.rate.factor * 100)}% of the guide's), from your DPS with your best gear.</div>` : '';
+  if (s.best) return rate + `<div class="note">${s.best.buy.length ? `Fastest gear you can afford: buy ${s.best.buy.map(esc).join(', ')} (${gpShort(s.best.cost)})` : 'Your fastest gear is all in your bank already'} · <a href="../gear/">Best Setup</a></div>`;
+  if (!s.gearMissing?.length) return rate;
   const cost = s.setups.find(o => o.id === s.setupId)?.gearToBuy || 0;
   return `<div class="note">Gear to get${cost ? ` (${gpShort(cost)})` : ''}: ${s.gearMissing.map(esc).join(', ')}</div>`;
 }
