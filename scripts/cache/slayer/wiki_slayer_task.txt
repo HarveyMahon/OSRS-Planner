@@ -1,0 +1,1910 @@
+{{External|rs=Slayer assignment}}
+{{Has calculator|Calculator:Slayer/Slayer task weight|nogetext=1}}
+
+A '''Slayer assignment''' is given by a [[Slayer master]]. Killing the assigned monsters grants players [[Slayer]] [[experience]].
+
+For some monsters, players may also be able to access more exclusive locations when assigned them as a task. These monsters can only be killed as part of a slayer assignment; attempting to kill them without the required task will prevent the player from doing so. 
+
+Some monsters can only be killed using the [[Slayer]] skill. For a list of these monsters, see [[Slayer monsters]].
+
+==Task weighting==
+Task weighting is the system that Slayer masters use to assign Slayer assignments. Each possible assignment has a weight value — the higher this value, the more likely that task will be assigned. The percentage chance of getting assigned a given Slayer task can be calculated using the formula
+
+::<math>\left(\frac{w}{S} \times 100\right)\%</math>
+
+where <math>w</math> is the task's weight and <math>S</math> is the sum of all weights for the particular Slayer master that the player has the requirements to be assigned. This means that the weights of blocked tasks, tasks that are toggled off, and tasks that the player does not have the Slayer level or quest requirements for are not added to the sum <math>S</math>.
+
+For example, below is a hypothetical list of monsters that a Slayer master may assign:
+{| class="wikitable sticky-header"
+|-
+!Monster!!Task weight
+|-
+|[[Spiritual creature]]s||8
+|-
+|[[Dark beast]]||10
+|-
+|[[Slayer task/TzHaar|TzHaar]]||9
+|-
+|[[Slayer task/Abyssal demons|Abyssal demon]]||10
+|-
+|[[Slayer task/Aviansie|Aviansie]]||6
+|-
+|[[Metal dragons]]||14
+|-
+|}
+
+If a player has level 85 Slayer, and has not unlocked TzHaar and Aviansie tasks via [[Slayer reward point]]s, then the list will be filtered so that the player can only be assigned abyssal demons, spiritual creatures, and metal dragons. The player cannot boost their Slayer level to obtain a task above their base Slayer level; eating a wild pie to boost to 90 Slayer (which means dark beasts can be attacked) will not make that task available.
+
+In this case, the total weight would be 32. The player would have a 31.25% chance of being assigned abyssal demons, 25% chance for spiritual creatures and a 43.75% chance of being assigned metal dragons.
+
+==List of assignments==
+{{Cleanup|
+General cleanup needed
+* Locations column needs to be cleaned up
+** Several newer locations not listed
+** Some locations lists are too long (trim off irrelevant locations)
+** Include significant 'alternative' locations; e.g. omitting Kourend catacombs because Spectres are named slightly differently is counterproductive
+}}
+
+'''Note:''' Tasks assigned by [[Konar]] or [[Krystilia]] '''must''' be killed in their assigned locations in order to count towards their task.
+
+{| class="wikitable sortable align-center-9 sticky-header" 
+!{{SCP|Slayer}}
+!Task
+!Superiors and alternatives
+!Location
+!Required Items
+!Other requirements
+!style="width:150px;"|[[Slayer master]](s)
+|-
+|60
+|[[Slayer task/Aberrant spectres|Aberrant spectres]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Abhorrent spectre]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}}  '''[[Repugnant spectre]]'''
+* [[Deviant spectre]]
+|
+* [[Slayer Tower]]
+* [[Stronghold Slayer Cave]]
+* [[Catacombs of Kourend]]
+* [[Deepfin Mine]]
+|
+* {{plink|Nose peg}}
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|65}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|85
+|[[Slayer task/Abyssal demons|Abyssal demons]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Greater abyssal demon]]'''
+* [[Abyssal Sire]]
+|
+* [[Slayer Tower]]
+* [[Abyssal Area]]
+* [[Catacombs of Kourend]]
+* [[Wilderness Slayer Cave]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]] or [[Fairytale II - Cure a Queen]]
+* {{SCP|Combat|85}}
+|{{chatlp|Krystilia}}{{efn|name=UnlockW|Task must be unlocked with [[Slayer reward point]]s to be assigned by Krystilia.}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Ankou|Ankou]]
+|{{NA}}
+|
+* [[Stronghold of Security]]
+* [[The Forgotten Cemetery]]
+* [[Wilderness Slayer Cave]]
+* [[Stronghold Slayer Cave]]
+* [[Catacombs of Kourend]]
+|{{NA}}
+|
+* {{SCP|Combat|40}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}} {{chatlp|Konar}}{{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|78
+|[[Slayer task/Aquanites|Aquanites]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Elder Aquanite]]'''
+|
+* [[Ynysdail Cavern]]
+|{{NA}}
+|
+* {{SCP|Sailing|73}}
+|{{chatlp|Mortimer}}<br/>{{chatlp|Nieve}} {{chatlp|Duradel}}{{efn|name=UnlockND|Task must be unlocked with [[Slayer reward point]]s to be assigned by Nieve and Duradel.}}
+|-
+|92
+|[[Slayer task/Araxytes|Araxytes]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Dreadborn Araxyte]]'''
+* [[Araxxor]]
+|
+* [[Morytania Spider Cave]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+|{{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Aviansie|Aviansie]]
+|
+* [[Kree'arra]]
+* [[Flight Kilisa]]
+* [[Flockleader Geerin]]
+* [[Wingman Skree]]
+|
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+|
+* Distanced attacks
+** {{SCP|Ranged|link=yes}}
+** {{SCP|Magic|link=yes}}
+** {{plink|Halberd|pic=Noxious halberd}}
+|
+* {{SCP|Strength|60}} or {{SCP|Agility|60}}
+* [[Watch the birdie]]
+|{{chatlp|Krystilia}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Bandits|Bandits]]
+|
+* [[Black Heather]]
+* [[Speedy Keith]]
+* [[Donny the lad]]
+|
+* [[Bandit Camp]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|40}}
+|{{chatlp|Krystilia}}
+|-
+|15
+|[[Slayer task/Banshees|Banshees]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Screaming banshee]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Screaming twisted banshee]]'''
+* [[Twisted Banshee]]
+|
+* [[Slayer Tower]]
+* [[Catacombs of Kourend]]
+|
+* {{plink|Earmuffs}}
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|20}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}} {{chatlp|Mortimer}}
+|-
+|40
+|[[Slayer task/Basilisks|Basilisks]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Monstrous basilisk]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Basilisk Sentinel]]'''
+* [[Basilisk Knight]]s
+|
+* [[Fremennik Slayer Dungeon]]
+* [[jormungand's Prison]]
+|
+* {{plink|Mirror shield}}
+** {{plink|V's shield}}
+|
+* {{SCP|Combat|40}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Mortimer}}<br/>{{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}{{efn|name=UnlockKND|Task must be unlocked with [[Slayer reward point]]s to be assigned by Konar, Nieve and Duradel.}}
+|-
+|1
+|[[Slayer task/Bats|Bats]]
+|
+* [[Giant bat]]
+* [[Albino bat]]
+* [[Deathwing]]
+|
+* [[Paterdomus]]
+* [[Morytania]]
+* [[Coal Trucks]]
+|{{NA}}
+|
+* {{SCP|Combat|5}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|1
+|[[Slayer task/Bears|Bears]]
+|
+* [[Black bear]]
+* [[Grizzly bear]]
+* [[Grizzly bear cub]]
+* [[Callisto]]
+* [[Artio]]
+|
+* [[East Ardougne]]
+* south of [[Varrock]]
+* south-east of [[Rellekka]] house portal
+|{{NA}}
+|
+* {{SCP|Combat|13}}
+|{{chatlp|Krystilia}} {{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|1
+|[[Slayer task/Birds|Birds]]
+|
+* [[Bird]]
+* [[Chicken]]
+* [[Mounted terrorbird gnome]]
+* [[Rooster]]
+* [[Seagull]]
+* [[Terrorbird]]
+* [[Vulture]]
+* [[Undead chicken]]
+* [[Chompy bird|Chompy Bird]]
+|
+* Various locations throughout Gielinor
+|{{NA}}
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Black demons|Black demons]]
+|
+* [[Demonic gorilla]]
+* [[Balfrug Kreeyath]]
+* [[Skotizo]]
+* [[Porazdir]]
+|
+* [[Taverley Dungeon]]
+* [[Edgeville Dungeon]]
+* [[Brimhaven Dungeon]]
+* [[Catacombs of Kourend]]
+* [[Crash Site Cavern]]
+* [[Wilderness Slayer Cave]]
+* [[Chasm of Fire]] (Bottom level)
+* [[Charred Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|80}}
+|{{chatlp|Krystilia}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Black dragons|Black dragons]]{{efn|name=Exception|The King Black Dragon does '''not''' count towards a black dragon task assigned by Krystilia.}}
+|
+* [[Baby black dragon]]
+* [[King Black Dragon]]
+* [[Brutal black dragon]]
+|
+* [[Taverley Dungeon]]
+* Beneath [[Lava Maze]]
+* [[Evil Chicken's Lair]]
+|
+* [[Dragonfire|Fire protection]] except for baby dragons
+** {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Quest}} [[Dragon Slayer I]] (partially)
+* {{SCP|Combat|80}}
+|{{chatlp|Krystilia}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Black Knight]]s
+|{{NA}}
+|
+* [[Lava Maze]]
+* North of [[Venenatis]]
+* [[Taverley Dungeon]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|50
+|[[Slayer task/Bloodvelds|Bloodvelds]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Insatiable Bloodveld]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Insatiable mutated Bloodveld]]'''
+* [[Mutated Bloodveld]]
+|
+* [[Slayer Tower]]
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+* [[Meiyerditch Laboratories]]
+* [[Stronghold Slayer Cave]]
+* [[Catacombs of Kourend]]
+* [[Iorwerth Dungeon]]
+* [[Buccaneers' Laboratory]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|50}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Blue dragons|Blue dragons]]
+|
+* [[Baby blue dragon]]
+* [[Brutal blue dragon]]
+* [[Vorkath]]
+|
+* [[Taverley Dungeon]]
+* [[Ogre Enclave]]
+* [[Heroes' Guild]]
+* [[Corsair Cove Dungeon]]
+* [[Ruins of Tapoyauik]]
+* [[Catacombs of Kourend]]
+* [[Dragon Nest]]
+* [[Isle of Souls Dungeon]]
+* [[Ungael]]
+|
+* [[Dragonfire|Fire protection]] except for baby dragons
+** {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Quest}} [[Dragon Slayer I]] (partially)
+* {{SCP|Combat|65}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|47
+|[[Slayer task/Brine rats|Brine rats]]
+|{{NA}}
+|
+* [[Brine Rat Cavern]]
+|
+* {{plink|Spade}} to enter the cave
+|
+* {{SCP|Quest}} [[Olaf's Quest]]
+* {{SCP|Combat|45}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}}
+|-
+|1
+|[[Catablepon]]
+|{{NA}}
+|
+* [[Stronghold of Security]]
+|{{NA}}
+|
+* {{SCP|Combat|35}}
+|{{chatlp|Mazchna}}
+|-
+|7
+|[[Cave bug]]s
+|{{NA}}
+|
+* [[Lumbridge Swamp Caves]]
+* [[Dorgesh-Kaan South Dungeon]]
+|
+* {{plink|Bullseye lantern (lit)}}
+** {{ilink|Fire of Eternal Light}}
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|10
+|[[Slayer task/Cave crawlers|Cave crawlers]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Chasm Crawler]]'''
+|
+* [[Fremennik Slayer Dungeon]]
+* [[Lumbridge Swamp Caves]]
+* [[Dorgesh-Kaan South Dungeon]]
+* [[Ruins of Tapoyauik]]
+|{{NA}}
+|
+* {{SCP|Combat|10}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}} {{chatlp|Mortimer}}
+|-
+|58
+|[[Slayer task/Cave horrors|Cave horrors]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Cave abomination]]'''
+|
+* [[Mos Le'Harmless Cave]]
+|
+* {{plink|Witchwood icon}}
+* {{plink|Bullseye lantern (lit)}}
+** {{ilink|Fire of Eternal Light}}
+|
+* {{SCP|Quest}} [[Cabin Fever]]
+* {{SCP|Combat|85}}
+|{{chatlp|Chaeldar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|17
+|[[Slayer task/Cave slimes|Cave slimes]]
+|{{NA}}
+|
+* [[Lumbridge Swamp Caves]]
+* [[Dorgesh-Kaan South Dungeon]]
+|
+* {{plink|Bullseye lantern (lit)}}
+** {{ilink|Fire of Eternal Light}}
+|
+* {{SCP|Combat|15}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|87
+|[[Slayer task/Cave krakens|Cave kraken]]
+|
+* [[Kraken]]
+|
+* [[Kraken Cove]]
+|{{NA}}
+|
+* {{SCP|Combat|80}}
+* {{SCP|Magic|50}}
+|{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Chaos druid]]s
+|
+* [[Elder Chaos druid]]
+|
+* [[Edgeville Dungeon]]
+* [[Chaos Temple]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|25
+|[[Cockatrice]]s
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Cockathrice]]'''
+* [[Moonlight Cockatrice]]
+|
+* [[Fremennik Slayer Dungeon]]
+|
+* {{plink|Mirror shield}}
+** {{plink|V's shield}}
+|
+* {{SCP|Combat|25}}
+* {{SCP|Defence|20}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Cows|Cows]]
+|
+* [[Cow calf]]
+* [[Undead cow]]
+* [[Buffalo]]
+* [[Brutus]]
+|
+* South of [[Falador]]
+* North of [[Al Kharid]] gate
+* Various locations
+|{{NA}}
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Crabs|Crabs]]
+|
+* [[Ammonite Crab]]
+* [[Frost Crab]]
+* [[King Sand Crab]]
+* [[Rock Crab]]
+* [[Sand Crab]]
+* [[Swamp Crab]]
+|
+* [[Fossil Island]]
+* [[Ruins of Tapoyauik]]
+* north of [[Rellekka]]
+* [[Waterbirth Island]]
+* West of [[Mount Quidamortem]]
+* [[Isle of Souls]]
+* [[Crabclaw Isle]]
+* Various locations
+|{{NA}}
+|{{NA}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}}
+|-
+|5
+|[[Crawling Hand]]s
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Crushing hand]]'''
+|
+* [[Slayer Tower]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Crocodiles|Crocodiles]]
+|{{NA}}
+|
+* Near [[River Elid|Elid]]
+* Southern shore of [[Kharidian Desert]]
+|{{NA}}
+|
+* {{SCP|Combat|50}}
+|{{chatlp|Vannaka}}
+|-
+|54
+|[[Slayer task/Custodian stalker|Custodian stalkers]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Ancient Custodian]]'''
+* [[Juvenile custodian stalker]]
+* [[Mature custodian stalker]]
+* [[Elder custodian stalker]]
+|
+* [[Stalker Den]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Shadows of Custodia]]
+|{{chatlp|Chaeldar}} {{chatlp|Nieve}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Dagannoth|Dagannoth]]
+|
+* [[Dagannoth fledgeling]]
+* [[Dagannoth spawn]]
+* [[Dagannoth Prime]]
+* [[Dagannoth Rex]]
+* [[Dagannoth Supreme]]
+|
+* [[Lighthouse]]
+* [[Waterbirth Island Dungeon]]
+* [[Catacombs of Kourend]]
+* [[Jormungand's Prison]]
+|{{NA}}
+|
+* {{SCP|Combat|75}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|90
+|[[Slayer task/Dark beast|Dark beasts]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Night beast]]'''
+|
+* Path to [[Temple of Light]] ([[Mourner tunnels]])
+* [[Iorwerth Dungeon]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Mourning's End Part II]] (partially)
+* {{SCP|Combat|90}}
+|{{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Dark warrior]]s
+|{{NA}}
+|
+* [[Dark Warriors' Fortress]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|1
+|[[Slayer task/Dogs|Dogs]]
+|
+* [[Guard dog]]
+* [[Wild dog]]
+* [[Jackal]]
+* [[Temple Guardian]]
+|
+* [[Ardougne]]
+* [[McGrubor's Wood]]
+* [[Black Arm Gang]] hideout in [[Brimhaven]]
+* [[Brimhaven Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|15}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|84
+|[[Slayer task/Drake|Drakes]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Guardian Drake]]'''
+|
+* [[Karuulm Slayer Dungeon]]
+|
+* {{plink|Boots of stone}}
+** {{plink|Boots of Brimstone}}
+** {{plink|Granite boots}}
+** {{SCP|Diary}} [[Elite Kourend Diary]]{{efn|name=Elite Kourend|Boots of stone and its derivatives are not required with completion of the [[elite Kourend & Kebos Diary]].}}
+|
+* {{SCP|Combat|90}}
+|{{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|65
+|[[Slayer task/Dust devils|Dust devils]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Choke devil]]'''
+|
+* [[Smoke Dungeon]]
+* [[Catacombs of Kourend]]
+* [[Wilderness Slayer Cave]]
+|
+* {{plink|Facemask}}
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Quest}} [[Desert Treasure I]] (partially)
+* {{SCP|Combat|70}}
+|{{chatlp|Krystilia}}{{efn|name=UnlockW}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Dwarves|Dwarves]]
+|
+* [[Black Guard]]
+* [[Chaos dwarf]]
+|
+* [[Ice Mountain]]
+* [[Mining Guild]]
+* [[Keldagrim]]
+* [[Dwarven Mine]]
+* Beneath [[White Wolf Mountain]]
+* south of [[Yanille]]
+|{{NA}}
+|
+* {{SCP|Combat|6}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Earth warriors|Earth Warriors]]
+|{{NA}}
+|
+* [[Edgeville Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|35}}
+|{{chatlp|Krystilia}}
+|-
+|1
+|[[Slayer task/Elves|Elves]]
+|
+* [[Mourner]] (Lvl 108 variant only)
+|
+* [[Lletya]]
+* [[Iorwerth Camp]]
+* [[Prifddinas]]
+* [[Iorwerth Dungeon]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Regicide]]
+* {{SCP|Combat|70}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Ent]]s
+|{{NA}}
+|
+* Forests north and east of the [[Chaos Temple]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|42
+|[[Fever spider]]s
+|{{NA}}
+|
+* [[Braindeath Island]] (brewery basement)
+|
+* {{plink|Slayer gloves}}
+|
+* {{SCP|Quest}} [[Rum Deal]] (partially)
+* {{SCP|Combat|40}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}}
+|-
+|1
+|[[Slayer task/Fire giants|Fire giants]]
+|
+* [[Branda the Fire Queen]]
+|
+* [[Brimhaven Dungeon]]
+* [[Deep Wilderness Dungeon]]
+* [[Smoke Dungeon]]
+* [[Waterfall Dungeon]]
+* [[Stronghold Slayer Cave]]
+* [[Catacombs of Kourend]]
+|{{NA}}
+|
+* {{SCP|Combat|65}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Flesh Crawler]]s
+|{{NA}}
+|
+* [[Stronghold of Security]] (level 2)
+|{{NA}}
+|
+* {{SCP|Combat|15}}
+|{{chatlp|Mazchna}}
+|-
+|66
+|[[Slayer task/Fossil Island wyverns|Fossil Island Wyverns]]
+|
+* [[Ancient wyvern]]
+* [[Spitting wyvern]]
+* [[Taloned wyvern]]
+* [[Long-tailed wyvern]]
+|
+* [[Wyvern Cave]]
+|
+* {{plink|Elemental shield}}
+** {{plink|Mind shield}}
+** {{plink|Ancient wyvern shield}}
+** {{plink|Dragonfire shield}}
+** {{plink|Dragonfire ward}}
+|
+* {{SCP|Quest}} [[Bone Voyage]]
+* {{SCP|Combat|60}}
+|{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Frost dragon]]s
+|{{NA}}
+|
+* [[Grimstone Dungeon]]
+|
+* {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Combat|85}}
+* {{SCP|Sailing|87}}
+|{{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|75
+|[[Slayer task/Gargoyles|Gargoyles]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Marble gargoyle]]'''
+* [[Grotesque Guardians]]
+|
+* [[Slayer Tower]]
+|
+* {{plink|Rock hammer}}
+** {{plink|Rock thrownhammer}}
+** {{plink|Granite hammer}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|80}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Ghosts|Ghosts]]
+|
+* [[Tortured soul]]
+|
+* [[Varrock Sewers]]
+* [[Draynor Manor]]
+* [[Melzar's Maze]]
+* [[Stronghold of Security]]
+* [[Taverley Dungeon]]
+* [[West Ardougne]] (graveyard)
+* [[Scorpius Shrine]]
+* [[Lair of Tarn Razorlor (dungeon)|Lair of Tarn Razorlor]]
+* [[Death Altar]]
+* [[Haunted Mine]]
+* Near [[Clan Wars]]
+* [[Forgotten Cemetery]]
+* [[Catacombs of Kourend]]
+|{{NA}}
+|
+* {{SCP|Combat|13}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|1
+|[[Ghoul]]s
+|{{NA}}
+|
+* West of [[Canifis]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|25}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Goblins|Goblins]]
+|
+* [[Sergeant Strongstack]]
+* [[Sergeant Grimspike]]
+* [[Sergeant Steelwill]]
+* [[Cave goblin (monster)|Cave Goblin]]
+|
+* [[Lumbridge Caves]]
+* [[Goblin Village]]
+* [[Port Sarim]]
+* Around the [[Digsite]]
+* [[Stronghold of Security]]
+* [[Underground Pass (dungeon)|Underground Pass]]
+* [[Goblin Cave]]
+* [[Coal Trucks]]
+* Holes in [[Myreque Hideout]] in [[Mort Myre]]
+* [[God Wars Dungeon]] ([[General Graardor|Bandos God Wars minions]])
+* Cave near [[Observatory]]
+* Various locations
+|{{NA}}
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Greater demons|Greater demons]]
+|
+* [[K'ril Tsutsaroth]]
+* [[Tstanon Karlak]]
+* [[Skotizo]]
+* [[Tormented Demon|Tormented Demons]]
+|
+* [[Entrana Dungeon]]
+* [[Brimhaven Dungeon]]
+* [[Ogre Enclave]]
+* [[Demonic Ruins]]
+* [[Blighted Volcano]]
+* [[Lava Maze Dungeon]]
+* [[Catacombs of Kourend]]
+* [[Isle of Souls Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|70}}
+|{{chatlp|Krystilia}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Green dragons|Green dragons]]
+|
+* [[Baby green dragon]]
+* [[Brutal green dragon]]
+* [[Elvarg]] 
+|
+* West of the [[Dark Warriors' Fortress]]
+* north of the [[Graveyard of Shadows]]
+* South of the [[Lava Maze]]
+* East of the [[Black salamander (Hunter)|black salamander]] hunting area
+|
+* [[Dragonfire|Fire protection]] except for baby dragons
+** {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Quest}} [[Dragon Slayer I]] (partially)
+* {{SCP|Combat|52}}
+|{{chatlp|Krystilia}}
+|-
+|51
+|[[Slayer task/Gryphons|Gryphons]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Dire gryphon|Dire Gryphon]]'''
+* [[Shellbane gryphon]]
+|
+* The Great Conch, north of [[The Summer Shore]]
+|
+* {{plink|Tortugan shield}}
+|
+* {{SCP|Quest}} [[Troubled Tortugans]]
+* {{SCP|Combat|50}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Mortimer}}<br/>{{chatlp|Nieve}} {{chatlp|Duradel}}{{efn|name=UnlockND}}
+|-
+|33
+|[[Harpie bug swarm]]s
+|{{NA}}
+|
+* [[Karamja]]
+* East of the [[Colossal Wyrm Remains]]
+|
+* {{plink|Lit bug lantern}}
+|
+* {{SCP|Combat|45}}
+* {{SCP|Firemaking|33}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Hellhounds|Hellhounds]]
+|
+* [[Cerberus]]
+|
+* [[Taverley Dungeon]]
+* East of the [[Deserted Keep]]
+* [[Karuulm Slayer Dungeon]]
+* [[Witchaven Shrine Dungeon]]
+* [[God Wars Dungeon]]
+* [[Blighted Volcano]]
+* [[Stronghold Slayer Cave]]
+* [[Catacombs of Kourend]]
+|{{NA}}
+|
+* {{SCP|Combat|75}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Hill giants|Hill Giants]]
+|
+* [[Cyclops]]
+* [[Obor]]
+|
+* [[Deep Wilderness Dungeon]]
+* [[Edgeville Dungeon]]
+* [[Gnome Stronghold]]
+* [[Lava Maze]]
+* North of [[Observatory]]
+* [[Taverley Dungeon]]
+* [[Tree Gnome Village (location)|Tree Gnome Village]]
+* [[Wilderness]]
+* [[Catacombs of Kourend]]
+|{{NA}}
+|
+* {{SCP|Combat|25}}
+|{{chatlp|Krystilia}} {{chatlp|Mazchna}} {{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Hobgoblins|Hobgoblins]]
+|{{NA}}
+|
+* [[Asgarnian Ice Dungeon]]
+* [[Crandor]]
+* [[Hobgoblin Peninsula]] near [[Crafting Guild]]
+* [[The Dibber]] near [[Hosidius]]
+* [[Edgeville Dungeon]]
+* [[God Wars Dungeon]]
+* Near [[Karamja Hunter area]]
+* north of [[Outpost]]
+* north of [[Rellekka]]
+* [[Tree Gnome Village dungeon]]
+* [[Waterbirth Island]]
+* Wilderness [[Hobgoblin Mine]]
+* [[Witchaven Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|20}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}}
+|-
+|95
+|[[Slayer task/Hydras|Hydras]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Colossal Hydra]]'''
+* [[Alchemical Hydra]]
+|
+* [[Karuulm Slayer Dungeon]]
+|
+* {{plink|Boots of stone}}
+** {{plink|Boots of Brimstone}}
+** {{plink|Granite boots}}
+** {{SCP|Diary}} [[Elite Kourend Diary]]{{efn|name=Elite Kourend|Boots of stone and its derivatives are not required with completion of the [[elite Kourend & Kebos Diary]].}}
+|{{NA}}
+|{{chatlp|Konar quo Maten}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Icefiend]]s
+|{{NA}}
+|
+* [[Ice Mountain]]
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|20}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Ice giants|Ice giants]]
+|
+* [[Eldric the Ice King]]
+|
+* [[Asgarnian Ice Caves]]
+* [[Frozen Waste Plateau]]
+* [[White Wolf Mountain]]
+|{{NA}}
+|
+* {{SCP|Combat|50}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}}
+|-
+|1
+|[[Ice warrior]]s
+|
+* [[Icelord]]
+|
+* [[White Wolf Mountain]]
+* [[Frozen Waste Plateau]]
+* [[Asgarnian Ice Caves]]
+|{{NA}}
+|
+* {{SCP|Combat|45}}
+|{{chatlp|Krystilia}} {{chatlp|Mazchna}} {{chatlp|Vannaka}}
+|-
+|45
+|[[Infernal Mage]]s
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Malevolent Mage]]'''
+|
+* [[Slayer tower]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|40}}
+|{{chatlp|Vannaka}} {{chatlp|Mortimer}}
+|-
+|52
+|[[Slayer task/Jellies|Jellies]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Vitreous Jelly]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Vitreous Warped Jelly]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Vitreous Chilled Jelly]]'''
+* [[Warped Jelly]]
+* [[Chilled jelly]]
+|
+* [[Fremennik Slayer Dungeon]]
+* [[Ruins of Tapoyauik]]
+* [[Catacombs of Kourend]]
+* [[Wilderness Slayer Cave]]
+* [[Grimstone Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|57}}
+|{{chatlp|Krystilia}}{{efn|name=UnlockW}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Jungle horror]]s
+|{{NA}}
+|
+* [[Mos Le'Harmless]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Cabin Fever]]
+* {{SCP|Combat|65}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} 
+|-
+|1
+|[[Slayer task/Kalphites|Kalphites]]
+|
+* [[Kalphite Queen]]
+* [[Kalphite Worker]]
+* [[Kalphite Soldier]]
+* [[Kalphite Guardian]]
+|
+* [[Kalphite Lair]]
+* [[Kalphite Cave]]
+|{{NA}}
+|
+* {{SCP|Combat|15}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|37
+|[[Killerwatt]]s
+|{{NA}}
+|
+* [[Killerwatt plane]]
+|{{plink|Insulated boots}}
+|
+* {{SCP|Quest}} [[Ernest the Chicken]]
+* {{SCP|Combat|50}}
+|{{chatlp|Mazchna}}
+|-
+|70
+|[[Slayer task/Kurask|Kurask]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[King kurask]]'''
+|
+* [[Fremennik Slayer Dungeon]]
+* [[Iorwerth Dungeon]]
+* [[Kurask Lair]]
+|
+* {{plinkp|Leaf-bladed sword}} {{plinkp|Leaf-bladed battleaxe}} {{plinkp|Leaf-bladed spear}} [[Leaf-bladed weapons]]
+** {{plink|Magic Dart}}
+** {{plink|Broad arrows}}
+** {{plinkp|Amethyst broad bolts}} {{plink|Broad bolts}}
+|
+* {{SCP|Combat|65}}
+* Ability to use [[Leaf-bladed weapons]]
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Duradel}} {{chatlp|Nieve}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Lava dragon]]s
+|{{NA}}
+|
+* [[Lava Dragon Isle]]
+|
+* {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Quest}} [[Dragon Slayer I]] (partially)
+|{{chatlp|Krystilia}}
+|-
+|1
+|[[Slayer task/Lesser demon|Lesser demons]]
+|
+* [[Zakl'n Gritch]]
+|
+* [[Wizards' Tower]]
+* [[Karamja Dungeon]]
+* [[Crandor]]
+* [[Melzar's Maze]]
+* [[Demonic Ruins]]
+* [[Lava Maze]]
+* [[Catacombs of Kourend]]
+* [[Chasm of Fire]]
+|{{NA}}
+|
+* {{SCP|Combat|60}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}}
+|-
+|48
+|[[Slayer task/Lesser Nagua|Lesser Nagua]]
+|
+* [[Amoxliatl]]
+* [[Sulphur Nagua]]
+* [[Frost Nagua]]
+* [[Earthen Nagua]]
+|
+* [[Neypotzli]]
+* [[Ruins of Tapoyauik]]
+* [[Tonali Cavern]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Perilous Moons]]
+* {{SCP|Combat|70}}
+|{{chatlp|Chaeldar}} {{chatlp|Konar}}
+|-
+|1
+|[[Slayer task/Lizardmen|Lizardmen]]
+|
+* [[Lizardman brute]]
+* [[Lizardman shaman]]
+|
+* [[Lizardmen Settlement]]
+* [[Lizardman canyon]]
+|{{NA}}
+|
+* [[Reptile got ripped]] unlocked
+|{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|22
+|[[Slayer task/Lizards|Lizards]]
+|
+* [[Desert Lizard]]
+* [[Grimy Lizard]]
+* [[Lizard]]
+* [[Small Lizard]]
+* [[Sulphur Lizard]]
+|
+* [[Kharidian Desert]]
+* [[Neypotzli]] - Streambound Cavern
+* [[Karuulum dungeon]] ({{FloorNumber|uk=1}})
+|
+* {{plink|Ice cooler}} ([[Desert Lizard]]s)
+* {{plink|Boots of stone}} or [[Karuulm Slayer Dungeon|equivalent]] ([[Sulphur Lizard]])
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|1
+|[[Magic axe]]s
+|{{NA}}
+|
+* [[Magic Axe Hut]]
+|
+* {{plink|Lockpick}}
+|
+* {{SCP|Thieving|23}}
+|{{chatlp|Krystilia}}
+|-
+|1
+|[[Mammoth]]s
+|{{NA}}
+|
+* West of the [[Chaos Temple]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|1
+|[[Slayer task/Metal dragons|Metal dragons]]
+|{{NA}}
+|
+* Varies
+|
+* {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Quest}} [[Dragon Slayer I]] (partially)
+* {{SCP|Combat|85}}
+|{{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Minotaurs|Minotaurs]]
+|{{NA}}
+|
+* [[Stronghold of Security]]
+|{{NA}}
+|
+* {{SCP|Combat|7}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|32
+|[[Slayer task/Ogres|Mogres]]
+|
+* [[Mogre (sea)]]
+|
+* [[Mudskipper Point]]
+* [[Ardent Ocean]]
+|
+* {{plinkp|Fishing explosive}} (except for swimming Mogres)
+|
+* {{SCP|Quest}} [[Skippy and the Mogres]]
+* {{SCP|Combat|30}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}}
+|-
+|39
+|[[Slayer task/Molanisks|Molanisks]]
+|{{NA}}
+|
+* [[Dorgesh-Kaan South Dungeon]]
+|
+* {{plink|Slayer bell}}
+|
+* {{SCP|Quest}} [[Death to the Dorgeshuun]]
+* {{SCP|Combat|50}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Monkeys|Monkeys]]
+|
+* [[Monkey Guard]]
+* [[Monkey Archer]]
+* [[Zombie monkey]]
+* [[Tortured gorilla]]
+* [[Demonic gorilla]]
+|
+* [[Karamja]]
+* [[Mos Le'Harmless]]
+* [[Ardougne Zoo]]
+* [[Crash Site Cavern]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Moss giants|Moss giants]]
+|
+* [[Bryophyta]]
+|
+* [[Brimhaven Dungeon]]
+* [[Crandor]]
+* West of [[Fishing Guild]]
+* [[Moss Giant Island]]
+* [[Wilderness]]
+* [[Varrock Sewers]]
+* [[Pirates' Cove]]
+* [[Glarial's Tomb]]
+* [[Catacombs of Kourend]]
+* [[Iorwerth Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|40}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}}
+|-
+|80
+|[[Slayer task/Nechryael|Nechryael]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Nechryarch]]'''
+* [[Greater Nechryael]]
+|
+* [[Slayer Tower]]
+* [[Catacombs of Kourend]]
+* [[Iorwerth Dungeon]]
+* [[Wilderness Slayer Cave]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|85}}
+|{{chatlp|Krystilia}}{{efn|name=UnlockW}} {{chatlp|Vannaka}} {{chatlp|Konar}} {{chatlp|Chaeldar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Ogres|Ogres]]
+|
+* [[Ogre chieftain]]
+* [[Enclave guard]]
+* [[Ogress Shaman]]
+* [[Ogress Warrior]]
+|
+* [[Gu'Tanoth]]
+* West of [[Yanille]]
+* South of [[Castle Wars]]
+* South of [[Gu'Tanoth]]
+* [[Toban]]'s Island
+* [[Chaos Druid Tower]] dungeon
+* [[Clock Tower Dungeon]]
+* [[Witchaven Dungeon]]
+* [[Underground Pass (dungeon)|Underground Pass]]
+* [[Combat Training Camp]]
+* [[God Wars Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|40}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Otherworldly being]]s
+|{{NA}}
+|
+* [[Zanaris]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Lost City]]
+* {{SCP|Combat|40}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Pirate|Pirates]]
+|
+* [[Zombie pirate]]
+|
+* [[Pirates' Hideout]]
+* [[Chaos Temple (Wilderness)]]
+|{{NA}}
+|{{SCP|Thieving|39}}
+|{{chatlp|Krystilia}}
+|-
+|30
+|[[Slayer task/Pyrefiends|Pyrefiends]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Flaming pyrelord]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Infernal pyrelord]]'''
+* [[Pyrelord]]
+|
+* [[Fremennik Slayer Dungeon]]
+* [[Smoke Dungeon]]
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+* [[Isle of Souls]] north side
+* [[Sisterhood Sanctuary]]
+|{{NA}}
+|
+* {{SCP|Combat|25}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Rats|Rats]]
+|
+* [[Giant rat]]
+* [[Dungeon rat]]
+* [[Crypt rat]]
+* [[Brine rat]]
+* [[Hell-Rat Behemoth]]
+* [[Scurrius]]
+|
+* [[Varrock Sewers]]
+* [[Brine Rat Cavern]]
+* Various locations
+|{{NA}}
+|{{NA}}
+|{{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Red dragons|Red dragons]]
+|
+* [[Baby red dragon]]s
+* [[Brutal red dragon]]s
+|
+* [[Brimhaven Dungeon]]
+* [[Catacombs of Kourend]]
+|
+* [[Dragonfire|Fire protection]] except for baby dragons
+** {{plink|Anti-dragon shield}}
+** {{plinkp|Dragonfire ward}} {{plinkp|Ancient wyvern shield}} {{plink|Dragonfire shield}}
+** {{plink|Antifire potion(4)}}
+|
+* {{SCP|Quest}} [[Dragon Slayer I]] (partially)
+* [[Seeing red]] unlocked
+|{{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Revenant]]s
+|{{NA}}
+|
+* [[Revenant Caves]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|20
+|[[Rockslug]]s
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Giant rockslug]]'''
+|
+* [[Fremennik Slayer Dungeon]]
+* [[Lumbridge Swamp Caves]]
+* [[Dorgesh-Kaan South Dungeon]]
+* [[Tonali Cavern]]
+* [[ynysdail Cavern]]
+|
+* {{plink|Bag of salt}}
+** {{plink|Brine sabre}}
+|
+* {{SCP|Combat|20}}
+|{{chatlp|Mazchna}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Rogue]]s
+|{{NA}}
+|
+* [[Rogues' Castle]]
+* south-west of [[Mage Arena]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}}
+|-
+|1
+|[[Slayer task/Scabarites|Scabarites]]
+|
+* [[Locust rider]]s
+* [[Scarab mage]]s
+* [[Scarab swarm]]s
+* [[Small scarab]]s
+|
+* Dungeon under [[Sophanem]]
+* Dungeon east of the [[Agility Pyramid]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Contact!]] (partially)
+* {{SCP|Combat|85}}
+|{{chatlp|Nieve}}
+|-
+|1
+|[[Slayer task/Scorpions|Scorpions]]
+|
+* [[King Scorpion]]
+* [[Poison Scorpion]]
+* [[Pit Scorpion]]
+* [[Scorpia]]
+* [[Lobstrosity]]
+|
+* [[Al Kharid Mine]]
+* [[Dwarven mines]]
+* [[Ardougne Zoo]] Scorpion Pit
+* [[Stronghold of Security]]
+* [[Varrock Sewers]]
+* [[Wilderness]]
+* On [[Karamja Volcano]]
+|{{NA}}
+|
+* {{SCP|Combat|7}}
+|{{chatlp|Krystilia}} {{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|1
+|[[Slayer task/Sea snakes|Sea snakes]]
+|
+* [[Sea Snake Hatchling]]
+* [[Sea Snake Young]]
+* [[Giant Sea Snake]]
+|
+* [[Miscellania and Etceteria Dungeon|Miscellania & Etceteria Dungeon]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Royal Trouble]]
+* {{SCP|Combat|50}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Shades|Shades]]
+|
+* [[Loar Shade]]
+* [[Phrin Shade]]
+* [[Riyl shade]]
+* [[Asyn shade]]
+* [[Fiyr shade]]
+* [[Urium Shade]]
+|
+* [[Mort'ton]]
+* [[Shade Catacombs]]
+* [[Temple Trekking]]
+* [[Catacombs of Kourend]]
+|{{NA}}
+|
+* {{SCP|Combat|30}}
+|{{chatlp|Mazchna}} {{chatlp|Vannaka}}
+|-
+|1
+|[[Shadow warrior]]s
+|{{NA}}
+|
+* [[Legends' Guild]] basement
+|{{NA}}
+|
+* {{SCP|Quest}} [[Legends' Quest]]
+* {{SCP|Combat|60}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}}
+|-
+|72
+|[[Skeletal Wyvern]]s
+|{{NA}}
+|
+* [[Asgarnian Ice Dungeon]]
+|
+* {{plink|Elemental shield}}
+** {{plink|Mind shield}}
+** {{plink|Ancient wyvern shield}}
+** {{plink|Dragonfire shield}}
+** {{plink|Dragonfire ward}}
+|
+* {{SCP|Quest}} [[Elemental Workshop I]]
+* {{SCP|Combat|70}}
+|{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Skeletons|Skeletons]]
+|
+* [[Skogre]]
+* [[Skeleton (Ape Atoll)|Monkey skeleton]]
+* [[Skeleton Mage]]
+* [[Vet'ion]]
+* [[Calvar'ion]]
+|
+* [[Edgeville Dungeon]]
+* [[Draynor Sewers]]
+* [[Karamja Volcano]]
+* [[Ogre Enclave]]
+* [[Stronghold of Security]]
+* [[Taverley Dungeon]]
+* [[Temple of Ikov (dungeon)|Temple of Ikov]]
+* [[Varrock Sewers]]
+* [[Waterfall Dungeon]]
+* [[Wilderness Agility Course]]
+* [[Barrows]]
+* [[Melzar's Maze]]
+* [[Blighted Volcano]]
+* [[Ape Atoll Dungeon]]
+* [[Underground Pass (dungeon)|Underground Pass]]
+|{{NA}}
+|
+* {{SCP|Combat|15}}
+|{{chatlp|Krystilia}} {{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|93
+|[[Slayer task/Smoke devils|Smoke devils]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Nuclear smoke devil]]'''
+* [[Thermonuclear smoke devil]]
+|
+* [[Smoke Devil Dungeon]]
+|
+* {{plink|Facemask}}
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Combat|85}}
+|{{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Sourhog]]s
+|{{NA}}
+|
+* [[Sourhog Cave]]
+|
+* {{plink|Reinforced goggles}}
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Quest}} [[A Porcine of Interest]]
+|{{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Spiders|Spiders]]
+|
+* [[Giant spider]]
+* [[Shadow spider]]
+* [[Jungle spider]]
+* [[Deadly red spider]]
+* [[Poison spider]]
+* [[Blessed spider]]
+* [[Crypt spider]]
+* [[Temple Spider]]
+* [[Sarachnis]]
+* [[Spindel]]
+* [[Venenatis]]
+* [[Araxyte]]
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Dreadborn Araxyte]]'''
+* [[Araxxor]]
+|
+* [[Melzar's Maze]]
+* [[Sorceress]]'s house
+* [[Lumbridge Castle]] basement
+* Behind Lumbridge Castle
+* [[Stronghold of Security]]
+* [[Ape Atoll]] temple
+* [[Ogre Enclave]]
+* [[Wilderness]]
+* [[Karamja]]
+* [[Underground Pass (dungeon)|Underground Pass]]
+* [[Morytania Spider Cave]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Krystilia}} {{chatlp|Turael}} {{chatlp|Spria}}
+|-
+|1
+|[[Slayer task/Spiritual creatures|Spiritual creatures]]
+|{{NA}}
+|
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Death Plateau]]
+* {{SCP|Combat|60}}
+* {{SCP|Strength|60}} or {{SCP|Agility|60}}
+|{{chatlp|Krystilia}} {{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Suqah|Suqahs]]
+|{{NA}}
+|
+* [[Lunar Isle]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Lunar Diplomacy]] (partially)
+* {{SCP|Combat|85}}
+|{{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|40
+|[[Terror dog]]s
+|{{NA}}
+|
+* [[Tarn's Lair]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Haunted Mine]]
+* {{SCP|Combat|60}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Trolls|Trolls]]
+|
+* [[Mountain troll]]
+* [[Ice troll grunt]]
+* [[Ice troll runt]]
+* [[Ice troll male]]
+* [[Ice troll female]]
+* [[Ice troll]]
+* [[River troll]]
+|
+* [[Trollheim]]
+* Tunnel outside of [[Keldagrim]]
+* [[Death Plateau (location)|Death Plateau]]
+* Icy islands north of [[Neitiznot]] and [[Jatizso]]
+* [[Ice Path]] north of [[Trollheim]]
+|{{NA}}
+|
+* {{SCP|Combat|60}}
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|55
+|[[Slayer task/Turoth|Turoth]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Spiked Turoth]]'''
+|
+* [[Fremennik Slayer Dungeon]]
+|
+* {{plinkp|Leaf-bladed sword}} {{plinkp|Leaf-bladed battleaxe}} {{plinkp|Leaf-bladed spear}} [[Leaf-bladed weapons]]
+** {{plink|Magic Dart}}
+** {{plink|Broad arrows}}
+** {{plinkp|Amethyst broad bolts}} {{plink|Broad bolts}}
+|
+* {{SCP|Combat|60}}
+* Ability to use [[Leaf-bladed weapons]]
+|{{chatlp|Vannaka}} {{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/TzHaar|TzHaar]]
+|
+* [[TzTok-Jad]]
+* [[TzKal-Zuk]]
+|
+* [[Mor Ul Rek]]
+|{{NA}}
+|
+* [[Hot stuff]] unlocked
+|{{chatlp|Chaeldar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|-
+|1
+|[[Slayer task/Vampyres|Vampyres]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Blood-starved venator]]'''
+* [[Venator]]
+* [[Vyrewatch]]
+* [[Vyrewatch Sentinel]]
+|
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+* [[Haunted Woods]]
+* Near [[Abandoned Mine]]
+* [[Meyerditch]]
+* [[Darkmeyer]]
+* [[Vampyrium]]
+|
+* {{plink|Efaritay's aid}}
+* {{plink|Silver weaponry|pic=Silver sickle}} (Tier 2 [[Vampyre (attribute)|Vampyres]])
+* {{plink|Ivandis flail}} or better (Tier 3 [[Vampyre (attribute)|Vampyres]])
+** {{plink|Blisterwood flail}}
+** {{plink|Hallowed flail}}
+** {{plink|Sunspear}}
+** {{plink|Blisterwood stake}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|35}}
+|{{Chatlp|Mazchna}} {{Chatlp|Vannaka}}<br/>{{Chatlp|Chaeldar}} {{Chatlp|Konar quo Maten}} {{Chatlp|Nieve}} {{Chatlp|Duradel}}{{efn|name=UnlockCKND|Task must be unlocked with [[Slayer reward point]]s to be assigned by Chaeldar, Konar, Nieve and Duradel.}}
+|-
+|74
+|[[Slayer task/Venators|Venators]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Blood-starved venator]]'''
+|
+* [[Vampyrium]]
+|
+* {{plink|Ivandis flail}} or better
+** {{plink|Blisterwood flail}}
+** {{plink|Hallowed flail}}
+** {{plink|Sunspear}}
+** {{plink|Blisterwood stake}}
+|
+* {{SCP|Quest}} [[The Blood Moon Rises]]
+* {{SCP|Combat|100}}
+|{{chatlp|Mortimer}}
+|-
+|35
+|[[Slayer task/Wall beast|Wall Beasts]]
+|{{NA}}
+|
+* [[Lumbridge Swamp Caves]]
+|
+* {{plink|Spiny helmet}}
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Combat|35}}
+* {{SCP|Defence|5}}
+|{{chatlp|Mazchna}}
+|-
+|56
+|[[Slayer task/Warped creature|Warped creatures]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Mutated Terrorbird]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Mutated Tortoise]]'''
+* [[Warped Terrorbird]]
+* [[Warped Tortoise]]
+|
+* [[Poison Waste Dungeon]]
+|
+* {{plink|Crystal chime}}
+* {{plink|Earmuffs}} (Terrorbirds)
+** {{plink|Slayer helmet}}
+|
+* {{SCP|Quest}} [[The Path of Glouphrie]]
+|{{chatlp|Mortimer}}<br/>{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}{{efn|name=UnlockCKND}}
+|-
+|1
+|[[Slayer task/Waterfiends|Waterfiends]]
+|{{NA}}
+|
+* [[Ancient Cavern]]
+* [[Kraken Cove]]
+* [[Iorwerth Dungeon]]
+|{{NA}}
+|
+* {{SCP|Combat|75}}
+|{{chatlp|Konar}} {{chatlp|Duradel}}
+|-
+|1
+|[[Werewolf|Werewolves]]
+|{{NA}}
+|
+* [[Canifis]]
+* [[God Wars Dungeon]]
+* [[Wilderness God Wars Dungeon]]
+|{{NA}}
+|
+* {{SCP|Quest}} [[Priest in Peril]]
+* {{SCP|Combat|60}}
+|{{chatlp|Vannaka}}
+|-
+|1
+|[[Slayer task/Wolves|Wolves]]
+|
+* [[Big Wolf]]
+* [[Dire wolf]]
+* [[Jungle wolf]]
+* [[Desert Wolf]]
+* [[Ice Wolf]]
+|
+* [[Stronghold of Security]]
+* [[White Wolf Mountain]]
+* [[Feldip Hills]]
+|{{NA}}
+|
+* {{SCP|Combat|20}}
+|{{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|62
+|[[Slayer task/Wyrms|Wyrms]]
+|
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Shadow Wyrm]]'''
+* {{plinkp|Superior slayer monster|pic=Bigger and Badder}} '''[[Magma strykewyrm]]'''
+* [[Lava Strykewyrm]]
+* [[Wyrmling]]
+|
+* [[Karuulm Slayer Dungeon]]
+* [[Neypotzli]]
+* [[Charred Island Dungeon]]
+* [[Wyrmscraig Cavern]]
+|{{NA}}
+|{{NA}}
+|{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}} {{chatlp|Mortimer}}
+|-
+|1
+|[[Slayer task/Zombies|Zombies]]
+|
+* [[Vorkath]]
+* [[Zombie pirate]]
+* [[Undead cow]]
+* [[Undead chicken]]
+* Any other [[zombie]]-class except [[Zogre]]s and [[Zombie monkey]]s
+|
+* [[Tree Gnome Village (location)|Tree Gnome Village]] dungeon
+* [[Entrana Dungeon]]
+* [[Edgeville Dungeon]]
+* [[Graveyard of Shadows]]
+* [[Stronghold of Security]]
+* [[Varrock Sewers]]
+* [[Wizards' Guild]] basement
+* [[Draynor Sewers]]
+* [[Lair of Tarn Razorlor (dungeon)|Lair of Tarn Razorlor]]
+|{{NA}}
+|
+* {{SCP|Combat|10}}
+|{{chatlp|Krystilia}} {{chatlp|Turael}} {{chatlp|Spria}} {{chatlp|Mazchna}}
+|-
+|57
+|[[Slayer task/Zygomites|Zygomites]]
+|
+* [[Ancient Zygomite]]
+|
+* [[Fossil Island]]
+* [[Zanaris]]
+* [[Stalker Den]]
+|
+* {{plink|Fungicide spray}} 
+* {{plink|Fungicide}}
+|
+* {{SCP|Quest}} [[Lost City]]
+* {{SCP|Combat|60}}
+|{{chatlp|Chaeldar}} {{chatlp|Konar}} {{chatlp|Nieve}} {{chatlp|Duradel}}
+|}
+{{notelist}}
+
+==Changes==
+{{Subject changes header}}
+{{Subject changes
+|date = 24 March 2016
+|update = White & Black Graceful
+|poll = Old School Content Poll 40: Vanilla LootShare & QoL
+|change = It is now possible to unlock the chance to receive a Lizardmen slayer task from Duradel, Nieve and Chaeldar. Unlocking this task costs 75 Slayer points.
+}}
+{{Subject changes
+|date = 10 September 2015
+|update = Slayer Assignment Rework
+|change = 
+*Gargoyles, nechryaels, abyssal demons, spiritual mages, spiritual rangers and spiritual warriors can now be assigned by Vannaka.
+*Chaeldar will now assign between 110 and 170 spirit creatures and aviansie.
+*Removed a number of terrible assignments from Duradel.
+*Duradel will now assign between 130 and 200 nechryaels, spiritual mages and spiritual rangers.
+*Nieve can now assign between 10 and 20 black dragons.
+*Nieve can now assign dark beasts.
+}}
+{{Subject changes
+|date = 3 September 2015
+|update = Barrows Features & Saradomin's Light
+|change = Players who click out of the dialogue by accident when being offered a Jad slayer task now have 1 minute where they can talk to the master and be re-offered this choice.
+}}
+{{Subject changes
+|date = 16 April 2015
+|update = Clan Wars Game Modes & More
+|change = Vultures now count toward a birds slayer task.
+}}
+{{Subject changes
+|date = 5 March 2015
+|update = Achievement Diaries
+|poll = Old School Achievement Diary Rewards Poll
+|change = You now receive 10% more [[Slayer]] [[experience]] when killing a creature on task in the [[Slayer Tower]] if you have completed the [[Morytania Elite Diary]].
+}}
+{{Subject changes
+|date = 13 February 2014
+|update = Valentine's Day
+|change = Slayer masters will now check agility and quest requirements properly when assigning Earth Warriors and Spiritual creatures.
+}}
+{{Subject changes footer}}
+[[Category:Slayer]]
+[[Category:Slayer task| ]]
