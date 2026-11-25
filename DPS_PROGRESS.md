@@ -79,6 +79,13 @@ Working log for the "most efficient setup" build (started 25 Nov 2026, overnight
   bow / Seercull (always hit), Soulreaper axe (a cycle of 5 attacks building stacks then Behead, against holding 5
   stacks). Not done: Abyssal bludgeon (depends on how much Prayer you've used), Dawnbringer (Verzik P1 isn't modelled).
 
+- **Checked against the Wiki's setups** (14:25): optimiser with no bank but every untradeable owned, at 10B,
+  500M, 100M and 20M, against each boss's "High level" Wiki setup. Fixes from it: items only usable in Leagues,
+  Grid Master, Deadman, LMS, Barbarian Assault, Wilderness Wars, PvP/Emir's arenas, Castle Wars or discontinued
+  events are now left out (305 items, using the Wiki's categories; they were winning every slot); a style that's
+  slower alone but faster with its specs is now tried too (Corp went magic at 10B, 274s, instead of melee with
+  Elder maul + kisten, 242s); Nex is ranged only.
+
 ## Next
 
 1. Done 14:30: planner money makers use your kill rate at the levels the plan has reached (the best 8 bosses

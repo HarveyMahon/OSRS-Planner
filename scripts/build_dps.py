@@ -21,6 +21,11 @@ def n(v):
         except (TypeError, ValueError): return 0
 
 SKIP = re.compile(r"\(deadman|\(beta|\(Last Man Standing|\(bh\)|\(wrapped\)|\(broken\)|\(Leagues|Emir's Arena|\(nz\)|\(PvP\)|^Castle wars (bolts|arrow)|^Corrupted |\((basic|attuned|perfected)\)|^Echo |^Zaryte bow|^Crystal bow \d+/10|^Crystal bow full|^Training |^Signed oak", re.I)
+# Items only usable in minigames, Leagues, Deadman or discontinued events (from the Wiki's categories)
+cat_path = os.path.join(SRC, "categories_raw.json")
+CATS = {k.lower(): v for k, v in json.load(open(cat_path)).items()} if os.path.exists(cat_path) else {}
+BAD_CAT = re.compile(r"Discontinued content|League|Grid Master|Barbarian Assault|Wilderness Wars|Deadman|Last Man Standing|Castle Wars|Emir's Arena|PvP Arena|Trouble Brewing|Beta worlds|Clan Wars|Tournament", re.I)
+dropped = []
 tables = {}
 seen = {}
 alt_ids = {}
@@ -33,6 +38,8 @@ for r in raw:
     ids = r.get("item_id") or []
     ids = ids if isinstance(ids, list) else [ids]
     if not ids or SKIP.search(sub) or SKIP.search(name): continue
+    cats = CATS.get((r.get("page_name") or "").lower(), [])
+    if any(BAD_CAT.search(c) for c in cats) and "Tradeable items" not in cats: dropped.append(name); continue
     ids = [int(i) for i in ids if str(i).isdigit()]
     if not ids: continue
     ver = sub.split("#", 1)[1] if "#" in sub else ""
@@ -59,6 +66,7 @@ for r in raw:
     page_of[id(it)] = r.get("page_name")
     tables.setdefault(slot, []).append(it)
 
+print(f"  left out (minigame, Leagues, Deadman, discontinued): {len(set(dropped))} items", flush=True)
 for items in tables.values():
     for it in items:
         alt = [i for i in alt_ids.get(page_of[id(it)], []) if i != it["id"] and i not in it.get("ids", [])]

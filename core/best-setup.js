@@ -88,7 +88,13 @@ export function optimiseKind(kind, player, gear, parts, monsters, avail, { reqs,
   const cand = candidates(gear, kind, player, avail, reqs, budget, fast ? 6 : MAX_PER_SLOT);
   const costOf = it => { const a = avail(it); return a.owned ? 0 : (a.price ?? Infinity); };
   const kParts = parts.map(p => ({ ...p, styles: [kind] }));
-  const time = lo => partsTime(player, lo, kParts, monsters);
+  const memo = new Map();             // the same loadout comes up again and again while improving
+  const time = lo => {
+    const key = SLOTS.map(sl => lo[sl] ? lo[sl].id + (lo[sl].name.length) : '').join(',');
+    let t = memo.get(key);
+    if (t === undefined) { t = partsTime(player, lo, kParts, monsters); memo.set(key, t); }
+    return t;
+  };
 
   // starting armour: best summed stat per slot among what's affordable for free (owned), else cheapest best
   const base = {};
@@ -235,28 +241,40 @@ export function bestSetup(player, gear, target, monsters, avail, { reqs, budget 
       kinds[k] = r;
       for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned && !bought.has(it)) { bought.add(it); left -= avail(it).price || 0; } }
     }
-    // each part with its fastest style
-    let total = 0;
-    const perPart = parts.map(p => {
-      const m = monsters[p.monster];
-      let pick = null;
-      for (const [k, r] of Object.entries(kinds)) {
-        if (p.styles && !p.styles.includes(k)) continue;
-        const c = bestCalc(pl, forPart(r.loadout, p), m, { styles: [k], toa: p.toa, boost: p.boost, noAncients: p.noAncients });
-        const d = c.dps + (thrall ? THRALL_DPS : 0);
-        if (d > 0 && (!pick || d > pick.dps)) pick = { kind: k, dps: d, calc: c };
-      }
-      const secs = pick ? p.weight * m.hp / pick.dps : Infinity;
-      total += secs;
-      return { ...p, name: m.name, ...pick, seconds: secs, usesWeapon: p.weapon && WEAPONS.get(p.weapon) ? p.weapon : null };
-    });
-    const used = new Set(perPart.map(p => p.kind).filter(Boolean));
-    for (const k of Object.keys(kinds)) if (!used.has(k)) delete kinds[k];
-    const buy = new Set();
-    for (const r of Object.values(kinds)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) buy.add(it); }
-    const res = { kinds, time: total, cost: [...buy].reduce((c, it) => c + (avail(it).price || 0), 0), thrall, perPart };
-    addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast });
-    if (!best || res.time < best.time) best = res;
+    // each part with its fastest style; then again preferring each style in turn, because a style that's a
+    // little slower on its own can come out ahead once its spec weapons are counted
+    const allKinds = { ...kinds };
+    const assemble = prefer => {
+      let total = 0;
+      const perPart = parts.map(p => {
+        const m = monsters[p.monster];
+        let pick = null;
+        for (const [k, r] of Object.entries(allKinds)) {
+          if (p.styles && !p.styles.includes(k)) continue;
+          const c = bestCalc(pl, forPart(r.loadout, p), m, { styles: [k], toa: p.toa, boost: p.boost, noAncients: p.noAncients });
+          const d = c.dps + (thrall ? THRALL_DPS : 0);
+          if (d <= 0) continue;
+          const better = !pick || (prefer ? (k === prefer && pick.kind !== prefer) || ((k === prefer) === (pick.kind === prefer) && d > pick.dps) : d > pick.dps);
+          if (better) pick = { kind: k, dps: d, calc: c };
+        }
+        const secs = pick ? p.weight * m.hp / pick.dps : Infinity;
+        total += secs;
+        return { ...p, name: m.name, ...pick, seconds: secs, usesWeapon: p.weapon && WEAPONS.get(p.weapon) ? p.weapon : null };
+      });
+      const used = new Set(perPart.map(p => p.kind).filter(Boolean));
+      const ks = Object.fromEntries(Object.entries(allKinds).filter(([k]) => used.has(k)));
+      const buy = new Set();
+      for (const r of Object.values(ks)) for (const s of SLOTS) { const it = r.loadout[s]; if (it && !avail(it).owned) buy.add(it); }
+      const res = { kinds: ks, time: total, cost: [...buy].reduce((c, it) => c + (avail(it).price || 0), 0), thrall, perPart };
+      addSpec(res, pl, gear, monsters, avail, buy, { reqs, budget, fast });
+      return res;
+    };
+    const kindsList = Object.keys(allKinds);
+    const tryEach = kindsList.length > 1 && (!fast || parts.length <= 3);       // (skipped for many-part targets in quick mode)
+    for (const prefer of [null, ...(tryEach ? kindsList : [])]) {
+      const res = assemble(prefer);
+      if (!best || res.time < best.time) best = res;
+    }
   }
   return best;
 }
