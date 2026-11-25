@@ -84,6 +84,7 @@ export function plan(goals, d) {
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), gp: d.account.gp || 0 };
   const warnings = [];
+  const errors = [];               // contradictions in the account, e.g. a quest ticked without its levels
   const steps = [];
 
   // ---- 1. expand goals into ordered milestones (quests, kills) with the levels each needs ----
@@ -167,6 +168,28 @@ export function plan(goals, d) {
   }
 
   const gpGoals = [];
+  // A goal quest that's ticked as complete but whose skill requirements the account doesn't meet: flag it,
+  // and plan the training to those levels anyway (the stats are probably out of date, or it was boosted).
+  function checkDoneQuest(id) {
+    const q = quests[id];
+    if (!q || sim.quests[id] !== 'complete') return;
+    const short = [];
+    const walk = r => {
+      if (!r) return;
+      if (r.all) return r.all.forEach(walk);
+      if (r.any) {
+        if (r.any.some(x => !x.skill || (sim.xp[x.skill] || 0) >= xpForLevel(x.level))) return;
+        return walk([...r.any].sort((a, b) => (xpForLevel(a.level) - (sim.xp[a.skill] || 0)) - (xpForLevel(b.level) - (sim.xp[b.skill] || 0)))[0]);
+      }
+      if (r.skill && (sim.xp[r.skill] || 0) < xpForLevel(r.level)) short.push(r);
+    };
+    walk(q.requires);
+    if (!short.length) return;
+    const list = short.map(r => `${r.skill} ${r.level} (you have ${levelForXp(sim.xp[r.skill] || 0)}${r.boostable ? ', boostable' : ''})`).join(', ');
+    errors.push(`${q.name} is marked complete on My Account, but your stats are below its requirements: ${list}. `
+      + `Check your stats or the quest tick${short.some(r => r.boostable) ? ', or you may have done it with a boost' : ''}. The plan below includes the training to reach them.`);
+    for (const r of short) finalLevels[r.skill] = Math.max(finalLevels[r.skill] || 0, r.level);
+  }
   // quest points available before quest `owner` (it can't count its own, or those after it)
   const questPointsPlanned = owner => {
     const done = new Set(Object.keys(sim.quests).filter(id => sim.quests[id] === 'complete'));
@@ -197,7 +220,7 @@ export function plan(goals, d) {
   for (const g of goals) {
     if (g.type === 'level') finalLevels[g.skill] = Math.max(finalLevels[g.skill] || 0, g.level);
     else if (g.type === 'maxcape') SKILLS.forEach(s => { finalLevels[s] = Math.max(finalLevels[s] || 0, MAX_LEVEL); });
-    else if (g.type === 'quest') addQuest(g.id);
+    else if (g.type === 'quest') { checkDoneQuest(g.id); addQuest(g.id); }
     else if (g.type === 'kc') addKc(g.bossId, g.n);
     else if (g.type === 'milestone') { const b = bossById(g.bossId); if (b) addKc(b.id, b.milestone?.kc || 1); }
     else if (g.type === 'gp') gpGoals.push(g.amount);
@@ -364,5 +387,5 @@ export function plan(goals, d) {
     return t;
   }, { hours: 0, realHours: 0, gpMade: 0, gpSpent: 0, gpEarned: 0 });
   totals.endGp = sim.gp;
-  return { steps, totals, warnings: [...new Set(warnings)], endAccount: sim };
+  return { steps, totals, warnings: [...new Set(warnings)], errors, endAccount: sim };
 }

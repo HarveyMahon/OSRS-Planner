@@ -128,8 +128,8 @@ function render() {
     <div><span class="lbl">Spent on training</span><span class="cost">${gpShort(t.gpSpent)}</span></div>
     <div><span class="lbl">Earned along the way</span><span class="gain">${gpShort(t.gpEarned)}</span></div>
     <div><span class="lbl">Steps</span>${r.steps.length}</div>`;
-  $('warnings').innerHTML = r.warnings.map(w => `<li>${esc(w)}</li>`).join('');
-  $('steps').innerHTML = r.steps.map(stepHtml).join('') || '<li class="muted">Nothing to do: you already meet these goals.</li>';
+  $('warnings').innerHTML = r.errors.map(w => `<li class="error">${esc(w)}</li>`).join('') + r.warnings.map(w => `<li>${esc(w)}</li>`).join('');
+  $('steps').innerHTML = r.steps.map(stepHtml).join('') || (r.errors.length ? '' : '<li class="muted">Nothing to do: you already meet these goals.</li>');
   document.documentElement.dataset.ready = '1';
 }
 

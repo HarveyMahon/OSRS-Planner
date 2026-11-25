@@ -257,6 +257,14 @@ t('planner', () => {
   const sp = split.steps.filter(s => s.untilHp || s.towardsHp);
   assert.deepEqual(sp.map(s => [s.skill, s.towardsHp ? 'to99' : 'until']), [['Ranged', 'to99'], ['Defence', 'until']]);
   assert.ok(split.endAccount.xp.Hitpoints >= xpForLevel(70));
+  // a goal quest ticked complete without its levels: flagged, and the training is still planned
+  const qid = Object.keys(quests).find(id => quests[id].requires?.all?.some(r => r.skill === 'Agility'));
+  if (qid) {
+    const lv = quests[qid].requires.all.find(r => r.skill === 'Agility').level;
+    const done = plan([{ type: 'quest', id: qid }], { ...d, account: { ...account, quests: { [qid]: 'complete' }, xp: { ...account.xp, Agility: 0 } } });
+    assert.equal(done.errors.length, 1); assert.match(done.errors[0], /marked complete/);
+    assert.ok(done.steps.some(s => s.kind === 'train' && s.skill === 'Agility' && s.toLevel === lv));
+  }
   // max cape covers every skill with data
   const mc = plan([{ type: 'maxcape' }], d);
   assert.deepEqual(mc.steps.filter(s => s.kind === 'train').map(s => s.skill).sort(), ['Agility', 'Prayer']);
