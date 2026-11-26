@@ -261,6 +261,10 @@ export function plan(goals, d) {
   // cash, quests and prayers reached so far: scales Slayer tasks and the Wiki's combat money-making guides
   // (taken from the bosses worked out exactly at the latest money step, so it costs nothing extra)
   let lastFactors = null;
+  // the most cash the plan has had at a money step: gear bought then is kept (and keeps its value) after the cash
+  // is spent on training, so kill rates use whichever is higher, this or the cash now
+  let gearCash = d.account.gp || 0;
+  const gearBudget = () => Math.max(sim.gp, gearCash);
   function speedNow() {
     const f = lastFactors && lastFactors.length >= 5 ? lastFactors : null;
     return f ? slayerSpeed(Object.fromEntries(f.map((x, i) => [i, { setups: { high: { factor: x } } }]))) : slayerSpeed(rates);
@@ -291,16 +295,16 @@ export function plan(goals, d) {
     }
     // Bosses again at the levels, cash, quests and prayers the plan has reached by now. Working every boss out at
     // every state is slow, so they're taken best-first by an optimistic figure (the guide's GP/hr at your kill
-    // rate with 99s in every combat skill, which no later state can beat, cash aside) and worked out exactly
+    // rate with 99s in every combat skill and the most cash, which no later state can beat) and worked out exactly
     // until the optimistic figure falls well below the best found (alternatives for the list included).
     if (rateAt) {
-      const ceil = o => { let c = ceilMemo.get(o.id); if (c === undefined) { const r = rateAt(o.b, o.s, MAXED_XP(d.account.xp), d.account.gp || 0, { quests: allQuests, prayers: d.account.prayers || [] }); c = r && r.kph > 0 ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : o.fullOk ? o.guide : 0; ceilMemo.set(o.id, c); } return c; };
+      const ceil = o => { let c = ceilMemo.get(o.id); if (c === undefined) { const r = rateAt(o.b, o.s, MAXED_XP(d.account.xp), GP_TIERS[GP_TIERS.length - 1], { quests: allQuests, prayers: d.account.prayers || [] }); c = r && r.kph > 0 ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : o.fullOk ? o.guide : 0; ceilMemo.set(o.id, c); } return c; };
       const order = [...out].sort((a, b) => Math.max(ceil(b), b.gpPerHr) - Math.max(ceil(a), a.gpPerHr));
       let best = 0, n = 0; const fs = [];
       for (const o of order) {
         const up = Math.max(ceil(o), o.gpPerHr);
         if (n >= 6 && up < best * 0.6) { o.gpPerHr = Math.min(o.gpPerHr, up); continue; }   // can't come close: keep today's figure
-        const r = rateAt(o.b, o.s, sim.xp, sim.gp, { quests: sim.quests, prayers: sim.prayers });
+        const r = rateAt(o.b, o.s, sim.xp, gearBudget(), { quests: sim.quests, prayers: sim.prayers });
         if (r?.factor > 0 && o.s.id === 'high') fs.push(r.factor);
         if (r) o.gpPerHr = r.kph > 0 && viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
         else if (!rateOf(o.b, o.s)) o.gpPerHr = o.fullOk ? o.guide : 0;
@@ -326,18 +330,56 @@ export function plan(goals, d) {
   // Money is made in stages: each time the cash stack reaches the next gear tier (10M, 25M, 50M, ... 10B), the
   // money makers are worked out again with gear that cash can buy, so early money funds better gear and faster
   // money later. (Gear bought keeps its value, so it isn't taken off the total.)
+  // Quests that would unlock a much better money maker: for a big enough sum, do the quest chain first when its
+  // hours plus making the money at the better rate beat making it now. Only chains whose skill requirements you
+  // already meet (no training detours).
+  function questDetour(left, reason) {
+    if (!rateAt || left < 30e6) return;
+    const now = moneyMakers()[0]?.gpPerHr || 0;
+    if (!now) return;
+    // adds q and the quests before it (in order) to `out`; false if one needs a skill level you don't have
+    const chainOf = (q, out) => {
+      if (sim.quests[q] === 'complete' || out.has(q)) return true;
+      if (!quests[q] || doing.has(q)) return false;
+      for (const r of quests[q].requires?.all || []) {
+        if (r.quest) { if (!chainOf(r.quest, out)) return false; }
+        else if (r.skill && levelForXp(sim.xp[r.skill] || 0) < r.level) return false;
+      }
+      out.add(q); return true;
+    };
+    let best = null;
+    for (const b of bosses) {
+      if (b.category === 'misc' || b.moneyMaker === false || b.taskOnly || (hideWild && b.wilderness)) continue;
+      for (const s of b.setups) {
+        const req = withoutCombatLevels(s.requires);
+        const need = questsIn(req); if (!need.length) continue;
+        const chain = new Set(); if (!need.every(q => chainOf(q, chain))) continue;
+        const qs = { ...sim.quests }; for (const q of chain) qs[q] = 'complete';
+        if (!isMet(req, { ...sim, quests: qs }, reqCtx)) continue;
+        const r = rateAt(b, s, sim.xp, gearBudget(), { quests: qs, prayers: sim.prayers });
+        if (!r || !(r.kph > 0) || !viableRate(r)) continue;
+        const rate = bossMethod(b, items, { setupId: s.id, override: { unitsPerHr: r.kph } }).gpPerHr;
+        const hours = [...chain].reduce((h, q) => h + questHours(quests[q]), 0);
+        const save = left / now - (left / rate + hours);
+        if (save > 1 && (!best || save > best.save)) best = { save, chain, name: b.name };
+      }
+    }
+    if (best) for (const q of best.chain) doQuestNow(q, { pulledFor: `unlocks ${best.name} for making money (${reason})` });
+  }
+
   function makeGp(amount, reason, key = reason) {
     let left = Math.ceil(amount / 100000) * 100000;
     const gpChoice = gpChoices[key];
     let first = true;
     while (left > 0) {
+      if (!gpChoice) questDetour(left, reason);   // at each stage: more cash can make an unlock worth it
       const all = moneyMakers();
       const chosen = gpChoice && all.find(m => m.id === gpChoice);
       // not a boss the guide expects more Prayer for when something nearly as good (within 10%) doesn't
       const safe = all[0]?.thin && all.find(o => !o.thin && o.gpPerHr >= all[0].gpPerHr * 0.9);
       const mm = chosen || safe || all[0];
       if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += left; steps.push({ kind: 'gp', amount: left, method: null, hours: 0, reason, key }); return; }
-      const nextTier = rateAt ? GP_TIERS.find(t => t > sim.gp) : null;   // (a chosen money maker gets the stages too)
+      const nextTier = rateAt ? GP_TIERS.find(t => t > gearBudget()) : null;   // (a chosen money maker gets the stages too)
       const amt = nextTier && nextTier - sim.gp < left ? Math.ceil((nextTier - sim.gp) / 100000) * 100000 : left;
       const prev = steps[steps.length - 1];
       if (!first && prev?.kind === 'gp' && prev.key === key && prev.method?.id === mm.id) {
@@ -348,7 +390,7 @@ export function plan(goals, d) {
         steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason: first ? reason : `${reason} (with the gear your cash can now buy)`, key, chosen: !!chosen,
                      choiceUnavailable: !!gpChoice && !chosen, options: all.slice(0, 25) });
       }
-      sim.gp += amt; left -= amt; first = false;
+      sim.gp += amt; left -= amt; first = false; gearCash = Math.max(gearCash, sim.gp);
     }
   }
 
@@ -561,7 +603,7 @@ export function plan(goals, d) {
         let bestK = -1;
         for (const s2 of b.setups) {
           if (!isMet(withoutCombatLevels(s2.requires), sim, reqCtx)) continue;
-          const r2 = rateAt(b, s2, sim.xp, sim.gp, { quests: sim.quests, prayers: sim.prayers });
+          const r2 = rateAt(b, s2, sim.xp, gearBudget(), { quests: sim.quests, prayers: sim.prayers });
           if (r2 && r2.kph > bestK) { bestK = r2.kph; m.setupId = s2.id; }
         }
       }

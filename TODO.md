@@ -83,3 +83,15 @@ Ideas parked for later. Nothing here is being worked on right now.
   60-99 with essence runners (40h, 2.47B) needed ~430h of money-making on an account with no cash, so the
   planner now picks the quickest overall (solo lava runes, ~138h) and says why on the step. Not applied when you
   swapped that skill's method yourself, or on AFK.
+- **Planner money with no cash and no quests (26 Nov, Harvey's Ironmolf case: no quests, 0 GP, Max cape goal)**:
+  - Gear bought at a money step is kept: kill rates use the most cash the plan has had at a money step (or the
+    cash now, if more), so each later "Make GP" step no longer starts again from no gear (it was restarting at
+    Last Man Standing for 10M every time).
+  - Quest detours for money: before each stage of a big money step (30M+), the planner checks quest chains
+    that would unlock a better money maker (only chains whose skill requirements you already meet) and does the
+    chain first when its hours plus making the money at the better rate beat making it now. The quest steps say
+    which boss they unlock. On Ironmolf this pulls in Children of the Sun (Sol Heredit) and the Final Dawn chain
+    (Doom of Mokhaiotl) instead of Venenatis throughout.
+  - The optimistic ceiling for bosses later in a plan now assumes the most cash (it assumed today's cash, so a
+    0-GP account pruned every boss). This makes a long plan slower to work out the first time (~100s in node for
+    a Max cape plan; cached per page load).
