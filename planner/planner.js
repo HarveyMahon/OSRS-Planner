@@ -168,33 +168,50 @@ function stepsHtml(r) {
   })();
 }
 
-// Working out a plan can take a while (kill rates at each point of the plan); the work blocks the page, so show a
-// busy banner first (its spinner keeps turning while the page is busy) and let it paint before starting
-let renderToken = 0;
+// Working out a plan can take a while (kill rates at each point of the plan). With kill rates it runs in a worker
+// (planner/plan-worker.js), so the page stays usable and shows a progress bar; without them it's quick and runs here.
+let renderToken = 0, WORKER = null, WORKER_READY = false;
 function render() {
   const token = ++renderToken;
-  if (!state.goals.length) return renderNow();
-  busy(true);
-  requestAnimationFrame(() => setTimeout(() => { if (token !== renderToken) return; try { renderNow(); } finally { busy(false); } }, 30));
+  if (!WORKER_READY) return renderNow();
+  if (header()) return;
+  busy(true, 0, 1);
+  WORKER.postMessage({ type: 'plan', id: token, goals: state.goals, opts: planOpts(), slayer: { settings: slayerStore(), intensity: state.slayerIntensity } });
 }
-function busy(on) {
+function busy(on, done = 0, total = 1, text = 'Working out your plan…') {
   let el = document.getElementById('busy');
-  if (!el) { el = document.createElement('div'); el.id = 'busy'; el.className = 'busy'; el.setAttribute('role', 'status'); el.innerHTML = '<span class="spinner" aria-hidden="true"></span> Working out your plan… this can take a minute for a long plan'; document.body.append(el); }
+  if (!el) { el = document.createElement('div'); el.id = 'busy'; el.className = 'busy'; el.setAttribute('role', 'status');
+    el.innerHTML = '<span class="spinner" aria-hidden="true"></span><div class="busy-body"><span class="busy-text"></span><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></div></div>'; document.body.append(el); }
   el.hidden = !on;
+  if (on) {
+    const pct = Math.max(2, Math.min(100, Math.round(100 * done / (total || 1))));
+    el.querySelector('.busy-text').textContent = `${text} ${pct}%`;
+    el.querySelector('.bar i').style.width = pct + '%';
+    el.querySelector('.bar').setAttribute('aria-valuenow', String(pct));
+  }
   document.getElementById('steps')?.classList.toggle('stale', on);
 }
+const planOpts = () => ({ account: ACCOUNT, intensity: state.intensity, order: state.order, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(), rates: RATES });
 
-function renderNow() {
+// the goal chips and the changes note; true when there's no plan to work out
+function header() {
   document.querySelectorAll('#intensity button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.i === state.intensity)));
   $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
     : '<span class="muted">No goals yet: add one above.</span>';
   const nSetups = Object.keys(state.setups).length;
   const changes = [state.swaps.length && `${state.swaps.length} method swap${state.swaps.length > 1 ? 's' : ''}`, nSetups && `${nSetups} setup choice${nSetups > 1 ? 's' : ''}`, Object.keys(state.gpChoices).length && `${Object.keys(state.gpChoices).length} money maker choice${Object.keys(state.gpChoices).length > 1 ? 's' : ''}`, state.slayerIntensity && 'the Slayer style', state.order && 'the step order'].filter(Boolean);
   $('swaps-note').innerHTML = changes.length ? `Your changes: ${changes.join(', ')}. <button type="button" class="reset" id="clear-swaps">↺ Reset all changes</button>` : '';
-  if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return; }
-  const r = plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods,
-                                 account: ACCOUNT, intensity: state.intensity, order: state.order, swaps: state.swaps, setupChoices: state.setups, gpChoices: state.gpChoices, hideWild: hideWild(), rates: RATES, rateAt: RATE_AT,
-                                 slayer: D.slayerData && { data: D.slayerData, settings: slayerStore(), intensity: state.slayerIntensity } });
+  if (!state.goals.length) { $('summary').innerHTML = ''; $('steps').innerHTML = ''; $('warnings').innerHTML = ''; document.documentElement.dataset.ready = '1'; return true; }
+  return false;
+}
+
+function renderNow() {
+  if (header()) return;
+  display(plan(state.goals, { items: D.items, training: D.training, quests: D.quests, bosses: D.bosses, methods: D.methods, ...planOpts(), rateAt: RATE_AT,
+                              slayer: D.slayerData && { data: D.slayerData, settings: slayerStore(), intensity: state.slayerIntensity } }));
+}
+
+function display(r) {
   const t = r.totals;
   $('summary').innerHTML = `<div><span class="lbl">Time</span>${hrs(t.hours)}${t.realHours > t.hours * 1.2 ? ` <span class="muted">(${Math.ceil(t.realHours / 24)} days including growing)</span>` : ''}</div>
     <div><span class="lbl">Money to make</span>${gpShort(t.gpMade)}</div>
@@ -262,21 +279,39 @@ async function init() {
     status.className = 'hint'; status.setAttribute('role', 'status');
     status.textContent = 'Working out your kill rates (DPS with your gear)…';
     document.querySelector('h1')?.after(status);
-    [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items, { onProgress: (d, n) => { status.innerHTML = `<span class="spinner" aria-hidden="true"></span> Working out your kill rates (DPS with your gear)… ${d}/${n}`; } }), rateContext(ACCOUNT, items.items)]);
-    // what each boss could give once your combat is trained (used to pick which bosses to work out exactly later
-    // in the plan); done here, a boss at a time, so the page can show progress
-    const maxed = { ...ACCOUNT.xp, ...Object.fromEntries(['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'].map(k => [k, Math.max(ACCOUNT.xp?.[k] || 0, 13034431)])) };
-    const allQ = Object.fromEntries(Object.keys(D.quests || {}).map(q => [q, 'complete']));
-    for (let i = 0; i < bosses.length; i++) {
-      status.innerHTML = `<span class="spinner" aria-hidden="true"></span> Working out what training could unlock… ${i + 1}/${bosses.length}`;
-      await new Promise(r => setTimeout(r, 0));
-      for (const s of bosses[i].setups || []) RATE_AT(bosses[i], s, maxed, GP_TIERS[GP_TIERS.length - 1], { quests: allQ, prayers: ACCOUNT.prayers || [] });   // (the planner's optimistic figure: 99s, every quest, the most cash)
-    }
-    status.textContent = 'Planning with your kill rates…';
-    await new Promise(r => setTimeout(r, 30));
-    render();
+    RATES = await accountRates(ACCOUNT, bosses, items.items, { onProgress: (d, n) => { status.innerHTML = `<span class="spinner" aria-hidden="true"></span> Working out your kill rates (DPS with your gear)… ${d}/${n}`; } });
+    const started = await startWorker(status);
+    if (!started) {
+      // no worker (very old browser): work it out here; the page is busy meanwhile
+      RATE_AT = await rateContext(ACCOUNT, items.items);
+      status.textContent = 'Planning with your kill rates…';
+      await new Promise(r => setTimeout(r, 30));
+      busy(true, 0, 1, 'Working out your plan (the page is busy meanwhile)…');
+      await new Promise(r => requestAnimationFrame(() => setTimeout(r, 30)));
+      try { renderNow(); } finally { busy(false); }
+    } else render();
     status.remove();
   }
+}
+
+// the planning worker: loads the data and kill-rate context, works out what training could unlock (with progress
+// in `status`), then plans on request; resolves false if workers aren't available
+function startWorker(status) {
+  return new Promise(resolve => {
+    let w;
+    try { w = new Worker(new URL('./plan-worker.js', import.meta.url), { type: 'module' }); } catch { return resolve(false); }
+    const fail = () => { if (!WORKER_READY) { try { w.terminate(); } catch {} resolve(false); } };
+    w.onerror = e => { console.error('planner worker:', e.message); fail(); };
+    w.onmessage = ({ data: m }) => {
+      if (m.type === 'warm') status.innerHTML = `<span class="spinner" aria-hidden="true"></span> Working out what training could unlock… ${m.done + 1}/${m.total}`;
+      else if (m.type === 'ready') { WORKER = w; WORKER_READY = true; resolve(true); }
+      else if (m.id !== renderToken) return;                       // an older plan: a newer one is on its way
+      else if (m.type === 'progress') busy(true, m.done, m.total);
+      else if (m.type === 'result') { busy(false); display(m.r); }
+      else if (m.type === 'error') { busy(false); $('steps').innerHTML = `<li class="error">Couldn't work out the plan (${esc(m.message)}).</li>`; }
+    };
+    w.postMessage({ type: 'init', account: ACCOUNT });
+  });
 }
 
 init().catch(err => { $('steps').innerHTML = `<li class="error">Couldn't load the app's data (${esc(err.message)}).</li>`; console.error(err); });

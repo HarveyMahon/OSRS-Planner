@@ -636,7 +636,11 @@ export function plan(goals, d) {
   for (const sk of lvOrder) if (finalLevels[sk] && sk !== 'Hitpoints') block(levelGoal(sk)).extra.push(() => train(sk, finalLevels[sk]));
   if (finalLevels.Hitpoints) block(levelGoal('Hitpoints')).extra.push(() => trainHitpoints(finalLevels.Hitpoints));   // after combat, which gives Hitpoints XP
   goals.forEach((g, i) => { if (g.type === 'gp') block(gkeys[i]).extra.push(() => makeGp(g.amount, `your goal of ${g.amount.toLocaleString('en-GB')} GP`, `goal:${g.amount}`)); });
-  for (const b of blocks) b.run = () => { b.ms.forEach(runMilestone); b.extra.forEach(f => f()); };
+  // progress (for the page's progress bar): one unit per milestone and per level/GP goal part
+  const workTotal = blocks.reduce((n, b) => n + b.ms.length + b.extra.length, 0) || 1;
+  let workDone = 0;
+  const tick = label => { workDone++; d.onProgress?.(workDone, workTotal, label); };
+  for (const b of blocks) b.run = () => { b.ms.forEach(m => { runMilestone(m); tick(m.id); }); b.extra.forEach(f => { f(); tick(); }); };
   // the user's order (keys from an earlier plan) first, anything new after it in the usual order
   if (userOrder?.length) {
     const pos = k => { const i = userOrder.indexOf(k); return i < 0 ? Infinity : i; };

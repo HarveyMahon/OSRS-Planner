@@ -68,3 +68,7 @@ input.bad { border-color: #e57373 !important; outline: 1px solid #e57373; }
 .spinner { display: inline-block; vertical-align: -3px; width: 16px; height: 16px; flex: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; will-change: transform; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .stale { opacity: .55; transition: opacity .15s; }
+
+.busy-body { display: flex; flex-direction: column; gap: 6px; min-width: 220px; }
+.busy .bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,.12); overflow: hidden; }
+.busy .bar i { display: block; height: 100%; width: 2%; background: var(--accent, #d9a441); transition: width .25s; }
