@@ -11,7 +11,7 @@ import { bestSetup } from './best-setup.js';
 import { levelForXp, xpForLevel } from './xp.js';
 
 const KEY = 'osrsplanner:rates';
-const VERSION = 36;
+const VERSION = 37;
 const COMBAT = ['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'];
 const OFFENCE = ['Attack', 'Strength', 'Ranged', 'Magic'];   // what your kill rate already measures
 const GUIDE_DEFAULT_LEVEL = 90;          // combat levels a guide doesn't list
@@ -126,7 +126,7 @@ function guideItems(setup, items, byId) {
 
 /**
  * A synchronous rate function for the planner's kill-count steps, at the levels the plan has reached:
- * rateAt(boss, setup, xp, cash) -> { kph, factor, myFight, guideFight } or null (cash: gold for gear at that point). Loads the data up front.
+ * rateAt(boss, setup, xp, cash, { quests, prayers }) -> { kph, factor, myFight, guideFight } or null (cash: gold for gear at that point). Loads the data up front.
  */
 // cash stack tiers the planner re-works gear at, as money steps build up cash
 export const GP_TIERS = [10e6, 25e6, 50e6, 100e6, 250e6, 500e6, 1e9, 2.5e9, 5e9, 10e9];
@@ -139,9 +139,15 @@ export async function rateContext(account, items, { budget } = {}) {
   const mine = new Map(), guide = new Map();
   // cash for gear: what the plan has at that point, rounded down to a few tiers so states are shared
   const tierOf = c => { let t = gp; for (const x of GP_TIERS) if (c >= x && x > t) t = x; return t; };
-  return (b, s, xp, cash = gp) => {
+  const hash = str => { let h = 0; for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0; return h.toString(36); };
+  const done = new Map();          // per boss and setup: what's been worked out, to keep more never slower
+  return (b, s, xp, cash = gp, state = {}) => {
     const t = targets[b.id];
     const budgetNow = tierOf(cash);
+    // quests and prayers as the plan has them by now (quests done in the plan count: Ancients, thralls, gear)
+    const qs = state.quests ? Object.keys(state.quests instanceof Set ? Object.fromEntries([...state.quests].map(q => [q, 1])) : state.quests).sort() : Object.keys(account.quests || {}).sort();
+    const prs = [...new Set([...(account.prayers || []), ...(state.prayers || [])])].sort();
+    const qkey = hash(qs.join(',') + '|' + prs.join(','));
     if (!t?.parts?.length || !s.unitsPerHr) return null;
     let g = guide.get(`${b.id}:${s.id}`);
     if (g === undefined) {
@@ -152,16 +158,23 @@ export async function rateContext(account, items, { budget } = {}) {
     if (!g || !isFinite(g)) return null;
     // levels rounded down to a multiple of 5, so a long plan only works out a few states per boss
     // (your current level and 99 are kept as they are)
-    const q = COMBAT.map(k => { const l = levelForXp(xp?.[k] || 0); return l >= 99 || l === levelForXp(account.xp?.[k] || 0) ? l : Math.max(1, Math.floor(l / 5) * 5); });
-    const lv = q.join(',');
-    const acc = { ...account, xp: { ...xp, ...Object.fromEntries(COMBAT.map((k, i) => [k, xpForLevel(q[i])])) } };
+    // (your current level and 99 are kept as they are, and a level is never rounded below where you are now)
+    const q = COMBAT.map(k => { const l = levelForXp(xp?.[k] || 0), now = levelForXp(account.xp?.[k] || 0); return l >= 99 || l <= now ? l : Math.max(now, Math.floor(l / 5) * 5); });
+    const lv = q.join(',') + ':' + qkey;
+    const acc = { ...account, quests: Object.fromEntries(qs.map(x => [x, 'complete'])), prayers: prs, xp: { ...xp, ...Object.fromEntries(COMBAT.map((k, i) => [k, xpForLevel(q[i])])) } };
     const per = 3600 / s.unitsPerHr, n = teamSize(s, b);
     const guideFight = Math.min(g / n, per * MAX_FIGHT_SHARE);
-    let f = mine.get(`${b.id}:${s.id}:${lv}:${budgetNow}`);           // (energy per kill uses this setup's downtime)
-    if (f === undefined) { f = bestSetup(accountPlayer(acc, { onTask: !!b.taskOnly }), gear, t, monsters, avail, { budget: budgetNow, fast: true, downtime: per - guideFight, team: n })?.time ?? Infinity; mine.set(`${b.id}:${s.id}:${lv}:${budgetNow}`, f); }
+    // (worked out once per boss and state, shared by its setups: only the spec energy per kill would differ,
+    // through each setup's downtime, and that's small next to the cost of working it out twice)
+    let f = mine.get(`${b.id}:${lv}:${budgetNow}`);
+    if (f === undefined) { f = bestSetup(accountPlayer(acc, { onTask: !!b.taskOnly }), gear, t, monsters, avail, { budget: budgetNow, fast: true, downtime: per - guideFight, team: n })?.time ?? Infinity; mine.set(`${b.id}:${lv}:${budgetNow}`, f); }
     // more cash can only help: never slower than with a smaller cash stack already worked out (the quick
     // optimiser can land on a slightly worse set with more choice)
-    for (const lower of [gp, ...GP_TIERS]) { if (lower >= budgetNow) continue; const g2 = mine.get(`${b.id}:${s.id}:${lv}:${lower}`); if (g2 != null && g2 < f) f = g2; }
+    // ...and higher levels or more quests and prayers can only help too: never slower than a state already worked
+    // out that had no more of anything (levels, cash, quests, prayers)
+    const dk = b.id, list = done.get(dk) || [];
+    for (const e of list) if (e.f < f && e.budget <= budgetNow && e.q.every((l, i) => l <= q[i]) && e.qs.every(x => qs.includes(x)) && e.prs.every(x => prs.includes(x))) f = e.f;
+    list.push({ q, budget: budgetNow, qs, prs, f }); done.set(dk, list);
     const myFight = f / n;
     const raw = isFinite(myFight) ? 3600 / (per - guideFight + myFight) / s.unitsPerHr : 0;
     const factor = raw ? Math.max(MIN_FACTOR, Math.min(MAX_FACTOR, raw)) : 0;

@@ -246,8 +246,19 @@ async function init() {
     status.textContent = 'Working out your kill rates (DPS with your gear)…';
     document.querySelector('h1')?.after(status);
     [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items, { onProgress: (d, n) => { status.textContent = `Working out your kill rates (DPS with your gear)… ${d}/${n}`; } }), rateContext(ACCOUNT, items.items)]);
-    status.remove();
+    // what each boss could give once your combat is trained (used to pick which bosses to work out exactly later
+    // in the plan); done here, a boss at a time, so the page can show progress
+    const maxed = { ...ACCOUNT.xp, ...Object.fromEntries(['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'].map(k => [k, Math.max(ACCOUNT.xp?.[k] || 0, 13034431)])) };
+    const allQ = Object.fromEntries(Object.keys(D.quests || {}).map(q => [q, 'complete']));
+    for (let i = 0; i < bosses.length; i++) {
+      status.textContent = `Working out what training could unlock… ${i + 1}/${bosses.length}`;
+      await new Promise(r => setTimeout(r, 0));
+      for (const s of bosses[i].setups || []) RATE_AT(bosses[i], s, maxed, ACCOUNT.gp || 0, { quests: allQ, prayers: ACCOUNT.prayers || [] });
+    }
+    status.textContent = 'Planning with your kill rates…';
+    await new Promise(r => setTimeout(r, 30));
     render();
+    status.remove();
   }
 }
 

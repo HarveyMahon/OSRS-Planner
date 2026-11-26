@@ -8,6 +8,7 @@ import { isMet, unmet, describe } from '../core/requirements.js';
 import { loadAccount, hasAccount, forRequirements } from '../core/account.js';
 import { getOverride, setOverride, resetOverride, withQty, withRemoved, withAdded } from '../core/overrides.js';
 import { accountRates, withoutCombatLevels } from '../core/rates.js';
+import { slayerSpeed } from '../core/slayer.js';
 
 console.log('Money Makers: starting');
 const $ = id => document.getElementById(id);
@@ -69,7 +70,7 @@ function rows() {
     return { ...m, kind: 'boss', id: b.id, cat: 'bosses', wilderness: !!b.wilderness, wildernessNote: b.wildernessNote, taskOnly: !!b.taskOnly, members: true };
   });
   const methodRows = METHODS.map(m => {
-    const r = guideMethod(m, ITEMS.items, { cash: ACCOUNT ? (ACCOUNT.gp || 0) : null });   // with an account, 0 GP means you can't buy supplies yet
+    const r = guideMethod(m, ITEMS.items, { cash: ACCOUNT ? (ACCOUNT.gp || 0) : null, speed: myRates() ? slayerSpeed(RATES) : null });   // with an account, 0 GP means you can't buy supplies yet; combat guides scaled by your kill speed
     if (!meets(m)) r.locked = unmet(m.requires, ACCOUNT, ctx()).map(x => describe(x, names()));
     return { ...r, kind: 'method', id: 'm:' + m.id, cat: catOf(m), wilderness: m.wilderness, wildernessNote: m.wildernessNote, members: m.members };
   });

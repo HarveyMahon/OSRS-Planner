@@ -114,9 +114,11 @@ export function listValue(list, items) {
  * When either bites, the method runs at that fraction of the guide's rate for the hour.
  * Returns the capped figures plus { scale, cappedBy: 'buy limit' | 'cash' | null, capNote }.
  */
-export function guideMethod(m, items, { cash } = {}) {
+export function guideMethod(m, items, { cash, speed } = {}) {
   const out = listValue(m.outputsPerHr, items), inp = listValue(m.inputsPerHr, items);
   let scale = 1, cappedBy = null, capNote = null;
+  // Combat guides assume the guide's (often max) gear and stats: scaled by your kill speed, like Slayer tasks
+  if (speed != null && /^Combat/.test(m.category || '') && speed < 1) { scale = speed; cappedBy = 'kill speed'; capNote = `Kills at ${Math.round(speed * 100)}% of the guide's rate (your kill speed from your boss kill rates)`; }
   for (const x of m.inputsPerHr) {
     const lim = x.gp == null ? items[x.item]?.limit : null;
     if (lim && x.qty > lim / 4) {

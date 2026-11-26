@@ -174,7 +174,20 @@ t('guide method gp/hr', () => {
   const r3 = guideMethod(m, items, { cash: 110 });
   assert.equal(r3.cappedBy, 'cash'); assert.ok(Math.abs(r3.scale - 0.2) < 1e-9);
   assert.equal(guideMethod(m, items, { cash: 1e9 }).scale, 1);
+  // combat guides scale by your kill speed; other methods don't (round 4)
+  const cm = { ...m, category: 'Combat/Mid' };
+  assert.equal(guideMethod(cm, items, { speed: 0.5 }).scale, 0.5);
+  assert.equal(guideMethod(cm, items, { speed: 1.4 }).scale, 1);
+  assert.equal(guideMethod(m, items, { speed: 0.5 }).scale, 1);
 });
+
+t('rates: Prayer requirements count up to 43 with kill rates; offence dropped', async () => {
+  const { withoutCombatLevels } = await import('../core/rates.js');
+  const r = withoutCombatLevels({ all: [{ skill: 'Prayer', level: 77 }, { skill: 'Attack', level: 90 }, { skill: 'Defence', level: 80 }] });
+  const flat = JSON.stringify(r);
+  assert.ok(flat.includes('"level":43') && !flat.includes('Attack') && flat.includes('Defence'));
+});
+
 
 const { estimate, stageAt, gpPerXp } = await import('../core/training.js');
 t('training estimates', () => {
@@ -462,6 +475,23 @@ if (original) await (async () => {  // pet adapter rebuilds the original data
     const half = S.withSpecs(P, { weapon: sword }, { dmgLo: { weapon: claws } }, mon, { energy: 50, noRegen: true });
     assert.ok(half && half.specs === 1 && half.used === 50);
     assert.equal(S.withSpecs(P, { weapon: sword }, { dmgLo: { weapon: claws } }, mon, { energy: 20, noRegen: true }), null);
+  });
+  t('best setup: a style unlocked by levels never starves the others (quick mode, round 4)', async () => {
+    const { bestSetup } = await import('../core/best-setup.js');
+    // ranged needs the budget; a pricey melee weapon that is only slightly useful mustn't take it first
+    const bow = { id: 11, name: 'Test bow', slot: 'weapon', b: { arange: 90, rstr: 60 }, speed: 4, category: 'Crossbow' };
+    const bolts = { id: 12, name: 'Test bolts', slot: 'ammo', b: { rstr: 0 } };
+    const cheapBow = { id: 13, name: 'Cheap bow', slot: 'weapon', b: { arange: 10, rstr: 5 }, speed: 4, category: 'Crossbow' };
+    const hal = { id: 14, name: 'Test halberd', slot: '2h', two: true, b: { aslash: 40, str: 40 }, speed: 7, category: 'Polearm' };
+    const gear = { weapon: [bow, cheapBow], '2h': [hal], ammo: [bolts] };
+    const price = { 11: 9e6, 12: 0, 13: 0, 14: 9e6 };
+    const av = it => ({ owned: price[it.id] === 0, price: price[it.id] ?? null });
+    const monsters = { Z: { ...mon, name: 'Zed', hp: 500 } };
+    const tgt = { parts: [{ monster: 'Z', weight: 1 }] };
+    const low = { ...P, levels: { ...P.levels, Attack: 1, Strength: 1 } };
+    const a = bestSetup(low, gear, tgt, monsters, av, { budget: 10e6, fast: true }).time;
+    const b = bestSetup(P, gear, tgt, monsters, av, { budget: 10e6, fast: true }).time;
+    assert.ok(b <= a + 1e-6, `more levels made it slower: ${a} -> ${b}`);
   });
   t('specs: repeated kills share energy across kills; ToB/ToA/TFA refill it each room (Harvey)', async () => {
     const { bestSetup } = await import('../core/best-setup.js');

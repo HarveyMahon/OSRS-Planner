@@ -22,7 +22,6 @@ import { isMet, describe, unmet, questPoints } from './requirements.js';
 import { estimate, stageAt } from './training.js';
 import { bossMethod, guideMethod, setupOf, gearCost, gearEntry, viableRate } from './money.js';
 import { withoutCombatLevels, GP_TIERS } from './rates.js';
-const RATE_AT_TOP = 8;
 import { bestMaster, slayerSettings, blockSlotsFor, slayerSpeed } from './slayer.js';
 
 const INTENSITY_ORDER = { fastest: ['fastest', 'balanced', 'afk'], balanced: ['balanced', 'fastest', 'afk'], afk: ['afk', 'balanced', 'fastest'] };
@@ -87,6 +86,9 @@ export function plan(goals, d) {
   const rateOf = (b, s) => rates?.[b.id]?.setups?.[s.id] || null;
   const methodOf = (b, setupId) => { const r = rateOf(b, setupOf(b, setupId)); return bossMethod(b, items, { setupId, override: r ? { unitsPerHr: r.kph } : undefined }); };
   const reqCtx = { quests };
+  const ceilMemo = new Map();
+  const allQuests = Object.fromEntries(Object.keys(quests || {}).map(q => [q, 'complete']));
+  const MAXED_XP = xp => ({ ...xp, ...Object.fromEntries(['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'].map(k => [k, Math.max(xp[k] || 0, 13034431)])) });
   const sim = { xp: { ...d.account.xp }, quests: { ...(d.account.quests || {}) }, owned: { ...(d.account.bank || {}), ...(d.account.owned || {}) },
                 kc: { ...(d.account.kc || {}) }, diaries: new Set(d.account.diaries || []), prayers: [...(d.account.prayers || [])], gp: d.account.gp || 0 };
   const warnings = [];
@@ -254,6 +256,16 @@ export function plan(goals, d) {
     warnings.push(`${quests[r.owner]?.name || 'A quest'} needs ${r.qp} quest points; this plan has ${r.have} before it.`);
   }
 
+  // ---- your kill speed at this point in the plan ----
+  // the middle of your boss kill-rate factors against the Wiki's high-level setups (capped at 1), at the levels,
+  // cash, quests and prayers reached so far: scales Slayer tasks and the Wiki's combat money-making guides
+  // (taken from the bosses worked out exactly at the latest money step, so it costs nothing extra)
+  let lastFactors = null;
+  function speedNow() {
+    const f = lastFactors && lastFactors.length >= 5 ? lastFactors : null;
+    return f ? slayerSpeed(Object.fromEntries(f.map((x, i) => [i, { setups: { high: { factor: x } } }]))) : slayerSpeed(rates);
+  }
+
   // ---- money makers available at a point in the plan ----
   // every money maker the account can do at this point in the plan, best GP/hr first
   function moneyMakers() {
@@ -272,23 +284,32 @@ export function plan(goals, d) {
         if (now > 0 || (rateAt && guide > 0)) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: now, guide, fullOk, wilderness: !!b.wilderness, b, s });
       }
     }
-    // the best bosses again at the levels the plan has reached by now: the best few by today's rate and the best
-    // few by the guide's rate (what a trained account can reach); working them all out is slow
+    // Bosses again at the levels, cash, quests and prayers the plan has reached by now. Working every boss out at
+    // every state is slow, so they're taken best-first by an optimistic figure (the guide's GP/hr at your kill
+    // rate with 99s in every combat skill, which no later state can beat, cash aside) and worked out exactly
+    // until the optimistic figure falls well below the best found (alternatives for the list included).
     if (rateAt) {
-      const pick = new Set([...out].sort((a, b) => b.gpPerHr - a.gpPerHr).slice(0, RATE_AT_TOP));
-      for (const o of [...out].sort((a, b) => b.guide - a.guide).slice(0, RATE_AT_TOP)) pick.add(o);
-      for (const o of pick) {
-        const r = rateAt(o.b, o.s, sim.xp, sim.gp);
+      const ceil = o => { let c = ceilMemo.get(o.id); if (c === undefined) { const r = rateAt(o.b, o.s, MAXED_XP(d.account.xp), d.account.gp || 0, { quests: allQuests, prayers: d.account.prayers || [] }); c = r && r.kph > 0 ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : o.fullOk ? o.guide : 0; ceilMemo.set(o.id, c); } return c; };
+      const order = [...out].sort((a, b) => Math.max(ceil(b), b.gpPerHr) - Math.max(ceil(a), a.gpPerHr));
+      let best = 0, n = 0; const fs = [];
+      for (const o of order) {
+        const up = Math.max(ceil(o), o.gpPerHr);
+        if (n >= 6 && up < best * 0.6) { o.gpPerHr = Math.min(o.gpPerHr, up); continue; }   // can't come close: keep today's figure
+        const r = rateAt(o.b, o.s, sim.xp, sim.gp, { quests: sim.quests, prayers: sim.prayers });
+        if (r?.factor > 0 && o.s.id === 'high') fs.push(r.factor);
         if (r) o.gpPerHr = r.kph > 0 && viableRate(r) ? bossMethod(o.b, items, { setupId: o.s.id, override: { unitsPerHr: r.kph } }).gpPerHr : 0;
         else if (!rateOf(o.b, o.s)) o.gpPerHr = o.fullOk ? o.guide : 0;
+        best = Math.max(best, o.gpPerHr); n++;
       }
+      if (fs.length >= 5) lastFactors = fs;
     }
     for (const o of out) { delete o.guide; delete o.fullOk; }
     for (let i = out.length - 1; i >= 0; i--) if (out[i].gpPerHr <= 0) out.splice(i, 1);
     for (const o of out) { delete o.b; delete o.s; }
+    let speed;
     for (const m of methods) {
       if (m.recurring || (hideWild && m.wilderness) || !isMet(m.requires, sim, reqCtx)) continue;
-      const r = guideMethod(m, items, { cash: Math.max(sim.gp, 1) });
+      const r = guideMethod(m, items, { cash: Math.max(sim.gp, 1), speed: speed ?? (speed = speedNow()) });
       if (r.missing.length || r.gpPerHr <= 0) continue;
       out.push({ id: `m:${m.id}`, name: m.name, gpPerHr: r.gpPerHr, wilderness: m.wilderness, cappedBy: r.cappedBy });
     }
@@ -309,12 +330,13 @@ export function plan(goals, d) {
       const chosen = gpChoice && all.find(m => m.id === gpChoice);
       const mm = chosen || all[0];
       if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += left; steps.push({ kind: 'gp', amount: left, method: null, hours: 0, reason, key }); return; }
-      const nextTier = rateAt && !chosen ? GP_TIERS.find(t => t > sim.gp) : null;
+      const nextTier = rateAt ? GP_TIERS.find(t => t > sim.gp) : null;   // (a chosen money maker gets the stages too)
       const amt = nextTier && nextTier - sim.gp < left ? Math.ceil((nextTier - sim.gp) / 100000) * 100000 : left;
       const prev = steps[steps.length - 1];
       if (!first && prev?.kind === 'gp' && prev.key === key && prev.method?.id === mm.id) {
         prev.hours += amt / mm.gpPerHr; prev.amount += amt;                    // same method again: one longer step
         prev.method = { ...mm, gpPerHr: prev.amount / prev.hours, rising: true }; // at its average rate over the stages
+        prev.options = prev.options.map(o => o.id === mm.id ? { ...o, gpPerHr: prev.method.gpPerHr } : o);   // (the list shows the same figure)
       } else {
         steps.push({ kind: 'gp', amount: amt, method: mm, hours: amt / mm.gpPerHr, reason: first ? reason : `${reason} (with the gear your cash can now buy)`, key, chosen: !!chosen,
                      choiceUnavailable: !!gpChoice && !chosen, options: all.slice(0, 25) });
@@ -392,7 +414,7 @@ export function plan(goals, d) {
   const slayerCache = new Map();
   function slayerTrack(fromXp, toXp) {
     if (!slayer?.data) return null;
-    const settings = { ...slayerSettings(slayer.settings), speed: slayerSpeed(rates) ?? 1 };   // scaled by your boss kill rates
+    const settings = { ...slayerSettings(slayer.settings), speed: speedNow() ?? 1 };   // scaled by your boss kill rates
     const inten = slayer.intensity || settings.intensity || intensity;
     const fallback = trackFor(training, 'Slayer', intensity, { hideWild });
     const stages = [];
@@ -511,7 +533,7 @@ export function plan(goals, d) {
     } else if (m.n > 0) {
       const b = bossById(m.id);
       // kill steps: your kill rate at the levels the plan has reached by now, when the planner can work it out
-      const atNow = rateAt?.(b, setupOf(b, m.setupId), sim.xp, sim.gp);
+      const atNow = rateAt?.(b, setupOf(b, m.setupId), sim.xp, sim.gp, { quests: sim.quests, prayers: sim.prayers });
       const bm = atNow ? bossMethod(b, items, { setupId: m.setupId, override: { unitsPerHr: atNow.kph } }) : methodOf(b, m.setupId);
       for (const q of questsIn(bm.setup.requires)) doQuestNow(q, { pulledFor: b.name });
       trainNeeds(m.needs);
