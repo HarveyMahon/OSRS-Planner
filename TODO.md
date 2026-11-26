@@ -78,3 +78,8 @@ Ideas parked for later. Nothing here is being worked on right now.
 - Not done: Slayer speed within one long Slayer step stays at its start (it's re-worked at the next step); the
   planner doesn't add Piety/Rigour/Augury unlocks unless a goal needs them (rates use the prayers ticked on My
   Account plus any unlocked in the plan).
+- **Training methods that cost more than they save (26 Nov, Harvey)**: a training method is now judged by its
+  hours plus the hours of money-making its cost needs (at the best money maker at that point). Fastest Runecraft
+  60-99 with essence runners (40h, 2.47B) needed ~430h of money-making on an account with no cash, so the
+  planner now picks the quickest overall (solo lava runes, ~138h) and says why on the step. Not applied when you
+  swapped that skill's method yourself, or on AFK.

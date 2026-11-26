@@ -404,7 +404,22 @@ export function plan(goals, d) {
       }
       if (e.blocked) warnings.push(`${skill}: no method you can use at level ${e.blocked}.`);
     }
-    const step = { kind: 'train', skill, fromXp, toXp, fromLevel: levelForXp(fromXp, { virtual: true }), toLevel: level,
+    // A method that costs more than you'd make in the time it saves isn't the fastest way there: count the hours
+    // of money-making it needs (at the best money maker now) and take the method that's quickest overall.
+    // (Not when you've swapped this skill's method yourself, or chose AFK.)
+    let costlier = null;
+    if (!e.blocked && e.gp > sim.gp && intensity !== 'afk' && skill !== 'Slayer' && !swaps.some(w => w.skill === skill)) {
+      const rate = Math.max(1, moneyMakers()[0]?.gpPerHr || 0);
+      const total = (est, use) => est.hours + Math.max(0, est.gp - sim.gp) / rate;
+      let best = total(e), pick = null;
+      for (const alt of (training.skills[skill] || []).filter(t => t.id !== used.id)) {
+        const ea = estimate(alt, fromXp, toXp, items, { account: sim, ctx: reqCtx, others: training.skills[skill] || [] });
+        if (ea.blocked || (hideWild && alt.stages.some(st => st.wilderness))) continue;
+        const t = total(ea); if (t < best - 0.5) { best = t; pick = [alt, ea]; }
+      }
+      if (pick) { costlier = { label: used.label, gp: e.gp, hours: e.hours }; [used, e] = pick; }
+    }
+    const step = { kind: 'train', skill, costlier, fromXp, toXp, fromLevel: levelForXp(fromXp, { virtual: true }), toLevel: level,
                    track: used, estimate: e, hours: e.hours, realHours: e.realHours, gp: e.gp, untilHp, towardsHp,
                    slayer: used.slayer ? slayerCredit(used, e) : undefined };
     pay(e.gp, `${skill} ${step.fromLevel}–${level}`, `train:${skill}:${level}`);

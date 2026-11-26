@@ -84,6 +84,7 @@ function stepHtml(s, i) {
     const cost = s.gp > 0 ? `<span class="cost">${gpShort(s.gp)} cost</span>` : s.gp < 0 ? `<span class="gain">${gpShort(-s.gp)} profit</span>` : '';
     return `<li class="step train${s.estimate.segments.some(g => g.stage.swapped) ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Train ${esc(s.skill)}</b>${s.slayer?.targets?.length ? ` <span class="muted">${esc(slayerTarget(s.slayer.targets))}</span>` : ''} ${s.untilHp ? `until ${s.untilHp} Hitpoints <span class="muted">(${esc(s.skill)} ${s.fromLevel} → ${s.toLevel})</span>` : `${s.fromLevel} → ${s.toLevel}${s.towardsHp ? ` <span class="muted">(towards ${s.towardsHp} Hitpoints)</span>` : ''}`}
       <span class="right">${hrs(s.hours)}${s.realHours > s.hours * 1.5 ? ` · ${Math.ceil(s.realHours / 24)} days of growing` : ''} ${cost}</span></div>
+      ${s.costlier ? `<div class="faint" style="font-size:13px;margin:2px 0 0 26px">Not ${esc(s.costlier.label)} (${hrs(s.costlier.hours)}, ${gpShort(s.costlier.gp)}): making that much money would take longer than it saves. Swap the method to use it anyway.</div>` : ''}
       ${s.slayer ? slayerHtml(s) : `<ul class="segs">${s.estimate.segments.map(seg => segmentHtml(s, seg)).join('')}</ul>`}</li>`;
   }
   if (s.kind === 'quest') return `<li class="step quest"><div class="head"><span class="n">${i + 1}</span><b>Quest:</b> <a href="${wiki(s.name)}" target="_blank" rel="noopener">${esc(s.name)}</a>
