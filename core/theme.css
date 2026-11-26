@@ -59,3 +59,12 @@ textarea { width: 100%; max-width: 720px; box-sizing: border-box; font: inherit;
 .site-footer { max-width: 1100px; margin: 48px auto 24px; padding: 16px 20px 0; border-top: 1px solid var(--line); color: var(--faint); font-size: 12px; line-height: 1.6; }
 .site-footer a { color: var(--muted); }
 input.bad { border-color: #e57373 !important; outline: 1px solid #e57373; }
+
+/* busy banner + spinner (the spinner is a transform animation, so it keeps turning while a page is busy working) */
+.busy { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 50; display: flex; align-items: center; gap: 10px;
+  background: var(--panel, #1e2126); color: var(--text, #e6e6e6); border: 1px solid var(--line, #333); border-radius: 10px; padding: 10px 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.35); font-size: 14px; max-width: calc(100vw - 32px); }
+.busy[hidden] { display: none; }
+.spinner { display: inline-block; vertical-align: -3px; width: 16px; height: 16px; flex: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; will-change: transform; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.stale { opacity: .55; transition: opacity .15s; }

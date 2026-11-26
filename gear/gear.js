@@ -61,7 +61,7 @@ renderRooms();
 $('target').addEventListener('change', renderRooms);
 
 let timer = null;
-function schedule() { clearTimeout(timer); $('working').textContent = 'Working…'; timer = setTimeout(run, 30); }
+function schedule() { clearTimeout(timer); $('working').innerHTML = '<span class="spinner" aria-hidden="true"></span> Working out the fastest setup…'; $('cards')?.classList.add('stale'); timer = setTimeout(() => requestAnimationFrame(() => setTimeout(run, 0)), 30); }
 $('target').addEventListener('change', () => { $('onTask').checked = taskOnly.has($('target').value); schedule(); });   // task-only bosses are fought on task
 for (const id of ['ownOnly', 'onTask']) $(id).addEventListener('change', schedule);
 $('budget').addEventListener('change', schedule);
@@ -96,7 +96,7 @@ function run() {
   const avail = $('ownOnly').checked ? it => { const a = baseAvail(it); return a.owned ? a : { owned: false, price: null }; } : baseAvail;
   const t0 = performance.now();
   const r = bestSetup(player, gear, t, monsters, avail, { budget });
-  $('working').textContent = `Worked out in ${((performance.now() - t0) / 1000).toFixed(1)}s`;
+  $('working').textContent = `Worked out in ${((performance.now() - t0) / 1000).toFixed(1)}s`; $('cards')?.classList.remove('stale');
   if (!r) { $('summary').innerHTML = ''; $('cards').innerHTML = '<p class="muted">No data for this target.</p>'; return; }
   const kills = isFinite(r.time) ? 3600 / r.time : 0;
   const stuck = r.perPart.filter(p => !p.dps).map(p => esc(p.name) + (p.monster.includes('#') ? ` (${esc(p.monster.split('#')[1])})` : ''));

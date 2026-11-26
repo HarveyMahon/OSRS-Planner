@@ -8,7 +8,7 @@ import { SKILLS } from '../core/xp.js';
 import { gpPerXp } from '../core/training.js';
 import { loadAccount, hasAccount, freshAccount } from '../core/account.js';
 import { describe } from '../core/requirements.js';
-import { accountRates, rateContext } from '../core/rates.js';
+import { accountRates, rateContext, GP_TIERS } from '../core/rates.js';
 let RATES = null, RATE_AT = null;
 
 console.log('Planner: starting');
@@ -168,7 +168,23 @@ function stepsHtml(r) {
   })();
 }
 
+// Working out a plan can take a while (kill rates at each point of the plan); the work blocks the page, so show a
+// busy banner first (its spinner keeps turning while the page is busy) and let it paint before starting
+let renderToken = 0;
 function render() {
+  const token = ++renderToken;
+  if (!state.goals.length) return renderNow();
+  busy(true);
+  requestAnimationFrame(() => setTimeout(() => { if (token !== renderToken) return; try { renderNow(); } finally { busy(false); } }, 30));
+}
+function busy(on) {
+  let el = document.getElementById('busy');
+  if (!el) { el = document.createElement('div'); el.id = 'busy'; el.className = 'busy'; el.setAttribute('role', 'status'); el.innerHTML = '<span class="spinner" aria-hidden="true"></span> Working out your plan… this can take a minute for a long plan'; document.body.append(el); }
+  el.hidden = !on;
+  document.getElementById('steps')?.classList.toggle('stale', on);
+}
+
+function renderNow() {
   document.querySelectorAll('#intensity button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.i === state.intensity)));
   $('goals').innerHTML = state.goals.length ? state.goals.map((g, i) => `<span class="chip">${esc(goalLabel(g))}<button type="button" data-remove="${i}" aria-label="Remove">×</button></span>`).join('')
     : '<span class="muted">No goals yet: add one above.</span>';
@@ -246,15 +262,15 @@ async function init() {
     status.className = 'hint'; status.setAttribute('role', 'status');
     status.textContent = 'Working out your kill rates (DPS with your gear)…';
     document.querySelector('h1')?.after(status);
-    [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items, { onProgress: (d, n) => { status.textContent = `Working out your kill rates (DPS with your gear)… ${d}/${n}`; } }), rateContext(ACCOUNT, items.items)]);
+    [RATES, RATE_AT] = await Promise.all([accountRates(ACCOUNT, bosses, items.items, { onProgress: (d, n) => { status.innerHTML = `<span class="spinner" aria-hidden="true"></span> Working out your kill rates (DPS with your gear)… ${d}/${n}`; } }), rateContext(ACCOUNT, items.items)]);
     // what each boss could give once your combat is trained (used to pick which bosses to work out exactly later
     // in the plan); done here, a boss at a time, so the page can show progress
     const maxed = { ...ACCOUNT.xp, ...Object.fromEntries(['Attack', 'Strength', 'Defence', 'Ranged', 'Magic', 'Hitpoints', 'Prayer'].map(k => [k, Math.max(ACCOUNT.xp?.[k] || 0, 13034431)])) };
     const allQ = Object.fromEntries(Object.keys(D.quests || {}).map(q => [q, 'complete']));
     for (let i = 0; i < bosses.length; i++) {
-      status.textContent = `Working out what training could unlock… ${i + 1}/${bosses.length}`;
+      status.innerHTML = `<span class="spinner" aria-hidden="true"></span> Working out what training could unlock… ${i + 1}/${bosses.length}`;
       await new Promise(r => setTimeout(r, 0));
-      for (const s of bosses[i].setups || []) RATE_AT(bosses[i], s, maxed, ACCOUNT.gp || 0, { quests: allQ, prayers: ACCOUNT.prayers || [] });
+      for (const s of bosses[i].setups || []) RATE_AT(bosses[i], s, maxed, GP_TIERS[GP_TIERS.length - 1], { quests: allQ, prayers: ACCOUNT.prayers || [] });   // (the planner's optimistic figure: 99s, every quest, the most cash)
     }
     status.textContent = 'Planning with your kill rates…';
     await new Promise(r => setTimeout(r, 30));
