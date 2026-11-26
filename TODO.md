@@ -48,3 +48,33 @@ Ideas parked for later. Nothing here is being worked on right now.
   Imbued ancient cape (needs Pete Kayer's ancient fabric) and the imbued max capes still need to be owned.
   Other untradeables you earn (Fire/Infernal cape, Barrows gloves, Avernic defender, Void...) still need to be
   owned; the same list in core/gear.js can take them, with their requirements.
+
+## Review round 4 (planner) — decisions for review (26 Nov)
+
+- **More never slower**: kill rates can't drop as levels, cash, quests or prayers grow. In the quick optimiser
+  (kill rates) the style that does best on its own with all the money gets first call on it (at Zulrah a melee
+  halberd unlocked at 80 Attack was taking the budget from the ranged set: 94.7s -> 169.8s); Best Setup's full
+  search tries each style first and keeps the fastest. The planner's kill rates also never come out below a
+  state already worked out with no more levels, cash, quests or prayers, and levels are never rounded below
+  where you are today. Cost: the kill-rate run with your bank 19s -> 22s.
+- **Every boss is considered later in a plan**, not just the top 8: bosses are taken best-first by an optimistic
+  figure (your kill rate with 99s in every combat skill and every quest, worked out once per plan while the page
+  shows "Working out what training could unlock") and worked out exactly at the plan's state until the optimistic
+  figure falls below 60% of the best found. The dropdown alternatives within that range are exact. A plan for a
+  60s account training to 85s takes about 40s of kill rates plus about 40s of this on first load (cached after).
+- **Kill rates are worked out once per boss and state**, shared by its setups (only the spec energy per kill
+  would differ, through each setup's downtime).
+- **Quests and prayers done in the plan count** for kill rates (Ancients, thralls, gear needing quests).
+- **Wiki combat money-making guides** (Combat/*) are scaled by your kill speed (the same figure as Slayer: the
+  middle of your boss kill-rate factors against the Wiki's high-level setups, capped at 100%), on Money Makers
+  with "use my kill rates" and in the planner (at the plan's state). They show "capped by kill speed". Zombie
+  pirates for an 82s account: 5.21M -> about 4.2M/hr.
+- **Survival**: when a boss's guide expects more Prayer than you'll have, the step says so ("Survival isn't
+  modelled: the guide expects 70 Prayer (you'll have 52)"), and something within 10% that doesn't is picked
+  instead by default.
+- **Kill-count goals** re-pick the setup at the point of the plan they're done (among setups you already meet),
+  unless you chose one.
+- Chosen money makers get the cash stages too, and the dropdown shows the same average rate as the step.
+- Not done: Slayer speed within one long Slayer step stays at its start (it's re-worked at the next step); the
+  planner doesn't add Piety/Rigour/Augury unlocks unless a goal needs them (rates use the prayers ticked on My
+  Account plus any unlocked in the plan).

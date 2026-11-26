@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../core/theme.css">
 <style>
+  .warn { color: var(--warn, #e0a03c); }
   .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: grid; gap: 12px; }
   .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   select, input { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: 14px var(--sans); }
@@ -64,6 +65,7 @@
     <h1>Goal Planner</h1>
     <p>Add goals and get an ordered plan: the quests and levels they need, how to train each range, and when to make money. Swap any training method for another of the same skill and the plan recalculates, including how much money you need to make.</p>
     <p id="acct-note" style="font-size:14px"></p>
+    <p class="faint" style="font-size:13px">Money steps use money makers you can repeat back to back. Slayer-task-only bosses, clue scrolls and daily or weekly runs (shown on <a href="../money/">Money Makers</a>) aren't used here, so the two lists can differ.</p>
   </div>
   <section class="panel">
     <div class="row">

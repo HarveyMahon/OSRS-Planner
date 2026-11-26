@@ -266,6 +266,8 @@ export function plan(goals, d) {
     return f ? slayerSpeed(Object.fromEntries(f.map((x, i) => [i, { setups: { high: { factor: x } } }]))) : slayerSpeed(rates);
   }
 
+  const prayerNeed = req => { let n = 0; const walk = r => { if (!r) return; if (Array.isArray(r)) return r.forEach(walk); if (r.skill === 'Prayer') n = Math.max(n, r.level || 0); for (const k of ['all', 'any']) if (r[k]) walk(r[k]); }; walk(req); return n; };
+
   // ---- money makers available at a point in the plan ----
   // every money maker the account can do at this point in the plan, best GP/hr first
   function moneyMakers() {
@@ -281,7 +283,10 @@ export function plan(goals, d) {
         // without a kill rate (no Wiki gear list to compare with), the guide's full requirements apply
         const fullOk = isMet(s.requires, sim, reqCtx);
         const now = r ? (viableRate(r) ? m.gpPerHr : 0) : fullOk ? m.gpPerHr : 0;
-        if (now > 0 || (rateAt && guide > 0)) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: now, guide, fullOk, wilderness: !!b.wilderness, b, s });
+        // survival isn't modelled: say when the guide expects more Prayer (protection, Piety/Rigour) than you have
+        const pNeed = prayerNeed(s.requires), pHave = levelForXp(sim.xp.Prayer || 0);
+        const thin = pNeed > pHave ? `the guide expects ${pNeed} Prayer (you'll have ${pHave})` : null;
+        if (now > 0 || (rateAt && guide > 0)) out.push({ id: `b:${b.id}:${s.id}`, name: `${b.name} (${s.label})`, gpPerHr: now, guide, fullOk, thin, wilderness: !!b.wilderness, b, s });
       }
     }
     // Bosses again at the levels, cash, quests and prayers the plan has reached by now. Working every boss out at
@@ -328,7 +333,9 @@ export function plan(goals, d) {
     while (left > 0) {
       const all = moneyMakers();
       const chosen = gpChoice && all.find(m => m.id === gpChoice);
-      const mm = chosen || all[0];
+      // not a boss the guide expects more Prayer for when something nearly as good (within 10%) doesn't
+      const safe = all[0]?.thin && all.find(o => !o.thin && o.gpPerHr >= all[0].gpPerHr * 0.9);
+      const mm = chosen || safe || all[0];
       if (!mm) { warnings.push(`No money maker available to fund: ${reason}.`); sim.gp += left; steps.push({ kind: 'gp', amount: left, method: null, hours: 0, reason, key }); return; }
       const nextTier = rateAt ? GP_TIERS.find(t => t > sim.gp) : null;   // (a chosen money maker gets the stages too)
       const amt = nextTier && nextTier - sim.gp < left ? Math.ceil((nextTier - sim.gp) / 100000) * 100000 : left;
@@ -533,6 +540,16 @@ export function plan(goals, d) {
     } else if (m.n > 0) {
       const b = bossById(m.id);
       // kill steps: your kill rate at the levels the plan has reached by now, when the planner can work it out
+      // the setup is picked again here unless you chose one: with the levels and cash the plan has by now,
+      // another setup you already meet the requirements for (e.g. High level after training) may be faster
+      if (rateAt && !setupChoices[b.id]) {
+        let bestK = -1;
+        for (const s2 of b.setups) {
+          if (!isMet(withoutCombatLevels(s2.requires), sim, reqCtx)) continue;
+          const r2 = rateAt(b, s2, sim.xp, sim.gp, { quests: sim.quests, prayers: sim.prayers });
+          if (r2 && r2.kph > bestK) { bestK = r2.kph; m.setupId = s2.id; }
+        }
+      }
       const atNow = rateAt?.(b, setupOf(b, m.setupId), sim.xp, sim.gp, { quests: sim.quests, prayers: sim.prayers });
       const bm = atNow ? bossMethod(b, items, { setupId: m.setupId, override: { unitsPerHr: atNow.kph } }) : methodOf(b, m.setupId);
       for (const q of questsIn(bm.setup.requires)) doQuestNow(q, { pulledFor: b.name });

@@ -104,7 +104,7 @@ function stepHtml(s, i) {
   const pick = s.options?.length ? `<select data-gpmm="${esc(s.key)}" aria-label="Money maker">${s.options.map(o => `<option value="${esc(o.id)}"${o.id === s.method?.id ? ' selected' : ''}>${esc(o.name)} · ${gpShort(o.gpPerHr)}/hr${o.wilderness ? ' (Wilderness)' : ''}</option>`).join('')}</select>`
     + (state.gpChoices[s.key] ? ` <button type="button" class="reset" data-ungp="${esc(s.key)}" title="Back to the best money maker">↺ Back to suggested</button>` : '') : '';
   return `<li class="step gp${s.chosen ? ' changed' : ''}"><div class="head"><span class="n">${i + 1}</span><b>Make ${gpShort(s.amount)} GP</b> ${s.method ? `at ${pick || esc(s.method.name)}${s.method.wilderness ? ' <span class="wild">Wilderness</span>' : ''}` : '<span class="cost">no money maker available</span>'}
-      <span class="right">${hrs(s.hours)}</span></div><div class="note">For ${esc(s.reason)}${s.method ? ` · ${gpShort(s.method.gpPerHr)}/hr${s.method.rising ? ' on average, rising as your cash buys better gear' : ''}` : ''}${s.choiceUnavailable ? ' · your chosen money maker isn\'t available yet here, so this uses the best one' : ''}</div></li>`;
+      <span class="right">${hrs(s.hours)}</span></div><div class="note">For ${esc(s.reason)}${s.method ? ` · ${gpShort(s.method.gpPerHr)}/hr${s.method.rising ? ' on average, rising as your cash buys better gear' : ''}${s.method.thin ? ` · <span class="warn">Survival isn't modelled: ${esc(s.method.thin)}</span>` : ''}` : ''}${s.choiceUnavailable ? ' · your chosen money maker isn\'t available yet here, so this uses the best one' : ''}</div></li>`;
 }
 
 // Gear the chosen setup still needs (not owned or in the imported bank)
