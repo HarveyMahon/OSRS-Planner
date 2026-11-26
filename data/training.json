@@ -1101,7 +1101,7 @@
       "name": "Zeah blood runes (Arceuus)",
       "xpPerHr": 36000,
       "costPerHr": -487861,
-      "note": "Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr.",
+      "note": "Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr. An abyssal lantern burning blisterwood logs (62 Firemaking) crafts 20% more blood runes: about a fifth more profit, the same XP.",
       "requires": {
        "all": [
         {
@@ -1166,7 +1166,7 @@
       "name": "Zeah blood runes (Arceuus)",
       "xpPerHr": 36000,
       "costPerHr": -487861,
-      "note": "Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr.",
+      "note": "Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr. An abyssal lantern burning blisterwood logs (62 Firemaking) crafts 20% more blood runes: about a fifth more profit, the same XP.",
       "requires": {
        "all": [
         {

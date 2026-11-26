@@ -40,7 +40,8 @@ def T(kind, label, intensity, stages, note=None):
 EST = "Estimate: the Wiki gives no rate for this."
 ZEAH_REQ = [{"skill": "Mining", "level": 38}, {"skill": "Crafting", "level": 38}]
 ZEAH_BLOOD = ("Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos "
-              "diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr.")
+              "diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr."
+              "An abyssal lantern burning blisterwood logs (62 Firemaking) crafts 20% more blood runes: about a fifth more profit, the same XP.")
 ZEAH_SOUL = "Profit is the Wiki's figure without Raiments of the Eye (671K with it); also gives ~5.7K Crafting and ~4.1K Mining XP/hr."
 
 MELEE = [
