@@ -51,8 +51,12 @@ export function estimate(track, fromXp, toXp, items, { account, ctx, others = []
     const latest = [...track.stages].filter(s => s.from <= level).pop();
     if (latest && latest !== stage && account) {           // this track's method here is locked
       const best = ts => ts.map(t => stageAt(t, level, account, ctx)).filter(Boolean).sort((a, b) => b.xpPerHr - a.xpPerHr)[0];
-      const calm = best(alts), any = best(anyAlts);         // a calmer track's method, unless another track's is faster
-      const alt = calm && (!any || calm.xpPerHr >= any.xpPerHr) ? calm : any;
+      // a calmer track's method; failing that, the least intense other track's (not just the fastest: the fastest
+      // can be essence runners at 48M an hour standing in for an AFK method)
+      const calm = best(alts);
+      const near = calm ? null : anyAlts.map(t => ({ i: t.intensity ?? 9, st: stageAt(t, level, account, ctx) })).filter(x => x.st)
+        .sort((a, b) => a.i - b.i || b.st.xpPerHr - a.st.xpPerHr)[0]?.st;
+      const alt = calm || near;
       if (alt && (!stage || alt.xpPerHr > stage.xpPerHr)) { stage = alt; instead = latest; }
     }
     if (!stage) { res.blocked = level; res.blockedBy = latest?.requires || track.stages.find(s => s.requires)?.requires || null; break; }

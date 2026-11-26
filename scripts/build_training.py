@@ -38,6 +38,10 @@ def T(kind, label, intensity, stages, note=None):
 
 
 EST = "Estimate: the Wiki gives no rate for this."
+ZEAH_REQ = [{"skill": "Mining", "level": 38}, {"skill": "Crafting", "level": 38}]
+ZEAH_BLOOD = ("Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos "
+              "diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr.")
+ZEAH_SOUL = "Profit is the Wiki's figure without Raiments of the Eye (671K with it); also gives ~5.7K Crafting and ~4.1K Mining XP/hr."
 
 MELEE = [
     T("fastest", "Fastest", 4, [
@@ -147,6 +151,21 @@ SKILLS = {
         T("afk", "Guardians of the Rift", 2, [
             S(1, "Talisman tiaras", 40000),
             S(27, "Guardians of the Rift (lower effort)", 40000, quest=["Temple of the Eye"], note=EST),
+        ]),
+        # Zeah (Arceuus) blood/soul runes: Wiki P2P Runecraft training, running to the altar with the medium Kourend &
+        # Kebos diary, profit without Raiments of the Eye (a fixed figure: cost < 0 is profit per hour)
+        T("balanced", "Lava runes, then Zeah blood and soul runes", 3, [
+            S(1, "Talisman tiaras", 47000, note="Air 36K to elemental 58K."),
+            S(50, "Lava runes", 63000, each=10.5, inp={"Pure essence": 1, "Earth rune": 1}, out={"Lava rune": 1}),
+            S(75, "Lava runes", 79000, each=10.5, inp={"Pure essence": 1, "Earth rune": 1}, out={"Lava rune": 1}),
+            S(77, "Zeah blood runes (Arceuus)", 36000, cost=-487861, req=ZEAH_REQ, note=ZEAH_BLOOD),
+            S(90, "Zeah soul runes (Arceuus)", 44000, cost=-419325, req=ZEAH_REQ, note=ZEAH_SOUL),
+        ]),
+        T("afk", "Guardians of the Rift, then Zeah blood and soul runes", 2, [
+            S(1, "Talisman tiaras", 40000),
+            S(27, "Guardians of the Rift (lower effort)", 40000, quest=["Temple of the Eye"], note=EST),
+            S(77, "Zeah blood runes (Arceuus)", 36000, cost=-487861, req=ZEAH_REQ, note=ZEAH_BLOOD),
+            S(90, "Zeah soul runes (Arceuus)", 44000, cost=-419325, req=ZEAH_REQ, note=ZEAH_SOUL),
         ]),
     ],
     "Construction": [

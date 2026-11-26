@@ -1039,6 +1039,167 @@
       }
      }
     ]
+   },
+   {
+    "id": "runecraft_balanced_lava_runes_then_zeah_blood_and_soul_runes",
+    "kind": "balanced",
+    "label": "Lava runes, then Zeah blood and soul runes",
+    "intensity": 3,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Talisman tiaras",
+      "xpPerHr": 47000,
+      "note": "Air 36K to elemental 58K."
+     },
+     {
+      "from": 50,
+      "name": "Lava runes",
+      "xpPerHr": 63000,
+      "xpEach": 10.5,
+      "inputs": [
+       {
+        "item": "7936",
+        "qty": 1
+       },
+       {
+        "item": "557",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "4699",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 75,
+      "name": "Lava runes",
+      "xpPerHr": 79000,
+      "xpEach": 10.5,
+      "inputs": [
+       {
+        "item": "7936",
+        "qty": 1
+       },
+       {
+        "item": "557",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "4699",
+        "qty": 1
+       }
+      ]
+     },
+     {
+      "from": 77,
+      "name": "Zeah blood runes (Arceuus)",
+      "xpPerHr": 36000,
+      "costPerHr": -487861,
+      "note": "Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Mining",
+         "level": 38
+        },
+        {
+         "skill": "Crafting",
+         "level": 38
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Zeah soul runes (Arceuus)",
+      "xpPerHr": 44000,
+      "costPerHr": -419325,
+      "note": "Profit is the Wiki's figure without Raiments of the Eye (671K with it); also gives ~5.7K Crafting and ~4.1K Mining XP/hr.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Mining",
+         "level": 38
+        },
+        {
+         "skill": "Crafting",
+         "level": 38
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "runecraft_afk_guardians_of_the_rift_then_zeah_blood_and_soul_runes",
+    "kind": "afk",
+    "label": "Guardians of the Rift, then Zeah blood and soul runes",
+    "intensity": 2,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Talisman tiaras",
+      "xpPerHr": 47000,
+      "note": "Air 36K to elemental 58K."
+     },
+     {
+      "from": 27,
+      "name": "Guardians of the Rift (lower effort)",
+      "xpPerHr": 40000,
+      "note": "Estimate: the Wiki gives no rate for this.",
+      "requires": {
+       "all": [
+        {
+         "quest": "temple_of_the_eye"
+        }
+       ]
+      }
+     },
+     {
+      "from": 77,
+      "name": "Zeah blood runes (Arceuus)",
+      "xpPerHr": 36000,
+      "costPerHr": -487861,
+      "note": "Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Mining",
+         "level": 38
+        },
+        {
+         "skill": "Crafting",
+         "level": 38
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Zeah soul runes (Arceuus)",
+      "xpPerHr": 44000,
+      "costPerHr": -419325,
+      "note": "Profit is the Wiki's figure without Raiments of the Eye (671K with it); also gives ~5.7K Crafting and ~4.1K Mining XP/hr.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Mining",
+         "level": 38
+        },
+        {
+         "skill": "Crafting",
+         "level": 38
+        }
+       ]
+      }
+     }
+    ]
    }
   ],
   "Construction": [
