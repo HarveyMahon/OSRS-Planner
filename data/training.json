@@ -1145,8 +1145,7 @@
      {
       "from": 1,
       "name": "Talisman tiaras",
-      "xpPerHr": 47000,
-      "note": "Air 36K to elemental 58K."
+      "xpPerHr": 40000
      },
      {
       "from": 27,
@@ -2047,6 +2046,132 @@
        "all": [
         {
          "quest": "death_to_the_dorgeshuun"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "thieving_balanced_knights_then_pyramid_plunder",
+    "kind": "balanced",
+    "label": "Knights, then Pyramid Plunder",
+    "intensity": 3,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Men / women",
+      "xpPerHr": 8000
+     },
+     {
+      "from": 5,
+      "name": "Ardougne bakery stalls",
+      "xpPerHr": 19000
+     },
+     {
+      "from": 25,
+      "name": "Hosidius fruit stalls",
+      "xpPerHr": 43000
+     },
+     {
+      "from": 55,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 86000
+     },
+     {
+      "from": 65,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 109000
+     },
+     {
+      "from": 71,
+      "name": "Pyramid Plunder",
+      "xpPerHr": 125000,
+      "requires": {
+       "all": [
+        {
+         "quest": "icthlarin_s_little_helper"
+        }
+       ]
+      }
+     },
+     {
+      "from": 81,
+      "name": "Pyramid Plunder",
+      "xpPerHr": 190000,
+      "requires": {
+       "all": [
+        {
+         "quest": "icthlarin_s_little_helper"
+        }
+       ]
+      }
+     },
+     {
+      "from": 91,
+      "name": "Pyramid Plunder",
+      "xpPerHr": 270000,
+      "note": "The fastest outside the Wilderness from 91.",
+      "requires": {
+       "all": [
+        {
+         "quest": "icthlarin_s_little_helper"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "thieving_balanced_knights_then_vyres_profit",
+    "kind": "balanced",
+    "label": "Knights, then vyres (profit)",
+    "intensity": 3,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Men / women",
+      "xpPerHr": 8000
+     },
+     {
+      "from": 5,
+      "name": "Ardougne bakery stalls",
+      "xpPerHr": 19000
+     },
+     {
+      "from": 25,
+      "name": "Hosidius fruit stalls",
+      "xpPerHr": 43000
+     },
+     {
+      "from": 55,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 86000
+     },
+     {
+      "from": 65,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 109000
+     },
+     {
+      "from": 75,
+      "name": "Knights of Ardougne",
+      "xpPerHr": 141000
+     },
+     {
+      "from": 82,
+      "name": "Vyre pickpocketing",
+      "xpPerHr": 150000,
+      "costPerHr": -2847002,
+      "note": "120-180K by level; needs rogue equipment and dodgy necklaces. Profit is the Wiki's figure.",
+      "requires": {
+       "all": [
+        {
+         "diary": "ardougne",
+         "tier": "hard"
+        },
+        {
+         "quest": "sins_of_the_father"
         }
        ]
       }
@@ -3055,6 +3180,456 @@
       }
      }
     ]
+   },
+   {
+    "id": "hunter_afk_low_effort_monkeys_then_herbiboar",
+    "kind": "afk",
+    "label": "Low effort: monkeys, then herbiboar",
+    "intensity": 2,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 9,
+      "name": "Feldip weasels",
+      "xpPerHr": 13000
+     },
+     {
+      "from": 21,
+      "name": "Red crabs",
+      "xpPerHr": 31000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 47,
+      "name": "Orange salamanders (Uzer)",
+      "xpPerHr": 45000,
+      "note": "Wiki: about 40-50K; slower but less click-intensive than falconry."
+     },
+     {
+      "from": 60,
+      "name": "Maniacal monkeys (low effort)",
+      "xpPerHr": 51000,
+      "note": "An input every 25-30 seconds.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 70,
+      "name": "Maniacal monkeys (low effort)",
+      "xpPerHr": 66000,
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "Herbiboar",
+      "xpPerHr": 137000,
+      "note": "A fairly low-effort method; herbs as loot (not counted).",
+      "requires": {
+       "all": [
+        {
+         "skill": "Herblore",
+         "level": 31
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 85,
+      "name": "Herbiboar",
+      "xpPerHr": 147000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Herblore",
+         "level": 31
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Herbiboar",
+      "xpPerHr": 157000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Herblore",
+         "level": 31
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     },
+     {
+      "from": 95,
+      "name": "Herbiboar",
+      "xpPerHr": 166000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Herblore",
+         "level": 31
+        },
+        {
+         "quest": "bone_voyage"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "hunter_afk_low_effort_monkeys_then_stymphikes",
+    "kind": "afk",
+    "label": "Low effort: monkeys, then stymphikes",
+    "intensity": 2,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 9,
+      "name": "Feldip weasels",
+      "xpPerHr": 13000
+     },
+     {
+      "from": 21,
+      "name": "Red crabs",
+      "xpPerHr": 31000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 47,
+      "name": "Orange salamanders (Uzer)",
+      "xpPerHr": 45000,
+      "note": "Wiki: about 40-50K; slower but less click-intensive than falconry."
+     },
+     {
+      "from": 60,
+      "name": "Maniacal monkeys (low effort)",
+      "xpPerHr": 51000,
+      "note": "An input every 25-30 seconds.",
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 70,
+      "name": "Maniacal monkeys (low effort)",
+      "xpPerHr": 66000,
+      "requires": {
+       "all": [
+        {
+         "quest": "monkey_madness_ii"
+        }
+       ]
+      }
+     },
+     {
+      "from": 82,
+      "name": "Stymphikes",
+      "xpPerHr": 120000,
+      "xpEach": 1725,
+      "inputs": [
+       {
+        "item": "33625",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "33651",
+        "qty": 15
+       }
+      ],
+      "note": "About 3 clicks every 45 seconds; with sound on you can let your character spear them itself. One letvek of bait per kill assumed (players use 1-3); 15 feathers a kill (the Wiki's table has fewer at 82).",
+      "requires": {
+       "all": [
+        {
+         "quest": "the_blood_moon_rises"
+        }
+       ]
+      }
+     },
+     {
+      "from": 85,
+      "name": "Stymphikes",
+      "xpPerHr": 130000,
+      "xpEach": 1725,
+      "inputs": [
+       {
+        "item": "33625",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "33651",
+        "qty": 15
+       }
+      ],
+      "requires": {
+       "all": [
+        {
+         "quest": "the_blood_moon_rises"
+        }
+       ]
+      }
+     },
+     {
+      "from": 86,
+      "name": "Stymphikes",
+      "xpPerHr": 140000,
+      "xpEach": 1725,
+      "inputs": [
+       {
+        "item": "33625",
+        "qty": 1
+       }
+      ],
+      "outputs": [
+       {
+        "item": "33651",
+        "qty": 15
+       }
+      ],
+      "note": "The Wiki's theoretical best is 143K (83 kills an hour).",
+      "requires": {
+       "all": [
+        {
+         "quest": "the_blood_moon_rises"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "hunter_balanced_black_chinchompas_wilderness_profit",
+    "kind": "balanced",
+    "label": "Black chinchompas (Wilderness, profit)",
+    "intensity": 3,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 9,
+      "name": "Feldip weasels",
+      "xpPerHr": 13000
+     },
+     {
+      "from": 21,
+      "name": "Red crabs",
+      "xpPerHr": 31000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 39,
+      "name": "Embertailed jerboas",
+      "xpPerHr": 50000,
+      "requires": {
+       "all": [
+        {
+         "quest": "eagles_peak"
+        }
+       ]
+      }
+     },
+     {
+      "from": 43,
+      "name": "Spotted kebbits (falconry)",
+      "xpPerHr": 65000
+     },
+     {
+      "from": 49,
+      "name": "Razor-backed kebbits",
+      "xpPerHr": 100000,
+      "note": "Up to 130K with stamina potions."
+     },
+     {
+      "from": 73,
+      "name": "Black chinchompas",
+      "xpPerHr": 145000,
+      "xpEach": 315,
+      "outputs": [
+       {
+        "item": "11959",
+        "qty": 1
+       }
+      ],
+      "wilderness": true,
+      "note": "Solo rates with tick manipulation and a PKer every 1-2 hours; more with an alt.",
+      "requires": {
+       "all": [
+        {
+         "quest": "eagles_peak"
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "Black chinchompas",
+      "xpPerHr": 167000,
+      "xpEach": 315,
+      "outputs": [
+       {
+        "item": "11959",
+        "qty": 1
+       }
+      ],
+      "wilderness": true,
+      "requires": {
+       "all": [
+        {
+         "quest": "eagles_peak"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Black chinchompas",
+      "xpPerHr": 197000,
+      "xpEach": 315,
+      "outputs": [
+       {
+        "item": "11959",
+        "qty": 1
+       }
+      ],
+      "wilderness": true,
+      "requires": {
+       "all": [
+        {
+         "quest": "eagles_peak"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "hunter_balanced_rainbow_crabs_sailing_profit",
+    "kind": "balanced",
+    "label": "Rainbow crabs (Sailing, profit)",
+    "intensity": 3,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Quiz, quests",
+      "xpPerHr": 5000,
+      "note": "Estimate: the Wiki gives no rate for this."
+     },
+     {
+      "from": 9,
+      "name": "Feldip weasels",
+      "xpPerHr": 13000
+     },
+     {
+      "from": 21,
+      "name": "Red crabs",
+      "xpPerHr": 31000,
+      "requires": {
+       "all": [
+        {
+         "quest": "pandemonium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 39,
+      "name": "Embertailed jerboas",
+      "xpPerHr": 50000,
+      "requires": {
+       "all": [
+        {
+         "quest": "eagles_peak"
+        }
+       ]
+      }
+     },
+     {
+      "from": 43,
+      "name": "Spotted kebbits (falconry)",
+      "xpPerHr": 65000
+     },
+     {
+      "from": 49,
+      "name": "Razor-backed kebbits",
+      "xpPerHr": 100000,
+      "note": "Up to 130K with stamina potions."
+     },
+     {
+      "from": 77,
+      "name": "Rainbow crabs (5 traps)",
+      "xpPerHr": 155000,
+      "costPerHr": -475000,
+      "note": "The Wiki's figures (XP doesn't change with level); 4 traps: about 122K XP and 386K an hour.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Sailing",
+         "level": 64
+        }
+       ]
+      }
+     }
+    ]
    }
   ],
   "Mining": [
@@ -3162,6 +3737,108 @@
       "from": 60,
       "name": "Crashed stars (extremely low attention)",
       "xpPerHr": 27500
+     }
+    ]
+   },
+   {
+    "id": "mining_balanced_gem_rocks_shilo_no_tick_manipulation",
+    "kind": "balanced",
+    "label": "Gem rocks (Shilo, no tick manipulation)",
+    "intensity": 3,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Copper / tin",
+      "xpPerHr": 8000
+     },
+     {
+      "from": 15,
+      "name": "Iron ore",
+      "xpPerHr": 50000
+     },
+     {
+      "from": 60,
+      "name": "Gem rocks (Shilo Village)",
+      "xpPerHr": 52000,
+      "note": "Gems as profit (not counted); 89-110K with 3-tick.",
+      "requires": {
+       "all": [
+        {
+         "diary": "karamja",
+         "tier": "medium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 70,
+      "name": "Gem rocks",
+      "xpPerHr": 58000,
+      "requires": {
+       "all": [
+        {
+         "diary": "karamja",
+         "tier": "medium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "Gem rocks",
+      "xpPerHr": 66000,
+      "requires": {
+       "all": [
+        {
+         "diary": "karamja",
+         "tier": "medium"
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Gem rocks",
+      "xpPerHr": 70000,
+      "requires": {
+       "all": [
+        {
+         "diary": "karamja",
+         "tier": "medium"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "mining_afk_motherlode_then_amethyst",
+    "kind": "afk",
+    "label": "Motherlode, then amethyst",
+    "intensity": 1,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Copper / tin",
+      "xpPerHr": 8000
+     },
+     {
+      "from": 30,
+      "name": "Motherlode Mine (low intensity)",
+      "xpPerHr": 35000
+     },
+     {
+      "from": 92,
+      "name": "Amethyst",
+      "xpPerHr": 22500,
+      "xpEach": 240,
+      "outputs": [
+       {
+        "item": "21347",
+        "qty": 1
+       }
+      ],
+      "note": "Very low attention; 80-100 amethyst an hour."
      }
     ]
    }
@@ -3630,6 +4307,108 @@
        "all": [
         {
          "quest": "swan_song"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "fishing_afk_afk_fly_fishing_then_barbarian_fishing",
+    "kind": "afk",
+    "label": "AFK fly fishing, then Barbarian fishing",
+    "intensity": 1,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Shrimps",
+      "xpPerHr": 8000
+     },
+     {
+      "from": 20,
+      "name": "Fly fishing (AFK)",
+      "xpPerHr": 13000
+     },
+     {
+      "from": 30,
+      "name": "Fly fishing (AFK)",
+      "xpPerHr": 25000
+     },
+     {
+      "from": 40,
+      "name": "Fly fishing (AFK)",
+      "xpPerHr": 30000
+     },
+     {
+      "from": 50,
+      "name": "Fly fishing (AFK)",
+      "xpPerHr": 34000
+     },
+     {
+      "from": 58,
+      "name": "Barbarian fishing (AFK)",
+      "xpPerHr": 37000,
+      "note": "Needs part of Barbarian Training; also some Agility and Strength XP.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 30
+        },
+        {
+         "skill": "Strength",
+         "level": 30
+        }
+       ]
+      }
+     },
+     {
+      "from": 70,
+      "name": "Barbarian fishing (AFK)",
+      "xpPerHr": 48000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 45
+        },
+        {
+         "skill": "Strength",
+         "level": 45
+        }
+       ]
+      }
+     },
+     {
+      "from": 80,
+      "name": "Barbarian fishing (AFK)",
+      "xpPerHr": 52000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 45
+        },
+        {
+         "skill": "Strength",
+         "level": 45
+        }
+       ]
+      }
+     },
+     {
+      "from": 90,
+      "name": "Barbarian fishing (AFK)",
+      "xpPerHr": 54000,
+      "requires": {
+       "all": [
+        {
+         "skill": "Agility",
+         "level": 45
+        },
+        {
+         "skill": "Strength",
+         "level": 45
         }
        ]
       }
@@ -4415,6 +5194,55 @@
        "all": [
         {
          "quest": "sins_of_the_father"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "woodcutting_afk_blisterwood_then_rosewood_sailing",
+    "kind": "afk",
+    "label": "Blisterwood, then rosewood (Sailing)",
+    "intensity": 1,
+    "stages": [
+     {
+      "from": 1,
+      "name": "Regular trees",
+      "xpPerHr": 10000
+     },
+     {
+      "from": 15,
+      "name": "Oak trees",
+      "xpPerHr": 40000
+     },
+     {
+      "from": 35,
+      "name": "Teaks",
+      "xpPerHr": 34000
+     },
+     {
+      "from": 62,
+      "name": "Blisterwood (sound cue when it stops)",
+      "xpPerHr": 69000,
+      "requires": {
+       "all": [
+        {
+         "quest": "sins_of_the_father"
+        }
+       ]
+      }
+     },
+     {
+      "from": 92,
+      "name": "Rosewood (Drumstick Isle)",
+      "xpPerHr": 87500,
+      "note": "Very low effort: 85-90K; about 50K profit an hour at 99.",
+      "requires": {
+       "all": [
+        {
+         "skill": "Sailing",
+         "level": 79
         }
        ]
       }

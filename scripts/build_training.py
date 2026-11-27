@@ -40,7 +40,7 @@ def T(kind, label, intensity, stages, note=None):
 EST = "Estimate: the Wiki gives no rate for this."
 ZEAH_REQ = [{"skill": "Mining", "level": 38}, {"skill": "Crafting", "level": 38}]
 ZEAH_BLOOD = ("Profit is the Wiki's figure without Raiments of the Eye (781K with it); more with the elite Kourend & Kebos "
-              "diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr."
+              "diary. Needs 38 Mining, 38 Crafting, a chisel and a pickaxe; also gives ~5.8K Crafting and ~4.2K Mining XP/hr. "
               "An abyssal lantern burning blisterwood logs (62 Firemaking) crafts 20% more blood runes: about a fifth more profit, the same XP.")
 ZEAH_SOUL = "Profit is the Wiki's figure without Raiments of the Eye (671K with it); also gives ~5.7K Crafting and ~4.1K Mining XP/hr."
 
@@ -255,6 +255,26 @@ SKILLS = {
             S(70, "Varlamore valuables", 93000, quest=["Children of the Sun"]),
             S(78, "Dorgesh-Kaan rich chests", 190000, quest=["Death to the Dorgeshuun"], note="Fairly low effort."),
         ]),
+        # Wiki Thieving training (Nov 2026)
+        T("balanced", "Knights, then Pyramid Plunder", 3, [
+            S(1, "Men / women", 8000),
+            S(5, "Ardougne bakery stalls", 19000),
+            S(25, "Hosidius fruit stalls", 43000),
+            S(55, "Knights of Ardougne", 86000),
+            S(65, "Knights of Ardougne", 109000),
+            S(71, "Pyramid Plunder", 125000, quest=["Icthlarin's Little Helper"]),
+            S(81, "Pyramid Plunder", 190000, quest=["Icthlarin's Little Helper"]),
+            S(91, "Pyramid Plunder", 270000, quest=["Icthlarin's Little Helper"], note="The fastest outside the Wilderness from 91."),
+        ]),
+        T("balanced", "Knights, then vyres (profit)", 3, [
+            S(1, "Men / women", 8000),
+            S(5, "Ardougne bakery stalls", 19000),
+            S(25, "Hosidius fruit stalls", 43000),
+            S(55, "Knights of Ardougne", 86000),
+            S(65, "Knights of Ardougne", 109000),
+            S(75, "Knights of Ardougne", 141000),
+            S(82, "Vyre pickpocketing", 150000, cost=-2847002, quest=["Sins of the Father"], req=[{"diary": "ardougne", "tier": "hard"}], note="120-180K by level; needs rogue equipment and dodgy necklaces. Profit is the Wiki's figure."),
+        ]),
     ],
     "Crafting": [
         T("fastest", "Fastest", 3, [
@@ -334,6 +354,50 @@ SKILLS = {
             S(49, "Mahogany bird houses", 86400, quest=["Bone Voyage"]), S(59, "Yew bird houses", 110160, quest=["Bone Voyage"]),
             S(74, "Magic bird houses", 174420, quest=["Bone Voyage"]), S(89, "Redwood bird houses", 216000, quest=["Bone Voyage"]),
         ]),
+        # Wiki Hunter training (Nov 2026): low-effort routes and the chinchompa / rainbow crab profit routes
+        T("afk", "Low effort: monkeys, then herbiboar", 2, [
+            S(1, "Quiz, quests", 5000, note=EST),
+            S(9, "Feldip weasels", 13000),
+            S(21, "Red crabs", 31000, quest=["Pandemonium"]),
+            S(47, "Orange salamanders (Uzer)", 45000, note="Wiki: about 40-50K; slower but less click-intensive than falconry."),
+            S(60, "Maniacal monkeys (low effort)", 51000, quest=["Monkey Madness II"], note="An input every 25-30 seconds."),
+            S(70, "Maniacal monkeys (low effort)", 66000, quest=["Monkey Madness II"]),
+            S(80, "Herbiboar", 137000, req=[{"skill": "Herblore", "level": 31}], quest=["Bone Voyage"], note="A fairly low-effort method; herbs as loot (not counted)."),
+            S(85, "Herbiboar", 147000, req=[{"skill": "Herblore", "level": 31}], quest=["Bone Voyage"]),
+            S(90, "Herbiboar", 157000, req=[{"skill": "Herblore", "level": 31}], quest=["Bone Voyage"]),
+            S(95, "Herbiboar", 166000, req=[{"skill": "Herblore", "level": 31}], quest=["Bone Voyage"]),
+        ]),
+        T("afk", "Low effort: monkeys, then stymphikes", 2, [
+            S(1, "Quiz, quests", 5000, note=EST),
+            S(9, "Feldip weasels", 13000),
+            S(21, "Red crabs", 31000, quest=["Pandemonium"]),
+            S(47, "Orange salamanders (Uzer)", 45000, note="Wiki: about 40-50K; slower but less click-intensive than falconry."),
+            S(60, "Maniacal monkeys (low effort)", 51000, quest=["Monkey Madness II"], note="An input every 25-30 seconds."),
+            S(70, "Maniacal monkeys (low effort)", 66000, quest=["Monkey Madness II"]),
+            S(82, "Stymphikes", 120000, each=1725, inp={"Letvek": 1}, out={"Stymphike feather": 15}, quest=["The Blood Moon Rises"], note="About 3 clicks every 45 seconds; with sound on you can let your character spear them itself. One letvek of bait per kill assumed (players use 1-3); 15 feathers a kill (the Wiki's table has fewer at 82)."),
+            S(85, "Stymphikes", 130000, each=1725, inp={"Letvek": 1}, out={"Stymphike feather": 15}, quest=["The Blood Moon Rises"]),
+            S(86, "Stymphikes", 140000, each=1725, inp={"Letvek": 1}, out={"Stymphike feather": 15}, quest=["The Blood Moon Rises"], note="The Wiki's theoretical best is 143K (83 kills an hour)."),
+        ]),
+        T("balanced", "Black chinchompas (Wilderness, profit)", 3, [
+            S(1, "Quiz, quests", 5000, note=EST),
+            S(9, "Feldip weasels", 13000),
+            S(21, "Red crabs", 31000, quest=["Pandemonium"]),
+            S(39, "Embertailed jerboas", 50000, quest=["Eagles' Peak"]),
+            S(43, "Spotted kebbits (falconry)", 65000),
+            S(49, "Razor-backed kebbits", 100000, note="Up to 130K with stamina potions."),
+            S(73, "Black chinchompas", 145000, each=315, out={"Black chinchompa": 1}, wild=True, quest=["Eagles' Peak"], note="Solo rates with tick manipulation and a PKer every 1-2 hours; more with an alt."),
+            S(80, "Black chinchompas", 167000, each=315, out={"Black chinchompa": 1}, wild=True, quest=["Eagles' Peak"]),
+            S(90, "Black chinchompas", 197000, each=315, out={"Black chinchompa": 1}, wild=True, quest=["Eagles' Peak"]),
+        ]),
+        T("balanced", "Rainbow crabs (Sailing, profit)", 3, [
+            S(1, "Quiz, quests", 5000, note=EST),
+            S(9, "Feldip weasels", 13000),
+            S(21, "Red crabs", 31000, quest=["Pandemonium"]),
+            S(39, "Embertailed jerboas", 50000, quest=["Eagles' Peak"]),
+            S(43, "Spotted kebbits (falconry)", 65000),
+            S(49, "Razor-backed kebbits", 100000, note="Up to 130K with stamina potions."),
+            S(77, "Rainbow crabs (5 traps)", 155000, cost=-475000, req=[{"skill": "Sailing", "level": 64}], note="The Wiki's figures (XP doesn't change with level); 4 traps: about 122K XP and 386K an hour."),
+        ]),
     ],
     "Mining": [
         T("fastest", "Fastest", 5, [
@@ -349,6 +413,20 @@ SKILLS = {
         T("afk", "Least intensive", 1, [
             S(1, "Copper / tin", 8000, note=EST), S(30, "Motherlode Mine (low intensity)", 35000, note=EST),
             S(60, "Crashed stars (extremely low attention)", 27500),
+        ]),
+        # Wiki Mining training (Nov 2026)
+        T("balanced", "Gem rocks (Shilo, no tick manipulation)", 3, [
+            S(1, "Copper / tin", 8000),
+            S(15, "Iron ore", 50000),
+            S(60, "Gem rocks (Shilo Village)", 52000, req=[{"diary": "karamja", "tier": "medium"}], note="Gems as profit (not counted); 89-110K with 3-tick."),
+            S(70, "Gem rocks", 58000, req=[{"diary": "karamja", "tier": "medium"}]),
+            S(80, "Gem rocks", 66000, req=[{"diary": "karamja", "tier": "medium"}]),
+            S(90, "Gem rocks", 70000, req=[{"diary": "karamja", "tier": "medium"}]),
+        ]),
+        T("afk", "Motherlode, then amethyst", 1, [
+            S(1, "Copper / tin", 8000),
+            S(30, "Motherlode Mine (low intensity)", 35000),
+            S(92, "Amethyst", 22500, each=240, out={"Amethyst": 1}, note="Very low attention; 80-100 amethyst an hour."),
         ]),
     ],
     "Smithing": [
@@ -391,6 +469,18 @@ SKILLS = {
             S(40, "Fly fishing (AFK)", 30000), S(50, "Fly fishing (AFK)", 34000),
             S(62, "Monkfish (raft spot, 3-4 minutes per inventory)", 35800, quest=["Swan Song"]),
             S(80, "Monkfish", 38500, quest=["Swan Song"]), S(90, "Monkfish", 40000, quest=["Swan Song"]),
+        ]),
+        # Wiki Fishing training (Nov 2026)
+        T("afk", "AFK fly fishing, then Barbarian fishing", 1, [
+            S(1, "Shrimps", 8000),
+            S(20, "Fly fishing (AFK)", 13000),
+            S(30, "Fly fishing (AFK)", 25000),
+            S(40, "Fly fishing (AFK)", 30000),
+            S(50, "Fly fishing (AFK)", 34000),
+            S(58, "Barbarian fishing (AFK)", 37000, req=[{"skill": "Agility", "level": 30}, {"skill": "Strength", "level": 30}], note="Needs part of Barbarian Training; also some Agility and Strength XP."),
+            S(70, "Barbarian fishing (AFK)", 48000, req=[{"skill": "Agility", "level": 45}, {"skill": "Strength", "level": 45}]),
+            S(80, "Barbarian fishing (AFK)", 52000, req=[{"skill": "Agility", "level": 45}, {"skill": "Strength", "level": 45}]),
+            S(90, "Barbarian fishing (AFK)", 54000, req=[{"skill": "Agility", "level": 45}, {"skill": "Strength", "level": 45}]),
         ]),
     ],
     "Cooking": [
@@ -453,6 +543,14 @@ SKILLS = {
         T("afk", "Least intensive", 1, [
             S(1, "Regular trees", 10000, note=EST), S(15, "Oak trees", 40000), S(35, "Teaks", 34000),
             S(62, "Blisterwood (sound cue when it stops)", 69000, quest=["Sins of the Father"]),
+        ]),
+        # Wiki Woodcutting training (Nov 2026)
+        T("afk", "Blisterwood, then rosewood (Sailing)", 1, [
+            S(1, "Regular trees", 10000),
+            S(15, "Oak trees", 40000),
+            S(35, "Teaks", 34000),
+            S(62, "Blisterwood (sound cue when it stops)", 69000, quest=["Sins of the Father"]),
+            S(92, "Rosewood (Drumstick Isle)", 87500, req=[{"skill": "Sailing", "level": 79}], note="Very low effort: 85-90K; about 50K profit an hour at 99."),
         ]),
     ],
     "Farming": [
